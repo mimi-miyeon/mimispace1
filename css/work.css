@@ -224,6 +224,7 @@ main .local {
   border: solid 1px #cfe800;
   text-transform: uppercase;
   transition: all 0.5s;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .pop .go-work:after {
@@ -266,7 +267,6 @@ main .local {
 	width: 550px;
 	display: block;
 	margin: auto;
-	box-shadow: 
 }
 
 /*jquery*/
