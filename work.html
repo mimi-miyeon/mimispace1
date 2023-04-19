@@ -23,7 +23,7 @@
 
 <body>
 	<!--popup-->
-	<div class="pop pop1">
+	<div id="soop" class="pop pop1">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 		<a href="site/soop/index.html" target="_blank" class="go-work">website</a>
 
@@ -33,7 +33,7 @@
 		</div>
 	</div>
 
-	<div class="pop pop2">
+	<div id="mutemuse" class="pop pop2">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 		<a href="site/mutemuse/index.html" target="_blank" class="go-work">website</a>
 
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 
-	<div class="pop pop3">
+	<div id="lifeSchool" class="pop pop3">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 		<a href="site/theschooloflife/index.html" target="_blank" class="go-work">website</a>
 
@@ -53,7 +53,7 @@
 		</div>
 	</div>
 
-	<div class="pop pop4">
+	<div id="reAll" class="pop pop4">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 		<a href="site/fl/index.html" target="_blank" class="go-work">website</a>
 
@@ -63,7 +63,7 @@
 		</div>
 	</div>
 
-	<div class="pop pop5">
+	<div id="lululemon" class="pop pop5">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 		<a href="site/lululemon/index2.html" target="_blank" class="go-work">website</a>
 
@@ -73,9 +73,8 @@
 		</div>
 	</div>
 
-	<div class="pop pop6">
+	<div id="hanaTour" class="pop pop6">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
-		<a href="site/mutemuse/index.html" target="_blank" class="go-work">website</a>
 
 		<a href="#" target="_blank" class="go"></a>
 		<div class="pop_in">
@@ -83,9 +82,8 @@
 		</div>
 	</div>
 
-	<div class="pop pop7 unpop">
+	<div id="webD1" class="pop pop7 unpop">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
-		<a href="site/mutemuse/index.html" target="_blank" class="go-work">website</a>
 
 		<a href="#" target="_blank" class="go"></a>
 		<div class="pop_in">
@@ -93,25 +91,7 @@
 		</div>
 	</div>
 
-	<div class="pop pop8">
-		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
-
-		<div class="pop_in">
-			<img src="img/graphic7-1.jpg">
-			<video controls>
-				<source src="img/vid7-2.mp4" type="video/mp4">
-			</video>
-			<video controls>
-				<source src="img/vid7-3.mp4" type="video/mp4">
-			</video>
-			<video controls>
-				<source src="img/vid7-4.mp4" type="video/mp4">
-			</video>
-			<img src="img/graphic7-2.jpg">
-		</div>
-	</div>
-
-	<div class="pop pop9">
+	<div id="printD1" class="pop pop9">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 
 		<div class="pop_in">
@@ -119,7 +99,7 @@
 		</div>
 	</div>
 
-	<div class="pop pop10">
+	<div id="printD2" class="pop pop10">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 
 		<div class="pop_in">
@@ -127,11 +107,29 @@
 		</div>
 	</div>
 
-	<div class="pop pop11">
+	<div id="printD3" class="pop pop11">
 		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
 
 		<div class="pop_in">
 			<img src="img/graphic8-3.jpg">
+		</div>
+	</div>
+
+	<div id="realseller" class="pop pop11">
+		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
+		<a href="http://real-seller.com" target="_blank" class="go-work">website</a>
+
+		<div class="pop_in">
+			<img src="img/graphic_realseller.jpg">
+		</div>
+	</div>
+
+	<div id="wantit" class="pop pop12">
+		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
+		<a href="https://wantit.real-seller.com" target="_blank" class="go-work">website</a>
+
+		<div class="pop_in">
+			<img src="img/graphic_wantit.jpg">
 		</div>
 	</div>
 
@@ -180,10 +178,21 @@
 				<li class="con-left">
 
 					<div class="con all web">
-						<a href="#">
+						<a aria-labelledby="realseller" href="#">
+							<div class="pic-wrap">
+								<div class="pic pic11"></div>
+								<p>반응형 웹사이트</p>
+							</div>
+						</a>
+						<h2 class="en">realseller</h2>
+						<p>회사소개 홈페이지</p>
+					</div>
+
+					<div class="con all web">
+						<a aria-labelledby="soop" href="#">
 							<div class="pic-wrap">
 								<div class="pic pic1"></div>
-								<p>반응형 웹사이트 제작</p>
+								<p>반응형 웹사이트</p>
 							</div>
 						</a>
 						<h2 class="en">soop</h2>
@@ -191,10 +200,10 @@
 					</div>
 
 					<div class="con all web">
-						<a href="#">
+						<a aria-labelledby="lifeSchool" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic2"></div>
-								<p>반응형 웹사이트 제작</p>
+								<div class="pic pic3"></div>
+								<p>반응형 웹사이트</p>
 							</div>
 						</a>
 						<h2>인생학교</h2>
@@ -202,19 +211,19 @@
 					</div>
 
 					<div class="con all web">
-						<a href="#">
+						<a aria-labelledby="lululemon" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic3"></div>
-								<p>웹사이트 제작</p>
+								<div class="pic pic5"></div>
+								<p>웹사이트</p>
 							</div>
 						</a>
 						<h2 class="en">lululemon</h2>
 						<p>동영상 활용 메인</p>
 					</div>
 					<div class="con all graphic">
-						<a href="#">
+						<a aria-labelledby="printD1" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic5"></div>
+								<div class="pic pic7"></div>
 								<p>그래픽 디자인</p>
 							</div>
 						</a>
@@ -223,9 +232,9 @@
 					</div>
 
 					<div class="con all graphic">
-						<a href="#">
+						<a aria-labelledby="printD3" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic6"></div>
+								<div class="pic pic9"></div>
 								<p>그래픽 디자인</p>
 							</div>
 						</a>
@@ -236,12 +245,23 @@
 
 				<!--right-->
 				<li class="con-right">
+					
+					<div class="con all web">
+						<a aria-labelledby="wantit" href="#">
+							<div class="pic-wrap">
+								<div class="pic pic12"></div>
+								<p>반응형 웹사이트</p>
+							</div>
+						</a>
+						<h2 class="en">wantit</h2>
+						<p>쉽고 건강한 레시피 사이트</p>
+					</div>
 
 					<div class="con all web">
-						<a href="#">
+						<a aria-labelledby="mutemuse" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic1"></div>
-								<p>웹사이트 제작</p>
+								<div class="pic pic2"></div>
+								<p>웹사이트</p>
 							</div>
 						</a>
 						<h2 class="en">mutemuse</h2>
@@ -249,9 +269,9 @@
 					</div>
 
 					<div class="con all graphic">
-						<a href="#">
+						<a aria-labelledby="reAll" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic2"></div>
+								<div class="pic pic4"></div>
 								<p>웹사이트 디자인</p>
 							</div>
 						</a>
@@ -260,9 +280,9 @@
 					</div>
 
 					<div class="con all graphic">
-						<a href="#">
+						<a aria-labelledby="hanaTour" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic3"></div>
+								<div class="pic pic6"></div>
 								<p>웹사이트 디자인</p>
 							</div>
 						</a>
@@ -271,9 +291,9 @@
 					</div>
 
 					<div class="con all graphic">
-						<a href="#">
+						<a aria-labelledby="webD1" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic4"></div>
+								<div class="pic pic8"></div>
 								<p>그래픽 디자인</p>
 							</div>
 						</a>
@@ -282,9 +302,9 @@
 					</div>
 
 					<div class="con all graphic">
-						<a href="#">
+						<a aria-labelledby="printD2" href="#">
 							<div class="pic-wrap">
-								<div class="pic pic5"></div>
+								<div class="pic pic10"></div>
 								<p>그래픽 디자인</p>
 							</div>
 						</a>

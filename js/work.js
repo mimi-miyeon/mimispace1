@@ -8,24 +8,36 @@
 		$etc = $work.find('.etc');
 
 	/*팝업*/
-	$('.con-left .con').click('a', function (e) {
-		var i = $('.con-left .con').index(this);
+	// $('.con-left .con').click('a', function (e) {
+	// 	var i = Number($('.con-left .con').index(this));
+	// 	e.preventDefault();
+	// 	$('body').css({
+	// 		overflowY: 'hidden'
+	// 	});
+	// 	const popI = i*2 +1
+	// 	$('.pop' + popI).slideDown();
+	// }); //click-left
+
+	// $('.con-right a').click(function (e) {
+	// 	var i = $('.con-right a').index(this);
+	// 	e.preventDefault();
+	// 	$('body').css({
+	// 		overflowY: 'hidden'
+	// 	});
+
+	// 	const popI = i*2 +2
+	// 	$('.pop'+popI).slideDown();
+	// });
+
+
+	$('.work li a').click(function (e) {
 		e.preventDefault();
 		$('body').css({
 			overflowY: 'hidden'
 		});
-		$('.pop').eq(i * 2).slideDown();
-		// $('.pop'+ i*2).slideDown()
-	}); //click-left
 
-	$('.con-right a').click(function (e) {
-		var i = $('.con-right a').index(this);
-		e.preventDefault();
-		$('body').css({
-			overflowY: 'hidden'
-		});
-
-		$('.pop').eq(1 + i + i++).slideDown();
+		const popId = this.getAttribute('aria-labelledby');
+		$('#'+popId).slideDown();
 	});
 
 	$('.pop').click(function () {

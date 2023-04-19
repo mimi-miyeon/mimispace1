@@ -119,12 +119,12 @@ main .local {
 
 /*pic*/
 .con-left .pic1 {
-  background-image: url(../img/work1.jpg)
+  background-image: url(../img/soop.jpg)
 }
 
-.con-left .pic2 {
+.con-left .pic3 {
   height: 100%;
-  background-image: url(../img/work2.jpg)
+  /* background-image: url(../img/lifeSchool.jpg) */
 }
 
 .con-left .con:nth-of-type(3) .pic-wrap {
@@ -132,10 +132,10 @@ main .local {
 }
 .con-left .pic3 {
   height: 550px;
-  background-image: url(../img/work5.jpg)
+  background-image: url(../img/lifeSchool.jpg)
 }
-.con-left .pic4 {
-	background-image: url(../img/work7.jpg);
+.con-left .pic5 {
+	background-image: url(../img/lululemon.jpg);
 }
 /*준비중*/
 .con-left .prep p {
@@ -145,32 +145,38 @@ main .local {
 	opacity: 0.5;
 }
 
-.con-left .pic5 {
-	background-image: url(../img/work9-1.jpg);
+.con-left .pic7 {
+	background-image: url(../img/printD1.jpg);
 }
-.con-left .pic6 {
-	background-image: url(../img/work9-3.jpg);
+.con-left .pic9 {
+	background-image: url(../img/printD2.jpg);
+}
+.con-left .pic11 {
+	background-image: url(../img/realseller.jpg);
 }
 
 .con-right .con:nth-of-type(1) .pic-wrap ,
 .con-right .con:nth-of-type(5) .pic-wrap {
   height: 550px;
 }
-.con-right .pic1 {
-  background-image: url(../img/work3.jpg)
+.con-right .pic2 {
+  background-image: url(../img/mutemuse.jpg)
 }
 
-.con-right .pic2 {
-  background-image: url(../img/work4.jpg)
-}
-.con-right .pic3 {
-  background-image: url(../img/work6.jpg)
-}
 .con-right .pic4 {
-	background-image: url(../img/work8.jpg);
+  background-image: url(../img/reAll.jpg)
 }
-.con-right .pic5 {
-	background-image: url(../img/work9-2.jpg);
+.con-right .pic6 {
+  background-image: url(../img/hanaTour.jpg)
+}
+.con-right .pic8 {
+	background-image: url(../img/webD1.jpg);
+}
+.con-right .pic10 {
+	background-image: url(../img/printD3.jpg);
+}
+.con-right .pic12 {
+	background-image: url(../img/wantit.jpg);
 }
 
 /*pop*/
