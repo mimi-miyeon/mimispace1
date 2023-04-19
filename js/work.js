@@ -15,7 +15,7 @@
 			overflowY: 'hidden'
 		});
 		$('.pop').eq(i * 2).slideDown();
-
+		// $('.pop'+ i*2).slideDown()
 	}); //click-left
 
 	$('.con-right a').click(function (e) {
@@ -26,7 +26,6 @@
 		});
 
 		$('.pop').eq(1 + i + i++).slideDown();
-
 	});
 
 	$('.pop').click(function () {
