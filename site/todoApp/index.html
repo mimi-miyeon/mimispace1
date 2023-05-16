@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script defer src="js/main.js"></script>
+  <script type="text/javascript">
+    let page = 'main';
+  </script>
+</head>
+
+<body class="bg-slate-100">
+  <div class="body-container p-8 md:p-10">
+    <header class="mb-10">
+      <h1 class="text-3xl font-bold"><span id="greeting">Hello, </span><input type="text" id="name" class="py-2 px-1 bg-transparent w-full md:w-auto" /></h1>
+    </header>
+
+    <main class="">
+      <section id="dashboard" class="dashboard mb-20">
+        <h2 class="text-slate-400 mb-5">CATEGORIES</h2>
+        <ul class="flex md:justify-normal justify-between">
+          <li class="bg-white shadow-xl md:mr-7 px-7 py-5 text-left rounded-3xl">
+            <p class="text-slate-400"><span id="taskNumB">40</span> tasks</p>
+            <h3 class="text-2xl font-bold mb-8">Business</h3>
+            <div class="process-bar process-bar--business w-full md:w-40 h-1 bg-slate-200"><span class="unchecked relative block w-0 h-full bg-red-400 duration-300"></span></div>
+          </li>
+          <li class="bg-white shadow-xl px-7 py-5 text-left rounded-3xl">
+            <p class="text-slate-400"><span id="taskNumP">10</span> tasks</p>
+            <h3 class="text-2xl font-bold mb-8">Personal</h3>
+            <div class="process-bar process-bar--personal w-full md:w-40 h-1 bg-slate-200"><span class="unchecked relative block w-0 h-full bg-blue-400 duration-300"></span></div>
+          </li>
+        </ul>
+      </section>
+
+      <section id="tasks" class="tasks">
+        <h2 class="text-slate-400 mb-5">TODAY'S TASKS</h2>
+        <ul class="tasks__container"></ul>      
+      </section>
+
+      <a href="todoForm.html" id="createBtn" class="flex items-center justify-center fixed bottom-8 md:bottom-10 right-8 md:right-10 w-16 h-16 bg-cyan-600 text-white text-xl rounded-full shadow-xl">
+        <span class="material-icons text-3xl">add</span>
+      </a>
+    </main>
+  </div>
+</body>
+</html>
