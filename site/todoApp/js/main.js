@@ -6,24 +6,6 @@ todos = JSON.parse(localStorage.getItem('todos')) || [];
 function dashboardHandler() {
   const taskNumB = document.getElementById('taskNumB');
   const taskNumP = document.getElementById('taskNumP');
-  
-  // const countB = document.querySelectorAll('.task--business').length;
-  // const countP = document.querySelectorAll('.task--personal').length;
-  // const doneCountB = document.querySelectorAll('.task--business.task--checked').length;
-  // const doneCountP = document.querySelectorAll('.task--personal.task--checked').length;
-  // const undoneCountB = countB - doneCountB;
-  // const undoneCountP = countP - doneCountP;
-  // taskNumB.innerText = undoneCountB;
-  // taskNumP.innerText = undoneCountP;
-  
-  // const taskBarB = document.querySelector('.process-bar--business');
-  // const taskBarP = document.querySelector('.process-bar--personal');
-  // const undoneBarB = document.querySelector('.process-bar--business span');
-  // const undoneBarP = document.querySelector('.process-bar--personal span');
-  // const oneB = taskBarB.offsetWidth / countB;
-  // const oneP = taskBarP.offsetWidth / countP;
-  // undoneBarB.style.width = oneB * undoneCountB + 'px';
-  // undoneBarP.style.width = oneP * undoneCountP + 'px';
 
   const countB = document.querySelectorAll('.task--business').length;
   const countP = document.querySelectorAll('.task--personal').length;
@@ -159,12 +141,10 @@ function drawTodos () {
           textInput.value = todo.title;
           textInput.setAttribute('value', todo.title);
           modifyHandler();
-          console.log(2)
         } else {
           okBtn.removeEventListener('click', e=>{okBtnHandler(e)},{once:true});
           cancelBtn.removeEventListener('click', e=>{cancelBtnHandler(e)},{once:true});
           okBtn.addEventListener('click', e=>{okBtnHandler(e)},{once:true});
-          console.log('1');
           cancelBtn.addEventListener('click', e=>{cancelBtnHandler(e)},{once:true});
           textInput.disabled = false;
           textInput.focus();
@@ -245,7 +225,7 @@ if(page === 'main') {
       localStorage.setItem('todos', JSON.stringify(todos));
       const redirection = window.confirm('Successfully added! Do you want to continue adding?');
       if (!redirection) {
-        window.location.href = '/';
+        window.location.href = 'https://mimi-miyeon.github.io/mimispace1/site/todoApp/index.html';
       }
     }
     title.value = '';
