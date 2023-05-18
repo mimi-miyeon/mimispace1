@@ -178,6 +178,9 @@ main .local {
 .con-right .pic12 {
 	background-image: url(../img/wantit.jpg);
 }
+.con-right .pic13 {
+	background-image: url(../img/todo.jpg);
+}
 
 /*pop*/
 .pop {
