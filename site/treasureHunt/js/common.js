@@ -3,6 +3,9 @@ const StepDOM = {
     stepWrap : document.getElementById('stepWrap'),
     imgWrap: document.getElementById('imgWrap'),
     textWrap: document.getElementById('textWrap'),
+    btnWrap: document.getElementById('btnWrap'),
+    nextBtn: '',
+    prevBtn: '',
     pageNum: 1
   },
   step1: {
@@ -32,13 +35,13 @@ const StepDOM = {
       <rect class="cls-3" x="2.69" y="56.01" width="30.51" height="7.38" />
     </svg>`,
     text: `
-      <p class="text1">Hello <br> my Onion</p>
+      <p class="text1">Hello Sunshine!</p>
       <p class="text2">I hope you enjoyed <br> my small gifts <br> as an appetizer.</p>
     `
   },
   step2: {
     img: `
-      <svg class="con3 mainDish" viewBox="0 0 216 119.204" style="display: block; opacity: 1;">
+      <svg class="con3 mainDish" viewBox="0 0 216 119.204">
         <g transform="translate(-157.147 -339.833)">
           <path d="M359.889,417.4c0,36.765-45.385,55.8-101.371,55.8s-101.371-19.031-101.371-55.8S202.532,359.4,258.518,359.4,359.889,380.637,359.889,417.4Z" transform="translate(0 -14.16)" fill="#1a9880"></path>
           <path d="M376.731,431.109c0,30.875-40.732,46.857-90.977,46.857s-90.977-15.982-90.977-46.857S235.509,382.4,285.754,382.4,376.731,400.234,376.731,431.109Z" transform="translate(-27.236 -30.807)" fill="#d5af72"></path>
@@ -162,16 +165,80 @@ const StepDOM = {
       <p class="text1" style="font-weight: 700; line-height: 1.3">Shall <br> We <br> begin? </p>
     `
   },
-  imgHandler: function () {
+
+  imgHTML: function () {
     this.elements.imgWrap.innerHTML = !this[`step${this.elements.pageNum}`].img ? '' : this[`step${this.elements.pageNum}`].img;
   },
-  textHandler: function() {
-    this.elements.stepWrap.classList.remove(`step${this.elements.pageNum-1}`);
-    this.elements.stepWrap.classList.add(`step${this.elements.pageNum}`)
+  textHTML: function() {
     this.elements.textWrap.innerHTML = this[`step${this.elements.pageNum}`].text;
-    this.elements.stepWrap.style.display = 'block';
+  },
+  btnHTML: function() {
+    const btnWrap=this.elements.btnWrap;
+    let nextBtn= this.elements.nextBtn;
+    nextBtn=document.createElement('button');
+    nextBtn.id = 'nextBtn';
+    nextBtn.classList.add('next-btn');
+    nextBtn.innerHTML = `
+      <svg viewBox="0 0 100 100">
+        <path>
+          <animate repeatCount="indefinite" attributeName="d" dur="5s" values="M85.49,23C92.63,33.22,95,43,93.65,54.52,92.07,67.94,83,79.58,71.06,87.93c-10.23,7.14-22.25,12.8-32.61,10.67C26.34,96.11,19.21,87,10.87,75.06c-8.06-11.55-9.42-17.54-8-29.43,1.3-11,11.06-23.91,21.7-31.33,11.9-8.31,24.28-12,36.07-8C70.8,9.76,78.31,12.69,85.49,23Z;
+            M89.19,27.34c7.14,10.24,6.35,13.51,5,25-1.58,13.42,4,29.66-8,38-10.24,7.14-39.64,4.13-50,2-12.11-2.49-17.66-8-26-20-8.06-11.55-5.41-13.12-4-25,1.29-11,9.36-20.57,20-28,11.9-8.31,22.21-12,34-8C70.37,14.8,82,17.05,89.19,27.34Z;
+            M83.19,23.34c7.14,10.24,13.35,15.51,12,27-1.58,13.42,3,24.66-9,33-10.24,7.14-32.64,14.13-43,12-12.11-2.49-19.66,0-28-12-8.06-11.55-13.41-27.12-12-39,1.29-11,5.36-19.57,16-27,11.9-8.31,34.21-16,46-12C75.37,8.8,76,13.05,83.19,23.34Z;
+            M85.49,23C92.63,33.22,95,43,93.65,54.52,92.07,67.94,83,79.58,71.06,87.93c-10.23,7.14-22.25,12.8-32.61,10.67C26.34,96.11,19.21,87,10.87,75.06c-8.06-11.55-9.42-17.54-8-29.43,1.3-11,11.06-23.91,21.7-31.33,11.9-8.31,24.28-12,36.07-8C70.8,9.76,78.31,12.69,85.49,23Z" />
+        </path>
+        <line class="cls-2" x1="29.4" y1="53.34" x2="75.09" y2="53.34"/><path class="cls-2" d="M63.25,39.84,74.88,51.47a2.63,2.63,0,0,1,0,3.74L63.25,66.84"/>
+      </svg>
+    `;
+    let prevBtn=this.elements.prevBtn;
+    prevBtn = document.createElement('button');
+    prevBtn.id = 'prevBtn';
+    prevBtn.classList.add('prev-btn');
+    prevBtn.innerHTML = `
+    <svg viewBox="0 0 100 100">
+			<path>
+				<animate repeatCount="indefinite" attributeName="d" dur="5s" values="M89.19,27.34c7.14,10.24,6.35,13.51,5,25-1.58,13.42,4,29.66-8,38-10.24,7.14-39.64,4.13-50,2-12.11-2.49-17.66-8-26-20-8.06-11.55-5.41-13.12-4-25,1.29-11,9.36-20.57,20-28,11.9-8.31,22.21-12,34-8C70.37,14.8,82,17.05,89.19,27.34Z;
+					M88.19,25.34c7.14,10.24,9.35,19.51,8,31-1.58,13.42-1,22.66-13,31-10.24,7.14-31.64,12.13-42,10-12.11-2.49-22.66-2-31-14-8.06-11.55-3.41-25.12-2-37,1.29-11,5.36-22.57,16-30,11.9-8.31,24.21-13,36-9C70.37,10.8,81,15.05,88.19,25.34Z;
+					M86.19,27.34c7.14,10.24,11.35,17.51,10,29-1.58,13.42,3,22.66-9,31-10.24,7.14-23.64,12.13-34,10-12.11-2.49-27.66,0-36-12-8.06-11.55-13.41-21.12-12-33,1.29-11,7.36-23.57,18-31,11.9-8.31,29.21-16,41-12C74.37,12.8,79,17.05,86.19,27.34Z;
+					M89.19,27.34c7.14,10.24,6.35,13.51,5,25-1.58,13.42,4,29.66-8,38-10.24,7.14-39.64,4.13-50,2-12.11-2.49-17.66-8-26-20-8.06-11.55-5.41-13.12-4-25,1.29-11,9.36-20.57,20-28,11.9-8.31,22.21-12,34-8C70.37,14.8,82,17.05,89.19,27.34Z" />
+			</path>
+			<line class="cls-2" x1="80.19" y1="52.34" x2="25.19" y2="52.34"/><path class="cls-2" d="M39.44,68.59l-14-14a3.17,3.17,0,0,1,0-4.5l14-14"/>
+		</svg>
+    `;
 
-    setTimeout(()=>{stepWrap.style.opacity=1},300);
+    nextBtn.addEventListener('click',()=>{
+      this.elements.imgWrap.innerHTML='';
+      this.elements.textWrap.innerHTML='';
+      this.elements.btnWrap.innerHTML='';
+      this.elements.pageNum = this.elements.pageNum + 1;
+      this.elements.stepWrap.classList.remove(`step${this.elements.pageNum-1}`);
+      this.elements.stepWrap.classList.add(`step${this.elements.pageNum}`);
+      this.appearingHandler();
+    });
+    prevBtn.addEventListener('click',()=>{
+      this.elements.imgWrap.innerHTML='';
+      this.elements.textWrap.innerHTML='';
+      this.elements.btnWrap.innerHTML='';
+      this.elements.pageNum = this.elements.pageNum -1;
+      this.elements.stepWrap.classList.remove(`step${this.elements.pageNum-1}`);
+      this.elements.stepWrap.classList.add(`step${this.elements.pageNum}`)
+      this.appearingHandler();
+    });
+    this.showHandler(btnWrap, 'block', 3000);
+
+    if(this.elements.pageNum = 1){
+      btnWrap.appendChild(nextBtn); 
+      this.showHandler(btnWrap, 'block', 3000);
+    } else if (this.elements.pageNum > 1) {
+      btnWrap.appendChild(prevBtn); 
+      btnWrap.appendChild(nextBtn);
+      this.showHandler(btnWrap, 'block', 3000);
+    }
+  },
+  showHandler: function(el, dpType, time) {
+    el.style.display = dpType;
+    setTimeout(()=>{el.style.opacity=1}, time);
+  },
+  defaultTextAppearing: function() {
     setTimeout(()=>{
       stepWrap.querySelector('.text1').style.opacity=1
       stepWrap.querySelector('.text1').classList.add('paral');
@@ -181,47 +248,112 @@ const StepDOM = {
         stepWrap.querySelector('.text2').style.opacity=1
         stepWrap.querySelector('.text2').classList.add('paral');
       },1500);
-
     }
   },
-  imgAppearing: function() {
-    this.elements.imgWrap.querySelector('img').style.display = 'block';
-  },
   appearingHandler: function() {
-    this.elements.imgWrap.innerHTML = '';
-    this.elements.textWrap.innerHTML = '';    
-    this.imgHandler();
-    this.textHandler();
+    switch(this.elements.pageNum) {
+      case 2:
+        this.textHTML();
+        this.defaultTextAppearing();
+        this.elements.textWrap.innerHTML += this.step2.img;
+        setTimeout(()=>{this.elements.textWrap.querySelector('.mainDish').style.display = 'block'},3000);
+        
+        this.btnHTML();
+      break;
+      default:
+        this.imgHTML();
+        this.textHTML();
+        this.defaultTextAppearing();
+      break;
+    }
   },
-}
-
-//async/await
-const btnWrap=document.getElementById('btnWrap');
-const nextBtn=document.getElementById('nextBtn');
-const prevBtn=document.getElementById('prevBtn');
-
-function pageHandler () {
-  btnWrap.style.display='block';
-  nextBtn.addEventListener('click',()=>{
-    StepDOM.elements.pageNum = StepDOM.elements.pageNum + 1;
-    StepDOM.appearingHandler();
-  });
-  prevBtn.addEventListener('click',()=>{
-  });
-
-  if(StepDOM.elements.pageNum > 1){
-    nextBtn.style.display = 'inline-block';
-    prevBtn.style.display = 'inline-block';
-  }else{
-    nextBtn.style.display = 'inline-block';
+  init: function() {
+    this.appearingHandler();
+    this.btnHTML();
+    this.elements.stepWrap.classList.add(`step${this.elements.pageNum}`);
   }
+  // imgHandler: function () {
+  //   this.elements.imgWrap.innerHTML = !this[`step${this.elements.pageNum}`].img ? '' : this[`step${this.elements.pageNum}`].img;
+  // },
+  // textHandler: function() {
+  //   this.elements.stepWrap.classList.remove(`step${this.elements.pageNum-1}`);
+  //   this.elements.stepWrap.classList.add(`step${this.elements.pageNum}`)
+  //   this.elements.textWrap.innerHTML = this[`step${this.elements.pageNum}`].text;
+  //   this.elements.stepWrap.style.display = 'block';
 
-  setTimeout(()=>{
-    btnWrap.style.opacity=1;
-  },2000);
+  //   setTimeout(()=>{stepWrap.style.opacity=1},300);
+  //   setTimeout(()=>{
+  //     stepWrap.querySelector('.text1').style.opacity=1
+  //     stepWrap.querySelector('.text1').classList.add('paral');
+  //   },700);
+  //   if(stepWrap.querySelector('.text2')) {
+  //     setTimeout(()=>{
+  //       stepWrap.querySelector('.text2').style.opacity=1
+  //       stepWrap.querySelector('.text2').classList.add('paral');
+  //     },1500);
+
+  //   }
+  // },
+  // imgAppearing: function() {
+  //   this.elements.imgWrap.querySelector('img').style.display = 'block';
+  // },
+  // appearingHandler: function() {
+  //   this.elements.imgWrap.innerHTML = '';
+  //   this.elements.textWrap.innerHTML = '';    
+  //   this.imgHandler();
+  //   this.textHandler();
+  //   // pageHandler();
+  // },
 }
 
-window.onload = function() {
-  StepDOM.appearingHandler();
-  pageHandler();
+window.onload= ()=>{
+  StepDOM.init();
 }
+
+// const btnWrap=document.getElementById('btnWrap');
+// const nextBtn=document.getElementById('nextBtn');
+// const prevBtn=document.getElementById('prevBtn');
+
+// function pageHandler () {
+//   btnWrap.style.display='block';
+//   nextBtn.addEventListener('click',()=>{
+//     StepDOM.elements.pageNum = StepDOM.elements.pageNum + 1;
+//     StepDOM.appearingHandler();
+
+//     if(StepDOM.elements.pageNum > 1){
+//       nextBtn.style.display = 'inline-block';
+//       prevBtn.style.display = 'inline-block';
+//     }else{
+//       nextBtn.style.display = 'inline-block';
+//     }
+//   });
+//   prevBtn.addEventListener('click',()=>{
+//     StepDOM.elements.pageNum = StepDOM.elements.pageNum -1;
+//     console.log(StepDOM.elements.pageNum)
+//     StepDOM.appearingHandler();
+
+//     if(StepDOM.elements.pageNum > 1){
+//       nextBtn.style.display = 'inline-block';
+//       prevBtn.style.display = 'inline-block';
+//     }else{
+//       nextBtn.style.display = 'inline-block';
+//     }
+//   });
+
+//   if(StepDOM.elements.pageNum > 1){
+//     nextBtn.style.display = 'inline-block';
+//     prevBtn.style.display = 'inline-block';
+//   }else{
+//     nextBtn.style.display = 'inline-block';
+//   }
+
+//   setTimeout(()=>{
+//     btnWrap.style.opacity=1;
+//   },2000);
+// }
+
+// window.onload = function() {
+//   StepDOM.appearingHandler();
+//   pageHandler();
+  
+// }
