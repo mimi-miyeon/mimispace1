@@ -2,25 +2,25 @@
 @import url(https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900);
 @font-face {
 	font-family: Merri;
-	src: url("/fonts/Merriweather-Black.ttf");
+	src: url("/site/treasureHunt/fonts/Merriweather-Black.ttf");
 	font-weight: 900;
 }
 
 @font-face {
 	font-family: Merri;
-	src: url("/fonts/Merriweather-Bold.ttf");
+	src: url("/site/treasureHunt/fonts/Merriweather-Bold.ttf");
 	font-weight: 700;
 }
 
 @font-face {
 	font-family: Merri;
-	src: url("/fonts/Merriweather-Regular.ttf");
+	src: url("/site/treasureHunt/fonts/Merriweather-Regular.ttf");
 	font-weight: 500;
 }
 
 @font-face {
 	font-family: Merri;
-	src: url("/fonts/Merriweather-Regular.ttf");
+	src: url("/site/treasureHunt/fonts/Merriweather-Regular.ttf");
 	font-weight: 300;
 }
 * {
@@ -72,6 +72,9 @@ body {
 .step .con3 {
 	display: none;
 	opacity: 0
+}
+.step .mainDish {
+	opacity: 1;
 }
 
 /*step1*/
@@ -221,8 +224,8 @@ body {
 .step,
 .correct,
 .wrong {
-	display: none;
-	opacity: 0;
+	/* display: none; */
+	/* opacity: 0; */
 	transition: .3s;
 }
 .wrong .text1,
@@ -259,7 +262,8 @@ button {
 }
 .btn-wrap .next-btn,
 .btn-wrap .prev-btn {
-	display: none;
+	/* display: none;
+	opacity: 0; */
 	position: relative;
 	width: 50px;
 	height: 50px;
