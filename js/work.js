@@ -7,42 +7,113 @@
 		$web = $work.find('.web'),
 		$etc = $work.find('.etc');
 
-	/*팝업*/
-	// $('.con-left .con').click('a', function (e) {
-	// 	var i = Number($('.con-left .con').index(this));
-	// 	e.preventDefault();
-	// 	$('body').css({
-	// 		overflowY: 'hidden'
-	// 	});
-	// 	const popI = i*2 +1
-	// 	$('.pop' + popI).slideDown();
-	// }); //click-left
-
-	// $('.con-right a').click(function (e) {
-	// 	var i = $('.con-right a').index(this);
-	// 	e.preventDefault();
-	// 	$('body').css({
-	// 		overflowY: 'hidden'
-	// 	});
-
-	// 	const popI = i*2 +2
-	// 	$('.pop'+popI).slideDown();
-	// });
-
-
 	$('.work li a').click(function (e) {
 		e.preventDefault();
-		$('body').css({
-			overflowY: 'hidden'
-		});
-
 		const popId = this.getAttribute('aria-labelledby');
-		$('#'+popId).slideDown();
+		
+		const href = document.querySelector('.pop .go-work');
+		const name = document.querySelector('.project-name');
+		const title = document.querySelector('.project-title');
+		const type = document.querySelector('.project-type');
+		const date = document.querySelector('.project-date');
+		const bgImg = document.querySelector('.section-header__bg-img');
+
+		const explainUl = document.querySelector('.section-explain__ul');
+		// const project = document.querySelector('.section-explain__ul__li--project p');
+		// const company = document.querySelector('.section-explain__ul__li--company p');
+		// const task = document.querySelector('.section-explain__ul__li--task p');
+		// const details = document.querySelector('.section-explain__ul__li--details');
+
+		fetch('/js/work_detail.json').then(res=>{
+			return res.json()
+		}).then(data =>{
+			const index = () => {
+				for(let i=0;i<data.length;i++) {
+					if(data[i].id===popId) {
+						return i;
+					}
+				}
+			}
+
+			if(index() != undefined) {
+				const object = data[index()];
+				$('body').css({
+					overflowY: 'hidden'
+				});
+				$('.pop').slideDown();
+				// header 내용 넣기
+				href.setAttribute('href', object.href);
+				name.innerHTML = object.name;
+				title.innerHTML = object.title;
+				type.innerHTML = object.type;
+				date.innerHTML = object.date;
+
+				// header 아래 모바일 기기 적용된 이미지
+				if(object.screenImg !== ''){
+					const img = new Image();
+					img.src = object.screenImg;
+					img.alt='';
+					img.classList.add('project-screen-img')
+					document.querySelector('.section-header__inner').appendChild(img);
+				}
+				bgImg.style.backgroundImage = `url("${object.bgImg}")`;
+
+				// 설명 텍스트 부분
+				explainUl.innerHTML='';
+				function liCreator(con) {
+					const li = document.createElement('li');
+					const h5 = document.createElement('h5');
+					const p = document.createElement('p');
+					
+					li.classList.add('section-explain__ul__li');
+					h5.classList.add('color');
+					h5.innerHTML = con.split('/')[0];
+					p.innerHTML = con.split('/')[1];
+					// li.innerHTML = con;
+					li.appendChild(h5)
+					li.appendChild(p)
+					return li;
+				};
+				for(let i=0;i<object.details.length;i++){
+					explainUl.appendChild(liCreator(object.details[i]));
+				}
+
+				if(object.details.length>0){
+					const fragment = document.createDocumentFragment();
+
+					function imgCreator(con) {
+						const img = new Image();
+						img.src = con;
+						img.alt='';
+						return img;
+					};
+					
+					for(let i=0;i<object.imgs.length;i++){
+						fragment.appendChild(imgCreator(object.imgs[i]));
+					}
+
+					const li = document.createElement('li');
+					li.classList.add('section-explain__ul__li');
+					li.classList.add('section-explain__ul__li--imgs');
+					li.appendChild(fragment);
+					explainUl.appendChild(li);
+				}
+
+				const colorArr=document.querySelectorAll('.color');
+				colorArr.forEach(el=>{
+					el.style.color = object.color;
+				})
+			} else {
+				alert('현재 작업중입니다❤');
+				return;
+			}
+		})
 	});
 
 	$('.pop').click(function () {
 		$('.pop').slideUp(function () {
 			$('.pop').scrollTop(0);
+			$('.project-screen-img').remove();
 		});
 		$('body').css({
 			overflowY: 'scroll'
@@ -97,22 +168,6 @@
 		
 		slideUp($conL);
 		slideUp($conR);
-		
-//		var $con = document.getElementsByClassName("con");
-//		
-//		function slideUp($con) {
-//			$con.classList.add("up");
-//		}
-//		
-//		function delay(slower) {
-//			var delayTime = 0;
-//			
-//			for (var i in slower) {
-//				setTimeout(slideUp, delayTime, slower[i]);
-//				delayTime += 500;
-//			}
-//		}
-//		delay($con);
 		
   }); //function  
 })(jQuery);

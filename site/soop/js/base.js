@@ -9,7 +9,6 @@
       $search = $header.find('.search-wrap'),
       $close = $search.find('.close'),
         
-      $heart = $main.find('.fa-heart'),
       $second = $header.find('.second-nav'),
       $mMenu = $second.find('.menu'),
       $mClose = $second.find('.close');
@@ -32,14 +31,6 @@
     $close.on('click', function () {
       $search.removeClass('on');
     }); //close
-
-    /*'좋아요' toggle*/
-    $heart.on('click', function (e) {
-      e.preventDefault();
-      $(this).siblings().toggle();
-      $(this).hide();
-    }); //rheart-toggle
-    
 
     /*mobile menu*/
     $mMenu.on('click', function(){

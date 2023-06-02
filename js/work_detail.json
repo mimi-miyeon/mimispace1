@@ -1,0 +1,70 @@
+[
+  {
+    "id": "soop",
+    "name": "soop",
+    "title": "쉽고 건강한 <br> 요리 레시피",
+    "type": "반응형 웹사이트",
+    "date": "2019.11 ~ 2019.12",
+    "bgImg": "img/bg_soop.jpg",
+    "screenImg": "img/screen_soop.png",
+    "tools": "Adobe Photoshop",
+    "details": [
+      "프로젝트에 대해 / 쉽게 건강한 음식을 요리할 수 있는 레시피 사이트",
+      "연계회사 / 개인프로젝트",
+      "참여인원 / 2",
+      "주요업무 / 기획, 디자인, 퍼블리싱", 
+      "사용한 툴 / Adobe Photoshop, HTML, CSS, jQuery",
+      "작업내용 / 2인 1조 팀으로 국비지원 수업을 통해 작업하게 된 프로젝트<br>",
+      "배운 점 / 그동안 배웠던 코드를 복습하고, 한층 더 깊이 이해할 수 있었다.<br>부모가 다른 자식요소간에 z-index 값의 상관관계",
+      "아쉬운 점 / 퍼블리싱 능력이 부족해서 디자인했던 만큼의 결과물이 나오지 않았다.",
+      "어려웠던 점 / 기획에 참여하고 디자인, 퍼블리싱 까지 혼자하기 버거웠다.<br>반응형 스타일링에서 자연스럽게 요소들 간에 간격을 잡는게 까다롭다고 느꼈다."
+    ],
+    "imgs": ["/img/details_soop_img1.png","/img/details_soop_img2.png","/img/details_soop_img3.png"],
+    "color": "#FF64AC",
+    "href":"site/soop/index.html"
+  },
+  {
+    "id": "realseller",
+    "name": "realseller",
+    "title": "안전한 개인간 거래를 <br> 위한 새로운 패러다임",
+    "type": "반응형 웹사이트",
+    "date": "2022.01 ~ 2022.03",
+    "bgImg": "img/bg_rs.jpg",
+    "screenImg": "img/screen_rs.png",
+    "details": [
+      "프로젝트에 대해 / 홈페이지 리디자인 및 페이지 추가",
+      "연계회사 / (주)리얼셀러", 
+      "참여인원 / 2", 
+      "주요업무 / 디자인, 퍼블리싱", 
+      "사용한 툴 / Adobe XD, Photoshop, Illustrator, Procreate, HTML, CSS, Javascript, jQuery", 
+      "작업내용 / 콘텐츠 이미지, 배경 등 모든 이미지 및 페이지 디자인<br>구매한 템플렛의 유틸리티 클래스 및 DOM 구조를 활용해 리디자인<br>게시판 리스트, 수정, 글쓰기, 상세페이지 코딩",
+      "배운 점 / 템플렛의 클래스와 구조를 활용해 코딩하는 법"
+    ],
+    "imgs": ["/img/details_rs_img1.png","/img/details_rs_img2.png"],
+    "color": "#004980",
+    "href":"http://real-seller.com"
+  },
+  {
+    "id": "theschooloflife",
+    "name": "The School of Life",
+    "title": "지루하지 않은<br>학교 사이트",
+    "type": "반응형 웹사이트",
+    "date": "2019.11",
+    "bgImg": "img/bg_school.jpg",
+    "screenImg": "img/screen_school.png",
+    "details": [
+      "프로젝트에 대해 / 인생",
+      "연계회사 / 개인프로젝트", 
+      "참여인원 / 1", 
+      "주요업무 / 디자인, 퍼블리싱", 
+      "사용한 툴 / ", 
+      "작업내용 / ",
+      "배운 점 / ", 
+      "아쉬운 점 / ",
+      "어려웠던 점 / "
+    ],
+    "imgs": ["/img/details_school_img1.png","/img/details_school_img2.png","/img/details_school_img3.png"],
+    "color": "#EE5857",
+    "href":"./site/theschooloflife/index.html"
+  }
+]

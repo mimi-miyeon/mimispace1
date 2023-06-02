@@ -52,6 +52,9 @@ main .main-con {
 
 .con-wrap h3 {
   position: relative;
+	float: left;
+	width: 30%;
+	margin-right: 5%;
   margin-bottom: 50px;
   font-size: 16px;
   font-weight: normal
@@ -66,13 +69,15 @@ main .main-con {
   height: 1px;
   background: #777;
 }
-
+.con-wrap h3:nth-of-type(2):after {
+	width: 95px
+}
 .con-wrap .right h3:after {
   width: 95px;
   background: #000;
 }
 
-.con-wrap h3:hover {
+.con-wrap h3 > a:hover {
   color: #ff64ac;
 }
 
@@ -237,15 +242,13 @@ main .main-con {
 	
 	font-size: 24px;
 	color: #fff;
-	opacity: 0;
 	transition: all 0.5s;
 	cursor: pointer
 }
-.left-pic:hover .far {
-	opacity: 1
-}
-.left-pic .fas {}
 
+.left-pic .fas {
+	display: none;
+}
 .recom-con .right-text {
 	float: left;
 	width: 49%;
@@ -285,13 +288,158 @@ main .main-con {
 
 /*재료*/
 .con-wrap .right .ingre {
-/*
-	position: relative;
-	right: 9999px;
-*/
 	display: none;
 }
 
 .right .recom-wrap {
 	display: none;
+}
+
+/*tablet*/
+@media screen and (min-width: 640px) and (max-width: 1240px) {
+	main .title-con {
+		width: 90%;
+	}
+	.title-con .text {
+		width: 90%;
+		margin-left: 0
+	}
+	.title-con > p {
+		margin-left: 5%;
+	}
+	.main-con .con-wrap {
+		width: 90%
+	}
+  .con-wrap .left {
+  float: none;
+  width: 100%;
+  margin-right: 0%;
+}
+	.option-wrap .opt {
+		float: left;
+		width: 30%;
+		margin-right: 5%;
+		padding: 20px 0;
+	}
+	.option-wrap .opt:nth-of-type(3),
+	.option-wrap .opt:nth-of-type(6) {
+		margin-right: 0;
+	}
+	.option-wrap .opt b {
+		line-height: 27px;
+	}
+	.con-wrap .right {
+		float: none;
+		padding-top: 80px;
+		width: 100%
+	}
+	.left-pic .pic {
+		display: none;
+	}
+	.right-text b {
+		display: none;
+	}
+	.recom-con .right-text {
+		float: none;
+		width: 100%;
+		margin-left: 0;
+		text-align: center;
+	}
+	.recom-con > a {
+		text-align: center;
+	}
+	.recom-con > a:after {
+		left: 50%;
+		margin-left: -62.5px;
+	}
+	.left-pic .fa-heart {
+		display: none
+	}
+}
+
+/*mobile*/
+@media screen and (max-width: 640px) {
+	main .title-con {
+		width: 90%;
+	}
+	.title-con .text {
+		width: auto;
+		margin-left: 0;
+		text-align: center
+	}
+	.text b:after {
+		left: 50%;
+		margin-left: -37.5px
+	}
+	.text h2 {
+		text-align: center
+	}
+	.title-con > p {
+		margin-left: 0;
+		text-align: center;
+		line-height: 1.4;
+	}
+	.main-con .con-wrap {
+		width: 90%
+	}
+	.con-wrap .left {
+  float: none;
+  width: 100%;
+  margin-right: 0%;
+}
+	.option-wrap .opt {
+		float: left;
+		width: 47.5%;
+		margin-right: 5%;
+		padding: 20px 0;
+	}
+	.option-wrap .opt:nth-of-type(2),
+	.option-wrap .opt:nth-of-type(4),
+	.option-wrap .opt:nth-of-type(6) {
+		margin-right: 0;
+	}
+	.option-wrap .opt b {
+		line-height: 27px;
+	}
+	.con-wrap .right {
+		float: none;
+		padding-top: 80px;
+		width: 100%
+	}
+	.con-wrap h3:first-child {
+		width: 47.5%;
+	}
+	.left-pic .pic {
+		display: none;
+	}
+	.right-text b {
+		display: none;
+	}
+	.recom-con .right-text {
+		float: none;
+		width: 100%;
+		margin-left: 0;
+		text-align: center;
+	}
+	.recom-con > a {
+		text-align: center;
+	}
+	.recom-con > a:after {
+		left: 50%;
+		margin-left: -62.5px;
+	}
+	.left-pic .fa-heart {
+		display: none
+	}
+	.con-wrap .right .ingre {
+		position: relative;
+		width: 100%;
+		height: 220px;
+		
+		overflow: hidden;
+		overflow-x: scroll
+	}
+	.right .opt-pic {
+		position: absolute;
+	}
 }

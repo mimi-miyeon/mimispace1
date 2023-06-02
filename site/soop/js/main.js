@@ -5,7 +5,8 @@
 			$slide = $main.find('.slide'),
 			$prev = $main.find('.prev'),
 			$next = $main.find('.next'),
-
+      $heart = $main.find('.fa-heart'),
+				
 			currentIndex = 0,
 			count = $slide.length;
 
@@ -56,5 +57,12 @@
 
 upDate();
 
+		/*'좋아요' toggle*/
+    $heart.on('click', function (e) {
+      e.preventDefault();
+      $(this).siblings('button').toggle();
+      $(this).hide();
+    }); //rheart-toggle
+		
 	}); //function  
 })(jQuery);
