@@ -24,7 +24,7 @@
 		// const task = document.querySelector('.section-explain__ul__li--task p');
 		// const details = document.querySelector('.section-explain__ul__li--details');
 
-		fetch('https://mimi-miyeon.github.io/js/work_detail.json').then(res=>{
+		fetch('./js/work_detail.json').then(res=>{
 			return res.json()
 		}).then(data =>{
 			const index = () => {
