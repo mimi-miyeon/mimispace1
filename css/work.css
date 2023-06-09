@@ -207,7 +207,8 @@ main .local {
   width: 30px;
   height: 30px;
   background: transparent;
-  cursor: pointer
+  cursor: pointer;
+  z-index: 1;
 }
 
 .pop .close img {
@@ -228,6 +229,7 @@ main .local {
   text-transform: uppercase;
   transition: all 0.5s;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
 .pop .go-work:after {
@@ -282,22 +284,26 @@ section {
   width: 1250px;
   margin: auto;
 }
-.section-header {
-  position: absolute; top: 0;
-  width: 100%;  height: calc((100vh / 3) * 2);
-  /* height: 600px; */
-  color: #fff;
-  z-index: -1;
-  background-color: #000;
-}
-.section-header__bg-img {
+.section-header__bg {
   position: absolute; left: 0; right: 0; top: 0; right: 0 ;
+  width: 100%; 
+  /* height: calc((100vh / 3) * 2); */
+  height: 550px;
+  background-color: #000;
+  z-index: -1;
+}
+.section-header__bg__img {
   width: 100%; height: 100%;
   opacity: .3;
-  background: no-repeat top center / cover;
+  background: no-repeat center center / cover;
+}
+.section-header {
+  /* position: absolute; top: 130px; */
+  width: 100%;
+  margin-top: 130px;
+  color: #fff;
 }
 .section-header__inner {
-  position: absolute; top: 130px; left: 0; right: 0;
   /* width: 1000px; */
   width: 1240px;
   margin: auto;
@@ -329,9 +335,9 @@ section {
 }
 .project-screen-img {}
 .section-explain {
+  /* position: absolute; */
   width: 100%;
-  /* margin-top: 1000px; */
-  margin-top: calc((100vh / 3) * 2 + 500px);
+  margin-top: 80px;
 }
 .section-explain__ul {
   width: 100%;
@@ -431,7 +437,7 @@ section {
     margin-left: 50px;
   }
   .section-explain {
-    margin-top: calc((100vh / 3) * 2 + 40vw);
+    /* margin-top: calc((100vh / 3) * 2 + 40vw); */
     /* margin-top: calc(600px + 33vw); */
     /* margin-top: 100vw; */
   }
@@ -513,8 +519,11 @@ section {
   .pop .go-work:after {
     display: none;
   }
+  .section-header__bg {
+    height: calc((100vh / 3) * 1.7);
+  }
   .section-header {
-    height: calc(50vh + 20px);
+    /* height: calc(50vh + 20px); */
   }
   .section-explain__ul {
     font-weight: 300;
@@ -541,6 +550,6 @@ section {
     font-weight: 300;
   }
   .section-explain {
-    margin-top: calc((50vh + 20px) + 40vw);
+    /* margin-top: calc((50vh + 20px) + 40vw); */
   }
 }

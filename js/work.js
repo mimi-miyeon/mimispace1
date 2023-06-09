@@ -16,13 +16,9 @@
 		const title = document.querySelector('.project-title');
 		const type = document.querySelector('.project-type');
 		const date = document.querySelector('.project-date');
-		const bgImg = document.querySelector('.section-header__bg-img');
+		const bgImg = document.querySelector('.section-header__bg__img');
 
 		const explainUl = document.querySelector('.section-explain__ul');
-		// const project = document.querySelector('.section-explain__ul__li--project p');
-		// const company = document.querySelector('.section-explain__ul__li--company p');
-		// const task = document.querySelector('.section-explain__ul__li--task p');
-		// const details = document.querySelector('.section-explain__ul__li--details');
 
 		fetch('./js/work_detail.json').then(res=>{
 			return res.json()
@@ -41,7 +37,6 @@
 					overflowY: 'hidden'
 				});
 				$('.pop').slideDown();
-				// header 내용 넣기
 				href.setAttribute('href', object.href);
 				name.innerHTML = object.name;
 				title.innerHTML = object.title;
