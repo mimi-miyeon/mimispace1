@@ -63,7 +63,7 @@
       "어려웠던 점 / 수정, 삭제, 수정후 저장, 수정후 삭제 등 여러 개의 이벤트가 한 리스트 요소 안에 들어있어서 캡처링, 버블링으로 발생하는 문제"
     ],
     "imgs": [],
-    "color": "",
+    "color": "#60a5fa",
     "href": "./site/todoApp/index.html"
   },
   {
@@ -72,8 +72,8 @@
     "title": "국내 최초<br>중고폰 비교 플랫폼",
     "type": "반응형 웹사이트",
     "date": "2021.03 ~ 2021.10",
-    "bgImg": "",
-    "screenImg": "",
+    "bgImg": "./img/bg_wantit.jpg",
+    "screenImg": "./img/screen_wantit.png",
     "details": [
       "프로젝트에 대해 / 모바일 및 웹앱 최적화 리디자인",
       "연계회사 / (주)리얼셀러",
@@ -96,7 +96,7 @@
     "type": "반응형 웹사이트",
     "date": "2022.05 ~ 2022.07",
     "bgImg": "./img/bg_rasWeb.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_rasWeb.png",
     "details": [
       "프로젝트에 대해 / 서비스소개 사이트",
       "연계회사 / (주)리얼셀러",
@@ -119,7 +119,7 @@
     "type": "모바일 최적화 페이지",
     "date": "2022.10 ~ 2022.12",
     "bgImg": "./img/bg_rinventory.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_rinventory.png",
     "details": [
       "프로젝트에 대해 / 소유한 중고물품 업로드, 관리, 판매 페이지",
       "연계회사 / (주)리얼셀러",
@@ -132,7 +132,7 @@
       "어려웠던 점 / 촬영용 카메라 반응형 작업. PC와 mobile의 화면 비율이 많이 달라서 반응형으로 카메라 촬영 영역과 바코드 인식 부분을 맞추는 점"
     ],
     "imgs": [],
-    "color": "",
+    "color": "#ed6541",
     "href": "https://real-seller.com/inventory"
   },
   {
@@ -142,7 +142,7 @@
     "type": "어플리케이션 리디자인",
     "date": "2022.05 ~ 2022.08",
     "bgImg": "./img/bg_rasApp.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_rasApp.png",
     "details": [
       "프로젝트에 대해 / 어플리케이션 리디자인",
       "연계회사 / (주)리얼셀러",
@@ -155,7 +155,7 @@
       "어려웠던 점 / "
     ],
     "imgs": [],
-    "color": "",
+    "color": "#E8318C",
     "href": ""
   },
   {
@@ -165,7 +165,7 @@
     "type": "키오스크 디자인",
     "date": "2020.07 ~ 2020.08",
     "bgImg": "./img/bg_kiosk.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_kiosk.png",
     "details": [
       "프로젝트에 대해 / 방역을 위한 출입관리 키오스크",
       "연계회사 / (주)제타뱅크",
@@ -188,7 +188,7 @@
     "type": "어플리케이션 디자인",
     "date": "2020.08 ~ 2020.09",
     "bgImg": "./img/bg_kioskAdmin.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_kioskAdmin.png",
     "details": [
       "프로젝트에 대해 / 출입관리 키오스크 관리자용 어플리케이션",
       "연계회사 / (주)제타뱅크",
@@ -211,7 +211,7 @@
     "type": "로봇 UI 디자인",
     "date": "2020.09 ~ 2020.10",
     "bgImg": "./img/bg_robot.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_robot.png",
     "details": [
       "프로젝트에 대해 / 실내 공기질 측정 로봇 UI 디자인",
       "연계회사 / (주)제타뱅크",
@@ -235,7 +235,7 @@
     "type": "모바일 최적화 페이지",
     "date": "2020.11 ~ 2020.12",
     "bgImg": "./img/bg_treasureHunt.jpg",
-    "screenImg": "",
+    "screenImg": "./img/screen_treasureHunt.png",
     "details": [
       "프로젝트에 대해 / 크리스마스 선물 찾기 이벤트 페이지",
       "연계회사 / 개인프로젝트",

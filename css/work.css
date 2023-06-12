@@ -119,7 +119,7 @@ main .local {
 
 /*pic*/
 .con-left .pic1 {
-  background-image: url(../img/soop.jpg)
+  /* background-image: url(../img/soop.jpg) */
 }
 
 .con-left .pic3 {
@@ -132,10 +132,10 @@ main .local {
 }
 .con-left .pic3 {
   height: 550px;
-  background-image: url(../img/lifeSchool.jpg)
+  /* background-image: url(../img/lifeSchool.jpg) */
 }
 .con-left .pic5 {
-	background-image: url(../img/lululemon.jpg);
+	/* background-image: url(../img/lululemon.jpg); */
 }
 /*준비중*/
 .con-left .prep p {
@@ -145,7 +145,7 @@ main .local {
 	opacity: 0.5;
 }
 
-.con-left .pic7 {
+/* .con-left .pic7 {
 	background-image: url(../img/printD1.jpg);
 }
 .con-left .pic9 {
@@ -153,17 +153,17 @@ main .local {
 }
 .con-left .pic11 {
 	background-image: url(../img/realseller.jpg);
-}
+} */
 
 .con-right .con:nth-of-type(1) .pic-wrap ,
 .con-right .con:nth-of-type(5) .pic-wrap {
   height: 550px;
 }
-.con-right .pic2 {
+/* .con-right .pic2 {
   background-image: url(../img/mutemuse.jpg)
-}
+} */
 
-.con-right .pic4 {
+/* .con-right .pic4 {
   background-image: url(../img/reAll.jpg)
 }
 .con-right .pic6 {
@@ -180,7 +180,7 @@ main .local {
 }
 .con-right .pic13 {
 	background-image: url(../img/todo.jpg);
-}
+} */
 
 /*pop*/
 .pop {
@@ -352,7 +352,8 @@ section {
   margin-bottom: 0;
 }
 .section-explain__ul__li--imgs img{
-  margin-top: 50px;
+  max-width: 1200px;
+  margin-top: 50px; margin-left: auto; margin-right: auto;
 }
 .section-explain__ul__li h5 {
   margin-bottom: .5rem;
@@ -445,7 +446,7 @@ section {
     width: 600px;
   }
   .section-explain__ul__li--imgs {
-    width: 100%;
+    width: 90%;
   }
 }
 
@@ -533,7 +534,7 @@ section {
     width: 90%;
   }
   .section-explain__ul__li--imgs {
-    width: 100%;
+    /* width: 100%; */
   }
   .section-header__inner__texts {
     width: 90%;
