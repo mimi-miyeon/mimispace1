@@ -84,8 +84,8 @@
       "주요업무 / 디자인, 퍼블리싱", 
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Zeplin, Adobe XD, Illustrator",
       "작업내용 / 기존 반응형 사이트를 PC 유지 보수 시간을 절약하기 위해 모바일에 최적화된 디자인으로 변경<br>‘커뮤니티’, ‘내폰얼마’, ‘직거래맛집’, ‘최근본상품’ 등 페이지 추가 작업<br>NAVER Maps API로 wantit에 등록된 업체정보 및 상품 보여주기 작업<br>bootstrap의 modal을 활용해 다양한 크기 및 레이어의 팝업창 작업<br>Swiper API를 활용한 배너/아이템 작업<br>웹앱에서 네이티브 코드로 구현해야 하는 채팅, 알림, 팝업 등 디자인",
-      "배운 점 / 전체 화면 modal, 하단 modal 등 다양한 크기의 modal 작업<br>이중 modal 열림/닫힘, z-index 문제 해결<br>NAVER Maps API<br>필수 확인 리스트의 체크 여부에 따라 버튼 비/활성화 스크립트",
-      "어려웠던 점 / 첫 API 사용으로 필요한 기능의 코드를 찾고 동작시키는 점<br>클릭 이벤트와 다양한 상태 체크 및 데이터 전달을 고려해서 만들어야 하는 체크리스트 상태에 따른 비/활성화 버튼 구연"
+      "배운 점 / 전체 화면 modal, 하단 modal 등 다양한 크기의 modal 작업<br>이중 modal 열림/닫힘, z-index 문제 해결<br>NAVER Maps API<br>필수 확인 리스트의 체크 여부에 따라 버튼 비,활성화 스크립트",
+      "어려웠던 점 / 첫 API 사용으로 필요한 기능의 코드를 찾고 동작시키는 점<br>클릭 이벤트와 다양한 상태 체크 및 데이터 전달을 고려해서 만들어야 하는 체크리스트 상태에 따른 비,활성화 버튼 구연"
     ],
     "imgs": [],
     "color": "#E8318C",
@@ -128,7 +128,7 @@
       "참여인원 / 2",
       "주요업무 / 디자인, 퍼블리싱",
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Adobe XD, Illustrator",
-      "작업내용 / 업로드 된 상품개수, 총 가격, 물품 리스트 등을 볼 수 있는 대시보드 페이지<br>상품 및 카테고리 업로드 페이지<br>상품 바코드 촬영용 카메라 페이지 작업<br>상품/카테고리 업로드 폼 작업. modal로 태그, 메모 데이터를 업로드 폼 주고 받는 기능 작업<br>업로드 폼에 원하는 항목 추가기능 작업. modal로 추가할 항목 형태를 선택, 설정, 추가하는 기능 작업<br>여러 층 구조의 카테고리 폴더 페이지 아코디언 펼침 작업.",
+      "작업내용 / 업로드 된 상품개수, 총 가격, 물품 리스트 등을 볼 수 있는 대시보드 페이지<br>상품 및 카테고리 업로드 페이지<br>상품 바코드 촬영용 카메라 페이지 작업<br>상품, 카테고리 업로드 폼 작업. modal로 태그, 메모 데이터를 업로드 폼 주고 받는 기능 작업<br>업로드 폼에 원하는 항목 추가기능 작업. modal로 추가할 항목 형태를 선택, 설정, 추가하는 기능 작업<br>여러 층 구조의 카테고리 폴더 페이지 아코디언 펼침 작업.",
       "배운 점 / 태그, 메모 데이터 주고받을 때, Input value 저장, 취소에 따라 데이터를 li태그에 전달하고 li에 작성된 값을 input에 전달하는 작업<br>항목 추가 시, 입력한 값으로 새로운 요소를 폼 태그 내부에 추가하기",
       "아쉬운 점 / 시간상의 이유로 기획된 모든 기능을 끝내지 못함 점",
       "어려웠던 점 / 촬영용 카메라 반응형 작업. PC와 mobile의 화면 비율이 많이 달라서 반응형으로 카메라 촬영 영역과 바코드 인식 부분을 맞추는 점"
@@ -175,7 +175,7 @@
       "사용한 툴 / Adobe Photoshop, Illustrator",
       "작업내용 / 출입을 위한 4단계(마스크 착용 여부, 손소독, 체온측정, 본인확인) 절차에 관한 화면 및 아이콘 디자인"
     ],
-    "imgs": ["./img/details_kiosk_img1.jpg","./img/details_kiosk_img2.jpg","./img/details_kiosk_img3.jpg","./img/details_kiosk_img4.jpg","./img/details_kiosk_img5.jpg","./img/details_kiosk_img6.jpg","./img/details_kiosk_img7.jpg","./img/details_kiosk_img8.jpg","./img/details_kiosk_img9.jpg","./img/details_kiosk_img10.jpg","./img/details_kiosk_img11.jpg","./img/details_kiosk_img12.jpg","./img/details_kiosk_img13.jpg"],
+    "imgs": ["./img/details_kiosk_img1.jpg","./img/details_kiosk_img2.jpg","./img/details_kiosk_img3.jpg","./img/details_kiosk_img4.jpg","./img/details_kiosk_img5.gif","./img/details_kiosk_img6.jpg","./img/details_kiosk_img7.jpg","./img/details_kiosk_img8.jpg","./img/details_kiosk_img9.jpg","./img/details_kiosk_img10.jpg","./img/details_kiosk_img11.jpg","./img/details_kiosk_img12.jpg","./img/details_kiosk_img13.jpg"],
     "color": "",
     "href": "",
     "style": ".pop .go-work {display: none;}"

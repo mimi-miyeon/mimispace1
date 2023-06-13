@@ -38,10 +38,10 @@
 				});
 				$('.pop').slideDown();
 				if(object.href != ""){
+					document.querySelector('.pop .go-work').removeAttribute('onclick');
 					href.setAttribute('href', object.href);
 				} else {
 					href.setAttribute('onclick',"alert('현재 작업중입니다❤'); this.removeAttribute('onclick');");
-					
 					href.removeAttribute('href');
 				}
 				name.innerHTML = object.name;
@@ -113,17 +113,32 @@
 						document.querySelector('.style-wrap').remove();
 					}
 				}
-
-				$('.pop button.close').click(function () {
+				document.querySelector('.pop button.close').onclick=function () {
 					$('.pop').slideUp(function () {
-						$('.pop').scrollTop(0);
 						$('.project-screen-img').remove();
+						$('.style-wrap').remove();
+					
+						document.querySelector('.pop .go-work').removeAttribute('onclick');
+						document.querySelector('.pop .go-work').removeAttribute('href');
 					});
+
 					$('body').css({
 						overflowY: 'scroll'
 					});
-					setTimeout(()=>{$('.style-wrap').remove();}, 500)
-				});	
+					setTimeout(()=>{$('.pop').scrollTop(0)}, 300)
+				};	
+
+				// $('.pop button.close').click(function () {
+				// 	$('.pop').slideUp(function () {
+				// 		console.log(document.querySelector('.pop').scrollTop);
+				// 		$('.pop').scrollTop = 0
+				// 		$('.project-screen-img').remove();
+				// 	});
+				// 	$('body').css({
+				// 		overflowY: 'scroll'
+				// 	});
+				// 	setTimeout(()=>{$('.style-wrap').remove();}, 500)
+				// });	
 				
 			} else {
 				alert('현재 작업중입니다❤');
