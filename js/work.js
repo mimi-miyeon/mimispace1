@@ -37,7 +37,13 @@
 					overflowY: 'hidden'
 				});
 				$('.pop').slideDown();
-				href.setAttribute('href', object.href);
+				if(object.href != ""){
+					href.setAttribute('href', object.href);
+				} else {
+					href.setAttribute('onclick',"alert('현재 작업중입니다❤'); this.removeAttribute('onclick');");
+					
+					href.removeAttribute('href');
+				}
 				name.innerHTML = object.name;
 				title.innerHTML = object.title;
 				type.innerHTML = object.type;
@@ -97,29 +103,42 @@
 				const colorArr=document.querySelectorAll('.color');
 				colorArr.forEach(el=>{
 					el.style.color = object.color;
-				})
+				});
+
+				const pop = document.querySelector('.pop');
+				if(object.style != ''){
+					pop.innerHTML += `<div class="style-wrap"><style>${object.style}</style></div>`
+				} else {
+					if(document.querySelector('.style-wrap')) {
+						document.querySelector('.style-wrap').remove();
+					}
+				}
+
+				$('.pop button.close').click(function () {
+					$('.pop').slideUp(function () {
+						$('.pop').scrollTop(0);
+						$('.project-screen-img').remove();
+					});
+					$('body').css({
+						overflowY: 'scroll'
+					});
+					setTimeout(()=>{$('.style-wrap').remove();}, 500)
+				});	
+				
 			} else {
 				alert('현재 작업중입니다❤');
 				return;
 			}
 		})
 	});
-
-	$('.pop').click(function () {
-		$('.pop').slideUp(function () {
-			$('.pop').scrollTop(0);
-			$('.project-screen-img').remove();
-		});
-		$('body').css({
-			overflowY: 'scroll'
-		});
-	});	
+	
+	
 		
 		/*준비중*/
-		$('.prep').click(function() {
-			$('.unpop').css({display:'none'});
-			$('body').css({overflowY: 'auto'});
-		});
+		// $('.prep').click(function() {
+		// 	$('.unpop').css({display:'none'});
+		// 	$('body').css({overflowY: 'auto'});
+		// });
 		
 	/*work fi1lter*/
 	$('.local').on('click', 'a', function (e) {

@@ -20,7 +20,8 @@
     ],
     "imgs": ["./img/details_soop_img1.png","./img/details_soop_img2.png","./img/details_soop_img3.png"],
     "color": "#FF64AC",
-    "href":"./site/soop/index.html"
+    "href":"./site/soop/index.html",
+    "style": ""
   },
   {
     "id": "realseller",
@@ -41,7 +42,8 @@
     ],
     "imgs": ["./img/details_rs_img1.png","./img/details_rs_img2.png"],
     "color": "#004980",
-    "href":"http://real-seller.com"
+    "href":"http://real-seller.com",
+    "style": ""
   },
   {
     "id": "todoApp",
@@ -64,7 +66,8 @@
     ],
     "imgs": [],
     "color": "#60a5fa",
-    "href": "./site/todoApp/index.html"
+    "href": "./site/todoApp/index.html",
+    "style": ""
   },
   {
     "id": "wantit",
@@ -82,12 +85,12 @@
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Zeplin, Adobe XD, Illustrator",
       "작업내용 / 기존 반응형 사이트를 PC 유지 보수 시간을 절약하기 위해 모바일에 최적화된 디자인으로 변경<br>‘커뮤니티’, ‘내폰얼마’, ‘직거래맛집’, ‘최근본상품’ 등 페이지 추가 작업<br>NAVER Maps API로 wantit에 등록된 업체정보 및 상품 보여주기 작업<br>bootstrap의 modal을 활용해 다양한 크기 및 레이어의 팝업창 작업<br>Swiper API를 활용한 배너/아이템 작업<br>웹앱에서 네이티브 코드로 구현해야 하는 채팅, 알림, 팝업 등 디자인",
       "배운 점 / 전체 화면 modal, 하단 modal 등 다양한 크기의 modal 작업<br>이중 modal 열림/닫힘, z-index 문제 해결<br>NAVER Maps API<br>필수 확인 리스트의 체크 여부에 따라 버튼 비/활성화 스크립트",
-      "아쉬운 점 / ",
       "어려웠던 점 / 첫 API 사용으로 필요한 기능의 코드를 찾고 동작시키는 점<br>클릭 이벤트와 다양한 상태 체크 및 데이터 전달을 고려해서 만들어야 하는 체크리스트 상태에 따른 비/활성화 버튼 구연"
     ],
     "imgs": [],
     "color": "#E8318C",
-    "href": "https://wantit.real-seller.com"
+    "href": "https://wantit.real-seller.com",
+    "style": ""
   },
   {
     "id": "rasWeb",
@@ -104,13 +107,12 @@
       "주요업무 / 디자인, 퍼블리싱",
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Adobe XD",
       "작업내용 / 기존 사이트를 회사소개(realseller), 서비스소개(RAS) 둘로 나눠서 리디자인 및 페이지 추가<br>구매한 템플릿을 활용해 디자인 및 퍼블리싱",
-      "배운 점 / 템플릿의 클래스와 구조를 활용해 코딩하는 법",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
+      "배운 점 / 템플릿의 클래스와 구조를 활용해 코딩하는 법"
     ],
     "imgs": [],
     "color": "#E8318C",
-    "href": "https://ras.real-seller.com"
+    "href": "https://ras.real-seller.com",
+    "style": ""
   },
   {
     "id": "rinventory",
@@ -133,7 +135,8 @@
     ],
     "imgs": [],
     "color": "#ed6541",
-    "href": "https://real-seller.com/inventory"
+    "href": "https://real-seller.com/inventory",
+    "style": ""
   },
   {
     "id": "rasApp",
@@ -149,14 +152,12 @@
       "참여인원 / 1",
       "주요업무 / 디자인",
       "사용한 툴 / Adobe XD, Illustrator",
-      "작업내용 / ",
-      "배운 점 / ",
-      "아쉬운 점 / 개발 작업은 되지 않음",
-      "어려웠던 점 / "
+      "아쉬운 점 / 개발 작업은 되지 않음"
     ],
-    "imgs": [],
+    "imgs": ["./img/details_rasApp_img1.jpg","./img/details_rasApp_img2.jpg","./img/details_rasApp_img3.jpg","./img/details_rasApp_img4.jpg","./img/details_rasApp_img5.jpg","./img/details_rasApp_img6.jpg","./img/details_rasApp_img7.jpg","./img/details_rasApp_img8.jpg","./img/details_rasApp_img9.jpg","./img/details_rasApp_img10.jpg","./img/details_rasApp_img11.jpg","./img/details_rasApp_img12.jpg","./img/details_rasApp_img13.jpg","./img/details_rasApp_img14.jpg","./img/details_rasApp_img15.jpg","./img/details_rasApp_img16.jpg"],
     "color": "#E8318C",
-    "href": ""
+    "href": "",
+    "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap; align-items: flex-start;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {
     "id": "covidKiosk",
@@ -172,14 +173,12 @@
       "참여인원 / 1",
       "주요업무 / 디자인", 
       "사용한 툴 / Adobe Photoshop, Illustrator",
-      "작업내용 / 출입을 위한 4단계(마스크 착용 여부, 손소독, 체온측정, 본인확인) 절차에 관한 화면 및 아이콘 디자인",
-      "배운 점 / ",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
+      "작업내용 / 출입을 위한 4단계(마스크 착용 여부, 손소독, 체온측정, 본인확인) 절차에 관한 화면 및 아이콘 디자인"
     ],
-    "imgs": [],
+    "imgs": ["./img/details_kiosk_img1.jpg","./img/details_kiosk_img2.jpg","./img/details_kiosk_img3.jpg","./img/details_kiosk_img4.jpg","./img/details_kiosk_img5.jpg","./img/details_kiosk_img6.jpg","./img/details_kiosk_img7.jpg","./img/details_kiosk_img8.jpg","./img/details_kiosk_img9.jpg","./img/details_kiosk_img10.jpg","./img/details_kiosk_img11.jpg","./img/details_kiosk_img12.jpg","./img/details_kiosk_img13.jpg"],
     "color": "",
-    "href": ""
+    "href": "",
+    "style": ".pop .go-work {display: none;}"
   },
   {
     "id": "covidKioskAdmin",
@@ -195,14 +194,12 @@
       "참여인원 / 1",
       "주요업무 / 디자인", 
       "사용한 툴 / Adobe XD",
-      "작업내용 / 기기 상태, 출입명단 및 정보 관련 관리자 어플리케이션 디자인",
-      "배운 점 / ",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
+      "작업내용 / 기기 상태, 출입명단 및 정보 관련 관리자 어플리케이션 디자인"
     ],
-    "imgs": [],
+    "imgs": ["./img/details_kioskAdmin_img1.jpg","./img/details_kioskAdmin_img2.jpg","./img/details_kioskAdmin_img3.jpg","./img/details_kioskAdmin_img4.jpg","./img/details_kioskAdmin_img5.jpg","./img/details_kioskAdmin_img6.jpg","./img/details_kioskAdmin_img7.jpg","./img/details_kioskAdmin_img8.jpg","./img/details_kioskAdmin_img9.jpg","./img/details_kioskAdmin_img10.jpg"],
     "color": "",
-    "href": ""
+    "href": "",
+    "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {
     "id": "robotUI",
@@ -216,17 +213,12 @@
       "프로젝트에 대해 / 실내 공기질 측정 로봇 UI 디자인",
       "연계회사 / (주)제타뱅크",
       "참여인원 / 1",
-      "주요업무 / 디자인", 
-      "사용한 툴 / ", 
-      "사용한 툴 / ",
-      "작업내용 / ",
-      "배운 점 / ",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
+      "주요업무 / 디자인"
     ],
-    "imgs": [],
+    "imgs": ["./img/robot.gif"],
     "color": "",
-    "href": ""
+    "href": "",
+    "style": ".pop .go-work {display: none;}"
   },
   {
     "id": "treasureHunt",
@@ -242,14 +234,12 @@
       "참여인원 / 1",
       "주요업무 / 디자인", 
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Adobe XD, Photoshop, Illustrator",
-      "작업내용 / ",
-      "배운 점 / SVG 애니메이션",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
+      "배운 점 / SVG 애니메이션"
     ],
-    "imgs": [],
+    "imgs": ["./img/details_treasureHunt_img1.jpg","./img/details_treasureHunt_img2.jpg","./img/details_treasureHunt_img3.jpg","./img/details_treasureHunt_img4.jpg","./img/details_treasureHunt_img5.jpg","./img/details_treasureHunt_img6.jpg","./img/details_treasureHunt_img7.jpg","./img/details_treasureHunt_img8.jpg","./img/details_treasureHunt_img9.jpg","./img/details_treasureHunt_img10.jpg","./img/details_treasureHunt_img11.jpg"],
     "color": "",
-    "href": ""
+    "href": "",
+    "style": ".section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {
     "id": "sohee",
@@ -273,7 +263,8 @@
     ],
     "imgs": [],
     "color": "",
-    "href": ""
+    "href": "",
+    "style": ""
   },
   {
     "id": "etcDesign",
@@ -297,7 +288,8 @@
     ],
     "imgs": [],
     "color": "",
-    "href": ""
+    "href": "",
+    "style": ""
   },
   {
     "id": "theschooloflife",
@@ -320,6 +312,7 @@
     ],
     "imgs": ["./img/details_school_img1.png","./img/details_school_img2.png","./img/details_school_img3.png"],
     "color": "#EE5857",
-    "href":"./site/theschooloflife/index.html"
+    "href":"./site/theschooloflife/index.html",
+    "style": ""
   }
 ]
