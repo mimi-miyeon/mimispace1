@@ -126,19 +126,7 @@
 						overflowY: 'scroll'
 					});
 					setTimeout(()=>{$('.pop').scrollTop(0)}, 300)
-				};	
-
-				// $('.pop button.close').click(function () {
-				// 	$('.pop').slideUp(function () {
-				// 		console.log(document.querySelector('.pop').scrollTop);
-				// 		$('.pop').scrollTop = 0
-				// 		$('.project-screen-img').remove();
-				// 	});
-				// 	$('body').css({
-				// 		overflowY: 'scroll'
-				// 	});
-				// 	setTimeout(()=>{$('.style-wrap').remove();}, 500)
-				// });	
+				};
 				
 			} else {
 				alert('현재 작업중입니다❤');
@@ -147,14 +135,6 @@
 		})
 	});
 	
-	
-		
-		/*준비중*/
-		// $('.prep').click(function() {
-		// 	$('.unpop').css({display:'none'});
-		// 	$('body').css({overflowY: 'auto'});
-		// });
-		
 	/*work fi1lter*/
 	$('.local').on('click', 'a', function (e) {
 		e.preventDefault();

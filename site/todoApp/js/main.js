@@ -22,8 +22,6 @@ function dashboardHandler() {
   const doneBarP = document.querySelector('.process-bar--personal');
   doneBarB.querySelector('span').style.width = oneB * doneCountB + 'px';
   doneBarP.querySelector('span').style.width = oneP * doneCountP + 'px';
-  // doneBarB.querySelector('span').setAttribute('style', `width: ${oneB * doneCountB}`)
-  // console.log(oneB * doneCountB);
 }; //dashboardHandler
 
       
@@ -60,7 +58,6 @@ function drawTodos () {
     if(todo.done) {
       li.classList.add('task--checked');
       input.checked = true;
-      // label.classList.add('relative');
       span.classList.add('absolute', 'material-icons-outlined');
       span.textContent='check';
       label.appendChild(span);
@@ -104,7 +101,6 @@ function drawTodos () {
     modifyHandler();
 
     function editHandler(modifyContainer) {
-      // const modifyContainer = li.querySelector('.modify-container');
       modifyContainer.innerHTML = `
         <button class="cancelBtn material-icons-outlined mr-4">close</button>
         <button class="okBtn material-icons-outlined">circle</button>
