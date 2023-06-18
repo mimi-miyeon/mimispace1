@@ -200,7 +200,9 @@ main .local {
   overflow-y: auto;
   overflow-x: hidden
 }
-
+.pop::-webkit-scrollbar {
+  display: none;
+}
 .pop .close {
   position: fixed;
   top: 50px;
