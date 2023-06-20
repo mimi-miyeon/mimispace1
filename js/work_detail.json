@@ -5,8 +5,8 @@
     "title": "쉽고 건강한 <br> 요리 레시피",
     "type": "반응형 웹사이트",
     "date": "2019.11 ~ 2019.12",
-    "bgImg": "./img/bg_soop.jpg",
-    "screenImg": "./img/screen_soop.png",
+    "bgImg": "./img/bg/soop.jpg",
+    "screenImg": "./img/screen/screen_soop.png",
     "details": [
       "프로젝트에 대해 / 쉽게 건강한 음식을 요리할 수 있는 레시피 사이트",
       "연계회사 / 수업과제",
@@ -18,7 +18,7 @@
       "아쉬운 점 / 퍼블리싱 능력이 부족해 디자인했던 만큼의 결과물이 나오지 않은 점",
       "어려웠던 점 / 기획에 참여하고 디자인, 퍼블리싱 까지 혼자하기 버거웠다.기획에 참여, 디자인, 퍼블리싱 까지 작업이 버거움<br>반응형 스타일링에서 자연스러운 요소들 간의 간격 변화"
     ],
-    "imgs": ["./img/details_soop_img1.png","./img/details_soop_img2.png","./img/details_soop_img3.png"],
+    "imgs": ["./img/details/soop/1.png","./img/details/soop/2.png","./img/details/soop/3.png"],
     "color": "#FF64AC",
     "href":"./site/soop/index.html",
     "style": ""
@@ -29,8 +29,8 @@
     "title": "안전한 개인간 거래를 <br> 위한 새로운 패러다임",
     "type": "반응형 웹사이트",
     "date": "2022.01 ~ 2022.03",
-    "bgImg": "./img/bg_rs.jpg",
-    "screenImg": "./img/screen_rs.png",
+    "bgImg": "./img/bg/rs.jpg",
+    "screenImg": "./img/screen/screen_rs.png",
     "details": [
       "프로젝트에 대해 / 기존 홈페이지 리디자인 및 페이지 추가",
       "연계회사 / (주)리얼셀러", 
@@ -40,7 +40,7 @@
       "작업내용 / 콘텐츠 이미지, 배경 이미지, 페이지 디자인<br>기존 사이트를 회사소개(realseller), 서비스소개(RAS) 둘로 나눠서 리디자인 및 페이지 추가<br>구매한 템플릿을 활용해 디자인 및 퍼블리싱",
       "배운 점 / 템플릿의 클래스와 구조를 활용해 코딩하는 법"
     ],
-    "imgs": ["./img/details_rs_img1.png","./img/details_rs_img2.png"],
+    "imgs": ["./img/details/rs/1.png","./img/details/rs/2.png"],
     "color": "#004980",
     "href":"http://real-seller.com",
     "style": ""
@@ -51,8 +51,8 @@
     "title": "바닐라 자바스크립트<br>Todo App",
     "type": "모바일 최적화 페이지",
     "date": "2023.02",
-    "bgImg": "./img/bg_todo.jpg",
-    "screenImg": "./img/screen_todo.png",
+    "bgImg": "./img/bg/todo.jpg",
+    "screenImg": "./img/screen/screen_todo.png",
     "details": [
       "프로젝트에 대해 / 바닐라 자바스크립트 연습을 위한 프로젝트",
       "연계회사 / 개인프로젝트", 
@@ -75,8 +75,8 @@
     "title": "국내 최초<br>중고폰 비교 플랫폼",
     "type": "반응형 웹사이트",
     "date": "2021.03 ~ 2021.10",
-    "bgImg": "./img/bg_wantit.jpg",
-    "screenImg": "./img/screen_wantit.png",
+    "bgImg": "./img/bg/wantit.jpg",
+    "screenImg": "./img/screen/screen_wantit.png",
     "details": [
       "프로젝트에 대해 / 모바일 및 웹앱 최적화 리디자인",
       "연계회사 / (주)리얼셀러",
@@ -98,8 +98,8 @@
     "title": "리얼셀러<br>판매자 인증/검색",
     "type": "반응형 웹사이트",
     "date": "2022.05 ~ 2022.07",
-    "bgImg": "./img/bg_rasWeb.jpg",
-    "screenImg": "./img/screen_rasWeb.png",
+    "bgImg": "./img/bg/rasWeb.jpg",
+    "screenImg": "./img/screen/screen_rasWeb.png",
     "details": [
       "프로젝트에 대해 / 서비스소개 사이트",
       "연계회사 / (주)리얼셀러",
@@ -120,8 +120,8 @@
     "title": "중고물품 관리하고 <br>판매가 가능한 린벤토리",
     "type": "모바일 최적화 페이지",
     "date": "2022.10 ~ 2022.12",
-    "bgImg": "./img/bg_rinventory.jpg",
-    "screenImg": "./img/screen_rinventory.png",
+    "bgImg": "./img/bg/rinventory.jpg",
+    "screenImg": "./img/screen/screen_rinventory.png",
     "details": [
       "프로젝트에 대해 / 소유한 중고물품 업로드, 관리, 판매 페이지",
       "연계회사 / (주)리얼셀러",
@@ -144,8 +144,8 @@
     "title": "리얼셀러 판매자 인증/검색<br>어플리케이션",
     "type": "어플리케이션 리디자인",
     "date": "2022.05 ~ 2022.08",
-    "bgImg": "./img/bg_rasApp.jpg",
-    "screenImg": "./img/screen_rasApp.png",
+    "bgImg": "./img/bg/rasApp.jpg",
+    "screenImg": "./img/screen/screen_rasApp.png",
     "details": [
       "프로젝트에 대해 / 어플리케이션 리디자인",
       "연계회사 / (주)리얼셀러",
@@ -154,7 +154,7 @@
       "사용한 툴 / Adobe XD, Illustrator",
       "아쉬운 점 / 개발 작업은 되지 않음"
     ],
-    "imgs": ["./img/details_rasApp_img1.jpg","./img/details_rasApp_img2.jpg","./img/details_rasApp_img3.jpg","./img/details_rasApp_img4.jpg","./img/details_rasApp_img5.jpg","./img/details_rasApp_img6.jpg","./img/details_rasApp_img7.jpg","./img/details_rasApp_img8.jpg","./img/details_rasApp_img9.jpg","./img/details_rasApp_img10.jpg","./img/details_rasApp_img11.jpg","./img/details_rasApp_img12.jpg","./img/details_rasApp_img13.jpg","./img/details_rasApp_img14.jpg","./img/details_rasApp_img15.jpg","./img/details_rasApp_img16.jpg"],
+    "imgs": ["./img/details/rasApp/details_rasApp_img1.jpg","./img/details/rasApp/details_rasApp_img2.jpg","./img/details/rasApp/details_rasApp_img3.jpg","./img/details/rasApp/details_rasApp_img4.jpg","./img/details/rasApp/details_rasApp_img5.jpg","./img/details/rasApp/details_rasApp_img6.jpg","./img/details/rasApp/details_rasApp_img7.jpg","./img/details/rasApp/details_rasApp_img8.jpg","./img/details/rasApp/details_rasApp_img9.jpg","./img/details/rasApp/details_rasApp_img10.jpg","./img/details/rasApp/details_rasApp_img11.jpg","./img/details/rasApp/details_rasApp_img12.jpg","./img/details/rasApp/details_rasApp_img13.jpg","./img/details/rasApp/details_rasApp_img14.jpg","./img/details/rasApp/details_rasApp_img15.jpg","./img/details/rasApp/details_rasApp_img16.jpg"],
     "color": "#E8318C",
     "href": "",
     "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap; align-items: flex-start;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
@@ -165,8 +165,8 @@
     "title": "코로나 출입관리<br>키오스크",
     "type": "키오스크 디자인",
     "date": "2020.07 ~ 2020.08",
-    "bgImg": "./img/bg_kiosk.jpg",
-    "screenImg": "./img/screen_kiosk.png",
+    "bgImg": "./img/bg/kiosk.jpg",
+    "screenImg": "./img/screen/screen_kiosk.png",
     "details": [
       "프로젝트에 대해 / 방역을 위한 출입관리 키오스크",
       "연계회사 / (주)제타뱅크",
@@ -175,7 +175,7 @@
       "사용한 툴 / Adobe Photoshop, Illustrator",
       "작업내용 / 출입을 위한 4단계(마스크 착용 여부, 손소독, 체온측정, 본인확인) 절차에 관한 화면 및 아이콘 디자인"
     ],
-    "imgs": ["./img/details_kiosk_img1.jpg","./img/details_kiosk_img2.jpg","./img/details_kiosk_img3.jpg","./img/details_kiosk_img4.jpg","./img/details_kiosk_img5.gif","./img/details_kiosk_img6.jpg","./img/details_kiosk_img7.jpg","./img/details_kiosk_img8.jpg","./img/details_kiosk_img9.jpg","./img/details_kiosk_img10.jpg","./img/details_kiosk_img11.jpg","./img/details_kiosk_img12.jpg","./img/details_kiosk_img13.jpg"],
+    "imgs": ["./img/details/kiosk/details_kiosk_img1.jpg","./img/details/kiosk/details_kiosk_img2.jpg","./img/details/kiosk/details_kiosk_img3.jpg","./img/details/kiosk/details_kiosk_img4.jpg","./img/details/kiosk/details_kiosk_img5.gif","./img/details/kiosk/details_kiosk_img6.jpg","./img/details/kiosk/details_kiosk_img7.jpg","./img/details/kiosk/details_kiosk_img8.jpg","./img/details/kiosk/details_kiosk_img9.jpg","./img/details/kiosk/details_kiosk_img10.jpg","./img/details/kiosk/details_kiosk_img11.jpg","./img/details/kiosk/details_kiosk_img12.jpg","./img/details/kiosk/details_kiosk_img13.jpg"],
     "color": "",
     "href": "",
     "style": ".pop .go-work {display: none;}"
@@ -186,8 +186,8 @@
     "title": "출입관리 키오스크<br>관리자용 ",
     "type": "어플리케이션 디자인",
     "date": "2020.08 ~ 2020.09",
-    "bgImg": "./img/bg_kioskAdmin.jpg",
-    "screenImg": "./img/screen_kioskAdmin.png",
+    "bgImg": "./img/bg/kioskAdmin.jpg",
+    "screenImg": "./img/screen/screen_kioskAdmin.png",
     "details": [
       "프로젝트에 대해 / 출입관리 키오스크 관리자용 어플리케이션",
       "연계회사 / (주)제타뱅크",
@@ -196,7 +196,7 @@
       "사용한 툴 / Adobe XD",
       "작업내용 / 기기 상태, 출입명단 및 정보 관련 관리자 어플리케이션 디자인"
     ],
-    "imgs": ["./img/details_kioskAdmin_img1.jpg","./img/details_kioskAdmin_img2.jpg","./img/details_kioskAdmin_img3.jpg","./img/details_kioskAdmin_img4.jpg","./img/details_kioskAdmin_img5.jpg","./img/details_kioskAdmin_img6.jpg","./img/details_kioskAdmin_img7.jpg","./img/details_kioskAdmin_img8.jpg","./img/details_kioskAdmin_img9.jpg","./img/details_kioskAdmin_img10.jpg"],
+    "imgs": ["./img/details/kioskAdmin/details_kioskAdmin_img1.jpg","./img/details/kioskAdmin/details_kioskAdmin_img2.jpg","./img/details/kioskAdmin/details_kioskAdmin_img3.jpg","./img/details/kioskAdmin/details_kioskAdmin_img4.jpg","./img/details/kioskAdmin/details_kioskAdmin_img5.jpg","./img/details/kioskAdmin/details_kioskAdmin_img6.jpg","./img/details/kioskAdmin/details_kioskAdmin_img7.jpg","./img/details/kioskAdmin/details_kioskAdmin_img8.jpg","./img/details/kioskAdmin/details_kioskAdmin_img9.jpg","./img/details/kioskAdmin/details_kioskAdmin_img10.jpg"],
     "color": "",
     "href": "",
     "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
@@ -207,8 +207,8 @@
     "title": "실내 공기질 점검 방역로봇",
     "type": "로봇 UI 디자인",
     "date": "2020.09 ~ 2020.10",
-    "bgImg": "./img/bg_robot.jpg",
-    "screenImg": "./img/screen_robot.png",
+    "bgImg": "./img/bg/robot.jpg",
+    "screenImg": "./img/screen/screen_robot.png",
     "details": [
       "프로젝트에 대해 / 실내 공기질 측정 로봇 UI 디자인",
       "연계회사 / (주)제타뱅크",
@@ -218,7 +218,7 @@
     "imgs": ["./img/robot.gif"],
     "color": "",
     "href": "http://zetabank.co.kr/greenrobot",
-    "style": ".pop .go-work {display: none;}"
+    "style": ""
   },
   {
     "id": "treasureHunt",
@@ -226,70 +226,76 @@
     "title": "크리스마스 선물 찾기 이벤트",
     "type": "모바일 최적화 페이지",
     "date": "2020.11 ~ 2020.12",
-    "bgImg": "./img/bg_treasureHunt.jpg",
-    "screenImg": "./img/screen_treasureHunt.png",
+    "bgImg": "./img/bg/treasureHunt.jpg",
+    "screenImg": "./img/screen/screen_treasureHunt.png",
     "details": [
-      "프로젝트에 대해 / 크리스마스 선물 찾기 이벤트 페이지",
+      "프로젝트에 대해 / 크리스마스 선물 찾기<br>이벤트 페이지",
       "연계회사 / 개인프로젝트",
       "참여인원 / 1",
       "주요업무 / 디자인", 
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Adobe XD, Photoshop, Illustrator",
       "배운 점 / SVG 애니메이션"
     ],
-    "imgs": ["./img/details_treasureHunt_img1.jpg","./img/details_treasureHunt_img2.jpg","./img/details_treasureHunt_img3.jpg","./img/details_treasureHunt_img4.jpg","./img/details_treasureHunt_img5.jpg","./img/details_treasureHunt_img6.jpg","./img/details_treasureHunt_img7.jpg","./img/details_treasureHunt_img8.jpg","./img/details_treasureHunt_img9.jpg","./img/details_treasureHunt_img10.jpg","./img/details_treasureHunt_img11.jpg"],
+    "imgs": ["./img/details/treasureHunt/details_treasureHunt_img1.jpg","./img/details/treasureHunt/details_treasureHunt_img2.jpg","./img/details/treasureHunt/details_treasureHunt_img3.jpg","./img/details/treasureHunt/details_treasureHunt_img4.jpg","./img/details/treasureHunt/details_treasureHunt_img5.jpg","./img/details/treasureHunt/details_treasureHunt_img6.jpg","./img/details/treasureHunt/details_treasureHunt_img7.jpg","./img/details/treasureHunt/details_treasureHunt_img8.jpg","./img/details/treasureHunt/details_treasureHunt_img9.jpg","./img/details/treasureHunt/details_treasureHunt_img10.jpg","./img/details/treasureHunt/details_treasureHunt_img11.jpg"],
     "color": "#09333b",
     "href": "./site/treasureHunt/index.html",
     "style": ".section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {
-    "id": "sohee",
-    "name": "",
-    "title": "",
-    "type": "모바일 최적화 페이지",
-    "date": "2020.11 ~ 2020.12",
-    "bgImg": "",
-    "screenImg": "",
-    "details": [
-      "프로젝트에 대해 / ",
-      "연계회사 / 개인프로젝트",
-      "참여인원 / 1",
-      "주요업무 / 디자인", 
-      "사용한 툴 / ", 
-      "사용한 툴 / ",
-      "작업내용 / ",
-      "배운 점 / ",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
-    ],
-    "imgs": [],
-    "color": "",
-    "href": "",
-    "style": ""
-  },
-  {
-    "id": "etcDesign",
-    "name": "그래픽디자인",
-    "title": "",
+    "id": "printDesign",
+    "name": "그래픽 디자인",
+    "title": "인쇄물 디자인",
     "type": "",
     "date": "",
-    "bgImg": "",
+    "bgImg": "./img/bg/printDesign.jpg",
     "screenImg": "",
-    "details": [
-      "프로젝트에 대해 / ",
-      "연계회사 / ",
-      "참여인원 / 1",
-      "주요업무 / 디자인", 
-      "사용한 툴 / ", 
-      "사용한 툴 / ",
-      "작업내용 / ",
-      "배운 점 / ",
-      "아쉬운 점 /",
-      "어려웠던 점 / "
-    ],
-    "imgs": [],
+    "details": [],
+    "imgs": ["./img/details/printDesign/1.jpg","./img/details/printDesign/2.jpg","./img/details/printDesign/3.jpg","./img/details/printDesign/4.jpg","./img/details/printDesign/5.jpg","./img/details/printDesign/6.jpg","./img/details/printDesign/7.jpg","./img/details/printDesign/8.jpg","./img/details/printDesign/9.jpg","./img/details/printDesign/10.jpg","./img/details/printDesign/11.jpg","./img/details/printDesign/12.jpg","./img/details/printDesign/13.jpg","./img/details/printDesign/14.jpg","./img/details/printDesign/15.jpg"],
     "color": "",
     "href": "",
-    "style": ""
+    "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap; align-items: flex-start;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}.section-explain__ul__li--imgs img:nth-of-type(10),.section-explain__ul__li--imgs img:nth-of-type(11),.section-explain__ul__li--imgs img:nth-of-type(10),.section-explain__ul__li--imgs img:nth-of-type(12),.section-explain__ul__li--imgs img:nth-of-type(13),.section-explain__ul__li--imgs img:nth-of-type(14),.section-explain__ul__li--imgs img:nth-of-type(15){width: 100%}"
+  },
+  {
+    "id": "webDesign",
+    "name": "그래픽 디자인",
+    "title": "웹 디자인",
+    "type": "",
+    "date": "",
+    "bgImg": "./img/bg/webDesign.jpg",
+    "screenImg": "",
+    "details": [],
+    "imgs": ["./img/details/webDesign/details_webDesign_img1.jpg","./img/details/webDesign/details_webDesign_img2.jpg","./img/details/webDesign/details_webDesign_img4.jpg","./img/details/webDesign/details_webDesign_img5.jpg","./img/details/webDesign/details_webDesign_img6.jpg","./img/details/webDesign/details_webDesign_img7.jpg","./img/details/webDesign/details_webDesign_img8.jpg"],
+    "color": "",
+    "href": "",
+    "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap; align-items: flex-start;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
+  },
+  {
+    "id": "videoDesign",
+    "name": "그래픽 디자인",
+    "title": "비디오 디자인",
+    "type": "",
+    "date": "",
+    "bgImg": "./img/bg/videoDesign.jpg",
+    "screenImg": "",
+    "details": [],
+    "imgs": ["./img/details/videoDesign/details_videoDesign_img1.gif","./img/details/videoDesign/details_videoDesign_img4.gif","./img/details/videoDesign/details_videoDesign_img3.gif","./img/details/videoDesign/details_videoDesign_img2.gif"],
+    "color": "",
+    "href": "",
+    "style": ".pop .go-work {display: none;}"
+  },
+  {
+    "id": "productPhotoshop",
+    "name": "포토샵 보정",
+    "title": "제품사진 보정",
+    "type": "",
+    "date": "",
+    "bgImg": "./img/bg/productPhotoshop.jpg",
+    "screenImg": "",
+    "details": [],
+    "imgs": ["./img/details/productPhotoshop/1.jpg","./img/details/productPhotoshop/2.jpg","./img/details/productPhotoshop/3.jpg","./img/details/productPhotoshop/4.jpg","./img/details/productPhotoshop/5.jpg","./img/details/productPhotoshop/6.jpg","./img/details/productPhotoshop/7.jpg","./img/details/productPhotoshop/8.jpg"],
+    "color": "",
+    "href": "",
+    "style": ".pop .go-work {display: none;} .section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap; align-items: flex-start;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {
     "id": "theschooloflife",
@@ -297,8 +303,8 @@
     "title": "지루하지 않은<br>학교 사이트",
     "type": "반응형 웹사이트",
     "date": "2019.11",
-    "bgImg": "./img/bg_school.jpg",
-    "screenImg": "./img/screen_school.png",
+    "bgImg": "./img/bg/school.jpg",
+    "screenImg": "./img/screen/screen_school.png",
     "details": [
       "프로젝트에 대해 / 인생에 대해 주제별로 배울 수 있는 학교 사이트 리디자인",
       "연계회사 / 개인프로젝트", 
@@ -310,7 +316,7 @@
       "아쉬운 점 / ",
       "어려웠던 점 / "
     ],
-    "imgs": ["./img/details_school_img1.png","./img/details_school_img2.png","./img/details_school_img3.png"],
+    "imgs": ["./img/details/school/details_school_img1.png","./img/details/school/details_school_img2.png","./img/details/school/details_school_img3.png"],
     "color": "#EE5857",
     "href":"./site/theschooloflife/index.html",
     "style": ""

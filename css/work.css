@@ -261,6 +261,7 @@ main .local {
 }
 
 .pop_in {
+  padding-bottom: 30px;
   /* width: 1250px;
   margin: auto; */
 	/* background: #fff; */

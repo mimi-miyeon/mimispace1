@@ -70,29 +70,40 @@
 					h5.classList.add('color');
 					h5.innerHTML = con.split('/')[0];
 					p.innerHTML = con.split('/')[1];
-					// li.innerHTML = con;
 					li.appendChild(h5)
 					li.appendChild(p)
 					return li;
 				};
+				
 				for(let i=0;i<object.details.length;i++){
 					explainUl.appendChild(liCreator(object.details[i]));
 				}
 
+				function imgCreator(con) {
+					const img = new Image();
+					img.src = con;
+					img.alt='';
+					return img;
+				};
+
 				if(object.details.length>0){
 					const fragment = document.createDocumentFragment();
-
-					function imgCreator(con) {
-						const img = new Image();
-						img.src = con;
-						img.alt='';
-						return img;
-					};
 					
 					for(let i=0;i<object.imgs.length;i++){
 						fragment.appendChild(imgCreator(object.imgs[i]));
 					}
 
+					const li = document.createElement('li');
+					li.classList.add('section-explain__ul__li');
+					li.classList.add('section-explain__ul__li--imgs');
+					li.appendChild(fragment);
+					explainUl.appendChild(li);
+				} else if (object.details.length === 0) {
+					const fragment = document.createDocumentFragment();
+
+					for(let i=0;i<object.imgs.length;i++){
+						fragment.appendChild(imgCreator(object.imgs[i]));
+					}
 					const li = document.createElement('li');
 					li.classList.add('section-explain__ul__li');
 					li.classList.add('section-explain__ul__li--imgs');
