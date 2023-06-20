@@ -237,8 +237,8 @@
       "배운 점 / SVG 애니메이션"
     ],
     "imgs": ["./img/details_treasureHunt_img1.jpg","./img/details_treasureHunt_img2.jpg","./img/details_treasureHunt_img3.jpg","./img/details_treasureHunt_img4.jpg","./img/details_treasureHunt_img5.jpg","./img/details_treasureHunt_img6.jpg","./img/details_treasureHunt_img7.jpg","./img/details_treasureHunt_img8.jpg","./img/details_treasureHunt_img9.jpg","./img/details_treasureHunt_img10.jpg","./img/details_treasureHunt_img11.jpg"],
-    "color": "",
-    "href": "",
+    "color": "#09333b",
+    "href": "./site/treasureHunt/index.html",
     "style": ".section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {

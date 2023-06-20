@@ -2,25 +2,25 @@
 @import url(https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900);
 @font-face {
 	font-family: Merri;
-	src: url("/site/treasureHunt/fonts/Merriweather-Black.ttf");
+	src: url("/fonts/Merriweather-Black.ttf");
 	font-weight: 900;
 }
 
 @font-face {
 	font-family: Merri;
-	src: url("/site/treasureHunt/fonts/Merriweather-Bold.ttf");
+	src: url("/fonts/Merriweather-Bold.ttf");
 	font-weight: 700;
 }
 
 @font-face {
 	font-family: Merri;
-	src: url("/site/treasureHunt/fonts/Merriweather-Regular.ttf");
+	src: url("/fonts/Merriweather-Regular.ttf");
 	font-weight: 500;
 }
 
 @font-face {
 	font-family: Merri;
-	src: url("/site/treasureHunt/fonts/Merriweather-Regular.ttf");
+	src: url("/fonts/Merriweather-Regular.ttf");
 	font-weight: 300;
 }
 * {
@@ -46,14 +46,13 @@ body {
 
 /*공통*/
 .step {
-	/* display: none; */
+	display: none;
 	position: absolute;
 	left:0;
 	right: 0;
 	bottom: 0;
 	top: 10vh;
 	margin: auto 0;
-	/* opacity: 0; */
 }
 .step	.text-wrap{
 	position: absolute;
@@ -72,9 +71,6 @@ body {
 .step .con3 {
 	display: none;
 	opacity: 0
-}
-.step .mainDish {
-	opacity: 1;
 }
 
 /*step1*/
@@ -170,7 +166,6 @@ body {
 /*question*/
 .quest {
 	display: none;
-	opacity: 0;
 	position: absolute;
 	left: 0;
 	top: -8vh;
@@ -214,7 +209,6 @@ body {
 }
 .question-hint-text {
 	display: none;
-	opacity: 0;
 	margin-top: 10px;
 	font-size: 4vw;
 	color: #F76D48;
@@ -224,9 +218,7 @@ body {
 .step,
 .correct,
 .wrong {
-	/* display: none; */
-	/* opacity: 0; */
-	transition: .3s;
+	display: none;
 }
 .wrong .text1,
 .correct .text1 {
@@ -243,27 +235,20 @@ body {
 ====btn=======
 ==============*/
 button {
-	border: 0;
-	outline: 0;
-	box-shadow: none;
 	background-color: transparent;
 }
 
 .btn-wrap {
 	display: none;
-	opacity: 0;
 	position: fixed;
 	bottom: 0;
 	width: 90%;
 	height: 15vh;
 	margin: 0 auto;
-	text-align: right;
-	transition: .3s;
+	text-align: right
 }
 .btn-wrap .next-btn,
 .btn-wrap .prev-btn {
-	/* display: none;
-	opacity: 0; */
 	position: relative;
 	width: 50px;
 	height: 50px;
@@ -282,16 +267,12 @@ button {
 .btn-wrap .prev-btn:hover {
 	fill: transparent;
 }
-.btn-wrap svg {
-	height: 100%;
-}
 
 
 /*btn js*/
-/* .step {
+.step {
 	display: none;
-	opacity: 0;
-} */
+}
 
 /*============
 ==js parallex=
