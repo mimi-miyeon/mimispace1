@@ -450,7 +450,7 @@ section {
   .section-explain__ul__li {
     width: 600px;
   }
-  .section-explain__ul__li--imgs {
+  .section-explain__ul__li.section-explain__ul__li--imgs {
     width: 90%;
   }
 }
