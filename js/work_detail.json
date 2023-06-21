@@ -133,10 +133,10 @@
       "아쉬운 점 / 시간상의 이유로 기획된 모든 기능을 끝내지 못함 점",
       "어려웠던 점 / 촬영용 카메라 반응형 작업. PC와 mobile의 화면 비율이 많이 달라서 반응형으로 카메라 촬영 영역과 바코드 인식 부분을 맞추는 점"
     ],
-    "imgs": [],
+    "imgs": ["./img/details/rinventory/1.jpg","./img/details/rinventory/1-1.jpg","./img/details/rinventory/2.jpg","./img/details/rinventory/3.jpg","./img/details/rinventory/4.jpg","./img/details/rinventory/5.jpg","./img/details/rinventory/6.jpg","./img/details/rinventory/7.jpg","./img/details/rinventory/8.jpg","./img/details/rinventory/9.jpg","./img/details/rinventory/10.jpg","./img/details/rinventory/11.jpg"],
     "color": "#ed6541",
     "href": "https://real-seller.com/inventory",
-    "style": ""
+    "style": ".section-explain__ul__li--imgs {display: flex; width: 700px; flex-wrap: wrap; align-items: flex-start;}.section-explain__ul__li--imgs img{width: 45%; margin-left: 0}"
   },
   {
     "id": "rasApp",
