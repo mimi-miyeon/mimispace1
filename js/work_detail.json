@@ -8,7 +8,7 @@
     "bgImg": "./img/bg/soop.jpg",
     "screenImg": "./img/screen/screen_soop.png",
     "details": [
-      "프로젝트에 대해 / 쉽게 건강한 음식을 요리할 수 있는 레시피 사이트",
+      "프로젝트 / 쉽게 건강한 음식을 요리할 수 있는 레시피 사이트",
       "연계회사 / 수업과제",
       "참여인원 / 2",
       "주요업무 / 기획, 디자인, 퍼블리싱", 
@@ -32,12 +32,12 @@
     "bgImg": "./img/bg/rs.jpg",
     "screenImg": "./img/screen/screen_rs.png",
     "details": [
-      "프로젝트에 대해 / 기존 홈페이지 리디자인 및 페이지 추가",
+      "프로젝트 / 기존 홈페이지 리디자인",
       "연계회사 / (주)리얼셀러", 
       "참여인원 / 2", 
       "주요업무 / 디자인, 퍼블리싱", 
       "사용한 툴 / Javascript, jQuery, HTML, CSS, Adobe XD, Photoshop, Illustrator, Procreate", 
-      "작업내용 / 콘텐츠 이미지, 배경 이미지, 페이지 디자인<br>기존 사이트를 회사소개(realseller), 서비스소개(RAS) 둘로 나눠서 리디자인 및 페이지 추가<br>구매한 템플릿을 활용해 디자인 및 퍼블리싱",
+      "작업내용 / 기존 사이트를 회사소개(realseller), 서비스소개(RAS) 둘로 나눠서 리디자인<br>구매한 템플릿을 활용해 퍼블리싱<br>콘텐츠 이미지, 배경 이미지, 페이지 디자인",
       "배운 점 / 템플릿의 클래스와 구조를 활용해 코딩하는 법"
     ],
     "imgs": ["./img/details/rs/1.png","./img/details/rs/2.png"],
@@ -54,7 +54,7 @@
     "bgImg": "./img/bg/todo.jpg",
     "screenImg": "./img/screen/screen_todo.png",
     "details": [
-      "프로젝트에 대해 / 바닐라 자바스크립트 연습을 위한 프로젝트",
+      "프로젝트 / 바닐라 자바스크립트 연습을 위한 프로젝트",
       "연계회사 / 개인프로젝트", 
       "참여인원 / 1", 
       "주요업무 / 퍼블리싱", 
@@ -78,7 +78,7 @@
     "bgImg": "./img/bg/wantit.jpg",
     "screenImg": "./img/screen/screen_wantit.png",
     "details": [
-      "프로젝트에 대해 / 모바일 및 웹앱 최적화 리디자인",
+      "프로젝트 / 모바일 및 웹앱 최적화 리디자인",
       "연계회사 / (주)리얼셀러",
       "참여인원 / 6",
       "주요업무 / 디자인, 퍼블리싱", 
@@ -101,7 +101,7 @@
     "bgImg": "./img/bg/rasWeb.jpg",
     "screenImg": "./img/screen/screen_rasWeb.png",
     "details": [
-      "프로젝트에 대해 / 서비스소개 사이트",
+      "프로젝트 / 서비스소개 사이트",
       "연계회사 / (주)리얼셀러",
       "참여인원 / 2",
       "주요업무 / 디자인, 퍼블리싱",
@@ -123,7 +123,7 @@
     "bgImg": "./img/bg/rinventory.jpg",
     "screenImg": "./img/screen/screen_rinventory.png",
     "details": [
-      "프로젝트에 대해 / 소유한 중고물품 업로드, 관리, 판매 페이지",
+      "프로젝트 / 소유한 중고물품 업로드, 관리, 판매 페이지",
       "연계회사 / (주)리얼셀러",
       "참여인원 / 2",
       "주요업무 / 디자인, 퍼블리싱",
@@ -147,7 +147,7 @@
     "bgImg": "./img/bg/rasApp.jpg",
     "screenImg": "./img/screen/screen_rasApp.png",
     "details": [
-      "프로젝트에 대해 / 어플리케이션 리디자인",
+      "프로젝트 / 어플리케이션 리디자인",
       "연계회사 / (주)리얼셀러",
       "참여인원 / 1",
       "주요업무 / 디자인",
@@ -168,7 +168,7 @@
     "bgImg": "./img/bg/kiosk.jpg",
     "screenImg": "./img/screen/screen_kiosk.png",
     "details": [
-      "프로젝트에 대해 / 방역을 위한 출입관리 키오스크",
+      "프로젝트 / 방역을 위한 출입관리 키오스크",
       "연계회사 / (주)제타뱅크",
       "참여인원 / 1",
       "주요업무 / 디자인", 
@@ -189,7 +189,7 @@
     "bgImg": "./img/bg/kioskAdmin.jpg",
     "screenImg": "./img/screen/screen_kioskAdmin.png",
     "details": [
-      "프로젝트에 대해 / 출입관리 키오스크 관리자용 어플리케이션",
+      "프로젝트 / 출입관리 키오스크 관리자용 어플리케이션",
       "연계회사 / (주)제타뱅크",
       "참여인원 / 1",
       "주요업무 / 디자인", 
@@ -210,7 +210,7 @@
     "bgImg": "./img/bg/robot.jpg",
     "screenImg": "./img/screen/screen_robot.png",
     "details": [
-      "프로젝트에 대해 / 실내 공기질 측정 로봇 UI 디자인",
+      "프로젝트 / 실내 공기질 측정 로봇 UI 디자인",
       "연계회사 / (주)제타뱅크",
       "참여인원 / 1",
       "주요업무 / 디자인"
@@ -229,7 +229,7 @@
     "bgImg": "./img/bg/treasureHunt.jpg",
     "screenImg": "./img/screen/screen_treasureHunt.png",
     "details": [
-      "프로젝트에 대해 / 크리스마스 선물 찾기<br>이벤트 페이지",
+      "프로젝트 / 크리스마스 선물 찾기<br>이벤트 페이지",
       "연계회사 / 개인프로젝트",
       "참여인원 / 1",
       "주요업무 / 디자인", 
@@ -306,7 +306,7 @@
     "bgImg": "./img/bg/school.jpg",
     "screenImg": "./img/screen/screen_school.png",
     "details": [
-      "프로젝트에 대해 / 인생에 대해 주제별로 배울 수 있는 학교 사이트 리디자인",
+      "프로젝트 / 인생에 대해 주제별로 배울 수 있는 학교 사이트 리디자인",
       "연계회사 / 개인프로젝트", 
       "참여인원 / 1", 
       "주요업무 / 기획, 디자인, 퍼블리싱", 
