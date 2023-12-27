@@ -91,7 +91,7 @@ function copyButtonValue() {
  * 
  */
 async function fetchProjectList () {
-  const url = '/data/project/list/projectList.json';
+  const url = 'mimispace1/data/project/list/projectList.json';
   try 
   {
     const response = await fetch(url);
