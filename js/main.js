@@ -91,7 +91,7 @@ function copyButtonValue() {
  * 
  */
 async function fetchProjectList () {
-  const url = '../data/project/list/projectList.json';
+  const url = 'data/project/list/projectList.json';
   try 
   {
     const response = await fetch(url);
@@ -173,7 +173,7 @@ const handleProjectId = () => {
       a.addEventListener('click', (e)=>{
         e.preventDefault();
         const id = a.getAttribute('id');
-        window.location.href = `../detail.html?id=${id}`;
+        window.location.href = `detail.html?id=${id}`;
       });
     }
   })
