@@ -3,7 +3,7 @@ async function fetchPage () {
   var linkId = urlParams.get('id');
 
   try {
-    const response = await fetch(`/mimispace1/data/project/detail/${linkId}.html`);
+    const response = await fetch(`../data/project/detail/${linkId}.html`);
     if(!response.ok) {
       throw new Error('Network response was not ok');
     }
