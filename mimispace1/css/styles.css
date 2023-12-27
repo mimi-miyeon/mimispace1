@@ -1,0 +1,242 @@
+/*
+*
+* 브라우저 스타일 초기화
+* Initialize browser css style
+*
+*/
+* {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+  -ms-progress-appearance: none;
+
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-decoration: none;
+	box-sizing: border-box;
+}
+ul,li,ol {
+  list-style: none;
+}
+a,
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  line-height: normal;
+  cursor: pointer;
+  overflow: visible;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none; 
+}
+small {
+  font-size: .7em;
+}
+/*
+*
+* 변수 값 설정
+*
+*/
+:root {
+  --wContent: 1000px;
+  --hHeader: 5rem;
+  --content-padding: 4rem;
+
+  /* --cDark-background: #376e46; */
+  --cDark-background: #415441;
+  --cGreyOne: #dbede0;
+  --cGreyTwo: #acc3b1;
+  --cTintBlue: #50e0b5;
+  --cBeige: #f0e7a2;
+
+  --cLight-background: #c6be8d;
+  --ffHighLight: 'Jua', sans-serif;
+}
+
+
+/*
+*
+* 기본 스타일 설정
+*
+*/
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  color: var(--cGreyTwo);
+  background-color: var(--cDark-background);
+}
+a,
+button {
+  font-weight: 700; 
+  font-style: italic;
+  transition: .3s;
+}
+button:hover,a:hover {
+  color: var(--cTintBlue);
+}
+.btnIcon {
+  display: inline-block;
+  transition: .3s;
+}
+a:hover .btnIcon,
+button:hover .btnIcon {
+  animation: btnIcon 1s ease-out;
+}
+@keyframes btnIcon {
+  0% {
+    transform: translateY(0px)
+  }
+  25% {
+    transform: translateY(-5px) rotateZ(15deg);
+  }
+  50% {
+    transform: translateY(-5px) rotateZ(-15deg);
+  }
+  100% {
+    transform: rotateZ(0deg)
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+/* 영문 폰트 */
+.en {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.container {
+  width: var(--wContent);
+  margin-left: auto; margin-right: auto;
+}
+section {
+  margin-top: 4rem;
+}
+
+/*
+*
+* PC 스타일링
+*
+*/
+
+/* 배경 시작 */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+.colour-holder {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  opacity: .7;
+  transform-origin: 0 50%;
+}
+.colour-holder div {
+  filter: blur(15px);
+  transform-origin: 100%;
+  transform-origin: 0 50%;
+  border-radius: 50%;
+  animation: moveCloud 8s ease-in infinite alternate;
+  transform:  scale(4) skewY(10deg);
+}
+.colour-holder .one {
+  border-radius: 0 0 50% 0;
+  background-color: #ff7cd5;
+}
+.colour-holder .two {
+  border-radius: 50%;
+  background-color: #b9ce1a;
+}
+.colour-holder .three {
+  background-color: #3a90e6;
+}
+.colour-holder .four {
+  background-color: #95d516;
+}
+.colour-holder .five {
+  background-color: #27322a;
+}
+.colour-holder .six {
+  background-color: #0f7124;
+}
+.colour-holder .seven {
+  background-color: #3f8637;
+}
+.colour-holder div:first-child,
+.colour-holder div:nth-of-type(2),
+.colour-holder div:nth-of-type(3),
+.colour-holder div:nth-of-type(9) {
+  animation-name: moveCloudSmall;
+}
+.background .mask {
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient( 
+    to bottom, 
+    rgba(65, 84, 65, 0) 0%, 
+    rgba(65, 84, 65, .013) 9.7%, 
+    rgba(65, 84, 65, .049) 18.1%, 
+    rgba(65, 84, 65, .104) 25.5%, 
+    rgba(65, 84, 65, .175) 31.9%, 
+    rgba(65, 84, 65, .259) 37.7%, 
+    rgba(65, 84, 65, .352) 43%, 
+    rgba(65, 84, 65, .45) 47.9%, 
+    rgba(65, 84, 65, .55) 52.8%, 
+    rgba(65, 84, 65, .648) 57.7%, 
+    rgba(65, 84, 65, .741) 63%, 
+    rgba(65, 84, 65, .825) 68.7%, 
+    rgba(65, 84, 65, .896) 75%, 
+    rgba(65, 84, 65, .951) 82.2%, 
+    rgba(65, 84, 65, .987) 90.5%, 
+    rgba(65, 84, 65) 100%
+  );
+}
+
+@keyframes moveCloud {
+  0% {
+    opacity: 0;
+    transform: scale(3) skewY(0) translateX(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(4) skewY(20deg) translate(50px);
+  }
+}
+@keyframes moveCloudSmall {
+  0% {
+    opacity: .5;
+    transform: scale(2) skewX(20deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.5) skewX(0);
+  }
+} 
+
+/*
+*
+* Mobile 스타일링
+*
+*/
+@media (max-width: 1000px) {
+  :root {
+    --wContent: 100%;
+    --content-padding: 2.5rem;
+  }
+}

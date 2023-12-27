@@ -1,0 +1,620 @@
+@charset "utf-8";
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(normalize.css);
+@import url(all.min.css);
+
+/*font*/
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #efefef;
+  background: #000;
+}
+
+.wrap {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden
+}
+button {
+  background: transparent;
+  color: #efefef;
+  cursor: pointer
+}
+.btn {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+
+  padding: 5px;
+  font-size: 24px;
+  z-index: 1;
+}
+.btn:hover {
+  color: #c9c9c9;
+}
+
+.fa-bars {
+  animation: btn 0.8s infinite alternate
+}
+.fa-bars:hover {
+  animation-play-state: paused
+}
+
+.fa-slash {
+  font-size: 16px;
+  display: none;
+}
+
+/*button animation*/
+@keyframes btn {
+  0% {
+    opacity: 0.5;
+    transform: scale(1)
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.1)
+  }
+}
+/*header*/
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  width: 100%;
+  height: 100%;
+  
+  background: #111;
+  z-index: 1
+}
+header .header-con {
+  position: relative;
+  float: left;
+  left: -5%;
+	
+  width: 25%;
+  height: 100%;
+	opacity: 0
+}
+header .header-con:after {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  
+  content: '';
+  width: 1px;
+  height: 600px;
+  
+  margin-top: -300px;
+  background: #555;
+}
+.header-con .logo {
+  position: absolute;
+  left: 100px;
+  top: 40px;
+
+	height: 20px;
+}
+.header-con .logo img {
+  display: block;
+  
+  height: 100%;
+}
+
+.header-con .gnb {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  
+  margin-top: -125px;
+  width: 100%;
+}
+.header-con .gnb a {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  margin-bottom: 15px;
+  text-align: center;
+  letter-spacing: 1.5px;
+  transition: 0.3s;
+}
+.header-con .gnb a:hover {
+  color: #888;
+}
+
+.header-con .sns {
+  position: absolute;
+  bottom: 50px;
+  left: 25%;
+}
+.header-con .sns a {
+  display: block;
+  float: left;
+  text-align: center;
+  padding: 5px 10px;
+  margin-right: 10px;
+  
+  font-size: 14px;
+  color: #555;
+  transition: all 0.3s
+
+}
+.header-con .sns a:hover {
+  color: #888;
+  text-decoration: underline
+}
+
+header .header-pic {
+  position: relative;
+  top: 50%;
+  float: left;
+  
+  width: 50%;
+  height: 720px;
+  
+  margin-left: -5%;
+  margin-top: -360px;
+	opacity: 0;
+}
+header .header-pic p {
+  position: absolute;
+  left: 110px;
+  
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: right;
+  color: #b12033;
+}
+header .header-pic h2:before {
+  position: absolute;
+  right: 0;
+  top: -50px;
+  
+  content: '';
+  width: 80px;
+  height: 1px;
+  background: #b12033;
+}
+header .header-pic h2 {
+  position: absolute;
+  left: 0;
+  bottom: 300px;
+  
+  color: #b12033;
+  font-size: 50px;
+  text-transform: uppercase
+}
+header .header-pic a {
+  position: absolute;
+  bottom: 0;
+  display: block;
+  opacity: 0.5;
+  overflow: hidden;
+  transition: all 0.5s
+}
+header .header-pic a:hover {
+  opacity: 1
+}
+header .header-pic a:nth-of-type(1) {
+  left: 0;
+  
+  width: 40%;
+}
+header .header-pic a:nth-of-type(1) img {
+  display: block;
+  width: 100%;
+}
+header .header-pic a:nth-of-type(2) {
+  left: 0;
+  margin-left: 45%;
+  width: 40%; 
+}
+header .header-pic a:nth-of-type(2) img {
+  display: block;
+  width: 100%;
+}
+
+/*video page*/
+.visual {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: -7.8%;
+  bottom: 0;
+  
+  width: 100%;
+  height: 100%;
+}
+.visual video {
+  min-width: 100%;
+  min-height: 100%;
+}
+.visual .text-box {
+  position: absolute;
+  right: 3%;
+  bottom: 7%;
+}
+.visual .text-box h2 {
+  text-align: right;
+  margin-bottom: 10px;
+}
+.visual .text-box p {
+  text-align: right
+}
+
+/*.con1 {display: none;}*/
+/*section1 con1*/
+main {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+}
+main section {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+article {
+  float: left;
+}
+/*article1*/
+.con1 .con1-art1 {
+  width: 25%;
+  height: 100%;
+}
+.con1-art1 .art1-bg1 {
+  display: block;
+  width: 100%;
+  height: 16.6666%;
+  background: #663333;
+}
+.con1-art1 .art1-bg2 {
+  display: block;
+  width: 100%;
+  height: 16.6666%;
+  background: #564624;
+}
+.con1-art1 a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 66.6666%;
+  background: #3d3425;
+}
+.con1-art1 .art1-pic {
+  height: 100%;
+  opacity: 0.5;
+  background: url(../img/menu-pic1.jpg) no-repeat 0 0 / cover;
+  transition: all 0.5s
+}
+.con1-art1 img {
+  display: block;
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 30px;
+  transition: all 0.3s
+}
+.con1-art1 h3 {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  
+  width: 250px;
+  margin-left: -125px;
+  font-size: 2vw;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(0,0,0, 0.5);
+  opacity: 0;
+  transition: all 0.5s
+}
+
+.con1-art1 a:hover .art1-pic,
+.con1-art1 a:hover h3 {
+  opacity: 1
+}
+.con1-art1 a:hover img {
+  opacity: 0
+}
+
+/*article2*/
+.con1-art2 {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  background: #732e15;
+}
+.con1-art2 .art2-bg {
+  display: block;
+  width: 100%;
+  height: 16.6666%;
+  background: #855a3a;
+}
+
+.con1-art2 a {
+  position: absolute;
+  top: 3%;
+  left: 15%;
+  
+  width: 70%;
+	height: 83%;
+ }
+.con1-art2 .art2-pic {
+  height: 100%;
+  background: url(../img/menu-pic2.jpg) no-repeat 0 0 / cover;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+
+.con1-art2 img {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+  width: 30px;
+}
+.con1-art2 .text-box {
+  text-align: center;
+  margin-top: 20px;
+}
+.con1-art2 h2 {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+/*article3*/
+.con1 .con1-art3 {
+  width: 25%;
+  height: 100%;
+}
+.con1-art3 .art3-bg {
+  display: block;
+  width: 100%;
+  height: 33.3333%;
+  background: #463c18;
+}
+.con1-art3 a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 66.6666%;
+  background: #4b3d2a;
+}
+.con1-art3 .art3-pic {
+  height: 100%;
+  opacity: 0.5;
+  background: url(../img/menu-pic3.jpg) no-repeat 0 0 / cover;
+  transition: all 0.5s
+}
+.con1-art3 img {
+  display: block;
+  position: absolute;
+  bottom: 40px;
+  left: 40px;
+  width: 30px;
+  transition: all 0.3s
+}
+.con1-art3 h3 {
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  
+  width: 250px;
+  margin-left: -125px;
+  font-size: 2vw;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(0,0,0, 0.5);
+  opacity: 0;
+  transition: all 0.5s
+}
+.con1-art3 a:hover .art3-pic,
+.con1-art3 a:hover h3 {
+  opacity: 1
+}
+.con1-art3 a:hover img {
+  opacity: 0
+}
+/*.con1, .visual {display: none;}*/
+
+/*section2 .con2*/
+.con2 {}
+.con2 .con2-art1 {
+  position: relative;
+  width: 75%;
+  height: 100%;
+  background: #5f2e04;
+}
+.con2-art1 .art1-bg1 {
+  display: block;
+  width: 25%;
+  height: 49.9998%;
+  
+  margin-top: 16.6666%;
+  background: #704119;
+}
+.con2-art1 .art1-bg2 {
+  display: block;
+  width: 100%;
+  height: 24.4%;
+  
+  background: #691b07;
+}
+.con2-art1 a {
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 20%;
+  height: 40%;
+  
+  overflow: hidden
+}
+.con2-art1 .pic-wrap {
+  width: 90%;
+  height: 80%;
+  position: red;
+  
+  background: #473a1e;
+  overflow: hidden;
+}
+.con2-art1 .art1-pic {
+  display: block;
+  height: 100%;
+  background: url(../img/menu-pic4.jpg) no-repeat 0 0 / cover;
+  opacity: 0.5;
+  transition: all 0.5s
+}
+.con2-art1 img {
+  display: block;
+  width: 30px;
+  margin-bottom: 30px;
+  margin-left: 30px;
+  opacity: 0;
+  transition: all 0.3s
+}
+.con2-art1 h3 {
+  position: absolute;
+  top: 45%;
+  left: 0;  
+  width: 90%;
+  font-size: 2vw;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(0,0,0, 0.5);
+/*  opacity: 0;*/
+  transition: all 0.5s  
+}
+
+.con2-art1 a:hover h3 {
+  opacity: 0
+}
+.con2-art1 a:hover img,
+.con2-art1 a:hover .art1-pic {
+  opacity: 1
+}
+
+/*con2-video*/
+.con2-art1 .vid-wrap {
+  position: absolute;
+  left: 25%;
+  bottom: 45%;
+  
+  width: 80%;
+  
+  margin-bottom: -19%;
+  z-index: 1
+}
+.con2-art1 video {
+  width: 100%;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5)
+}
+.con2-art1 .text-box {
+  position: absolute;
+  width: 100%;
+  margin-top: 20px;
+}
+.con2-art1 .text-box h2 {
+  text-align: center;
+  
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+.con2-art1 .text-box p {
+  text-align: center;
+}
+
+/*co2-art3*/
+.con2-art3 {
+  position: relative;
+  width: 25%;
+  height: 100%;
+  
+  background: #081a06;
+}
+.con2-art3 .art3-pic1 {
+  width: 100%;
+  height: 66.6666%;
+  background: #461513;
+}
+.con2-art3 .art3-pic1 a {
+  display: block;
+  height: 100%;
+  background: url(../img/menu-pic5.jpg) no-repeat 0 0 / cover;
+  opacity: 0.5;
+  cursor: cell;
+  transition: all 0.5s
+}
+.con2-art3 .art3-pic2 {
+  display: block;
+  
+  width: 60%;
+  height: 33.3333%;
+  
+  margin-left: 40%;
+  background: url(../img/menu-pic6.jpg) no-repeat 0 0 / cover;
+  opacity: 0.5;
+  transition: all 0.5s
+}
+.con2-art3 h3 {  
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  
+  width: 250px;
+  margin-left: -125px;
+  font-size: 2vw;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(0,0,0, 0.5);
+/*  opacity: 0;*/
+  transition: all 0.5s
+}
+.con2-art3 img {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  display: block;
+  width: 30px;
+  opacity: 0;
+  transition: all 0.3s
+}
+.con2-art3 a:hover h3 {
+  opacity: 0
+}
+.con2-art3 .art3-pic1 a:hover,
+.con2-art3 a:hover .art3-pic2,
+.con2-art3 a:hover img {
+  opacity: 1
+}
+/*.con2 {display: none;}*/
+/*jQuery*/
+header {
+  left: -2000px;
+  opacity: 0;
+  transition: all 1.5s
+}
+
+header.on {
+  left: 0;
+  opacity: 1
+}
+
+main section {
+  display: none;
+  opacity: 0;
+  transition: all 1.5s
+}
+header .logo:focus,
+main section.on {
+  z-index: 1;
+  display: block;
+  opacity: 1;
+}
+
+header .gnb a.on {
+  color: #b12033;
+}

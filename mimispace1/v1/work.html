@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://mimi-miyeon.github.io/mimispace1/" />
+	<meta property="og:title" content="미미의 포트폴리오" />
+	<meta property="og:image" content="./img/metaOg.jpg" />
+	<meta property="description" content="미미의 포트폴리오 사이트 입니다." />
+	<meta property="og:site_name" content="포트폴리오" />
+	<meta property="og:locale" content="ko" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="630" />
+	<meta name="twitter:card" content="summary" /> 
+	<meta name="twitter:title" content="포트폴리오" /> 
+	<meta name="twitter:description" content="미미의 포트폴리오 사이트 입니다." /> 
+	<meta name="twitter:image" content="./img/metaOg.jpg" />
+	
+	<link rel="stylesheet" href="css/work.css">
+	<link rel="stylesheet" href="css/base.css">
+	<title>Mimi</title>
+	<link rel="shortcut icon" href="img/fabicon-03.ico">
+
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/work.js"></script>
+	<script src="js/base.js"></script>
+</head>
+
+<body>
+	<!-- ajax popup -->
+	<div class="pop">
+		<button class="close"><img src="img/close.png" alt="닫기버튼"></button>
+		<a target="_blank" class="go-work">website</a>
+
+		<div class="pop_in">
+			<div class="section-header__bg">
+				<div class="section-header__bg__img"></div>
+			</div>
+			<section class="section-header">
+				<div class="section-header__inner">
+					<div class="section-header__inner__texts">
+						<h3 class="project-name"></h3>
+						<h4 class="project-title"></h4>
+						<p class="project-type"></p>
+						<p class="project-date"></p>
+					</div>
+				</div>
+			</section>
+			<section class="section-explain">
+				<ul class="section-explain__ul">
+					<li class="section-explain__ul__li section-explain__ul__li--imgs">
+					</li>
+				</ul>
+			</section>
+		</div>
+	</div>
+
+	<header>
+		<div class="header-con">
+		
+		<h1 class="logo">
+			<a href="index.html">
+				<span class="hidden">mimi</span>
+			</a>
+		</h1>
+			<ul class="gnb kr">
+				<li>
+					<a href="index.html"><b>첫화면</b><strong>첫화면</strong></a>
+				</li>
+				
+				<li>
+					<a href="work.html"><b>작업물</b><strong>작업물</strong></a>
+				</li>
+
+				<li>
+					<a href="contact.html"><b>연락처</b><strong>연락처</strong></a>
+				</li>
+			</ul>
+			
+			<div class="mobile-menu">
+				<button class="bar"><img src="img/mobile-menu.png" alt="메뉴"></button>
+				<button class="close"><img src="img/close.png" alt="닫기"></button>
+			</div>
+		</div>
+		
+	</header>
+
+	<main>
+		<div class="main-con clearfix">
+			<nav class="local">
+				<a class="en">etc</a>
+				<a class="en">graphic</a>
+				<a class="en">web</a>
+				<a class="en on">all</a>
+			</nav>
+
+			<ul class="work">
+				<!--left-->
+				<li class="con-left">
+
+					<div class="con all web">
+						<a aria-labelledby="realseller">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/rs.jpg);"></div>
+								<p>반응형 웹사이트</p>
+							</div>
+						</a>
+						<h2 class="en">realseller</h2>
+						<p>회사소개 리디자인</p>
+					</div>
+
+					<div class="con all web">
+						<a aria-labelledby="soop">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/soop.jpg);"></div>
+								<p>반응형 웹사이트</p>
+							</div>
+						</a>
+						<h2 class="en">soop</h2>
+						<p>쉽고 건강한 레시피 사이트</p>
+					</div>
+
+					<div class="con all web">
+						<a aria-labelledby="rinventory">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/rinventory.jpg);"></div>
+								<p>모바일 최적화 페이지</p>
+							</div>
+						</a>
+						<h2 class="en">Rinventory</h2>
+						<p>중고물품 관리, 판매 페이지</p>
+					</div>
+
+					<div class="con all graphic">
+						<a aria-labelledby="rasApp">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/rasApp.jpg);"></div>
+								<p>어플리케이션 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">RAS App</h2>
+						<p>판매자 인증, 검색 어플리케이션</p>
+					</div>
+					
+					<div class="con all graphic">
+						<a aria-labelledby="covidKioskAdmin">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/kioskAdmin.jpg);"></div>
+								<p>어플리케이션 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">키오스크 관리자 어플리케이션</h2>
+						<p>키오스크 관리자용 어플리케이션</p>
+					</div>
+					
+					<div class="con all graphic">
+						<a aria-labelledby="robotUI">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/robot.jpg);"></div>
+								<p>로봇 UI 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">방역로봇</h2>
+						<p>공기질 측정 로봇 UI 디자인</p>
+					</div>
+
+					<div class="con all graphic">
+						<a aria-labelledby="videoDesign">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/videoDesign.jpg);"></div>
+								<p>그래픽 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">비디오 디자인</h2>
+						<p>짧은 드로잉 비디오</p>
+					</div>
+
+					<div class="con all graphic">
+						<a aria-labelledby="productPhotoshop">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/productPhotoshop.jpg);"></div>
+								<p>포토샵 보정</p>
+							</div>
+						</a>
+						<h2 class="en">제품보정</h2>
+						<p>포토샵으로 제품보정</p>
+					</div>
+				</li>
+
+				<!--right-->
+				<li class="con-right">
+					<div class="con all web">
+						<a aria-labelledby="todoApp">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/todo.jpg);"></div>
+								<p>모바일 최적화 페이지</p>
+							</div>
+						</a>
+						<h2 class="en">Todo App</h2>
+						<p>바닐라 자바스크립트를 이용한 Todo App</p>
+					</div>
+
+					<div class="con all web">
+						<a aria-labelledby="wantit">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/wantit.jpg);"></div>
+								<p>반응형 웹사이트</p>
+							</div>
+						</a>
+						<h2 class="en">wantit</h2>
+						<p>중고폰 비교 플랫폼</p>
+					</div>
+
+					<div class="con all web">
+						<a aria-labelledby="rasWeb">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/rasWeb.jpg);"></div>
+								<p>반응형 웹사이트</p>
+							</div>
+						</a>
+						<h2 class="en">RAS Web</h2>
+						<p>서비스소개 사이트</p>
+					</div>
+					
+					<div class="con all graphic">
+						<a aria-labelledby="covidKiosk">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/kiosk.jpg);"></div>
+								<p>키오스크 화면 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">키오스크</h2>
+						<p>코로나 출입관리 키오스크 디자인</p>
+					</div>
+					
+					<div class="con all web">
+						<a aria-labelledby="treasureHunt">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/treasureHunt.jpg);"></div>
+								<p>모바일 최적화 페이지</p>
+							</div>
+						</a>
+						<h2 class="en">보물찾기</h2>
+						<p>선물 찾기 이벤트 사이트</p>
+					</div>
+
+					<div class="con all graphic">
+						<a aria-labelledby="printDesign">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/printDesign.jpg);"></div>
+								<p>인쇄물 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">종이 인쇄 디자인</h2>
+						<p>포스터 등 디자인 </p>
+					</div>
+
+					<div class="con all graphic">
+						<a aria-labelledby="webDesign">
+							<div class="pic-wrap">
+								<div class="pic" style="background-image: url(./img/bg/webDesign.jpg);"></div>
+								<p>웹 디자인</p>
+							</div>
+						</a>
+						<h2 class="en">웹콘텐츠 디자인</h2>
+						<p>배너 등 디자인 </p>
+					</div>
+				</li>
+			</ul>
+
+		</div>
+	</main>
+
+	<footer>
+		<address>&copy; Miyeon Mimi Yang 2020</address>
+	</footer>
+</body>
+
+</html>

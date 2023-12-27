@@ -1,0 +1,300 @@
+@import url(../css/normalize.css);
+@import url(https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900);
+@font-face {
+	font-family: Merri;
+	src: url("/fonts/Merriweather-Black.ttf");
+	font-weight: 900;
+}
+
+@font-face {
+	font-family: Merri;
+	src: url("/fonts/Merriweather-Bold.ttf");
+	font-weight: 700;
+}
+
+@font-face {
+	font-family: Merri;
+	src: url("/fonts/Merriweather-Regular.ttf");
+	font-weight: 500;
+}
+
+@font-face {
+	font-family: Merri;
+	src: url("/fonts/Merriweather-Regular.ttf");
+	font-weight: 300;
+}
+* {
+	margin: 0;
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	font-family: Merri;
+	font-size: 6vw;
+	font-weight: 300;
+	color: #ffffff;
+	background-color: #09333B;
+	overflow: hidden;
+}
+.main-con {
+	position: relative;
+	width: 100%;
+	height: 85vh;
+	overflow: hidden;
+}
+
+/*공통*/
+.step {
+	display: none;
+	position: absolute;
+	left:0;
+	right: 0;
+	bottom: 0;
+	top: 10vh;
+	margin: auto 0;
+}
+.step	.text-wrap{
+	position: absolute;
+	top: -10vh;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: fit-content;
+	margin: auto;
+	text-align: center;
+	line-height: 1.4
+}
+.step .text1 {
+	margin-bottom: 3vh;
+}
+.step .con3 {
+	display: none;
+	opacity: 0
+}
+
+/*step1*/
+.onion {
+	width: 35vh;
+	top: 0;
+	right: -17vh;
+	position: absolute;
+	fill: #F76D48;
+}
+.gift1 {
+	position: absolute;
+	width: 10vh;
+	bottom: 10vh;
+	left: 15vw;
+}
+.gift1 .cls-1 {
+	fill:#fff;
+}
+.gift1 .cls-2 {
+	fill:#09333b;
+}
+.gift1 .cls-3 {
+	fill:#f9ab2d;
+}
+
+/*step2*/
+.step2 .text2 {
+	font-size: 12vw
+}
+.mainDish {
+	width: 60vw;
+	height: 20vh;
+	margin: auto;
+	margin-top: 6vh;
+	display: none;
+}
+
+/*step3*/
+.step3 .text2 {
+	font-size: 4vw;
+}
+
+/*step4*/
+.step4 .text2 {
+	font-size: 4vw;
+}
+
+/*step5*/
+.step5 .tree {
+	position: absolute;
+	left: -6vw;
+	top: -4vh;
+	width: 25vw;
+}
+.step5 .gift2 {
+	position: absolute;
+	right: -2vw;
+	bottom: 7vw;
+	height: 23vh;
+}
+
+/*step6*/
+.step6 .text1 {
+	margin-bottom: 0;
+	margin-top: 20vh;
+}
+.step6 .con3 {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 3vh;
+	margin: 0 auto;
+	width: 50vw;
+}
+
+/*step7*/
+.step7 .text-wrap {
+	padding-top: 20vw;
+}
+.step7 .text1 {
+	font-size: 12vw
+}
+.step7 .con3 {
+	position: absolute;
+	top: 40px;
+	left: 0;
+	right: 0;
+	width: 80vw;
+	margin: 0 auto;
+}
+
+/*question*/
+.quest {
+	display: none;
+	position: absolute;
+	left: 0;
+	top: -8vh;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	line-height: 1.4;
+}
+.quest .text-wrap {
+	margin: 40% 0;
+}
+.quest .text1 {}
+.quest .question {
+	margin-top: 10px;
+}
+.quest .text2 {}
+.quest input {
+	margin-top: 20px;
+	padding: 10px 0;
+	color: #F76D48;
+	text-align: center;
+	border: 0;
+	border-bottom: 1px solid #ffffff;
+	border-radius: 0;
+	background-color: transparent;
+}
+.quest input:focus,
+.quest input:active {
+	outline: none;
+	background-color: transparent
+}
+/*
+.quest .hint {
+	display: none;
+	margin-top: 10px;
+	font-size: 4vw;
+}
+*/
+.quest .text-wrap .scale {
+	transform: translateY(-10vh) scale(0.7)
+}
+.question-hint-text {
+	display: none;
+	margin-top: 10px;
+	font-size: 4vw;
+	color: #F76D48;
+}
+
+/*correct*/
+.step,
+.correct,
+.wrong {
+	display: none;
+}
+.wrong .text1,
+.correct .text1 {
+	margin-bottom: 1vh;
+}
+.wrong img,
+.correct img {
+	display: block;
+	width: 70vw;
+	margin: 0 auto
+}
+
+/*============
+====btn=======
+==============*/
+button {
+	background-color: transparent;
+}
+
+.btn-wrap {
+	display: none;
+	position: fixed;
+	bottom: 0;
+	width: 90%;
+	height: 15vh;
+	margin: 0 auto;
+	text-align: right
+}
+.btn-wrap .next-btn,
+.btn-wrap .prev-btn {
+	position: relative;
+	width: 50px;
+	height: 50px;
+	stroke: #ffffff;
+	stroke-width: 1px;
+	fill: transparent;
+	overflow: visible;
+	cursor: pointer;
+	transition: 0.5s
+}
+.btn-wrap .next-btn:focus,
+.btn-wrap .prev-btn:focus,
+.btn-wrap .next-btn:active,
+.btn-wrap .prev-btn:active,
+.btn-wrap .next-btn:hover,
+.btn-wrap .prev-btn:hover {
+	fill: transparent;
+}
+
+
+/*btn js*/
+.step {
+	display: none;
+}
+
+/*============
+==js parallex=
+==============*/
+.text1,
+.text2 {
+	opacity: 0;
+	transition: 2s
+}
+.text1 {
+	transform: translateY(15vh);
+}
+.text2 {
+	transform: translateY(10vh);
+}
+
+.text-wrap .paral {
+	opacity: 1;
+	transform: translateY(0)
+}
+.text-wrap .paral2 {
+	display: block;
+	opacity: 1;
+	transform: translateY(0)
+} 

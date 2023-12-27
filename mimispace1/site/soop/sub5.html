@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/sub5.css">
+	<title>Soop - 쉽고 건강하게</title>
+
+	<script src="js/jquery-1.12.4.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/sub5.js"></script>
+	<script src="js/base.js"></script>
+</head>
+
+<body>
+	<header>
+		<div class="header-con">
+			<h1 class="logo"><a href="index.html">soop</a></h1>
+
+			<div class="gnb-wrap">
+				<nav class="gnb">
+					<a href="#">레시피</a>
+					<a href="#">숲TV</a>
+					<a href="#">숲TIP</a>
+					<a href="#">스토어</a>
+					<a href="./sub5.html">냉장고</a>
+				</nav>
+			</div>
+
+			<div class="second-nav">
+				<button class="search-btn">
+					<i class="fas fa-search"></i></button>
+				<button class="login">로그인</button>
+				<button class="menu"><img src="img/menu-btn.png" alt="menu button"></button>
+				<button class="close"><img src="img/close-btn.png" alt="close menu"></button>
+			</div>
+		</div>
+
+		<div class="search-wrap">
+			<button class="close"><img src="img/close-btn.png" alt="검색창 닫기"></button>
+			<div class="search-box">
+				<input type="text" value="키워드를 검색하세요." id="search">
+				<button class="search-btn2"><i class="fas fa-search"></i></button>
+			</div>
+			<div class="search-text">
+				<b>인기검색어</b>
+				<p>
+					<a href="#">&#35;겨울</a>
+					<a href="#">&#35;다이어트</a>
+					<a href="#">&#35;호박</a>
+					<a href="#">&#35;샐러드</a>
+					<a href="#">&#35;스프</a>
+					<a href="#">&#35;파티</a>
+				</p>
+			</div>
+		</div>
+	</header>
+
+	<main>
+		<div class="title-con">
+			<div class="text">
+				<a href="#"><b>마이스토리</b></a>
+				<h2>식재료 관리</h2>
+			</div>
+			<p>
+				우리 집에 있는 식재료도 한눈에 살펴 보고 먹고싶은 재료로 <br>
+				오늘 요리할 레시피 추천도 받아보세요. <br>
+				생각지도 못 한 추천 요리가 당신을 기다리고 있을 거에요!
+			</p>
+		</div>
+
+		<div class="main-con clearfix">
+			<div class="con-wrap">
+				<h3>
+					<a href="#" class="combine">식재료 추가</a>
+				</h3>
+				<h3><a href="#" class="add">재료 조합하기</a></h3>
+				<div class="left clearfix">
+
+					<ul class="option-wrap">
+						<li class="opt opt1 clearfix">
+							<b>01</b>
+							<a href="#">
+								<h4>채소/과일</h4>
+							</a>
+						</li>
+
+						<li class="opt opt2">
+							<div class="more clearfix">
+								<b>02</b>
+								<a href="#">
+									<h4>고기</h4>
+								</a>
+							</div>
+						</li>
+
+						<li class="opt opt3">
+							<div class="more clearfix">
+								<b>03</b>
+								<a href="#">
+									<h4>수산물</h4>
+								</a>
+							</div>
+						</li>
+
+						<li class="opt opt4">
+							<div class="more clearfix">
+								<b>04</b>
+								<a href="#">
+									<h4>유제품</h4>
+								</a>
+							</div>
+						</li>
+
+						<li class="opt opt5">
+							<div class="more clearfix">
+								<b>05</b>
+								<a href="#">
+									<h4>양념/향신료</h4>
+								</a>
+							</div>
+						</li>
+
+						<li class="opt opt6">
+							<div class="more clearfix">
+								<b>06</b>
+								<a href="#">
+									<h4>기타</h4>
+								</a>
+							</div>
+						</li>
+
+					</ul>
+				</div>
+
+				<div class="right">
+
+					<!--jQuery-->
+					<div class="ingre ingre1 clearfix">
+						<div class="opt-pic">
+							<button class="pic pic1"></button>
+							<p>가지</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic2"></button>
+							<p>당근</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic3"></button>
+							<p>버섯</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic4"></button>
+							<p>파프리카</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic5"></button>
+							<p>양파</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic6"></button>
+							<p>감자</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic7"></button>
+							<p>레몬</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic8"></button>
+							<p>아보카도</p>
+						</div>
+					</div>
+
+					<div class="ingre ingre2 clearfix">
+						<div class="opt-pic">
+							<button class="pic pic5"></button>
+							<p>양파</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic6"></button>
+							<p>감자</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic7"></button>
+							<p>레몬</p>
+						</div>
+
+						<div class="opt-pic">
+							<button class="pic pic8"></button>
+							<p>아보카도</p>
+						</div>
+					</div>
+
+					<div class="recom-wrap">
+						<div class="recom-con clearfix aubergine">
+							<a href="#">추천 레시피 더보기 &#43;</a>
+
+							<div class="con-left">
+								<div class="left-pic">
+
+									<button class="far fa-heart"></button>
+									<button class="fas fa-heart"></button>
+									<a href="#" class="pic"></a>
+								</div>
+							</div>
+
+							<div class="right-text">
+								<b>선택한 재료로 만들어요!</b>
+								<h4>추천 레시피</h4>
+
+								<ul class="text-wrap">
+									<li class="text-opt">
+										<a href="#">토실토실한 가지에 야채로 꼭꼭 채워 넣은 가지 보트</a>
+
+										<p>
+											<a href="#">&#35;가지 </a>
+											<a href="#">&#35;베지테리언</a>
+										</p>
+									</li>
+
+									<li class="text-opt">
+										<a href="#">고기 대신 가지가 다해요! 가지 라자냐</a>
+
+										<p>
+											<a href="#">&#35;가지 </a>
+											<a href="#">&#35;라자냐</a>
+										</p>
+									</li>
+
+									<li class="text-opt">
+										<a href="#">가지는 석류랑도 잘 어울려요. 가지 석류 샐러드</a>
+
+										<p>
+											<a href="#">&#35;가지 </a>
+											<a href="#">&#35;석류</a>
+										</p>
+									</li>
+
+									<li class="text-opt">
+										<a href="#">카레에도 넣어 보세요. 가지 코코넛 밀크 카레</a>
+
+										<p>
+											<a href="#">&#35;가지 </a>
+											<a href="#">&#35;석류</a>
+											<a href="#">&#35;카레</a>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<div class="footer-con clearfix">
+			<div class="footer1 footerCont">
+				<b>나의 레시피 공유는&#63;</b>
+				<strong>letscook@soop.com</strong>
+			</div>
+
+			<div class="footer2 footerText">
+				<div class="fnb clearfix">
+					<a href="#">회사소개</a>
+					<a href="#">개인정보처리방침</a>
+					<a href="#">이용약관</a>
+				</div>
+
+				<p class="info">
+					<span>상호 &#58; 주식회사 숲&#40;soop&#41;</span>
+					<span>대표자 &#58; 김숲</span> <br>
+					<span>Tel &#58; 02&#41; 323&#45;5555</span>
+					<span>팩스 &#58; 022&#41;3232&#41;5554</span> <br>
+					<span>서울시 서대문구 연희로 111 숲빌딩</span> <br>
+					<span>통신판매업신고 &#58; 제1111&#45;서울마포&#45;1111호</span> <br>
+					<span>사업자번호 &#58; 667&#45;87&#45;00221 <b>[사업자정보확인]</b></span>
+				</p>
+			</div>
+
+			<div class="footer3 footerCont">
+				<b>모든 문의는&#63;</b>
+				<strong>anything@soop.com</strong>
+			</div>
+
+			<div class="footer4 footersns">
+				<div class="sns">
+					<a href="#">facebook</a>
+					<a href="#">instagram</a>
+				</div>
+
+				<address>&copy; SOOP ALL RIGHT RESERVED.</address>
+			</div>
+		</div>
+	</footer>
+</body>
+
+</html>
