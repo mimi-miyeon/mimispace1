@@ -128,14 +128,16 @@ async function fetchProjectList () {
         }
 
         let link = list.link;
+        let target = "_blank";
         if(!list.link) {
-          link = "/detail.html"
+          link = "";
+          target = "_self"
         };
 
         // 프로젝트 <li>
         return `
           <li class="project">
-            <a href="${link}" target="_blank">
+            <a id="${list.id}" href="${list.link}" target="${target}">
               <h3>${list.title}
                 ${icon}
               </h3>
@@ -153,12 +155,26 @@ async function fetchProjectList () {
     };
 
     document.querySelector('.section--project .project-lists').innerHTML = projectList();
+    
+    handleProjectId();
   }
   catch (error)
   {
     console.error('Error fetching weather data:', error);
   }
-
 };
-
 fetchProjectList();
+
+
+const handleProjectId = () => {
+  const projectListEls = document.querySelectorAll('.project a');
+  projectListEls.forEach((a)=>{
+    if(a.getAttribute('href') === "") {
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('id');
+        window.location.href = `../detail.html?id=${id}`;
+      });
+    }
+  })
+};

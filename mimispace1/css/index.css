@@ -64,7 +64,7 @@ header > img {
 /* Main Starts */
 main {
   flex: 1;
-  padding-top: var(--content-padding);
+  padding: var(--content-padding) 0;
 }
 .main-container {
   width: 100%;
