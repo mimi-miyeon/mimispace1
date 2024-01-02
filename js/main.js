@@ -107,7 +107,7 @@ async function fetchProjectList () {
         // 프로젝트 링크 여부에 따른 아이콘
         let icon = `
           <span class="icon">
-            <svg class="icon__svg" viewBox="0 0 18.01 18.01">
+            <svg class="icon__svg" viewBox="0 0 19 19">
               <line x1="0.5" y1="17.51" x2="17.51" y2="0.5"/>
               <polyline points="2.71 0.5 17.51 0.5 17.51 15.29"/>
             </svg>
@@ -116,7 +116,7 @@ async function fetchProjectList () {
         if(list.icon === "BROWSER") {
           icon = `
             <span class="icon browser-box">
-              <svg class="icon__svg" viewBox="0 0 18.01 18.01">
+              <svg class="icon__svg" viewBox="0 0 19 19">
                 <circle cx="3" cy="3" r="0.5" fill="white" />
                 <circle cx="6" cy="3" r="0.5" fill="white" />
                 <circle cx="9" cy="3" r="0.5" fill="white" />

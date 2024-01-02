@@ -45,6 +45,7 @@ header > img {
 .about-wrapper__detail .weatherIcon {
   display: inline-block;
   width: 1.1rem; 
+  margin-left: .2rem;
   vertical-align: sub;
 }
 .about-wrapper__detail .description button {
@@ -59,6 +60,7 @@ header > img {
 .contact-wrapper * {
   font-weight: normal; 
   font-style: italic;
+  font-size: .8rem;
 }
 
 /* Main Starts */
@@ -118,7 +120,6 @@ main {
   width: .8rem;
   fill:none;
   stroke:var(--cGreyOne);
-  stroke: .8rem;
   stroke-linecap:round;
   stroke-linejoin:round;
   transition: .3s;

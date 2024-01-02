@@ -45,11 +45,11 @@ small {
 *
 */
 :root {
-  --wContent: 1000px;
+  --wContent: 1200px;
   --hHeader: 5rem;
   --content-padding: 4rem;
 
-  /* --cDark-background: #376e46; */
+  /* --cDark-background: rgb(172 114 47); */
   --cDark-background: #415441;
   --cGreyOne: #dbede0;
   --cGreyTwo: #acc3b1;
@@ -58,6 +58,25 @@ small {
 
   --cLight-background: #c6be8d;
   --ffHighLight: 'Jua', sans-serif;
+
+  --wText: 70%;
+
+}
+
+
+/*
+*
+* css 유틸리티
+*
+*/
+.text-width {
+  width: var(--wText);
+  margin-left: auto;
+  margin-right: auto;
+}
+.flex {
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -68,6 +87,7 @@ small {
 */
 body {
   font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 1.1rem;
   color: var(--cGreyTwo);
   background-color: var(--cDark-background);
 }
@@ -234,7 +254,7 @@ section {
 * Mobile 스타일링
 *
 */
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   :root {
     --wContent: 100%;
     --content-padding: 2.5rem;
