@@ -128,6 +128,7 @@ img {
   max-width: 100%;
   width: 100%;
 }
+
 /* 영문 폰트 */
 .en {
   font-family: 'Source Sans Pro', sans-serif;
@@ -138,6 +139,9 @@ img {
 }
 section {
   margin-top: 4rem;
+}
+p {
+  line-height: 1.6;
 }
 
 /*
@@ -258,5 +262,11 @@ section {
   :root {
     --wContent: 100%;
     --content-padding: 2.5rem;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --content-padding: 1.5rem;
   }
 }

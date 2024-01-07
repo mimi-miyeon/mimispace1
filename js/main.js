@@ -102,7 +102,7 @@ async function fetchProjectList () {
     
     const projectList = () => {
       return data.map((list)=> {
-        const skillList = list.skill.map(skill => `<li>${skill}</li>`).join('');
+        const skillList = list ? list.skill.map(skill => `<li>${skill}</li>`).join('') : "";
         
         // 프로젝트 링크 여부에 따른 아이콘
         let icon = `
@@ -160,7 +160,7 @@ async function fetchProjectList () {
   }
   catch (error)
   {
-    console.error('Error fetching weather data:', error);
+    console.error('Error fetching project list data:', error);
   }
 };
 fetchProjectList();

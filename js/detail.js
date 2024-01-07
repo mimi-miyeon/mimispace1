@@ -51,12 +51,12 @@ function animation () {
   // #projectDescription translateY 변경
   setTimeout(function () {
     document.getElementById("projectDescription").style.transform = "translateY(0)";
-  }, 600);
+  }, 1100);
 
   // #headerTitle translateY 변경
   setTimeout(function () {
     document.getElementById("headerTitle").style.transform = "translateY(0)";
-  }, 800);
+  }, 600);
 
   // projectLink 변수
   projectLinksAnimation()
@@ -75,7 +75,8 @@ function projectLinksAnimation () {
     };
 
     if(window.scrollY + viewHeight + 50 >= projectLinkPosition) {
-      console.log("animation")
+      document.getElementById('projectLinks').style.transform = "translateY(0)";
+      document.getElementById('projectLinks').style.opacity = 1;
     }
   });
 };
