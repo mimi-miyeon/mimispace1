@@ -29,14 +29,14 @@ const Keyboard = {
     this.elements.keys = document.querySelectorAll('.keyboard__key');
 
     document.querySelectorAll('.use--keyboard-input').forEach(element => {
-      element.addEventListener('focus', () => {
+      element.addEventListener('focus', (e) => {
         this.open(element.value, currentValue => {
           element.value = currentValue;
         });
-        
+        // console.log(e.target)
+        e.target.blur();
         document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-        this.blur();
-      })
+      });
     })
   },
 
