@@ -13,7 +13,10 @@
 .keyboard--hidden {
   bottom: -100%;
 }
-
+.use--keyboard-input {
+  width: 100%;
+  height: 20vh;
+}
 .keyboard__keys {
   text-align: center;
 }
@@ -47,8 +50,8 @@
 }
 
 .keyboard__key--extra-wide {
-  width: 20%;
-  max-width: 500px;
+  width: 60%;
+  max-width: none;
 }
 
 .keyboard__key--activatable::after {

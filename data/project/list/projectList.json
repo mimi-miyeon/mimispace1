@@ -5,7 +5,7 @@
     "icon": "BROWSER",
     "role": "웹 디자인, 프론트 개발",
     "description": "'자주 구매하는 상품의 가격 및 구매 장소를 비교할 수 있는 가계부'라는 아이디어로 시작하게 된 첫 리액트 프로젝트이다. 첫 작업이다 보니 콘셉트와 완성도보다는 정상적으로 동작하게 만드는 것을 우선으로 첫 작업을 끝낼 예정이다.",
-    "skill": ["React", "Adobe XD, GitHub"],
+    "skill": ["React", "Adobe XD", "GitHub"],
     "link": ""
   },
   {
@@ -14,7 +14,7 @@
     "icon": "LINK",
     "role": "웹 퍼블리셔",
     "description": "지금까지 작업했던 프로젝트를 설명과 함께 단순하게 보여줄 수 있는 포트폴리오 사이트. 화려하진 않지만, 소소한 효과로 포인트를 주기 위해 API 및 Javascript를 사용했다.",
-    "skill": ["Javascript", "API", "HTML", "CSS", "Adobe XD, GitHub"],
+    "skill": ["Javascript", "API", "HTML", "CSS", "Adobe XD", "GitHub"],
     "link": "/"
   },
   {

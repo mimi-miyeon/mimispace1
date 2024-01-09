@@ -33,6 +33,8 @@ const Keyboard = {
         this.open(element.value, currentValue => {
           element.value = currentValue;
         });
+
+        this.blur();
       })
     })
   },
