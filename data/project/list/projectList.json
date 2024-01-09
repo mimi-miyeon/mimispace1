@@ -40,18 +40,18 @@
     "title": "가상키보드",
     "icon": "LINK",
     "role": "웹 퍼블리셔",
-    "description": "",
+    "description": "실물 키보드가 없어도 가상 키보드를 클릭/터치해 문자 입력이 가능하다. 이름('key'), 값('value'), 메서드를 객체에 정의해 키보드를 생성하고 각 키에 맞는 이벤트를 추가하는 방식으로 하나의 객체를 통해 키보드를 만든다.",
     "skill": ["Javascript", "HTML", "CSS"],
     "link": "site/keyboard"
   },
   {
     "id": "memeGen",
     "title": "짤 생성사이트",
-    "icon": "BROWSER",
+    "icon": "LINK",
     "role": "웹 퍼블리셔",
-    "description": "",
+    "description": "간단한 이미지 짤을 만들어 저장할 수 있는 사이트. 이미지 객체를 사용해서 파일을 불러와 캔버스에 해당 이미지를 넣고 캔버스의 상·하단에 내가 입력한 텍스트를 이미지와 결합해 나만의 짤을 만들 수 있다.",
     "skill": ["Javascript", "HTML", "CSS"],
-    "link": ""
+    "link": "site/memeGen"
   },
   {
     "id": "rinventory",
