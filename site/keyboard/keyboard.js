@@ -165,3 +165,14 @@ const Keyboard = {
 window.addEventListener('DOMContentLoaded', () => {
   Keyboard.init();
 });
+
+
+
+const lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+    const now = new Date().getTime();
+    if (now - lastTouchEnd <= 300) {
+      event.preventDefault();
+    }
+    lastTouchEnd = now;
+});
