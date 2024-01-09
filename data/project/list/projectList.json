@@ -2,10 +2,10 @@
   {
     "id": "householdApp",
     "title": "가계부앱",
-    "icon": "LINK",
+    "icon": "BROWSER",
     "role": "웹 디자인, 프론트 개발",
-    "description": "'자주 구매하는 상품의 가격 및 구매장소를 비교할 수 있는 가계부'라는 아이디어로 시작하게 된 첫 리액트 프로젝트이다. 첫 작업이다 보니 컨셉과 완성도 보다는 정상적으로 동작하게 만드는 것을 우선으로 첫 작업을 끝낼 예정이다.",
-    "skill": ["React", "Adobe XD"],
+    "description": "'자주 구매하는 상품의 가격 및 구매 장소를 비교할 수 있는 가계부'라는 아이디어로 시작하게 된 첫 리액트 프로젝트이다. 첫 작업이다 보니 콘셉트와 완성도보다는 정상적으로 동작하게 만드는 것을 우선으로 첫 작업을 끝낼 예정이다.",
+    "skill": ["React", "Adobe XD, GitHub"],
     "link": ""
   },
   {
@@ -13,8 +13,8 @@
     "title": "포트폴리오 사이트",
     "icon": "LINK",
     "role": "웹 퍼블리셔",
-    "description": "",
-    "skill": ["Javascript", "API", "HTML", "CSS", "Adobe XD"],
+    "description": "지금까지 작업했던 프로젝트를 설명과 함께 단순하게 보여줄 수 있는 포트폴리오 사이트. 화려하진 않지만, 소소한 효과로 포인트를 주기 위해 API 및 Javascript를 사용했다.",
+    "skill": ["Javascript", "API", "HTML", "CSS", "Adobe XD, GitHub"],
     "link": "/"
   },
   {
@@ -22,8 +22,8 @@
     "title": "블랙잭",
     "icon": "BROWSER",
     "role": "",
-    "description": "",
-    "skill": ["Java"],
+    "description": "첫 자바 프로젝트로 작업하게 된 블랙잭 카드 게임이다. 랜덤한 번호를 가져오는 싱글톤 클래스로 카드 숫자를 뽑고, 해당 숫자에 맞는 카드 사진을 보여준다. 프로젝트의 디자인은 신경 쓰지 못했지만 클래스에 대한 개념에 익숙해지고 리팩토링에 도움이 된 프로젝트이다.",
+    "skill": ["Java", "GitHub"],
     "link": ""
   },
   {
@@ -31,17 +31,8 @@
     "title": "투두 앱<small>(v2)</small>",
     "icon": "LINK",
     "role": "웹 퍼블리셔",
-    "description": "자바스크립트의 단골 프로젝트이자 다양한 개념에 대해 연습할 수 있는 '투두 앱' 업무적으로 할 일과 개인적으로 해야 할 일을 분류해서 색상으로 나타내고, 막대도표로 진행정도를 나타낸다. 바닐라 자바스크립트를 조금 더 심도있게 공부하며 작업하게 된 프로젝트로 Tailwind를 사용해 스타일 되었다.",
+    "description": "자바스크립트의 단골 프로젝트이자 다양한 개념에 대해 연습할 수 있는 '투두 앱'. 업무적으로 할 일과 개인적으로 해야 할 일을 분류해서 색상으로 나타내고, 막대도표로 진행 정도를 나타낸다. 바닐라 자바스크립트를 조금 더 깊이 있게 공부하며 작업하게 된 프로젝트로 Tailwind를 사용해 스타일 되었다.",
     "skill": ["Javascript", "HTML", "CSS", "Tailwind"],
-    "link": ""
-  },
-  {
-    "id": "todoAppVJS",
-    "title": "투두 앱<small>(v1)</small> ",
-    "icon": "LINK",
-    "role": "웹 퍼블리셔",
-    "description": "",
-    "skill": [],
     "link": ""
   },
   {
@@ -50,7 +41,16 @@
     "icon": "LINK",
     "role": "웹 퍼블리셔",
     "description": "",
-    "skill": [],
+    "skill": ["Javascript", "HTML", "CSS"],
+    "link": "site/keyboard"
+  },
+  {
+    "id": "memeGen",
+    "title": "짤 생성사이트",
+    "icon": "BROWSER",
+    "role": "웹 퍼블리셔",
+    "description": "",
+    "skill": ["Javascript", "HTML", "CSS"],
     "link": ""
   },
   {

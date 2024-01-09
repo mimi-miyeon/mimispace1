@@ -79,6 +79,12 @@ main {
 .section--about h3 {
   margin-bottom: 1rem;
 }
+.section--about p {
+  margin-top: 2rem;
+}
+.section--about p:first-of-type {
+  margin-top: 0;
+}
 .section--project {}
 .project-lists:hover .project {
   opacity: .5;
