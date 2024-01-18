@@ -270,4 +270,7 @@ p {
   :root {
     --content-padding: 1.5rem;
   }
+  body {
+    font-size: 1rem;
+  }
 }

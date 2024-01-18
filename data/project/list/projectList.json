@@ -9,15 +9,6 @@
     "link": ""
   },
   {
-    "id": "portfolioV2",
-    "title": "포트폴리오 사이트",
-    "icon": "LINK",
-    "role": "웹 퍼블리셔",
-    "description": "지금까지 작업했던 프로젝트를 설명과 함께 단순하게 보여줄 수 있는 포트폴리오 사이트. 화려하진 않지만, 소소한 효과로 포인트를 주기 위해 API 및 Javascript를 사용했다.",
-    "skill": ["Javascript", "API", "HTML", "CSS", "Adobe XD", "GitHub"],
-    "link": "/"
-  },
-  {
     "id": "blackjack",
     "title": "블랙잭",
     "icon": "BROWSER",
@@ -28,7 +19,7 @@
   },
   {
     "id": "todoApp",
-    "title": "투두 앱<small>(v2)</small>",
+    "title": "투두 앱",
     "icon": "LINK",
     "role": "웹 퍼블리셔",
     "description": "자바스크립트의 단골 프로젝트이자 다양한 개념에 대해 연습할 수 있는 '투두 앱'. 업무적으로 할 일과 개인적으로 해야 할 일을 분류해서 색상으로 나타내고, 막대도표로 진행 정도를 나타낸다. 바닐라 자바스크립트를 조금 더 깊이 있게 공부하며 작업하게 된 프로젝트로 Tailwind를 사용해 스타일 되었다.",
@@ -105,7 +96,7 @@
     "role": "웹 퍼블리셔",
     "description": "퀴즈를 맞혀 숨겨 놓은 선물을 찾는 보물찾기 사이트. 개인적으로 진행한 작은 프로젝트로 질문에 맞는 대답을 했을 때 선물이 숨겨진 위치까지 가는 방향에 대한 힌트를 조금씩 알려준다.",
     "skill": ["Javascript", "jQuery", "HTML", "CSS", "Adobe XD", "Illustrator"],
-    "link": ""
+    "link": "site/treasureHunt"
   },
   {
     "id": "kioskApp",
@@ -141,7 +132,7 @@
     "role": "웹 퍼블리셔",
     "description": "쉽게 건강한 음식을 요리할 수 있는 콘셉트의 레시피 사이트. 국비지원 수업 중 2인 1조 팀으로 작업한 프로젝트로 재료 주문하기, 냉장고 확인하기, 나의 식단 등 다양한 기능을 제공하고 큼직한 글씨체로 요리 중간에도 쉽게 읽을 수 있게 만들었다.",
     "skill": ["jQuery", "HTML", "CSS", "Photoshop"],
-    "link": ""
+    "link": "site/soop"
   },
   {
     "id": "graphicDesign",

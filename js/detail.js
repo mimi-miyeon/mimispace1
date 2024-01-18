@@ -19,6 +19,8 @@ async function fetchPage () {
 
   } catch(error) {
     console.error('Error fetching page:', error);
+    alert("준비중 입니다.")
+    window.location = "/";
     return null;
   };
 };
@@ -74,7 +76,7 @@ function projectLinksAnimation () {
       projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
     };
 
-    if(window.scrollY + viewHeight + 50 >= projectLinkPosition) {
+    if(window.scrollY + viewHeight + 100 >= projectLinkPosition) {
       document.getElementById('projectLinks').style.transform = "translateY(0)";
       document.getElementById('projectLinks').style.opacity = 1;
     }
