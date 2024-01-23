@@ -189,6 +189,7 @@ main {
   max-width: 100%;
   height: auto;
 }
+.video,
 .section--detail video {
   display: block;
   width: 100%;
@@ -197,7 +198,13 @@ main {
   border-radius: 1rem;
   overflow: hidden;
 }
-
+iframe.video {
+  margin-top: 0;
+  aspect-ratio: 8 / 5;
+}
+.robot iframe.video {
+  aspect-ratio: 8 / 4.5;
+}
 .section--links {
   text-align: center;
   overflow: hidden;
