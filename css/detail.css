@@ -108,6 +108,9 @@ main {
   gap: 2rem;
   margin-top: 4rem;
 }
+.section--description ul.shorter {
+  grid-template-columns: repeat(2, 1fr);
+}
 .section--description li {}
 .section--description li h3 {
   display: inline-block;
@@ -230,6 +233,16 @@ iframe.video {
   transition-timing-function: cubic-bezier(0.98, 0, 0.76, 0.99);
   opacity: .1;
 }
+
+/* graphic design detail page */
+.graphic-design__header h1 {
+  font-size: 8rem;
+}
+.img--50 {
+  width: 50%;
+  margin: auto;
+}
+
 
 @media (max-width: 1200px) {
   main {

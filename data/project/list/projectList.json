@@ -139,7 +139,7 @@
     "title": "그래픽 디자인",
     "icon": "BROWSER",
     "role": "그래픽 디자인",
-    "description": "(다시쓰기)디자인 회사 및 프리랜서 디자이너로 활동하며 작업한 다양한 종류의 디자인이다.",
+    "description": "디자인 회사 및 프리랜서 디자이너로 활동하며 작업한 다양한 종류의 디자인이다.",
     "skill": ["Illustrator", "Photoshop", "InDesign"],
     "link": ""
   },
@@ -148,7 +148,7 @@
     "title": "제품사진보정",
     "icon": "BROWSER",
     "role": "사진 보정사",
-    "description": "(다시쓰기)제품사진보정 프리랜서로 활동하며 작업한 상품의 전후 사진이다.",
+    "description": "제품사진보정 프리랜서로 활동하며 작업한 상품의 전후 사진이다.",
     "skill": ["Photoshop"],
     "link": ""
   }
