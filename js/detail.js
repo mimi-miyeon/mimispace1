@@ -20,7 +20,7 @@ async function fetchPage () {
   } catch(error) {
     console.error('Error fetching page:', error);
     alert("준비중 입니다.")
-    window.location = "/";
+    window.history.back();
     return null;
   };
 };
