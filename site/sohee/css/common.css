@@ -1,0 +1,812 @@
+@import url(../css/normalize.css);
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:100;300;400;500;700;900');
+* {
+	margin: 0;
+}
+ol,
+ul {
+	list-style: none;
+}
+body {
+	font-family: Noto Sans KR, sans-serif;
+	font-size: 11vh;
+	font-weight: 900;
+	background-color: #ff8119;
+}
+button {
+	cursor: pointer
+}
+.page {display: none;}
+.intro {display: block;}
+.main-con {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	width: 1100px;
+	margin: 70px auto;
+	text-align: left;
+	color: darkgreen;
+	color: white;
+}
+
+/*wrong*/
+.wrong {
+	display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% - 11vh);
+	text-align: center;
+}
+
+/*intro*/
+.intro {
+	display: none;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	text-align: right;
+}
+.intro > img {
+	width: 100px;
+	cursor: pointer;
+}
+.intro > p {
+	font-size: 18px;
+	font-weight: 500;
+	line-height: 1.5
+}
+/*page 공통*/
+small {
+	font-size: 15px;
+}
+.page {
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	bottom: 0;
+}
+.page1 > p {}
+.page > img {
+	position: absolute;
+	right: 0;
+}
+/*page1*/
+.page1 {
+	display: block;
+	display: none;
+}
+.page1-btn {
+	position: relative;
+	width: 200px;
+	height: 50px;
+}
+.page1-btn > img {
+	transition: 0.5s
+}
+.page1-btn:hover > img {
+	transform: translateX(50px)
+}
+
+/*contents page*/
+.page2 {
+	display: none;
+	position: relative;
+	width: 100%;
+	height: 93%;
+}
+.page2 > button {
+	position: absolute;
+}
+.sweet {
+	bottom: 100px;
+	left: 40px;
+	font-size: 40px;
+	animation: shake infinite 1s;
+	animation-delay: 3s;
+}
+.dance {
+	right: 0;
+	top: 100px;
+	font-size: 70px;
+	animation: shake infinite 0.2s;
+}
+.music {
+	font-size: 30px;
+	animation: scale infinite 5s;
+	top: 50%;
+	left: 50%;
+}
+.diary {
+	bottom: 20%;
+	left: 25%;
+	animation: zigzag infinite 3s;
+}
+.colour {
+	right: 5%;
+	bottom: 50%;
+	font-size: 50px;
+	animation: turn infinite 200s;
+}
+.movie {
+	bottom: 40px;
+	right: 50px;
+	animation: blink infinite 5s
+}
+.fragrance {
+	left: 10%;
+	top: 35%;
+	animation: jump infinite 1.5s;
+}
+.friend {
+	left: 40%;
+}
+.crisp {
+	left: 5%;
+	top: 5%;
+	font-size: 50px;
+	animation: shake infinite 1s;
+}
+.gum {
+	right: 30%;
+	bottom: 25%;
+	font-size: 30px;
+	animation: shake infinite 0.5s;
+	animation-delay: 1s
+}
+
+/*back btn*/
+.btn-wrap {
+	
+}
+.backBtn {
+	display: none;
+	position: fixed;
+	left: 10%;
+	top: 10%;
+	width: 200px;
+	height: 50px;
+/*	transform: rotateZ(180deg);*/
+	transition: 0.5s
+}
+.backBtn > img {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto 0;
+	transition: 0.5s
+}
+.backBtn:hover{
+	transform: translateX(-50px)
+}
+
+/*animation*/
+@keyframes shake {
+	0% {
+		transform: rotateZ(0)
+	}
+	50% {
+		transform: rotatez(15deg)
+	}
+	75% {
+		transform: rotateZ(-15deg)
+	}
+	100% {
+		transform: rotateZ(0)
+	}
+}
+@keyframes scale {
+		0% {
+		transform: scale(1)
+	}
+	50% {
+		transform: scale(1.5);
+	}
+	75% {
+		transform: rotateZ(15deg) scale(1.5);
+	}
+	100% {
+		transform: scale(1)
+	}
+}
+@keyframes zigzag {
+	0% {}
+	30% {
+		transform: translateX(10px) translateY(-30px);
+	}
+	65% {
+		transform: translateX(30px) translateY(0);
+	}
+}
+@keyframes blink {
+	50% {
+		opacity: 0.3
+	}
+	100% {
+		opacity: 1
+	}
+}
+@keyframes jump {
+	50% {
+		transform: translateY(10px);
+	}
+}
+@keyframes turn {
+	50% {
+		transform: rotateZ(10000deg)
+	}
+}
+
+/*sweet-page*/
+.page-sweet .sweet1-hover {
+	position: absolute;
+	right: -5%;
+	bottom: 5px;
+	width: 400px;
+}
+.sweet1-img {
+	width: 100%;
+}
+.sweet2-hover {
+	position: absolute;
+	width: 5%;
+	right: 17%;
+	bottom: 5px;
+	z-index: 1
+}
+.sweet3-hover {
+	position: absolute;
+	right: 20%;
+	bottom: 5px;
+}
+.sweet4-hover {
+	position: absolute;
+	right: 25%;
+	bottom: 5px;
+	z-index: 1
+}
+.sweet5-hover {
+	position: absolute;
+	right: 30%;
+	bottom: 5px;
+}
+.img-text-box {
+	position: absolute;
+	right: 25px;
+	bottom: 390px;
+	width: 170px;
+	height: 50px;
+	font-weight: 100;
+	font-size: 18px;
+	color: #D25B1D;
+	background-color: #ffffff;
+	border-radius: 50px;
+	opacity: 0;
+	transition: 0.5s;
+}
+.img-text-box p {
+	padding: 15px 0;
+	text-align: center;
+}
+.img-text-box:before {
+	content: '';
+	position: absolute;
+	bottom: -15px;
+	right: 25px;
+	border-top: 20px solid #ffffff;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+}
+.sweet1-hover:hover .sweet-text1 {
+	opacity: 1;
+}
+.sweet2-hover:hover .sweet-text2 {
+	opacity: 1;
+}
+.sweet3-hover:hover .sweet-text3 {
+	opacity: 1;
+}
+.sweet4-hover:hover .sweet-text4 {
+	opacity: 1;
+}
+.sweet5-hover:hover .sweet-text5 {
+	opacity: 1;
+}
+.sweet1-img:after,
+.sweet2-img:after,
+.sweet3-img:after,
+.sweet4-img:after,
+.sweet5-img:after {
+	content: '';
+	width: 80px;
+	padding: 10px;
+	font-weight: 100;
+	font-size: 18px;
+	position: absolute;
+	top: -60px;
+	left: 20px;
+	color: #D25B1D;
+	background-color: #fff;
+	border-radius: 30px;
+	opacity: 0;
+	transition: 0.5s
+}
+/*
+.sweet1-img:after {
+	content: '씐나씐나';
+}
+.sweet2-img:after {
+	content: '고소짭짤허네'
+}
+.sweet3-img:after {
+	content: '오호옹 새코매'
+}
+.sweet4-img:after {
+	content: "달달허다"
+}
+.sweet5-img:after {
+	content: '씨버ㅆㅂ'
+}
+*/
+
+/*
+.sweet1-img:hover:after,
+.sweet2-img:hover:after,
+.sweet3-img:hover:after,
+.sweet4-img:hover:after,
+.sweet5-img:hover:after {
+	opacity: 1
+}
+*/
+/*dance-page*/
+.dance-links {
+	font-size: 24px;
+}
+.dance-links li {
+	position: absolute;
+	right: 0;
+	transition: 0.5s
+}
+.dance-links li:first-child {
+	top: 10%;
+}
+.dance-links li:nth-of-type(2) {
+	top: 25%;
+	right: 18%;
+}
+.dance-links li:nth-of-type(3) {
+	top: 50%;
+	right: 5%
+}
+.dance-links li:nth-of-type(4) {
+	bottom: 9%;
+	right: 16%;
+}
+.dance-links li:nth-of-type(5) {
+	bottom: 0;
+}
+.dance-links li:first-child:after {
+	content: '둠칫둠칫';
+	padding: 10px;
+	font-weight: 100;
+	font-size: 18px;
+	position: absolute;
+	top: -60px;
+	left: 20px;
+	color: #D25B1D;
+	background-color: #fff;
+	border-radius: 30px
+}
+.dance-links li:first-child:before {
+	content: '';
+	position: absolute;
+	top: -25px;
+	left: 40px;
+	border-top: 14px solid #ffffff;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 0;
+}
+.dance-links li:nth-of-type(2):after {
+	content: '위히위히';
+	padding: 10px;
+	font-weight: 100;
+	font-size: 18px;
+	position: absolute;
+	top: -60px;
+	left: 20px;
+	color: #D25B1D;
+	background-color: #fff;
+	border-radius: 30px
+}
+.dance-links li:nth-of-type(2):before {
+	content: '';
+	position: absolute;
+	top: -25px;
+	left: 40px;
+	border-top: 14px solid #ffffff;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 0;
+}
+.dance-links li:nth-of-type(3):after {
+	content: '으헤헤헤';
+	padding: 10px;
+	font-weight: 100;
+	font-size: 18px;
+	position: absolute;
+	top: -60px;
+	right: 10px;
+	color: #D25B1D;
+	background-color: #fff;
+	border-radius: 30px
+}
+.dance-links li:nth-of-type(3):before {
+	content: '';
+	position: absolute;
+	top: -25px;
+	right: 40px;
+	border-top: 14px solid #ffffff;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 0;
+}
+.dance-links li:nth-of-type(4):after {
+	content: '어허이어허이';
+	padding: 10px;
+	font-weight: 100;
+	font-size: 18px;
+	position: absolute;
+	top: -60px;
+	left: -30px;
+	color: #D25B1D;
+	background-color: #fff;
+	border-radius: 30px
+}
+.dance-links li:nth-of-type(4):before {
+	content: '';
+	position: absolute;
+	top: -25px;
+	left: 40px;
+	border-top: 14px solid #ffffff;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 0;
+}
+.dance-links li:nth-of-type(5):before {
+	content: '';
+	position: absolute;
+	top: -10px;
+	right: 30px;
+	border-top: 14px solid #ffffff;
+	border-left: 7px solid transparent;
+	border-right: 7px solid transparent;
+	border-bottom: 0;
+}
+.dance-links li:nth-of-type(5):after {
+	content: '허짜헛짜';
+	padding: 10px;
+	font-weight: 100;
+	font-size: 18px;
+	position: absolute;
+	top: -45px;
+	right: -30px;
+	color: #D25B1D;
+	background-color: #fff;
+	border-radius: 30px
+}
+.dance-links li:first-child:before,
+.dance-links li:first-child:after,
+.dance-links li:nth-of-type(2):before,
+.dance-links li:nth-of-type(2):after,
+.dance-links li:nth-of-type(3):before,
+.dance-links li:nth-of-type(3):after,
+.dance-links li:nth-of-type(4):before,
+.dance-links li:nth-of-type(4):after,
+.dance-links li:nth-of-type(5):before,
+.dance-links li:nth-of-type(5):after {
+	opacity: 0;
+	transition: 0.5s
+}
+.dance-links li:hover:after,
+.dance-links li:hover:before {
+	opacity: 1;
+}
+.dance-links li a {
+	position: relative;
+	display: block;
+	width: 120px;
+	height: 120px;
+	margin: auto;
+	background-color: #D25B1D;
+	border-radius: 50%;
+}
+.dance-links li a:after {
+	content: '';
+	position: absolute;
+	top: 30%;
+	left: 40%;
+/*	margin-left: -25px;*/
+/*	margin-top: -25px;*/
+	margin: auto;
+	border-left: 35px solid #ffffff;
+	border-top: 25px solid transparent;
+	border-bottom: 25px solid transparent;
+	border-right: 0;
+	transition: 0.5s
+}
+.dance-links li a:before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: #5e7f19;
+	transform: scale(0);
+	transition: 0.5s
+}
+.dance-links li a:hover:after {
+	border-left-color: #ffffff
+}
+.dance-links li a:hover:before {
+	transform: scale(1);
+}
+.dance-links li span {
+	display: block;
+	text-align: center;
+/*	margin-top: 10px;*/
+	font-size: 18px;
+	font-weight: 300
+}
+.dance-links li span:nth-of-type(1) {
+	margin-top: 10px;
+}
+.dance-links li span:last-child {
+	margin-top: 10px;
+}
+
+.bg-cover {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	margin: auto;
+	background-color: rgba(0, 0, 0, 0.5)
+}
+.dance-con {
+	display: none;
+	position: fixed;
+	top: 10%;
+	left: 10%;
+	bottom: 10%;
+	right: 10%;
+	margin: auto;
+	background-color: #ffffff
+}
+.dance-con .close-btn {
+	display: block;
+	position: absolute;
+	right: 25px;
+	top: 25px;
+	width: 50px;
+	z-index: 1
+}
+.dance-con .close-btn > img {
+	display: block;
+	width: 100%;
+}
+.dance-con iframe {
+/*	padding: 4% 13.5%;*/
+	padding: 0 7.5%;
+}
+.dance-con .left-btn {
+	display: block;
+  position: absolute;
+  top: 50%;
+  left: -65px;
+  padding: 0 25px;
+  width: 150px;
+  height: 70px;
+	background-color: #000000;
+}
+.dance-con .left-btn > img {
+	display: block;
+	margin: auto 0;
+	transition: 0.5s
+}
+.dance-con .right-btn {
+	display: block;
+  position: absolute;
+  top: 50%;
+  right: -65px;
+  padding: 0 25px;
+  width: 150px;
+  height: 70px;
+	background-color: #000000;
+}
+.dance-con .right-btn > img {
+	display: block;
+	margin: auto 0;
+	transition: 0.5s
+}
+.dance-con .left-btn:hover > img {
+	transform: translateX(-50px)
+}
+.dance-con .right-btn:hover > img {
+	transform: translateX(50px)
+}
+.vid {
+	display: none;
+	position: absolute;
+}
+.show{
+	display: block;
+}
+/*music-list*/
+/*.music-links {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 20%;
+	font-size: 24px;
+	font-weight: 100;
+}
+.music-links a {
+	position: relative;
+	display: block;
+	width: 60px;
+	height: 60px;
+	margin: 0;
+	background-color: #D25B1D;
+	border-radius: 50%;
+}
+.music-links li a:after {
+	content: '';
+	position: absolute;
+	top: 33%;
+	left: 42%;
+	margin: auto;
+	border-left: 15px solid #ffffff;
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent;
+	border-right: 0
+}
+.music-links span {
+	display: block;
+}*/
+
+.music-con {
+	display: none;
+	position: fixed;
+	top: 10%;
+	left: 10%;
+	bottom: 10%;
+	right: 10%;
+	margin: auto;
+	background-color: #ffffff
+}
+.song {
+	display: none;
+	color: #323232;
+}
+.song-text {
+	position: relative;
+	float: right;
+	width: 28%;
+	height: 100%;
+	font-size: 16px;
+	text-align: left;
+}
+.song-text span {
+	position: absolute;
+}
+.song-text .mood {
+	bottom: 80px;
+	font-size: 36px;
+	font-weight: 300;
+}
+.song-text .singer {
+	bottom: 50px;
+}
+.song-text .title {
+	bottom: 30px;
+}
+.music-play {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.music-con .close-btn {
+	display: block;
+	position: absolute;
+	right: 25px;
+	top: 25px;
+	width: 50px;
+	z-index: 1
+}
+.music-con .close-btn > img {
+	display: block;
+	width: 100%;
+}
+.music-con iframe {
+/*	padding: 4% 13.5%;*/
+}
+.music-con .left-btn {
+	display: block;
+  position: absolute;
+  top: 50%;
+  left: -65px;
+  padding: 0 25px;
+  width: 150px;
+  height: 70px;
+	background-color: #000000;
+}
+.music-con .left-btn > img {
+	display: block;
+	margin: auto 0;
+	transition: 0.5s
+}
+.music-con .right-btn {
+	display: block;
+  position: absolute;
+  top: 50%;
+  right: -65px;
+  padding: 0 25px;
+  width: 150px;
+  height: 70px;
+	background-color: #000000;
+}
+.music-con .right-btn > img {
+	display: block;
+	margin: auto 0;
+	transition: 0.5s
+}
+.music-con .left-btn:hover > img {
+	transform: translateX(-50px)
+}
+.music-con .right-btn:hover > img {
+	transform: translateX(50px)
+}
+.music-play {
+	position: absolute;
+}
+.song {
+	display: none;
+	position: absolute;
+	width: 85%;
+	height: 100%;
+	margin-left: 7%;
+}
+.show {
+	display: block;
+}
+
+/*friend*/
+.page-friend img {
+	bottom: 0;
+	top: 0;
+	margin: auto;
+}
+
+/*movie*/
+.page-movie a {
+	position: absolute;
+	width: 500px;
+	right: 0;
+	top: 0 ;
+	bottom: 0 ;
+	margin: auto 0;
+}
+.page-movie a > img {
+	display: block;
+	width: 100%;
+}
