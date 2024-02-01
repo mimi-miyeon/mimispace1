@@ -235,14 +235,80 @@ iframe.video {
 }
 
 /* graphic design detail page */
-.graphic-design__header h1 {
+.header__graphic-design h1 {
   font-size: 8rem;
+}
+.main__graphic-design article {
+  margin-bottom: 10rem;
 }
 .img--50 {
   width: 50%;
   margin: auto;
 }
 
+/* gangnam */
+.gangnam-final {
+  align-items: end;
+}
+.gangnam-final--poster {
+  flex: 2;
+}
+.gangnam-final--char {
+  height: 800px;
+  flex: 1;
+  flex-direction: column;
+}
+.gangnam-final--char li {
+  height: calc(100%/4);  
+  margin: auto;
+  padding-bottom: 2rem;
+}
+.gangnam-final--char li:last-child {
+  padding-bottom: 0;
+}
+.gangnam-final--char img {
+  width: auto;
+  height: 100%;
+}
+.gangnam-sample--poster::before {
+  content: none;
+}
+
+/* cnm */
+.shu-1-row {}
+.shu-2-row li ,
+.shu-1-row li {
+  padding: 1rem;
+}
+.shu-2-row {
+  align-items: start;
+}
+.shu-2-row ul:first-child {
+  flex: 1.5;
+}
+.shu-2-row ul:last-child {
+  flex: 3.1;
+}
+
+.lancom {
+  align-items: start;
+}
+.lancom ul {}
+.lancom ul li {
+  padding: 1rem;
+}
+
+.thefaceshop {
+  margin-top: 10rem;
+}
+.thefaceshop li {
+  padding: 1rem;
+}
+
+.vdl li {
+  flex: 1;
+  padding: 1rem;
+}
 
 @media (max-width: 1200px) {
   main {

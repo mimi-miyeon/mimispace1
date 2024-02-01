@@ -78,6 +78,12 @@ small {
   display: flex;
   justify-content: center;
 }
+.column {
+  flex-direction: column;
+}
+.grid {
+  display: grid;
+}
 
 
 /*
