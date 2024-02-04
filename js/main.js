@@ -178,3 +178,42 @@ const handleProjectId = () => {
     }
   })
 };
+
+/**
+ * 
+ * 헤더 이미지 랜덤
+ * 
+ */
+
+const headerImg = [
+  {
+    src: "cranky.jpg",
+    alt: "짜증난"
+  },
+  {
+    src: "sleep.jpg",
+    alt: "잠자는"
+  },
+  {
+    src: "snowball.gif",
+    alt: "스노우볼 캐릭터"
+  },
+  {
+    src: "walk.gif",
+    alt: "산책가자"
+  },
+  {
+    src: "space.png",
+    alt: "우주인 우주견"
+  }
+];
+
+function getHeaderImgIndex () {
+  return Math.floor(Math.random() * headerImg.length);
+};
+const selectedImg = headerImg[getHeaderImgIndex()];
+const imgSrc = selectedImg.src;
+const imgAlt = selectedImg.alt;
+const headerImgEl = document.getElementById("headerImg");
+headerImgEl.setAttribute("src",`images/${imgSrc}`);
+headerImgEl.setAttribute("alt",`images/${imgAlt}`);
