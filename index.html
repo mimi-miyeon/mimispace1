@@ -67,6 +67,10 @@
     <!-- Header Starts -->
     <header>
       <img id="headerImg" />
+      <ul id="indicator" class="indicator-container">
+        <li class="active" name="about"><button><span></span><div class="btnIcon">🙋‍♀️</div> 자기소개</button></li>
+        <li name="project"><button><span></span><div class="btnIcon">👩‍🏫</div> 프로젝트</button></li>
+      </ul>
       <div class="header-container">
         <div class="about-wrapper">
           <h2>양미연</h2>
@@ -95,7 +99,7 @@
     <!-- Main Starts -->
     <main>
       <div class="main-container container">
-        <section class="section--about">
+        <section id="about" class="section--about">
           <h3>짧은 자기소개</h3>
           <p>
             2013년, 그래픽 디자이너로 활동하기 시작하면서 다양한 인쇄물 및 웹 디자인을 했다. <small>(포스터, 브로슈어, 쿠폰, 야외 배너, 애플리케이션, 웹 배너, 웹사이트 등)</small>
@@ -109,7 +113,7 @@
           </p>
         </section>
         
-        <section class="section--project">
+        <section id="project" class="section--project">
           <ul class="project-lists"></ul>
         </section>
       </div>

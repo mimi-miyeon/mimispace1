@@ -217,3 +217,25 @@ const imgAlt = selectedImg.alt;
 const headerImgEl = document.getElementById("headerImg");
 headerImgEl.setAttribute("src",`images/${imgSrc}`);
 headerImgEl.setAttribute("alt",`images/${imgAlt}`);
+
+/**
+ * 
+ * 인디케이터 표시
+ * 
+ */
+const indicatorBtnEls = document.querySelectorAll('#indicator li');
+
+// 클릭시 활성화
+indicatorBtnEls.forEach((btn)=>{
+  btn.onclick=()=>{
+    indicatorBtnEls.forEach((btn)=> {
+      btn.classList.remove('active');
+    });
+    btn.classList.add('active');
+    // console.log(btn.getAttribute('name'));
+    document.getElementById(btn.getAttribute('name')).scrollIntoView({behavior: 'smooth', block: 'start'});
+  };
+});
+
+// 스크롤 활성화
+const about = document.getElementById("about");

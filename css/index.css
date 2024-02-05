@@ -18,6 +18,42 @@ header > img {
   display:block; 
   width: 40%;
 }
+
+.indicator-container {
+  width: fit-content;
+  margin-top: 4rem;
+}
+.indicator-container li {
+  margin-top: .5rem;
+}
+.indicator-container button {
+  display: flex;
+  align-items: center;
+  /* padding: .3rem 0; */
+  font-size: .8rem;
+  font-weight: normal; 
+  font-style: normal;
+}
+.indicator-container li.active button {
+  color: var(--cTintBlue);
+}
+.indicator-container li.active .btnIcon {
+  transform: translateY(-5px)
+}
+.indicator-container span {
+  height: 1px;
+  width: 1rem;
+  margin-right: .5rem;
+  background-color: var(--cGreyTwo);
+  transition: .3s;
+  transform-origin: 0;
+}
+.indicator-container li:hover span,
+.indicator-container li.active span { 
+  width: 3rem;
+  background-color: var(--cTintBlue);
+}
+
 .header-container {
   height: 100%;
   display: flex;
