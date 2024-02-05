@@ -17,11 +17,7 @@
 </head>
 <body>
 	<main>
-		<div class="main-con">
-			<section class="wrong">
-				<p>비번을 잘 입력하라구!</p>
-			</section>
-			
+		<div class="main-con">			
 			<section class="intro">
 				<img src="img/tan1.png" alt="tangerine">
 				<p>
@@ -274,18 +270,15 @@
 		var code = prompt('소희?','비밀번호 적기!');
 			alert(code);
 		
-		if (code == 5959) {
+		// if (code == 5959) {
 			$('.intro').stop().fadeIn();
 			setTimeout(function() {
 				$('.intro').stop().fadeOut();
 				$('.page1').stop().fadeIn();
 			}, 5000);
-			// setTimeOut(function () {
-			// 	$('.page1-btn').stop().fadeIn();
-			// }, 1000)
-		} else {
-			$('.wrong').stop().css('display','block');
-		}
+		// } else {
+		// 	$('.wrong').stop().css('display','block');
+		// }
 		
 		$('.page1-btn').on('click', function () {
 			$('.page1').stop().fadeOut();
