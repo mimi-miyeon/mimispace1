@@ -245,19 +245,44 @@ headerImgEl.setAttribute("alt",imgAlt);
  * 인디케이터 표시
  * 
  */
-const indicatorBtnEls = document.querySelectorAll('#indicator li');
+const indicator = document.querySelector('#indicator');
+const indicatorBtnEls = indicator.querySelectorAll('#indicator li');
+const indicatorH = indicator.offsetHeight;
+const project = document.querySelector('#project');
+const projectY = Math.round(project.getBoundingClientRect().top);
+const projectScroll = projectY - indicatorH;
 
-// 클릭시 활성화
+
+// 버튼 활성화 삭제
+function deleteActive () {
+  indicatorBtnEls.forEach((btn)=> {
+    btn.classList.remove('active');
+  });
+};
+
 indicatorBtnEls.forEach((btn)=>{
+  const name = btn.getAttribute('name');
+
   btn.onclick=()=>{
-    indicatorBtnEls.forEach((btn)=> {
-      btn.classList.remove('active');
-    });
     btn.classList.add('active');
-    // console.log(btn.getAttribute('name'));
-    document.getElementById(btn.getAttribute('name')).scrollIntoView({behavior: 'smooth', block: 'start'});
+    deleteActive();
+    
+    // 이동
+    if(name === 'about') {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    } else if (name === 'project') {
+      window.scrollTo({top: projectScroll, behavior: 'smooth'});
+    }
   };
 });
 
 // 스크롤 활성화
-const about = document.getElementById("about");
+window.onscroll = () => {
+  if(projectScroll <= window.scrollY) {
+    deleteActive();
+    document.getElementsByName('project')[0].classList.add('active');
+  } else {
+    deleteActive();
+    document.getElementsByName('about')[0].classList.add('active');
+  }
+};
