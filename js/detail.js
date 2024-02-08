@@ -61,9 +61,12 @@ function animation () {
   }, 600);
 
   // projectLink 변수
-  projectLinksAnimation()
+  if(new URLSearchParams(window.location.search).get('id') !== 'graphicDesign'){
+    projectLinksAnimation();
+  }
 };
 
+if(new URLSearchParams(window.location.search).get('id') !== 'graphicDesign'){
 
 function projectLinksAnimation () {
   const projectLink = document.getElementById("projectLinks");
@@ -76,9 +79,10 @@ function projectLinksAnimation () {
       projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
     };
 
-    if(window.scrollY + viewHeight + 100 >= projectLinkPosition) {
+    if(window.scrollY + viewHeight + 150 >= projectLinkPosition) {
       document.getElementById('projectLinks').style.transform = "translateY(0)";
       document.getElementById('projectLinks').style.opacity = 1;
     }
   });
 };
+}

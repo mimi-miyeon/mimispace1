@@ -29,13 +29,15 @@ header > img {
 .indicator-container button {
   display: flex;
   align-items: center;
-  /* padding: .3rem 0; */
   font-size: .8rem;
   font-weight: normal; 
   font-style: normal;
+  opacity: .4;
 }
+.indicator-container li:hover button,
 .indicator-container li.active button {
   color: var(--cTintBlue);
+  opacity: 1;
 }
 .indicator-container li.active .btnIcon {
   transform: translateY(-5px)
@@ -256,6 +258,29 @@ main {
   }
 
 
+  /* indicator */
+  .indicator-container {
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    width: 100%;
+    margin-top: 0;
+    padding: 0 var(--content-padding);
+    background-color: #41544199;
+    z-index: 1;
+  }
+  .indicator-container li {
+    margin-top: 0;
+    margin-right: 1.5rem;
+  }
+  .indicator-container button {
+    padding: 1rem 0;
+  }
+  .indicator-container span {
+    display: none;
+  }
+
+  /* main */
   main {
     width: 100%;
     margin: 0;
