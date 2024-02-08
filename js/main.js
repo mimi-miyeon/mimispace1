@@ -185,11 +185,11 @@ const handleProjectId = () => {
 
 const headerImg = [
   {
-    src: "cranky.jpg",
+    src: "cranky.png",
     alt: "짜증난"
   },
   {
-    src: "sleep.jpg",
+    src: "sleep.png",
     alt: "잠자는"
   },
   {
@@ -203,6 +203,30 @@ const headerImg = [
   {
     src: "space.png",
     alt: "우주인 우주견"
+  },
+  {
+    src: "showoff.png",
+    alt: "뽐내는 스노우볼"
+  },
+  {
+    src: "yay.png",
+    alt: "야호야호"
+  },
+  {
+    src: "tired.png",
+    alt: "피곤"
+  },
+  {
+    src: "starving.png",
+    alt: "배고픔"
+  },
+  {
+    src: "chill.png",
+    alt: "뒹굴뒹굴"
+  },
+  {
+    src: "mountain.png",
+    alt: "설산"
   }
 ];
 
@@ -214,7 +238,7 @@ const imgSrc = selectedImg.src;
 const imgAlt = selectedImg.alt;
 const headerImgEl = document.getElementById("headerImg");
 headerImgEl.setAttribute("src",`images/${imgSrc}`);
-headerImgEl.setAttribute("alt",`images/${imgAlt}`);
+headerImgEl.setAttribute("alt",imgAlt);
 
 /**
  * 
