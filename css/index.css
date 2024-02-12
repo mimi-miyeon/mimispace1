@@ -269,8 +269,12 @@ main {
     z-index: 2;
     animation: flow 20s linear infinite;
   }
+  .about-wrapper__detail .description:focus,
+  .about-wrapper__detail .description:active {
+    animation: flow 20s linear infinite;
+  }
   .about-wrapper__detail .description:hover {
-    animation-play-state: paused;
+    /* animation-play-state: paused; */
   }
   .about-wrapper__detail::after {
     position: fixed;
@@ -288,7 +292,7 @@ main {
   }
   @keyframes flow {
     0% {
-      transform: translateX(-80%);
+      transform: translateX(-100%);
     }    
     100% {
       transform: translateX(100%);
@@ -346,6 +350,13 @@ main {
     float: right;
   }
   
+  .about-wrapper__detail::after {
+    height: 2.4rem;
+  }
+  .about-wrapper__detail .description {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+  }
   .about-wrapper__detail > p span {
     display: block;
   }
