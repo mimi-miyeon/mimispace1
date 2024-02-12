@@ -357,7 +357,7 @@ iframe.video {
     font-size: 6rem;
   }
   .header-title-wrapper h1 > small {
-    bottom: 2rem;
+    bottom: 1rem;
   }
 
   /* main */
@@ -376,7 +376,7 @@ iframe.video {
     margin-top: 1rem;
   }
   
-  .detail-img-wrapper li:not(.main__graphic-design .detail-img-wrapper li) {
+  .detail-img-wrapper li {
     width: 50%;
     padding-top: 1rem;
     padding-right: .5rem;
@@ -394,6 +394,11 @@ iframe.video {
   }
   .detail-img-wrapper img li:nth-child(2):not(.main__graphic-design .detail-img-wrapper) {
     width: 100%;
+  }
+
+  /* rasApp */
+  .main__rasApp .detail-img-wrapper::before {
+    content: none;
   }
 
   /* graphic design */
@@ -447,7 +452,8 @@ iframe.video {
     font-size: 3rem;
   }
   .header-title-wrapper h1 > small {
-    top: 0;
+    position: relative;
+    bottom: 0;
   }
 
   .section--description {
@@ -469,6 +475,7 @@ iframe.video {
 
   .section--detail {
     margin-top: 1rem;
+    padding-top: 2.5rem;
   }
   .section--detail p {
     margin-top: 3rem;

@@ -345,4 +345,11 @@ main {
     display: block;
     float: right;
   }
+  
+  .about-wrapper__detail > p span {
+    display: block;
+  }
+  .about-wrapper__detail > p span::after {
+    content: none;
+  }
 }
