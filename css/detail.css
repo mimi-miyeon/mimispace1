@@ -511,4 +511,19 @@ iframe.video {
   }
   .main__rinventory .detail-img-wrapper {
   }
+
+  /* kiosk */
+  .main__kiosk .detail-img-wrapper {
+    display: block;
+  }
+  .main__kiosk .detail-img-wrapper li {
+    width: 100%;
+    padding-left: var(--content-padding);
+    padding-right: var(--content-padding);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .main__kiosk .detail-img-wrapper li:nth-of-type(2) {
+    padding-top: 1rem;
+  }
 }

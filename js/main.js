@@ -237,7 +237,7 @@ const selectedImg = headerImg[getHeaderImgIndex()];
 const imgSrc = selectedImg.src;
 const imgAlt = selectedImg.alt;
 const headerImgEl = document.getElementById("headerImg");
-headerImgEl.setAttribute("src",`images/${imgSrc}`);
+headerImgEl.setAttribute("src",`../images/${imgSrc}`);
 headerImgEl.setAttribute("alt",imgAlt);
 
 /**
