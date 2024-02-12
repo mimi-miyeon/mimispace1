@@ -456,6 +456,7 @@ iframe.video {
     bottom: 0;
   }
 
+  /* main */
   .section--description {
     margin-top: 2rem;
   }
@@ -525,5 +526,13 @@ iframe.video {
   }
   .main__kiosk .detail-img-wrapper li:nth-of-type(2) {
     padding-top: 1rem;
+  }
+
+  /* graphic design */
+  .main__graphic-design .detail-img-wrapper::before {
+    content: none;
+  }
+  .gangnam-sample--char {
+    margin-top: 1rem;
   }
 }
