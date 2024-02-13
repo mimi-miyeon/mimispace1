@@ -519,6 +519,12 @@ iframe.video {
     margin-top: .5rem;
   }
 
+  /* blackjack */
+  .main__blackjack video {
+    width: 90%;
+    margin-top: 0;
+  }
+
   /* rinventory */
   .main__rinventory .detail-img-wrapper {
     justify-content: start;
