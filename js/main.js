@@ -159,6 +159,7 @@ async function fetchProjectList () {
   catch (error)
   {
     console.error('Error fetching project list data:', error);
+    document.getElementById('project').innerHTML = "<li>프로젝트 리스트를 가져오는데 실패했어요 :(</li>";
   }
 };
 fetchProjectList();
