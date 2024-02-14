@@ -1,0 +1,87 @@
+@charset "utf-8";
+@import url(normalize.css);
+
+body {
+	position: relative;
+	width: 98.5vw;
+	margin: auto;
+	background: #000;
+}
+.hidden {
+	opacity: 0
+}
+
+img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1575px;
+	margin: auto;
+}
+
+header {
+	position: absolute;
+	height: 90px;
+	width: 100%
+}
+header .header-con {
+	height: 100%;
+	width: 100%;
+	line-height: 90px;
+}
+.header-con .logo {
+	float: left;
+	width: 180px;
+	margin-left: 40px;
+	margin-right: 80px;
+}
+.header-con .gnb {
+  position: absolute;
+	left: 0;
+	top: 0;
+	
+	width: 600px;
+	height: 100%;
+	
+	margin-left: 1016px;
+}
+.gnb li {
+  position: relative;
+	right: 0;
+	top: 0;
+	
+	float: left;
+	height: 100%;
+	padding: 0 10px;
+	margin: 0 6px;
+}
+.gnb a {
+	display: block;
+	float: left;
+	height: 100%;
+}
+.header-con .gnb a:last-child {
+	margin-right: 0;
+}
+.gnb li:after {
+	position: absolute;
+	content: '';
+	left: 0;
+	bottom: 30px;
+	width: 0%;
+	height: 1px;
+	background: #fff;
+	transition: all 0.3s
+}
+.gnb li.on:after,
+.gnb li:hover:after {
+	width: 100%;
+	background: #0b9eec;
+}
+
+img {
+	display: none;
+}
+img:first-child {
+	display: block;
+}

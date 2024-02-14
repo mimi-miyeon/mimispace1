@@ -1,0 +1,828 @@
+@charset 'utf-8';
+@import url(base.css);
+
+button {
+	color: #fff;
+}
+
+/*visual*/
+.visual {
+	height: 730px
+}
+
+.visual .visual-con {
+	height: 100%;
+	background: url(../img/sub1/recipe-visual.jpg) fixed no-repeat top center / cover;
+}
+
+main .recipe-info {
+	/*	height: 970px;*/
+	padding: 50px 0;
+	background: #b09168;
+	color: #fff;
+}
+
+.recipe-info .recipe-wrap {
+	width: 1200px;
+	height: 100%;
+	margin: auto;
+}
+
+.recipe-wrap .info1 {
+	width: 100%;
+	font-size: 14px
+}
+
+.recipe-wrap .tip1 {
+	float: left;
+	width: 30%;
+	margin-right: 5%
+}
+
+.tip1 button {
+	float: left;
+	padding: 5px 25px;
+	border: solid 1px
+}
+
+.recipe-wrap .tip2 {
+	float: left;
+	width: 65%;
+}
+
+.tip2 p {
+	float: left;
+}
+
+.tip2 p:first-child {
+	margin-right: 80px;
+}
+
+.tip2 b {
+	color: #ffdaa8
+}
+
+.tip2 a {
+	padding: 0 3px;
+	margin-right: 2px
+}
+
+.tip2 a:hover {
+	color: #20224a
+}
+
+.recipe-wrap .info2 {
+	float: left;
+	margin-top: 80px;
+}
+
+.info2 h2 {
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+
+	font-weight: normal;
+	font-size: 36px;
+	line-height: 1.3;
+}
+
+.info2 p {
+	float: left;
+	width: 65%;
+	font-size: 18px;
+	line-height: 1.5;
+	text-align: justify
+}
+
+.recipe-wrap .info3 {
+	float: left;
+	width: 100%;
+	margin-top: 100px;
+	/*	margin-left: 35%;*/
+}
+
+.info3 p {
+	float: left;
+	height: 100%;
+	font-size: 18px;
+	margin-right: 30px;
+}
+
+.info3 button {
+	display: block;
+	font-size: 18px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid;
+	cursor: pointer
+}
+
+.info3 button:hover {
+	color: #20224a
+}
+
+.recipe-wrap .box {
+	float: left;
+	width: 35%;
+}
+
+.recipe-wrap .hidden {
+	opacity: 0
+}
+
+.info3 .ingredient1 {
+	float: left;
+	width: 30%;
+	height: 100px;
+	margin-right: 5%;
+}
+
+.info3 .ingredient2 {
+	float: left;
+	width: 30%;
+}
+
+.recipe-wrap .info4 {
+	float: left;
+	width: 100%;
+	margin-top: 80px
+}
+
+.info4 .cont {
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+	border-top: solid 1px #ffdaa8;
+}
+
+.info4 .cont:nth-of-type(2),
+.info4 .cont:nth-of-type(5) {
+	margin-right: 0;
+}
+
+.info4 .cont b {
+	display: block;
+	margin-top: 20px;
+	font-size: 14px;
+	font-weight: normal;
+	color: #ffdaa8
+}
+
+.info4 .cont button {
+	display: block;
+	margin-top: 30px;
+	font-size: 24px;
+	font-weight: normal
+}
+
+.info4 .cont:nth-of-type(2),
+.info4 .cont:nth-of-type(3) {
+	margin-bottom: 80px;
+}
+
+.info4 .vid-btn {
+	float: left;
+	width: 30%;
+	/*	right: 5%;*/
+
+	line-height: 30px;
+	padding-top: 20px;
+	margin-right: 5%;
+	border-top: solid 1px #ffdaa8;
+}
+
+.info4 .vid-btn b {
+	float: left;
+	color: #ffdaa8;
+	margin-right: 10px;
+}
+
+.info4 .vid-btn span {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background: #ffdaa8 url(../img/sub1/play-btn.png) no-repeat center center / 30%;
+	border-radius: 30px
+}
+
+.info4 .vid-btn img {
+	width: 10px;
+	margin: auto
+}
+
+.info4 button {
+	cursor: pointer
+}
+
+.info4 .cont:nth-child(6) button {
+	position: relative;
+
+	padding-right: 30px;
+}
+
+.info4 .cont:nth-child(6) .fa-heart {
+	position: absolute;
+	top: 2px;
+	right: 0;
+}
+
+.info4 .cont:nth-child(6) .fas {
+	display: none;
+}
+
+main .main-con {
+	width: 1200px;
+	margin: auto;
+	margin-top: 100px
+}
+
+/*common*/
+.main-con .pic {
+	float: left;
+}
+
+.main-con .pic img {
+	width: 100%;
+}
+
+.main-con .text {
+	float: left;
+}
+
+.main-con .text b {
+	display: block;
+	margin-top: 30px;
+
+	color: #777;
+	font-size: 14px;
+	font-weight: normal;
+	text-transform: uppercase
+}
+
+.main-con .text .desc {
+	/*	width: 100%;*/
+	margin-top: 15px;
+	font-size: 24px;
+
+	margin-bottom: 20px;
+	line-height: 1.5;
+}
+
+.main-con .text .desc a {
+	position: relative
+}
+
+.main-con .text .desc a:after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+
+	content: '';
+	height: 1px;
+	width: 85px;
+	background: #20224a;
+}
+
+.main-con .text .desc a:hover {
+	color: #ff64ac;
+}
+
+.main-con .text .desc a:hover:after {
+	background: #ff64ac;
+}
+
+.main-con .text-wrap {
+	margin-bottom: 20px;
+}
+
+.main-con .tips {
+	float: left;
+	width: 35px;
+	height: 35px;
+
+	font-size: 18px;
+	margin-right: 10px;
+	background: #b09168;
+	border-radius: 30px
+}
+
+.main-con .tips-info {
+	float: left;
+	line-height: 1.4;
+	font-size: 14px;
+	font-weight: bold;
+	color: #b09168
+}
+
+/*1층*/
+/*pic1*/
+.main-con .pic1 {
+	width: 65%;
+	margin-left: 35%;
+}
+
+.main-con .text1 {
+	margin-left: 35%;
+}
+
+/*2층*/
+/*pic2*/
+.main-con .pic2 {
+	width: 65%;
+	margin-top: 150px;
+}
+
+/*text2*/
+.main-con .text2 {
+	display: block;
+	width: 100%;
+}
+
+/*text3*/
+.main-con .text3 {
+	display: block;
+	width: 100%;
+	margin-bottom: 150px;
+}
+
+
+/*3-1층*/
+.main-con .wrap1 {
+	float: left;
+	width: 65%;
+}
+
+.main-con .text .desc .shortline {
+	position: relative
+}
+
+.main-con .text .desc .shortline:after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+
+	content: '';
+	height: 1px;
+	width: 70px;
+	background: #20224a;
+}
+
+.main-con .text .desc .shortline:hover {
+	color: #ff64ac;
+}
+
+.main-con .text .desc .shortline:hover:after {
+	background: #ff64ac;
+}
+
+.main-con .text4 {
+	margin-bottom: 150px;
+}
+
+/*3-2층*/
+.main-con .wrap2 {
+	float: left;
+	width: 30%;
+	margin-left: 5%;
+}
+
+.main-con .pic4 {
+	width: 100%;
+}
+
+.main-con .text5 {
+	line-height: 1.5
+}
+
+/*4층*/
+.main-con .wrap3 {
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+}
+
+.main-con .pic6 {
+	width: 30%
+}
+
+/*5층*/
+.main-con .pic7 {
+	display: block;
+	width: 100%;
+	margin-top: 150px;
+}
+
+.main-con .text7 a {
+	text-decoration: underline
+}
+
+.main-con .text7 a:hover {
+	color: #ff64ac
+}
+
+/*6층*/
+.main-con .pic8 {
+	width: 100%;
+	margin-top: 150px
+}
+
+/*section*/
+.con-wrap {
+	background: #fff;
+	padding-top: 50px;
+	margin-top: 200px;
+	padding-bottom: 100px;
+}
+
+.con {
+	width: 1200px;
+	margin: auto;
+}
+
+.con h3 {
+	font-size: 14px;
+	font-weight: normal;
+	margin-bottom: 20px;
+}
+
+.con .art {
+	float: left;
+	width: 30%;
+	margin-right: 5%;
+}
+
+.con .art:last-child {
+	margin-right: 0;
+}
+
+.con .art .art-pic {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 500px;
+	background: no-repeat center center / cover;
+	margin-bottom: 24px;
+	transition: all 0.3s
+}
+
+.con .art:nth-of-type(1) .art-pic {
+	background-image: url(../img/sub1/more1.jpg);
+}
+
+.con .art:nth-of-type(2) .art-pic {
+	background-image: url(../img/sub1/more2.jpg);
+}
+
+.con .art:nth-of-type(3) .art-pic {
+	background-image: url(../img/sub1/more3.jpg);
+}
+
+.con .art:nth-of-type(1) .art-pic:hover {
+	background-image: url(../img/sub1/more1-ho.jpg);
+}
+
+.con .art:nth-of-type(2) .art-pic:hover {
+	background-image: url(../img/sub1/more2-ho.jpg);
+}
+
+.con .art:nth-of-type(3) .art-pic:hover {
+	background-image: url(../img/sub1/more3-ho.jpg);
+}
+
+.con .art .fa-heart {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+
+	font-size: 24px
+}
+
+.con .art .fas {
+	display: none;
+}
+
+.con .art .fas.on {
+	display: block;
+}
+
+.con .art h4 {
+	font-weight: normal;
+	font-size: 20px;
+	line-height: 1.2;
+}
+
+.con .art p {
+	margin-top: 10px;
+	font-size: 14px
+}
+
+.con .art p a:hover {
+	color: #ff64ac;
+}
+
+footer {
+	margin-top: 0;
+}
+
+/*tablet*/
+@media screen and (max-width: 1240px) and (min-width: 640px) {
+
+	.visual {
+		height: 600px;
+	}
+
+	main .recipe-info {
+		height: auto;
+	}
+
+	.recipe-info .recipe-wrap {
+		width: 90%
+	}
+
+	.tip2 p:nth-of-type(2) {
+		padding: 10px 0;
+	}
+
+	.recipe-wrap .info2 {
+		float: none;
+		margin-top: 50px;
+	}
+
+	.info2 h2 {
+		float: none;
+		width: 100%;
+
+	}
+
+	.info2 br {
+		display: none;
+	}
+
+	.info2 p {
+		float: none;
+		width: 100%;
+		margin-top: 20px
+	}
+
+	.recipe-wrap .info3 {
+		float: none;
+		margin-top: 50px
+	}
+
+	.recipe-wrap .box {
+		display: none
+	}
+
+	.info3 .ingredient1,
+	.info3 .ingredient2 {
+		width: 47.5%;
+	}
+
+	/*main-con*/
+	/*common*/
+	main .main-con {
+		width: 90%
+	}
+
+	.main-con .text .desc {
+		margin-top: 5px
+	}
+
+
+	/*1층*/
+	.main-con .pic1 {
+		width: 100%;
+		margin-left: 0
+	}
+
+	.main-con .text1 {
+		margin-left: 0
+	}
+
+	.main-con .wrap3 {
+		float: left;
+		width: 60%;
+		margin-right: 5%;
+	}
+
+	.main-con .pic6 {
+		width: 35%
+	}
+
+	.con {
+		width: 90%;
+	}
+
+	.con .art .art-pic {
+		height: 350px;
+	}
+}
+
+/*mobile*/
+@media screen and (max-width: 640px) {
+	.visual {
+		height: 450px;
+	}
+
+	.visual .visual-con {
+		background-position: center center
+	}
+
+	main .recipe-info {
+		height: auto;
+	}
+
+	.recipe-info .recipe-wrap {
+		width: 90%
+	}
+
+	.recipe-wrap .tip1 {
+		display: none
+	}
+
+	.recipe-wrap .tip2 {
+		display: none
+	}
+
+	.tip2 p {
+		display: none
+	}
+
+	.recipe-wrap .info2 {
+		float: none;
+		margin-top: 0
+	}
+
+	.info2 h2 {
+		float: none;
+		width: 100%;
+	}
+
+	.info2 br {
+		display: none;
+	}
+
+	.info2 p {
+		display: none
+	}
+
+	.recipe-wrap .info3 {
+		float: none;
+		margin-top: 50px
+	}
+
+	.info3 .ingredient1 {
+		width: 47.5%;
+		height: auto;
+		color: #ffdaa8
+	}
+
+	.info3 .ingredient2 {
+		float: left;
+		width: 47.5%;
+		color: #ffdaa8
+	}
+
+	.info3 button {
+		width: 100%;
+		text-align: left;
+		margin-bottom: 0;
+		border-bottom: 0
+	}
+
+	.info3 p {
+		margin-bottom: 15px
+	}
+
+	.recipe-wrap .box {
+		display: none
+	}
+
+	.info4 .cont {
+		width: 100%;
+		margin-right: 0;
+		padding-bottom: 50px;
+	}
+
+	.info4 .cont:nth-of-type(2),
+	.info4 .cont:nth-of-type(3) {
+		margin-bottom: 0;
+	}
+
+	.info4 .vid-btn {
+		width: 100%;
+		padding-bottom: 50px
+	}
+
+	.info4 .vid-btn b {
+		font: none
+	}
+
+	/*main-con*/
+	/*common*/
+	.m-hide {
+		display: none
+	}
+
+	.main-con .tips-info {
+		font-size: 16px;
+		line-height: 35px
+	}
+
+	main .main-con {
+		width: 90%
+	}
+
+	.main-con .text .desc {
+		margin-top: 5px
+	}
+
+	.main-con .text .desc a {
+    color: #ff64ac
+	}
+
+	.main-con .text .desc a:after {
+		display: none;
+	}
+
+	/*m-1층*/
+	.main-con .pic1 {
+		width: 100%;
+		margin-left: 0
+	}
+
+	.main-con .text1 {
+		margin-left: 0
+	}
+
+	/*m-2층*/
+	.main-con .pic2 {
+		width: 100%;
+		margin-top: 100px
+	}
+
+	/*m-3층*/
+	.main-con .wrap1 {
+		float: none;
+		width: 100%
+	}
+
+	.main-con .wrap2 {
+		float: none;
+		width: 100%;
+		margin-left: 0
+	}
+	.main-con .text3,
+	.main-con .text4 {
+		margin-bottom: 100px;
+	}
+	.main-con .text5 br {
+		display: none
+	}
+	/*m-4층*/
+	.main-con .wrap3 {
+		float: left;
+		width: 100%;
+		margin-right: 0%;
+		margin-top: 100px;
+	}
+
+	.main-con .pic6 {
+		display: none
+	}
+  .main-con .pic7,
+	.main-con .pic8 {
+		margin-top: 100px
+	}
+	.main-con .text7 .desc {
+		margin-bottom: 0
+	}
+	.main-con .text7 .tips,
+	.main-con .text7 .tips-info {
+		display: none;
+	}
+	
+/*	하단*/
+	.con-wrap {
+		margin-top: 100px;
+	}
+	.con {
+		width: 90%;
+	}
+	.con .art {
+	float: none;
+	width: 100%;
+	margin-right: 0%;
+		margin-top: 50px;
+}
+	.con .art:nth-of-type(1) {
+		margin-top: 0
+	}
+	.con .art .art-pic {
+		height: 350px;
+	}
+	.con .art br {
+		display: none
+	}
+	
+}

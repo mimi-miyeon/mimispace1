@@ -1,8 +1,6 @@
 @charset "utf-8";
 @import url(base.css);
-a {
-  cursor: pointer
-}
+
 main .main-con {
   position: relative;
   width: 1200px;
@@ -121,12 +119,12 @@ main .local {
 
 /*pic*/
 .con-left .pic1 {
-  /* background-image: url(../img/soop.jpg) */
+  background-image: url(../img/work1.jpg)
 }
 
-.con-left .pic3 {
+.con-left .pic2 {
   height: 100%;
-  /* background-image: url(../img/lifeSchool.jpg) */
+  background-image: url(../img/work2.jpg)
 }
 
 .con-left .con:nth-of-type(3) .pic-wrap {
@@ -134,10 +132,10 @@ main .local {
 }
 .con-left .pic3 {
   height: 550px;
-  /* background-image: url(../img/lifeSchool.jpg) */
+  background-image: url(../img/work5.jpg)
 }
-.con-left .pic5 {
-	/* background-image: url(../img/lululemon.jpg); */
+.con-left .pic4 {
+	background-image: url(../img/work7.jpg);
 }
 /*준비중*/
 .con-left .prep p {
@@ -147,42 +145,33 @@ main .local {
 	opacity: 0.5;
 }
 
-/* .con-left .pic7 {
-	background-image: url(../img/printD1.jpg);
+.con-left .pic5 {
+	background-image: url(../img/work9-1.jpg);
 }
-.con-left .pic9 {
-	background-image: url(../img/printD2.jpg);
+.con-left .pic6 {
+	background-image: url(../img/work9-3.jpg);
 }
-.con-left .pic11 {
-	background-image: url(../img/realseller.jpg);
-} */
 
 .con-right .con:nth-of-type(1) .pic-wrap ,
 .con-right .con:nth-of-type(5) .pic-wrap {
   height: 550px;
 }
-/* .con-right .pic2 {
-  background-image: url(../img/mutemuse.jpg)
-} */
+.con-right .pic1 {
+  background-image: url(../img/work3.jpg)
+}
 
-/* .con-right .pic4 {
-  background-image: url(../img/reAll.jpg)
+.con-right .pic2 {
+  background-image: url(../img/work4.jpg)
 }
-.con-right .pic6 {
-  background-image: url(../img/hanaTour.jpg)
+.con-right .pic3 {
+  background-image: url(../img/work6.jpg)
 }
-.con-right .pic8 {
-	background-image: url(../img/webD1.jpg);
+.con-right .pic4 {
+	background-image: url(../img/work8.jpg);
 }
-.con-right .pic10 {
-	background-image: url(../img/printD3.jpg);
+.con-right .pic5 {
+	background-image: url(../img/work9-2.jpg);
 }
-.con-right .pic12 {
-	background-image: url(../img/wantit.jpg);
-}
-.con-right .pic13 {
-	background-image: url(../img/todo.jpg);
-} */
 
 /*pop*/
 .pop {
@@ -200,9 +189,7 @@ main .local {
   overflow-y: auto;
   overflow-x: hidden
 }
-.pop::-webkit-scrollbar {
-  display: none;
-}
+
 .pop .close {
   position: fixed;
   top: 50px;
@@ -211,8 +198,7 @@ main .local {
   width: 30px;
   height: 30px;
   background: transparent;
-  cursor: pointer;
-  z-index: 1;
+  cursor: pointer
 }
 
 .pop .close img {
@@ -232,8 +218,6 @@ main .local {
   border: solid 1px #cfe800;
   text-transform: uppercase;
   transition: all 0.5s;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1;
 }
 
 .pop .go-work:after {
@@ -261,10 +245,9 @@ main .local {
 }
 
 .pop_in {
-  padding-bottom: 30px;
-  /* width: 1250px;
-  margin: auto; */
-	/* background: #fff; */
+  width: 1250px;
+  margin: auto;
+	background: #fff;
 }
 
 .pop img {
@@ -277,96 +260,7 @@ main .local {
 	width: 550px;
 	display: block;
 	margin: auto;
-}
-
-/*new pop style*/
-.pop {
-  /* padding-bottom: 100px; */
-  background-color: #eee;
-}
-.pop_in {}
-section {
-  width: 1250px;
-  margin: auto;
-}
-.section-header__bg {
-  position: absolute; left: 0; right: 0; top: 0; right: 0 ;
-  width: 100%; 
-  /* height: calc((100vh / 3) * 2); */
-  height: 550px;
-  background-color: #000;
-  z-index: -1;
-}
-.section-header__bg__img {
-  width: 100%; height: 100%;
-  opacity: .3;
-  background: no-repeat center center / cover;
-}
-.section-header {
-  /* position: absolute; top: 130px; */
-  width: 100%;
-  margin-top: 130px;
-  color: #fff;
-}
-.section-header__inner {
-  /* width: 1000px; */
-  width: 1240px;
-  margin: auto;
-}
-.project-screen-img {
-  margin-top: 50px;
-}
-.project-name {
-  margin-bottom: .5rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-.project-title {
-  margin-bottom: 2rem;
-  font-weight: 300;
-  font-size: 3.5rem;
-}
-.project-type {
-  position: relative;
-  margin-bottom: .5rem;
-  padding-bottom: .5rem;
-}
-.project-type::after {
-  content: ''; width: 50px; height: 1px; background-color: #fff;
-  position: absolute; bottom: -1px; left: 0;
-}
-.project-date {
-  font-size: .8rem;
-}
-.project-screen-img {}
-.section-explain {
-  /* position: absolute; */
-  width: 100%;
-  margin-top: 80px;
-}
-.section-explain__ul {
-  width: 100%;
-}
-.section-explain__ul__li {
-  width: 700px;
-  margin-left: auto; margin-right: auto;
-  margin-bottom: 3rem;
-}
-.section-explain__ul__li--imgs {
-  width: 100%;
-  margin-bottom: 0;
-}
-.section-explain__ul__li--imgs img{
-  max-width: 1200px;
-  margin-top: 50px; margin-left: auto; margin-right: auto;
-}
-.section-explain__ul__li h5 {
-  margin-bottom: .5rem;
-  font-size: 1rem;
-}
-.section-explain__ul__li p {
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
+	box-shadow: 
 }
 
 /*jquery*/
@@ -395,7 +289,7 @@ section {
 	}
 }
 /*tablet*/
-@media (max-width: 1240px) {
+@media screen and (min-width: 640px) and (max-width: 1240px) {
   main .main-con {
     width: 90%
   }
@@ -435,24 +329,6 @@ section {
   .pop img {
     width: 100%
   }
-  .section-header__inner {
-    /* left: 50px; */
-    width: 100%;
-  }
-  .section-header__inner__texts {
-    margin-left: 50px;
-  }
-  .section-explain {
-    /* margin-top: calc((100vh / 3) * 2 + 40vw); */
-    /* margin-top: calc(600px + 33vw); */
-    /* margin-top: 100vw; */
-  }
-  .section-explain__ul__li {
-    width: 600px;
-  }
-  .section-explain__ul__li.section-explain__ul__li--imgs {
-    width: 90%;
-  }
 }
 
 /*mobile*/
@@ -486,7 +362,6 @@ section {
     width: 100%
   }
 
-/*pop*/
   .pop_in {
     width: 100%
   }
@@ -525,37 +400,5 @@ section {
   .pop .go-work:after {
     display: none;
   }
-  .section-header__bg {
-    height: calc((100vh / 3) * 1.7);
-  }
-  .section-header {
-    /* height: calc(50vh + 20px); */
-  }
-  .section-explain__ul {
-    font-weight: 300;
-    line-height: 1.5;
-  }
-  .section-explain__ul__li {
-    width: 90%;
-  }
-  .section-explain__ul__li--imgs {
-    /* width: 100%; */
-  }
-  .section-header__inner__texts {
-    width: 90%;
-    margin-left: auto; margin-right: auto;
-  }
-  .project-name {
-    font-size: 4.5vw;
-  }
-  .project-title {
-    font-size: 9vw;
-  }
-  .project-date,
-  .project-type {
-    font-weight: 300;
-  }
-  .section-explain {
-    /* margin-top: calc((50vh + 20px) + 40vw); */
-  }
+  
 }
