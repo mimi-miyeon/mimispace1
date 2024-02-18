@@ -175,7 +175,7 @@ main {
 }
 .project h3 {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   margin-bottom: .3rem;
   color: var(--cGreyOne);
   font-size: 1.8rem;
@@ -186,6 +186,9 @@ main {
 .project:hover h3 {
   color: var(--cBeige);
   color: var(--cTintBlue);
+}
+.project h3 small {
+  margin-left: .3rem;
 }
 .project h3 .icon {
   margin-left: .5rem;
