@@ -214,14 +214,6 @@ const headerImg = [
     alt: "야호야호"
   },
   {
-    src: "tired.png",
-    alt: "피곤"
-  },
-  {
-    src: "starving.png",
-    alt: "배고픔"
-  },
-  {
     src: "chill.png",
     alt: "뒹굴뒹굴"
   },
@@ -287,3 +279,7 @@ window.onscroll = () => {
     document.getElementsByName('about')[0].classList.add('active');
   }
 };
+
+// Using navigator.language
+const userLanguage = navigator.language || navigator.userLanguage || "en";
+document.documentElement.lang = userLanguage;

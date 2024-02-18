@@ -34,6 +34,24 @@ header > img {
 .indicator-container li {
   margin-top: .5rem;
 }
+/* 보류 */
+/* li.year-indicator {
+  position: fixed;
+  left: 50%; margin-left: -70px;
+  padding: .3rem .5rem;
+  background-color: var(--cBeige);
+  font-size: .8rem;
+  box-shadow: 0px 0px 15px #384838;
+  z-index: 1;
+}
+li.year-indicator::after {
+  position: absolute;
+  top: ; bottom: 0; right: -10px;
+  height: 1px; width: 20px;
+  margin-top: auto; margin-bottom: auto;
+  content: '';
+  background-color: var(--cBeige);
+} */
 .indicator-container button {
   display: flex;
   align-items: center;
@@ -351,11 +369,11 @@ main {
   }
   
   .about-wrapper__detail::after {
-    height: 2.4rem;
+    height: 3rem;
   }
   .about-wrapper__detail .description {
     padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-bottom: .8rem;
   }
   .about-wrapper__detail > p span {
     display: block;
