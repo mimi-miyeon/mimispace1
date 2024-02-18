@@ -347,6 +347,15 @@ main {
     display: none;
   }
 
+  .indicator-container li:hover button {
+    color: inherit;
+    opacity: .4;
+  }
+  .indicator-container li.active button {
+    color: var(--cTintBlue);
+    opacity: 1;
+  }
+
   /* main */
   main {
     width: 100%;
