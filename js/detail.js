@@ -66,23 +66,28 @@ function animation () {
   }
 };
 
+// 하단 프로젝트 링크 애니메이션
 if(new URLSearchParams(window.location.search).get('id') !== 'graphicDesign'){
 
-function projectLinksAnimation () {
-  const projectLink = document.getElementById("projectLinks");
-  const viewHeight = document.documentElement.clientHeight;
-  let projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
+  function projectLinksAnimation () {
+    const projectLink = document.getElementById("projectLinks");
+    const viewHeight = document.documentElement.clientHeight;
+    let projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
 
-  window.addEventListener("scroll", () => {
-    // update projectLinkPosition
-    if(projectLinkPosition !== document.documentElement.offsetHeight - projectLink.offsetHeight) {
-      projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
-    };
+    window.addEventListener("scroll", () => {
+      // update projectLinkPosition
+      if(projectLinkPosition !== document.documentElement.offsetHeight - projectLink.offsetHeight) {
+        projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
+      };
 
-    if(window.scrollY + viewHeight + 150 >= projectLinkPosition) {
-      document.getElementById('projectLinks').style.transform = "translateY(0)";
-      document.getElementById('projectLinks').style.opacity = 1;
-    }
-  });
-};
+      if(window.scrollY + viewHeight + 150 >= projectLinkPosition) {
+        document.getElementById('projectLinks').style.transform = "translateY(0)";
+        document.getElementById('projectLinks').style.opacity = 1;
+      }
+    });
+  };
 }
+
+// Using navigator.language
+const userLanguage = navigator.language || navigator.userLanguage || "ko";
+document.documentElement.lang = userLanguage;
