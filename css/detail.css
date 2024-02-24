@@ -207,7 +207,7 @@ iframe.video {
   /* margin-top: 0; */
   aspect-ratio: 8 / 5;
 }
-.robot iframe.video {
+.main__robot iframe.video {
   aspect-ratio: 8 / 4.5;
 }
 .section--links {
@@ -645,5 +645,10 @@ iframe.video {
   }
   article.section--detail__cnm {
     margin-bottom: 3rem;
+  }
+
+  /* robot */
+  .main__robot .section--detail > img {
+    margin-top: 1rem;
   }
 }
