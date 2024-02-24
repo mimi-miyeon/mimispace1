@@ -293,5 +293,5 @@ window.onscroll = () => {
 };
 
 // Using navigator.language
-const userLanguage = navigator.language || navigator.userLanguage || "en";
+const userLanguage = navigator.language || navigator.userLanguage || "ko";
 document.documentElement.lang = userLanguage;
