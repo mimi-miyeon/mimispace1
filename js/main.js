@@ -7,9 +7,23 @@
 const tempEl = document.getElementById('temp');
 const weatherIconEl = document.getElementById('weatherIcon');
 
+//서울 세종 분리하기
+// const currentLocation = () => {
+  let currentLocation;
+  if("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      currentLocation = `${lat},${lon}`;
+    });
+  } else {
+  //   console.log('sejong')
+    currentLocation = "36.51468,127.2604";
+  }
+// };
+
 async function fetchWeatherData() {
   const apiUrl = 'https://api.weatherapi.com/v1/current.json?key=e73c70f92c5e4fe5a6865325232112&q=36.51468,127.2604&aqi=no';
-
   try {
     const response = await fetch(apiUrl);
 
@@ -247,19 +261,18 @@ const projectScroll = projectY - indicatorH;
 
 
 // 버튼 활성화 삭제
-function deleteActive () {
+function deleteActive (els) {
   indicatorBtnEls.forEach((btn)=> {
+  // els.forEach((btn)=> {
     btn.classList.remove('active');
   });
 };
 
+// 
 indicatorBtnEls.forEach((btn)=>{
   const name = btn.getAttribute('name');
 
   btn.onclick=()=>{
-    btn.classList.add('active');
-    deleteActive();
-    
     // 이동
     if(name === 'about') {
       window.scrollTo({top: 0, behavior: 'smooth'});
@@ -271,11 +284,10 @@ indicatorBtnEls.forEach((btn)=>{
 
 // 스크롤 활성화
 window.onscroll = () => {
+  deleteActive();
   if(projectScroll <= window.scrollY) {
-    deleteActive();
     document.getElementsByName('project')[0].classList.add('active');
   } else {
-    deleteActive();
     document.getElementsByName('about')[0].classList.add('active');
   }
 };
