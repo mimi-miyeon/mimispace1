@@ -338,6 +338,20 @@ iframe.video {
   padding: 1rem;
 }
 
+/* photo retouch */
+.main__photo-retouch .section--detail {
+  padding-top: 0;
+}
+.main__photo-retouch .detail-img-wrapper {
+  margin-top: 0;
+}
+.main__photo-retouch .detail-img-wrapper::before {
+  content: none;
+}
+.main__photo-retouch .detail-img-wrapper li:nth-of-type(2) {
+  padding-top: 0;
+}
+
 @media (max-width: 1200px) {
   .section--detail > img,
   .video, 

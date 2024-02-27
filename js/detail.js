@@ -61,31 +61,36 @@ function animation () {
   }, 600);
 
   // projectLink 변수
+  const urlLocation = new URLSearchParams(window.location.search).get('id');
   if(new URLSearchParams(window.location.search).get('id') !== 'graphicDesign'){
-    projectLinksAnimation();
-  }
+    if(urlLocation !== 'photoRetouch') {    
+      projectLinksAnimation();
+    };
+  };
 };
 
 // 하단 프로젝트 링크 애니메이션
-if(new URLSearchParams(window.location.search).get('id') !== 'graphicDesign'){
+const urlLocation = new URLSearchParams(window.location.search).get('id');
+if(urlLocation !== 'graphicDesign'){
+  if(urlLocation !== 'photoRetouch') {    
+    function projectLinksAnimation () {
+      const projectLink = document.getElementById("projectLinks");
+      const viewHeight = document.documentElement.clientHeight;
+      let projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
 
-  function projectLinksAnimation () {
-    const projectLink = document.getElementById("projectLinks");
-    const viewHeight = document.documentElement.clientHeight;
-    let projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
+      window.addEventListener("scroll", () => {
+        // update projectLinkPosition
+        if(projectLinkPosition !== document.documentElement.offsetHeight - projectLink.offsetHeight) {
+          projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
+        };
 
-    window.addEventListener("scroll", () => {
-      // update projectLinkPosition
-      if(projectLinkPosition !== document.documentElement.offsetHeight - projectLink.offsetHeight) {
-        projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
-      };
-
-      if(window.scrollY + viewHeight + 150 >= projectLinkPosition) {
-        document.getElementById('projectLinks').style.transform = "translateY(0)";
-        document.getElementById('projectLinks').style.opacity = 1;
-      }
-    });
-  };
+        if(window.scrollY + viewHeight + 150 >= projectLinkPosition) {
+          document.getElementById('projectLinks').style.transform = "translateY(0)";
+          document.getElementById('projectLinks').style.opacity = 1;
+        }
+      });
+    };
+  }
 }
 
 // Using navigator.language
