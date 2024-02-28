@@ -342,7 +342,7 @@ iframe.video {
 .main__photo-retouch .section--detail {
   padding-top: 0;
 }
-.main__photo-retouch .detail-img-wrapper {
+.main__photo-retouch .detail-img-wrapper:first-child {
   margin-top: 0;
 }
 .main__photo-retouch .detail-img-wrapper::before {
