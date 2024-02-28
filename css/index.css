@@ -81,7 +81,84 @@ li.year-indicator::after {
   width: 3rem;
   background-color: var(--cTintBlue);
 }
+/* header button container */
+.header__button-container {
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  flex-direction: column;
+  align-items: center;
+}
 
+.mode-container {}
+.mode-button {
+  filter: drop-shadow(-1px 1px 1px var(--cDark-green));
+}
+.mode-button span {
+  height: 1.5rem;
+  width: 1.5rem;
+  background: no-repeat center center / contain;
+  transition: .1s;
+}
+.mode-button:active span {
+  opacity: .8;
+}
+.dayMode .night {
+  background-image: url(../images/night_off.svg);
+}
+.dayMode .day {
+  background-image: url(../images/day_on.svg);
+}
+.dayMode:hover .night {
+  background-image: url(../images/night_on.svg);
+}
+.dayMode:hover .day {
+  background-image: url(../images/day_off.svg);
+}
+
+.nightMode .night {
+  background-image: url(../images/night_on.svg);
+}
+.nightMode .day {
+  background-image: url(../images/day_off.svg);
+}
+.nightMode:hover .night {
+  background-image: url(../images/night_off.svg);
+}
+.nightMode:hover .day {
+  background-image: url(../images/day_on.svg);
+}
+
+.lang-container {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-bottom: 1rem;
+  background-color: var(--cGreyTwo);
+  border-radius: 2rem;
+  filter: drop-shadow(-1px 0px 3px var(--cDark-background));
+}
+.lang-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.lang-button .btnIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 1px solid var(--cDark-green);
+  border-radius: 2rem;
+  background: url(../images/lang_en.jpg) no-repeat center center / cover;
+}
+.lang-button:hover .btnIcon {
+  color: var(--cDark-background);
+  /* background-color: var(--cTintBlue); */
+}
+.lang-button:active .btnIcon {
+  opacity: .1;
+}
 .header-container {
   height: 100%;
   display: flex;
@@ -166,6 +243,9 @@ main {
   border-top: 1px solid #ffffff1a;
   opacity: 1;
 }
+.project-lists .project:active {
+  opacity: .8
+}
 .project a {
   display: block;
   /* padding: 2rem 2.5rem 2.5rem; */
@@ -184,7 +264,6 @@ main {
   transition: .3s;
 }
 .project:hover h3 {
-  color: var(--cBeige);
   color: var(--cTintBlue);
 }
 .project h3 small {
@@ -293,9 +372,6 @@ main {
   .about-wrapper__detail .description:focus,
   .about-wrapper__detail .description:active {
     animation: flow 20s linear infinite;
-  }
-  .about-wrapper__detail .description:hover {
-    /* animation-play-state: paused; */
   }
   .about-wrapper__detail::after {
     position: fixed;
