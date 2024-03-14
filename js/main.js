@@ -103,7 +103,7 @@ function copyButtonValue() {
  * 
  */
 async function fetchProjectList () {
-  const url = 'data/project/list/projectList.json';
+  const url = 'data/ko/project/list/projectList.json';
   try 
   {
     const response = await fetch(url);

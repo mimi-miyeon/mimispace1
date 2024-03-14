@@ -51,6 +51,7 @@ small {
 
   /* --cDark-background: rgb(172 114 47); */
   --cDark-background: #415441;
+  --cGreen: #3f8637;
   --cDark-green: #41544199;
   --cGreyOne: #dbede0;
   --cGreyTwo: #acc3b1;
@@ -167,7 +168,8 @@ p {
 
 /* 배경 시작 */
 .background {
-  position: absolute;
+  /* position: absolute; */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -181,8 +183,10 @@ p {
   height: 100%;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(4, 1fr);
-  opacity: .7;
-  transform-origin: 0 50%;
+  /* opacity: .7; */
+  /* transform-origin: 0 50%; */
+  transform: rotateY(180deg);
+  opacity: .3;
 }
 .colour-holder div {
   filter: blur(15px);

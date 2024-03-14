@@ -32,7 +32,8 @@ header > img {
   margin-top: 2rem;
 }
 .indicator-container li {
-  margin-top: .5rem;
+  /* margin-top: .5rem; */
+  margin-top: .8rem;
 }
 /* 보류 */
 /* li.year-indicator {
@@ -55,7 +56,8 @@ li.year-indicator::after {
 .indicator-container button {
   display: flex;
   align-items: center;
-  font-size: .8rem;
+  /* font-size: .8rem; */
+  font-size: 1rem;
   font-weight: normal; 
   font-style: normal;
   opacity: .4;
@@ -64,6 +66,9 @@ li.year-indicator::after {
 .indicator-container li.active button {
   color: var(--cTintBlue);
   opacity: 1;
+}
+.indicator-container li .btnIcon {
+  margin-right: .2rem;
 }
 .indicator-container li.active .btnIcon {
   transform: translateY(-5px)
@@ -84,81 +89,91 @@ li.year-indicator::after {
 /* header button container */
 .header__button-container {
   position: absolute;
-  top: 2.5rem;
+  bottom: 2.5rem;
   left: 0;
   flex-direction: column;
   align-items: center;
+  opacity: .5;
 }
 
-.mode-container {}
-.mode-button {
+.switch-button {
   filter: drop-shadow(-1px 1px 1px var(--cDark-green));
 }
-.mode-button span {
-  height: 1.5rem;
-  width: 1.5rem;
+.switch-button span {
+  height: 1.8rem;
+  width: 1.8rem;
   background: no-repeat center center / contain;
   transition: .1s;
 }
-.mode-button:active span {
+.lang-button.ko:active .switch-top,
+.lang-button.en:active .switch-bottom,
+.mode-button--night:active .switch-bottom,
+.mode-button--day:active .switch-top {
   opacity: .8;
 }
-.dayMode .night {
+
+.mode-container {
+  margin-bottom: .8rem;
+  /* margin-right: .8rem; */
+}
+/* day mode on */
+.mode-button--day .switch-top {
   background-image: url(../images/night_off.svg);
 }
-.dayMode .day {
+.mode-button--day .switch-bottom {
   background-image: url(../images/day_on.svg);
 }
-.dayMode:hover .night {
+.mode-button--day:hover .switch-top {
   background-image: url(../images/night_on.svg);
 }
-.dayMode:hover .day {
+.mode-button--day:hover .switch-bottom {
   background-image: url(../images/day_off.svg);
 }
 
-.nightMode .night {
+
+/* night mode on */
+.mode-button--night .switch-top {
   background-image: url(../images/night_on.svg);
 }
-.nightMode .day {
+.mode-button--night .switch-bottom {
   background-image: url(../images/day_off.svg);
 }
-.nightMode:hover .night {
+.mode-button--night:hover .switch-top {
   background-image: url(../images/night_off.svg);
 }
-.nightMode:hover .day {
+.mode-button--night:hover .switch-bottom {
   background-image: url(../images/day_on.svg);
 }
 
-.lang-container {
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-bottom: 1rem;
-  background-color: var(--cGreyTwo);
-  border-radius: 2rem;
-  filter: drop-shadow(-1px 0px 3px var(--cDark-background));
+/* ko lang on */
+.lang-button.ko .switch-top {
+  background-image: url(../images/lang_en_off.svg);
 }
-.lang-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+.lang-button.ko .switch-bottom {
+  background-image: url(../images/lang_ko_on.svg);
+}
+.lang-button.ko:hover .switch-top {
+  background-image: url(../images/lang_en_on.svg);
+}
+.lang-button.ko:hover .switch-bottom {
+  background-image: url(../images/lang_ko_off.svg);
 }
 
-.lang-button .btnIcon {
-  width: 1.1rem;
-  height: 1.1rem;
-  border: 1px solid var(--cDark-green);
-  border-radius: 2rem;
-  background: url(../images/lang_en.jpg) no-repeat center center / cover;
+/* en lang on */
+.lang-button.en .switch-top {
+  background-image: url(../images/lang_en_on.svg);
 }
-.lang-button:hover .btnIcon {
-  color: var(--cDark-background);
-  /* background-color: var(--cTintBlue); */
+.lang-button.en .switch-bottom {
+  background-image: url(../images/lang_ko_off.svg);
 }
-.lang-button:active .btnIcon {
-  opacity: .1;
+.lang-button.en:hover .switch-top {
+  background-image: url(../images/lang_en_off.svg);
 }
+.lang-button.en:hover .switch-bottom {
+  background-image: url(../images/lang_ko_on.svg);
+}
+
+/* header container */
 .header-container {
   height: 100%;
   display: flex;
@@ -171,9 +186,10 @@ li.year-indicator::after {
 .about-wrapper h2 {
   margin-bottom: .5rem;
   color: var(--cGreyOne);
-  font-size: 1rem;
-  letter-spacing: .2rem;
-  font-weight: normal;
+  font-size: 1.8rem;
+  /* font-size: 1rem; */
+  /* letter-spacing: .2rem; */
+  /* font-weight: normal; */
 }
 .about-wrapper__detail {
 }
@@ -231,7 +247,7 @@ main {
 }
 .section--project {}
 .project-lists:hover .project {
-  opacity: .5;
+  /* opacity: .5; */
 }
 .project {
   border-radius: .5rem;
@@ -239,9 +255,10 @@ main {
   transition: .3s;
 }
 .project-lists .project:hover{
+  /* background-color: #0000000e; */
   background-color:  #ffffff0e;
   border-top: 1px solid #ffffff1a;
-  opacity: 1;
+  /* opacity: 1; */
 }
 .project-lists .project:active {
   opacity: .8
@@ -284,7 +301,7 @@ main {
   stroke-linejoin:round;
   transition: .3s;
 }
-.project:hover  .icon__svg {
+.project:hover .icon__svg {
   transform: translate(5px, -5px);
   stroke: var(--cTintBlue)
 }
@@ -347,6 +364,35 @@ main {
     margin: 0;
     padding: 0 var(--content-padding);
   }
+
+  /* header button container */
+  .header__button-container {
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: auto;
+    left: auto;
+    margin-right: var(--content-padding);
+    z-index: 10;
+  }
+  .switch-button {
+    padding: .7rem 0;
+  }
+  .mode-container {
+    margin-bottom: 0;
+    margin-right: .8rem;
+  }
+
+  .lang-button.ko .switch-bottom,
+  .lang-button.en .switch-top,
+  .mode-button--day .day,
+  .mode-button--night .night {
+    display: none;
+  }
+
+
+  /* about */
   .about-wrapper h2 {
     font-size: 1.8rem;
     font-weight: 600;
