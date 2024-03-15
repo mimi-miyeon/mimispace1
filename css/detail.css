@@ -45,7 +45,7 @@ header {
 }
 .header-bg {
   height: 100%;
-  background-color: var(--cGreyTwo);
+  background-color: var(--cDark-background);
 }
 #headerBg {
   transform: translateY(-100%);
@@ -67,6 +67,7 @@ header {
   text-align: center;
   word-break: keep-all;
   line-height: 1.2;
+  color: var(--cGreyOne);
 }
 .header-title-wrapper h1 > small {
   font-size: 1.5rem;

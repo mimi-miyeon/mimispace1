@@ -147,7 +147,7 @@ img {
 
 /* 영문 폰트 */
 .en {
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 .container {
   width: var(--wContent);
