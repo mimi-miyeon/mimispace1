@@ -29,14 +29,11 @@ const Keyboard = {
     this.elements.keys = document.querySelectorAll('.keyboard__key');
 
     document.querySelectorAll('.use--keyboard-input').forEach(element => {
-      element.addEventListener('focus', (e) => {
+      element.addEventListener('focus', () => {
         this.open(element.value, currentValue => {
           element.value = currentValue;
         });
-        // console.log(e.target)
-        e.target.blur();
-        document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
-      });
+      })
     })
   },
 
@@ -164,15 +161,4 @@ const Keyboard = {
 
 window.addEventListener('DOMContentLoaded', () => {
   Keyboard.init();
-});
-
-
-
-const lastTouchEnd = 0;
-document.addEventListener('touchend', function(event) {
-    const now = new Date().getTime();
-    if (now - lastTouchEnd <= 300) {
-      event.preventDefault();
-    }
-    lastTouchEnd = now;
 });
