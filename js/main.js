@@ -1,28 +1,17 @@
-/**
- * 
- * 날씨 및 아이콘 가져오기
- * 
- */
-// https://www.weatherapi.com/ api
-const tempEl = document.getElementById('temp');
-const weatherIconEl = document.getElementById('weatherIcon');
-
-//서울 세종 분리하기
-// const currentLocation = () => {
-  let currentLocation;
-  if("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      currentLocation = `${lat},${lon}`;
-    });
+/* Get user's language setting */
+const lang = function () {
+  if(navigator.languages != undefined) {
+    return navigator.languages[0];
   } else {
-  //   console.log('sejong')
-    currentLocation = "36.51468,127.2604";
+    return navigator.language;
   }
-// };
+};
 
+/* weather and icon api */
+// https://www.weatherapi.com/ api
 async function fetchWeatherData() {
+  const tempEl = document.getElementById('temp');
+  const weatherIconEl = document.getElementById('weatherIcon');
   const apiUrl = 'https://api.weatherapi.com/v1/current.json?key=e73c70f92c5e4fe5a6865325232112&q=36.51468,127.2604&aqi=no';
   try {
     const response = await fetch(apiUrl);
@@ -43,8 +32,19 @@ async function fetchWeatherData() {
   } catch (error) {
     console.error('Error fetching weather data:', error);
   }
-}
-fetchWeatherData();
+};
+
+const init = function () {
+  fetchWeatherData();
+
+  if(lang != "ko") {
+    console.log('en');
+  }else {
+    console.log('ko');
+  };
+
+};
+init();
 
 
 /**
@@ -102,8 +102,9 @@ function copyButtonValue() {
  * 프로젝트 리스트 로딩
  * 
  */
-async function fetchProjectList () {
-  const url = 'data/ko/project/list/projectList.json';
+let langSelect = "ko";
+async function fetchProjectList (langSelect) {
+  const url = `data/${langSelect}/project/list/projectList.json`;
   try 
   {
     const response = await fetch(url);
@@ -176,7 +177,7 @@ async function fetchProjectList () {
     document.getElementById('project').innerHTML = "<li>프로젝트 리스트를 가져오는데 실패했어요 :(</li>";
   }
 };
-fetchProjectList();
+fetchProjectList(langSelect);
 
 
 const handleProjectId = () => {
@@ -293,5 +294,5 @@ window.onscroll = () => {
 };
 
 // Using navigator.language
-const userLanguage = navigator.language || navigator.userLanguage || "ko";
-document.documentElement.lang = userLanguage;
+// const userLanguage = navigator.language || navigator.userLanguage || "ko";
+// document.documentElement.lang = userLanguage;

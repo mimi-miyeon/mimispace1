@@ -1,0 +1,3 @@
+[submodule "site/household"]
+	path = site/household
+	url = https://github.com/mimi-miyeon/household

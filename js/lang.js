@@ -8,8 +8,9 @@ const main = document.getElementById("main");
 
 langBtn.addEventListener('click', ()=>{
   body.classList.toggle("en");
-
-  // if(body.classList.contains("en")){
-
-  // };
+  if(body.classList.contains("en")) {
+    fetchProjectList("en");
+  }else {
+    fetchProjectList("ko");
+  }
 })
