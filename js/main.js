@@ -1,22 +1,31 @@
-/* Get user's language setting */
-const lang = function () {
-  if(navigator.languages != undefined) {
+/* GET USER'S LANGUAGE SETTING */
+const lang = function () 
+{
+  if(navigator.languages != undefined) 
+  {
     return navigator.languages[0];
-  } else {
+  } 
+  else 
+  {
     return navigator.language;
   }
 };
 
-/* weather and icon api */
+
+
+/* WEATHER API */
 // https://www.weatherapi.com/ api
-async function fetchWeatherData() {
+async function fetchWeatherData() 
+{
   const tempEl = document.getElementById('temp');
   const weatherIconEl = document.getElementById('weatherIcon');
   const apiUrl = 'https://api.weatherapi.com/v1/current.json?key=e73c70f92c5e4fe5a6865325232112&q=36.51468,127.2604&aqi=no';
-  try {
+  try 
+  {
     const response = await fetch(apiUrl);
 
-    if (!response.ok) {
+    if (!response.ok) 
+    {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
@@ -29,29 +38,71 @@ async function fetchWeatherData() {
     const weatherImg = data.current.condition;
     weatherIconEl.setAttribute('src', weatherImg.icon);
     weatherIconEl.setAttribute('alt', weatherImg.text);
-  } catch (error) {
+  } 
+  catch (error) 
+  {
     console.error('Error fetching weather data:', error);
   }
 };
 
-const init = function () {
+
+
+/* GET INDEX */
+function includeHTML() {
+  var z, i, elmnt, file, xhttp;
+  /* Loop through a collection of all HTML elements: */
+  z = document.getElementsByTagName("*");
+  for (i = 0; i < z.length; i++) {
+    elmnt = z[i];
+    /*search for elements with a certain atrribute:*/
+    file = elmnt.getAttribute("w3-include-html");
+    if (file) {
+      /* Make an HTTP request using the attribute value as the file name: */
+      xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+          /* Remove the attribute, and call this function once more: */
+          elmnt.removeAttribute("w3-include-html");
+          includeHTML();
+        }
+      }
+      xhttp.open("GET", file, true);
+      xhttp.send();
+      /* Exit the function: */
+      return;
+    }
+  }
+}
+includeHTML()
+// console.log(document.getElementsByTagName("html")[0]);
+// new XMLHttpRequest().onreadystatechange = function() {}
+
+/* INITIALISATION */
+const init = function () 
+{
+  let rootPath="/data/";
+  // common
   fetchWeatherData();
 
-  if(lang != "ko") {
-    console.log('en');
-  }else {
-    console.log('ko');
-  };
-
+  // language
+  document.addEventListener('DOMContentLoaded',()=>{
+    if(lang != "ko") 
+    {
+      rootPath = rootPath + "en";
+      window.innerHTML = "<body>test body</body>";
+    }
+    else {
+      rootPath = rootPath + "ko";
+    };
+  });
 };
 init();
 
 
-/**
- * 
- * 현재 시간 가져오기 (대한민국)
- * 
- */
+
+/* 현재 시간 가져오기 (대한민국) */
 function updateClock() {
   const localtimeEl = document.getElementById('localtime'); 
   const locale = 'kr-KR'; 
@@ -62,8 +113,7 @@ function updateClock() {
   const formattedTime = formatter.format(now);
 
   localtimeEl.innerText = formattedTime;
-}
-
+};
 // prevMinutes 이전 시간
 let prevMinutes = new Date().getMinutes();
 // 매 초 새로운 시간을 가져옴
@@ -80,11 +130,7 @@ updateClock();
 
 
 
-/**
- * 
- * 이메일 복사 코드
- * 
- */
+/* 이메일 복사 코드 */
 function copyButtonValue() {
   var emailBtnEl = document.getElementById('email');
   var emailValue = emailBtnEl.value;
@@ -97,18 +143,18 @@ function copyButtonValue() {
   })
 };
 
-/**
- * 
- * 프로젝트 리스트 로딩
- * 
- */
+
+
+/* 프로젝트 리스트 로딩 */
 let langSelect = "ko";
-async function fetchProjectList (langSelect) {
+async function fetchProjectList (langSelect) 
+{
   const url = `data/${langSelect}/project/list/projectList.json`;
   try 
   {
     const response = await fetch(url);
-    if (!response.ok) {
+    if (!response.ok) 
+    {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
@@ -179,7 +225,6 @@ async function fetchProjectList (langSelect) {
 };
 fetchProjectList(langSelect);
 
-
 const handleProjectId = () => {
   const projectListEls = document.querySelectorAll('.project a');
   projectListEls.forEach((a)=>{
@@ -193,12 +238,9 @@ const handleProjectId = () => {
   })
 };
 
-/**
- * 
- * 헤더 이미지 랜덤
- * 
- */
 
+
+/* 헤더 이미지 랜덤 */
 const headerImg = [
   {
     src: "cranky.png",
@@ -237,7 +279,6 @@ const headerImg = [
     alt: "설산"
   }
 ];
-
 function getHeaderImgIndex () {
   return Math.floor(Math.random() * headerImg.length);
 };
@@ -248,17 +289,16 @@ const headerImgEl = document.getElementById("headerImg");
 headerImgEl.setAttribute("src",`images/${imgSrc}`);
 headerImgEl.setAttribute("alt",imgAlt);
 
-/**
- * 
- * 인디케이터 표시
- * 
- */
+
+
+/* 인디케이터 표시 */
 const indicator = document.querySelector('#indicator');
 const indicatorBtnEls = indicator.querySelectorAll('#indicator li');
 const indicatorH = indicator.offsetHeight;
 const project = document.querySelector('#project');
 const projectY = Math.round(project.getBoundingClientRect().top);
 const projectScroll = projectY - indicatorH;
+
 
 
 // 버튼 활성화 삭제
@@ -268,6 +308,8 @@ function deleteActive (els) {
     btn.classList.remove('active');
   });
 };
+
+
 
 // 
 indicatorBtnEls.forEach((btn)=>{
@@ -283,6 +325,9 @@ indicatorBtnEls.forEach((btn)=>{
   };
 });
 
+
+
+
 // 스크롤 활성화
 window.onscroll = () => {
   deleteActive();
@@ -292,7 +337,3 @@ window.onscroll = () => {
     document.getElementsByName('about')[0].classList.add('active');
   }
 };
-
-// Using navigator.language
-// const userLanguage = navigator.language || navigator.userLanguage || "ko";
-// document.documentElement.lang = userLanguage;
