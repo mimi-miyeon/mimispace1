@@ -1,5 +1,5 @@
 /* GET USER'S LANGUAGE SETTING */
-const lang = function () 
+const getLang = function () 
 {
   if(navigator.languages != undefined) 
   {
@@ -10,6 +10,7 @@ const lang = function ()
     return navigator.language;
   }
 };
+let userLanguage = getLang();
 
 
 
@@ -47,55 +48,41 @@ async function fetchWeatherData()
 
 
 
-/* GET INDEX */
-function includeHTML() {
-  var z, i, elmnt, file, xhttp;
-  /* Loop through a collection of all HTML elements: */
-  z = document.getElementsByTagName("*");
-  for (i = 0; i < z.length; i++) {
-    elmnt = z[i];
-    /*search for elements with a certain atrribute:*/
-    file = elmnt.getAttribute("w3-include-html");
-    if (file) {
-      /* Make an HTTP request using the attribute value as the file name: */
-      xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4) {
-          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-          /* Remove the attribute, and call this function once more: */
-          elmnt.removeAttribute("w3-include-html");
-          includeHTML();
-        }
+/* GET INDEX FILE */
+function includeHTML(rootPath) 
+{
+
+  let html, file, xhttp;
+  html = document.getElementsByTagName("html")[0];
+  file = `/data/${rootPath}/index.html`;
+  if (file) 
+  {
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() 
+    {
+      if (this.readyState == 4) 
+      {
+        if (this.status == 200) {html.innerHTML = this.responseText;}
+        if (this.status == 404) {html.innerHTML = "Page not found.";}
       }
-      xhttp.open("GET", file, true);
-      xhttp.send();
-      /* Exit the function: */
-      return;
     }
+    xhttp.open("GET", file, true);
+    xhttp.send();
   }
-}
-includeHTML()
-// console.log(document.getElementsByTagName("html")[0]);
-// new XMLHttpRequest().onreadystatechange = function() {}
+};
+
+
 
 /* INITIALISATION */
 const init = function () 
 {
   let rootPath="/data/";
-  // common
-  fetchWeatherData();
 
   // language
-  document.addEventListener('DOMContentLoaded',()=>{
-    if(lang != "ko") 
-    {
-      rootPath = rootPath + "en";
-      window.innerHTML = "<body>test body</body>";
-    }
-    else {
-      rootPath = rootPath + "ko";
-    };
+  document.addEventListener('DOMContentLoaded',()=>
+  {
+    rootPath = (userLanguage !== "ko") ? "en" : "ko";
+    includeHTML(rootPath);
   });
 };
 init();
