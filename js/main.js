@@ -2,8 +2,8 @@
 /* DEPENDS ON THE USER'S LANGUAGE SETTING, */
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
 // GET USER'S LANGUAGE SETTING
-const userLanguage = (navigator.languages != undefined) ? navigator.languages[0] : navigator.language;
-const lang = (userLanguage !== "ko") ? "en" : "ko";
+const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
+export const lang = (userLanguage !== "ko") ? "en" : "ko";
 
 function fetchHTML(rootPath) 
 {
@@ -93,7 +93,7 @@ function getTimezone()
   // NEED TO BE CHANGED WHEN LOCATION CHANGED
   const locale = 'kr-KR'; 
   
-  let options, now, formattedTime;
+  let options, now, formattedTime, formatter;
   options = { hour: 'numeric', minute: 'numeric', timeZone: 'Asia/Seoul' };
   now = new Date();
   formatter = new Intl.DateTimeFormat(locale, options);
@@ -210,7 +210,7 @@ async function fetchProjectList (langSelect)
 
     document.querySelector('.section--project .project-lists').innerHTML = projectList();
     
-    handleProjectId();
+    handleProjectId(langSelect);
   }
   catch (error)
   {
@@ -220,12 +220,14 @@ async function fetchProjectList (langSelect)
 };
 
 /* PROJECT DETAIL PAGE LINK */
-const handleProjectId = () => 
-  {
+const handleProjectId = (langSelect) => 
+{
   const projectListEls = document.querySelectorAll('.project a');
   projectListEls.forEach((a)=>{
-    if(a.getAttribute('href') === "") {
-      a.addEventListener('click', (e)=>{
+    if(a.getAttribute('href') === "") 
+    {
+      a.addEventListener('click', (e)=>
+      {
         e.preventDefault();
         const id = a.getAttribute('id');
         window.location.href = `detail.html?id=${id}`;

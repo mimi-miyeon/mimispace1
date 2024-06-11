@@ -1,3 +1,5 @@
+import {lang} from "./main.js";
+
 /**
  * 
  * 프로젝트 페이지 불러오기
@@ -9,7 +11,7 @@ async function fetchPage () {
   var linkId = urlParams.get('id');
 
   try {
-    const response = await fetch(`data/ko/project/detail/${linkId}.html`);
+    const response = await fetch(`data/${selectedLang}/project/detail/${linkId}.html`);
     if(!response.ok) {
       throw new Error('Network response was not ok');
     }
