@@ -1,4 +1,5 @@
-import {lang} from "./main.js";
+import { lang } from "./main.js";
+
 
 /**
  * 
@@ -11,7 +12,7 @@ async function fetchPage () {
   var linkId = urlParams.get('id');
 
   try {
-    const response = await fetch(`data/${selectedLang}/project/detail/${linkId}.html`);
+    const response = await fetch(`data/${lang}/project/detail/${linkId}.html`);
     if(!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -34,7 +35,7 @@ async function drawHtml () {
   if(!fetchedHtml) {
     // 가져올 수 없음 표시
   }
-  body.innerHTML = fetchedHtml;
+  body.innerHTML = body.innerHTML + fetchedHtml;
   animation();
 };
 drawHtml();
