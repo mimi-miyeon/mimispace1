@@ -1,3 +1,39 @@
+/* HEAD TAG SETS UP */
+const headContentEn = [
+  {type: "meta", attributes: {charset:"UTF-8"} },
+  {type: "meta", attributes: {"http-equiv":"X-UA-Compatible", content:"IE=edge"} },
+  {type: "meta", attributes: {name:"viewport", content:"width=device-width, initial-scale=1.0"} },
+  {type: "meta", attributes: {property:"og:type", content:"website"} },
+  {type: "meta", attributes: {property:"og:url", content:"https://mimi-miyeon.github.io/mimispace1/"} },
+  {type: "meta", attributes: {property:"og:title", content:"Mimi's portfolio site - UI/UX Designer, Graphic Designer, Front-end developer(potential)"} },
+  {type: "meta", attributes: {property:"og:image", content:"images/metaOg.jpg"} },
+  {type: "meta", attributes: {property:"description", content:"Portfolio site where you can explore my journey from graphic designer to publisher and front-end developer."} },
+  {type: "meta", attributes: {property:"og:site_name", content:"Mimi's portfolio site"} },
+  {type: "meta", attributes: {property:"og:locale", content:"ko"} },
+  {type: "meta", attributes: {property:"og:image:width", content:"1200"} },
+  {type: "meta", attributes: {property:"og:image:height", content:"630"} },
+  {type: "meta", attributes: {name:"twitter:card", content:"summary"} },
+  {type: "meta", attributes: {name:"twitter:title", content:"Mimi's portfolio site - UI/UX Designer, Graphic Designer, Front-end developer(potential)"} },
+  {type: "meta", attributes: {name:"twitter:description", content:"Portfolio site where you can explore my journey from graphic designer to publisher and front-end developer."} },
+  {type: "meta", attributes: {name:"twitter:image", content:"images/metaOg.jpg"} },
+  {type: "meta", attributes: {name:"keywords", content:"HTML, CSS, Javascript, React, jQuery, Adobe XD, Adobe Illustrator, Adobe Photoshop, Zeplin, UI/UX Designer, Front-end developer, Portfolio, Designer, Mimi's portfolio site"} },
+  {type: "meta", attributes: {name:"author", content:"Miyeon Mimi Yang"} },
+
+  {type: "title", content: "Mimi's portfolio site"},
+
+  {type: "link", attributes: {rel:"shortcut icon", href:"/images/favicon.gif", type:"image/gif"} },
+  {type: "link", attributes: {href:"https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700;1,900&display=swap", rel:"stylesheet"} },
+  {type: "link", attributes: {href:"https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;300;400;500;600;700&display=swap", rel:"stylesheet"} },
+  {type: "link", attributes: {rel:"stylesheet", href:"css/styles.css"} },
+  {type: "link", attributes: {rel:"stylesheet", href:"css/index.css"} },
+
+  {type: "script", attributes: {defer: "", src:"js/index.js"} }
+];
+
+
+const headContentKo = [
+];
+
 /* GET INDEX FILE */
 /* DEPENDS ON THE USER'S LANGUAGE SETTING, */
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
@@ -20,6 +56,7 @@ function fetchHTML(rootPath)
         if (this.status == 200) 
         {
           html.innerHTML = this.responseText;
+
           // HANDLE TIME
           drawTime();
       
@@ -32,7 +69,10 @@ function fetchHTML(rootPath)
           // FETCH WEATHER INFO
           fetchWeatherData();
 
-          f_indicator()
+          // BUTTONS TO SCROLL TO MENU
+          f_indicator();
+          //
+          loadHeadContent(lang);
         }
         if (this.status == 404) {html.innerHTML = "Page not found.";}
       }
@@ -44,13 +84,43 @@ function fetchHTML(rootPath)
 
 
 
+function loadHeadContent(lang) 
+{
+  let headContent = (lang==="ko") ? headContentKo : headContentEn;
+  // Clear current head content
+  document.head.innerHTML = '';
+
+  // Iterate over the head content array
+  headContent.forEach(item => {
+      let element = document.createElement(item.type);
+      if (item.attributes) 
+      {
+        for (let key in item.attributes) 
+        {
+          if (item.attributes[key] === '') 
+          {
+            element.setAttribute(key, '');
+          } 
+          else {
+            element.setAttribute(key, item.attributes[key]);
+          }
+        }
+      }
+      
+      // Append the element to the head
+      document.head.appendChild(element);
+  });
+} 
 
 /* WEATHER API */
 // https://www.weatherapi.com/ api
 async function fetchWeatherData()
 {
   let tempEl, weatherIconEl, temperatureCelsius, weatherImg;
+  tempEl = document.getElementById('temp');
+  weatherIconEl = document.getElementById('weatherIcon');
   const apiUrl = 'https://api.weatherapi.com/v1/current.json?key=e73c70f92c5e4fe5a6865325232112&q=36.51468,127.2604&aqi=no';
+
   try 
   {
     const response = await fetch(apiUrl);
@@ -62,9 +132,6 @@ async function fetchWeatherData()
     const data = await response.json();
 
     // GET TEMPERTURE
-    tempEl = document.getElementById('temp');
-    weatherIconEl = document.getElementById('weatherIcon');
-
     temperatureCelsius = data.current.temp_c;
     tempEl.innerText = temperatureCelsius + "'C";
 
@@ -75,6 +142,7 @@ async function fetchWeatherData()
   } 
   catch (error) 
   {
+    tempEl.innerText = "🥵";
     console.error('Error fetching weather data:', error);
   }
 };
@@ -368,4 +436,7 @@ const setHTML = function ()
   });
 
 };
-setHTML();
+if(location.pathname === "/")
+{
+  setHTML();
+};

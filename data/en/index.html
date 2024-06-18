@@ -34,6 +34,12 @@
   <script defer src="js/main.js"></script>
 </head>
 <body class="body">
+<script type="text/javascript">
+  window.addEventListener("load",()=>{
+
+    alert("En Index")
+  })
+</script>
   <div class="body-container container">
     <!-- Header Starts -->
     <header id="header">
@@ -105,5 +111,22 @@
       </div>
     </main>
   </div>
+
+  <script defer type="text/javascript">
+    function copyButtonValue()
+    {
+      console.log("EMAIL")
+      var emailBtnEl = document.getElementById('email');
+      var emailValue = emailBtnEl.value;
+
+      navigator.clipboard.writeText(emailValue)
+      .then(()=>{
+        alert("You copied my email successfully👍");
+      }).catch((error)=>{
+        alert("Copying failed😫");
+      })
+    };
+    
+  </script>
 </body>
 </html>

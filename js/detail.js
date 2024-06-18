@@ -1,5 +1,5 @@
-import { lang } from "./main.js";
-
+import { lang } from "./init.js";
+alert("detail")
 
 /**
  * 
@@ -13,7 +13,9 @@ async function fetchPage () {
 
   try {
     const response = await fetch(`data/${lang}/project/detail/${linkId}.html`);
-    if(!response.ok) {
+
+    if(!response.ok) 
+    {
       throw new Error('Network response was not ok');
     }
 
@@ -34,6 +36,7 @@ async function drawHtml () {
   const body = document.querySelector(".body-container");
   if(!fetchedHtml) {
     // 가져올 수 없음 표시
+    console.log("Failed to fetch");
   }
   body.innerHTML = body.innerHTML + fetchedHtml;
   animation();
