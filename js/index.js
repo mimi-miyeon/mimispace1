@@ -1,4 +1,6 @@
-function copyButtonValue()
+import { lang } from "./init.js";
+
+export function copyButtonValue()
 {
   var emailBtnEl = document.getElementById('email');
   var emailValue = emailBtnEl.value;
@@ -10,4 +12,9 @@ function copyButtonValue()
   }).catch((error)=>{
     alert("Copying failed😫");
   });
+};
+
+export function f_langHandler()
+{
+  
 };

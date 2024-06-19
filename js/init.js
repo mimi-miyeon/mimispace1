@@ -3,7 +3,8 @@
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
 // GET USER'S LANGUAGE SETTING
 const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
-export const lang = (userLanguage !== "ko") ? "en" : "ko";
+export let lang = (userLanguage !== "ko") ? "en" : "ko";
+let rootPath;
 
 function fetchHTML(rootPath) 
 {
@@ -36,8 +37,8 @@ function fetchHTML(rootPath)
           // BUTTONS TO SCROLL TO MENU
           f_indicator();
 
-          // SET HEAD AFTER INIT
-          loadHeadContent(lang);
+          //
+          f_addEventHandler();
         }
         if (this.status == 404) {html.innerHTML = "Page not found.";}
       }
@@ -46,34 +47,6 @@ function fetchHTML(rootPath)
     xhttp.send();
   }
 };
-
-
-
-
-
-/* HEAD TAG SETS UP */
-const appendedScript = [
-  {type: "script", attributes: {defer: "", src:"js/index.js"} }
-];
-
-
-function loadHeadContent(lang) 
-{
-  appendedScript.forEach(item => 
-  {
-    let element = document.createElement(item.type);
-    if (item.attributes) 
-    {
-      for (let key in item.attributes) 
-      {
-        element.setAttribute(key, item.attributes[key]);
-      }
-    }
-    
-    document.head.appendChild(element);
-  });
-} 
-
 
 
 
@@ -374,7 +347,6 @@ function f_scrollDetector(indicatorBtnEls, projectScroll)
 /* SET HTML */
 const setHTML = function () 
 {
-  let rootPath;
   document.addEventListener('DOMContentLoaded',()=>
   {
     // LOADING INDEX.HTML
@@ -386,4 +358,31 @@ const setHTML = function ()
 if(location.pathname === "/")
 {
   setHTML();
+};
+
+
+const f_addEventHandler = function()
+{
+  const emailBtnEl = document.getElementById("email");
+  emailBtnEl.addEventListener("click", ()=>
+  {
+    const emailValue = emailBtnEl.value;
+  navigator.clipboard.writeText(emailValue)
+  .then(()=>
+    {
+      alert("You copied my email successfully👍");
+    }).catch((error)=>{
+      alert("Copying failed😫");
+    });
+  });  
+
+
+
+  const langBtnEl = document.getElementById("langBtn");
+  langBtnEl.addEventListener("click",()=>
+  {
+    lang = (lang === "ko") ? "en" : "ko";
+    rootPath = `/data/${lang}/index.html`
+    fetchHTML(rootPath);
+  });
 };
