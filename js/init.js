@@ -37,7 +37,7 @@ function fetchHTML(rootPath)
           // BUTTONS TO SCROLL TO MENU
           f_indicator();
 
-          //
+          // EXCUTING ELEMENTS EVENTS
           f_addEventHandler();
         }
         if (this.status == 404) {html.innerHTML = "Page not found.";}
@@ -361,6 +361,9 @@ if(location.pathname === "/")
 };
 
 
+
+
+/* ELEMENTS' EVENTS HOLDER */
 const f_addEventHandler = function()
 {
   const emailBtnEl = document.getElementById("email");
@@ -379,9 +382,24 @@ const f_addEventHandler = function()
 
 
   const langBtnEl = document.getElementById("langBtn");
+  const enBtn = document.getElementById("enBtn");
+  const koBtn = document.getElementById("koBtn");
+  langBtnEl.classList.add(lang);
   langBtnEl.addEventListener("click",()=>
   {
     lang = (lang === "ko") ? "en" : "ko";
+    if(lang==="ko")
+    {
+      // koBtn.style.backgroundImage = "url(/images/lang_ko_off.svg)";
+      // enBtn.style.backgroundImage = "url(/images/lang_en_on.svg)";
+      langBtnEl.classList.add("ko");
+    }
+    else 
+    {
+      // enBtn.style.backgroundImage = "url(/images/lang_en_off.svg)";
+      // koBtn.style.backgroundImage = "url(/images/lang_ko_on.svg)";
+      langBtnEl.classList.add("en");
+    };
     rootPath = `/data/${lang}/index.html`
     fetchHTML(rootPath);
   });
