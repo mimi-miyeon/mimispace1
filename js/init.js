@@ -364,7 +364,7 @@ if(location.pathname === "/")
   setHTML();
 };
 
-
+setHTML();
 
 
 /* ELEMENTS' EVENTS HOLDER */
