@@ -10,7 +10,7 @@ async function fetchPage ()
 
   try 
   {
-    const response = await fetch(`data/${lang}/project/detail/${linkId}.html`);
+    const response = await fetch(`./data/${lang}/project/detail/${linkId}.html`);
 
     if(!response.ok) 
     {

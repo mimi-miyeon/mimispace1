@@ -350,7 +350,7 @@ const setHTML = function ()
   document.addEventListener('DOMContentLoaded',()=>
   {
     // LOADING INDEX.HTML
-    rootPath = `../data/${lang}/index.html`
+    rootPath = `./data/${lang}/index.html`
     fetchHTML(rootPath);
   });
 
