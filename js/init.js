@@ -133,7 +133,7 @@ function drawTime() {
 /* FETCH PROJECT LIST */
 async function fetchProjectList (langSelect) 
 {
-  const url = `data/${langSelect}/project/list/projectList.json`;
+  const url = `/mimispace1/data/${langSelect}/project/list/projectList.json`;
   try 
   {
     const response = await fetch(url);
@@ -350,7 +350,7 @@ const setHTML = function ()
   document.addEventListener('DOMContentLoaded',()=>
   {
     // LOADING INDEX.HTML
-    rootPath = `/data/${lang}/index.html`
+    rootPath = `/mimispace1/data/${lang}/index.html`
     fetchHTML(rootPath);
   });
 
@@ -401,7 +401,6 @@ const f_addEventHandler = function()
       langBtnEl.classList.add("en");
     };
     rootPath = `/mimispace1/data/${lang}/index.html`
-    alert(rootPath)
     fetchHTML(rootPath);
   });
 };
