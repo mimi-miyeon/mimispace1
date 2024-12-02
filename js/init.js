@@ -80,7 +80,7 @@ async function fetchWeatherData()
   } 
   catch (error) 
   {
-    tempEl.innerText = "🥵";
+    tempEl.innerText = "🥶";
     console.error('Error fetching weather data:', error);
   }
 };
