@@ -133,7 +133,7 @@ function drawTime() {
 /* FETCH PROJECT LIST */
 async function fetchProjectList (langSelect) 
 {
-  const url = `data/${langSelect}/project/list/projectList.json`;
+  const url = `../data/${langSelect}/project/list/projectList.json`;
   try 
   {
     const response = await fetch(url);
