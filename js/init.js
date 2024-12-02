@@ -5,7 +5,7 @@
 const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
 export let lang = (userLanguage !== "ko") ? "en" : "ko";
 let rootPath;
-alert(lang)
+// alert(lang)
 function fetchHTML(rootPath) 
 {
   let html, file, xhttp;
@@ -350,7 +350,8 @@ const setHTML = function ()
   document.addEventListener('DOMContentLoaded',()=>
   {
     // LOADING INDEX.HTML
-    rootPath = `./data/${lang}/index.html`
+    rootPath = `./data/${lang}/index.html`;
+    alert(rootPath)
     fetchHTML(rootPath);
   });
 
