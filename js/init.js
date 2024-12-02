@@ -355,7 +355,10 @@ const setHTML = function ()
   });
 
 };
-if(location.pathname === "/" || location.pathname === "mimispace1")
+if(location.pathname === "/")
+{
+  setHTML();
+} else if(location.pathname === "mimispace1")
 {
   setHTML();
 };
