@@ -401,6 +401,7 @@ const f_addEventHandler = function()
       langBtnEl.classList.add("en");
     };
     rootPath = `/mimispace1/data/${lang}/index.html`
+    alert(rootPath)
     fetchHTML(rootPath);
   });
 };
