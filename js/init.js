@@ -5,7 +5,7 @@
 const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
 export let lang = (userLanguage !== "ko") ? "en" : "ko";
 let rootPath;
-
+alert(lang)
 function fetchHTML(rootPath) 
 {
   let html, file, xhttp;
