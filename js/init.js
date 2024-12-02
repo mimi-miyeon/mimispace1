@@ -351,7 +351,7 @@ const setHTML = function ()
   {
     // LOADING INDEX.HTML
     rootPath = `./data/${lang}/index.html`;
-    alert(rootPath)
+    // alert(rootPath)
     fetchHTML(rootPath);
   });
 
@@ -359,12 +359,12 @@ const setHTML = function ()
 if(location.pathname === "/")
 {
   setHTML();
-} else if(location.pathname === "mimispace1")
+} else if(location.pathname === "/mimispace1/")
 {
   setHTML();
 };
 
-setHTML();
+// setHTML();
 
 
 /* ELEMENTS' EVENTS HOLDER */
