@@ -400,7 +400,7 @@ const f_addEventHandler = function()
       // koBtn.style.backgroundImage = "url(/images/lang_ko_on.svg)";
       langBtnEl.classList.add("en");
     };
-    rootPath = `../data/${lang}/index.html`
+    rootPath = `./data/${lang}/index.html`
     fetchHTML(rootPath);
   });
 };
