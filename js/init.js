@@ -3,7 +3,8 @@
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
 // GET USER'S LANGUAGE SETTING
 const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
-export let lang = (userLanguage !== "ko") ? "en" : "ko";
+let lang = (userLanguage !== "ko") ? "en" : "ko";
+sessionStorage.setItem("lang", lang);
 let rootPath;
 // alert(lang)
 function fetchHTML(rootPath) 
@@ -219,7 +220,9 @@ const handleProjectId = (langSelect) =>
       {
         e.preventDefault();
         const id = a.getAttribute('id');
+        
         window.location.href = `detail.html?id=${id}`;
+        sessionStorage.setItem("lang", langSelect);
       });
     };
   });

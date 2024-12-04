@@ -62,11 +62,11 @@
   {
     "id": "realseller",
     "title": "Realseller <small>( 2022 )</small>",
-    "icon": "LINK",
+    "icon": "BROWSER",
     "role": "Web Designer, Front Developer",
     "description": "A company introduction website for ″RealSeller.″ This project involved redesigning the existing company website, splitting it into separate sections for service introduction and company information. RealSeller offers a unique identity verification service that certifies trusted sellers. To save time, a template using CSS utility classes was purchased and used for the design.",
     "skill": ["Javascript", "jQuery", "HTML", "CSS", "Adobe XD", "Illustrator", "Procreate"],
-    "link": "https://real-seller.com/",
+    "link": "",
     "year": "2022"
   },
   {
