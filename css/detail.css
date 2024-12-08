@@ -152,6 +152,14 @@ main {
 .section--detail {
   padding-top: 5rem;
 }
+.swiper {
+  /* width: var(--wText); */
+  width: calc(100% - (var(--content-padding) * 2));
+}
+.swiper-slide {
+  border-radius: 1rem;
+  overflow: hidden;
+}
 .section--detail p {
   width: var(--wText);
   margin: 0 auto;
@@ -164,6 +172,7 @@ main {
   margin-top: 4rem;
   border-radius: 1rem;
 }
+.section--detail > video:first-child,
 .section--detail > img:first-child {
   margin-top: 0;
 }

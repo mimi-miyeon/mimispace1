@@ -42,6 +42,12 @@ async function drawHtml () {
   }
   body.innerHTML = body.innerHTML + fetchedHtml;
   animation();
+
+  
+
+  // swiper
+  const rsPC = new Swiper('#rsPC', {
+  });
 };
 drawHtml();
 
