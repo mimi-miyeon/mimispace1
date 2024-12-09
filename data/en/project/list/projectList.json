@@ -1,5 +1,15 @@
 [
   {
+    "id": "roo",
+    "title": "Roo <small>( 2024 )</small>",
+    "icon": "BROWSER",
+    "role": "App Designer",
+    "description": "깃헙 메세지를 전달해주는 캥거루 \"ROO\". 애플리케이션 캐릭터와 프로젝트 전체 디자인",
+    "skill": ["Figma", "Procreate App","Illustrator"],
+    "link": "",
+    "year": "2024"
+  },
+  {
     "id": "rinventory",
     "title": "Rinventory <small>( 2022 )</small>",
     "icon": "BROWSER",
@@ -35,7 +45,7 @@
     "icon": "BROWSER",
     "role": "Web Designer, Front Developer",
     "description": "A company introduction website for ″RealSeller.″ This project involved redesigning the existing company website, splitting it into separate sections for service introduction and company information. RealSeller offers a unique identity verification service that certifies trusted sellers. To save time, a template using CSS utility classes was purchased and used for the design.",
-    "skill": ["Javascript", "jQuery", "HTML", "CSS", "Adobe XD", "Illustrator", "Procreate"],
+    "skill": ["Javascript", "jQuery", "HTML", "CSS", "Adobe XD", "Illustrator", "Procreate App"],
     "link": "",
     "year": "2022"
   },
