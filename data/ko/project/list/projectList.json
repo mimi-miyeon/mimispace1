@@ -1,5 +1,15 @@
 [
   {
+    "id": "roo",
+    "title": "Roo <small>( 2024 )</small>",
+    "icon": "BROWSER",
+    "role": "앱 디자이너",
+    "description": "깃헙 메세지를 전달해주는 캥거루 \"ROO\". 애플리케이션 캐릭터와 프로젝트 전체 디자인",
+    "skill": ["Figma", "Procreate App","Illustrator"],
+    "link": "",
+    "year": "2024"
+  },
+  {
     "id": "householdApp",
     "title": "가계부앱 <small>( 2023 )</small>",
     "icon": "BROWSER",
