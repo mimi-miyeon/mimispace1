@@ -233,6 +233,17 @@ const handleProjectId = (langSelect) =>
 /* HEADER RANDOM IMG */
 // LIST OF THE IMG
 const headerImg = [
+  {src: "visual1.png"},
+  {src: "visual2.png"},
+  {src: "visual3.png"},
+  {src: "visual4.png"},
+  {src: "visual5.png"},
+  {src: "visual6.png"},
+  {src: "visual7.png"},
+  {src: "visual8.png"},
+  {src: "visual9.png"},
+  {src: "visual10.png"},
+  {src: "visual11.png"},
   {
     src: "cranky.png",
     alt: "짜증난"
