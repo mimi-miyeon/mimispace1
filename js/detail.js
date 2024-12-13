@@ -38,15 +38,22 @@ function videoControl() {
   if (videoWrap){
     videoWrap.forEach(videoWrap =>{
       const video = videoWrap.querySelector("video");
-      const playIcon = videoWrap.querySelector(".icon_play")
+      const playIcon = videoWrap.querySelector(".icon_play");
+
+      video.addEventListener("ended",()=>{
+        playIcon.style.display = "flex";
+        video.style.opacity = .8;
+      });
       video.addEventListener('click',()=>{
         // video.paused ?  : 
         if(video.paused){
           video.play();
+          video.style.opacity = 1;
           playIcon.style.display = "none";
         }
         else {
           video.pause();
+          video.style.opacity = .8;
           playIcon.style.display = "flex";
         }
       });
