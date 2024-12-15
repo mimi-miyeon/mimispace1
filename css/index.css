@@ -370,7 +370,8 @@ main {
     font-weight: 600;
   }
   header > img {
-    display: none;
+    /* display: none; */
+    margin-bottom: 18px;
   }
   .about-wrapper__detail {
     font-size: 1rem;
@@ -405,6 +406,12 @@ main {
     margin-right: 1rem;
     margin-left: 1rem;
   }
+  .about-wrapper__detail > p span {
+    display: block;
+  }
+  .about-wrapper__detail > p span::after {
+    content: none;
+  }
   @keyframes flow {
     0% {
       transform: translateX(-100%);
@@ -415,7 +422,7 @@ main {
   }
   .about-wrapper__detail .temp {}
   .contact-wrapper {
-    display: none;
+    /* display: none; */
     margin-top: .8rem;
     padding: 0;
     border: none;
@@ -471,7 +478,7 @@ main {
 @media (max-width: 430px) {
   header > img {
     display: block;
-    float: right;
+    /* float: right; */
   }
   
   .about-wrapper__detail::after {
