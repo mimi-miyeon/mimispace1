@@ -427,7 +427,9 @@ main {
     padding: 0;
     border: none;
   }
-
+  .project h3 {
+    display: block;
+  }
 
   /* indicator */
   .indicator-container {
