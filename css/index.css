@@ -182,9 +182,19 @@ li.year-indicator::after {
   vertical-align: sub;
 }
 .about-wrapper__detail .description button {
+  position: relative;
   font-weight: normal;
 }
-
+.about-wrapper__detail .description button .copy-badge {
+  position: absolute;
+  background-color: var(--cBeige);
+  top: -36px;
+  left: 0;
+  color: var(--cDark-background);
+  padding: 3px 8px;
+  border-radius: 40px;
+  font-size: 12px;
+}
 .contact-wrapper {
   margin-top: 1.5rem;
   padding-top: .5rem;
