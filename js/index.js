@@ -1,5 +1,3 @@
-import { lang } from "./init.js";
-
 export function copyButtonValue()
 {
   var emailBtnEl = document.getElementById('email');
@@ -12,9 +10,4 @@ export function copyButtonValue()
   }).catch((error)=>{
     alert("Copying failed😫");
   });
-};
-
-export function f_langHandler()
-{
-  
 };

@@ -194,7 +194,9 @@ li.year-indicator::after {
   padding: 3px 8px;
   border-radius: 40px;
   font-size: 12px;
-  animation: click-blink 5s infinite;
+  animation: click-blink 5s 3s infinite;
+  /* animation-delay: 3s; */
+
 }
 .about-wrapper__detail .description button .copy-badge::after {
   content: '';
@@ -207,13 +209,22 @@ li.year-indicator::after {
   border-bottom: 6px solid transparent;
   z-index: -1;
 }
+/* @keyframes click-blink {
+  0% {opacity: 0;}
+  10% {opacity: 0.8;}
+  20% {opacity: 0;}
+  30% {opacity: 0.8;}
+  40% {opacity: 0;}
+  80% {opacity: 0.8;}
+  100% {opacity: 0;}
+} */
 @keyframes click-blink {
-  0% {opacity: 1;}
-  10% {opacity: 0.3;}
-  20% {opacity: 1;}
-  30% {opacity: 0.3;}
-  40% {opacity: 1;}
-  80% {opacity: 0;}
+  0% {opacity: 0;}
+  10% {opacity: 0.8;}
+  20% {opacity: 0;}
+  30% {opacity: 0.8;}
+  40% {opacity: 0;}
+  80% {opacity: 0.8;}
   100% {opacity: 0;}
 }
 .contact-wrapper {
@@ -422,6 +433,10 @@ main {
   .about-wrapper__detail .description:focus,
   .about-wrapper__detail .description:active {
     animation: flow 20s linear infinite;
+  }
+  
+  .about-wrapper__detail .description:hover {
+    animation-play-state: paused
   }
   .about-wrapper__detail::after {
     position: fixed;
