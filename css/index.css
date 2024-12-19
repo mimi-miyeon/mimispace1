@@ -88,9 +88,9 @@ li.year-indicator::after {
 }
 /* header button container */
 .header__button-container {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 0;
+  position: fixed;
+  top: 2.5rem;
+  right: calc((100% - var(--wContent))/2));
   flex-direction: column;
   align-items: center;
   /* opacity: .5; */
@@ -188,8 +188,8 @@ li.year-indicator::after {
 .about-wrapper__detail .description button .copy-badge {
   position: absolute;
   background-color: var(--cBeige);
-  top: -36px;
-  left: 0;
+  top: -30px;
+  left: -4px;
   color: var(--cDark-background);
   padding: 3px 8px;
   border-radius: 40px;
@@ -259,7 +259,9 @@ main {
 .section--about p:first-of-type {
   margin-top: 0;
 }
-.section--project {}
+.section--project {
+  margin-top: 0;
+}
 .project-lists:hover .project {
   /* opacity: .5; */
 }
@@ -346,7 +348,9 @@ main {
   color: var(--cBeige);
   letter-spacing: 1px;
 }
-
+.project-lists__skills li:last-child {
+  margin-right: 0;
+}
 /* project detail page starts */
 .project-detail-page {
   position:fixed;
@@ -377,6 +381,7 @@ main {
     height: auto;
     margin: 0;
     padding: 0 var(--content-padding);
+    text-align: center;
   }
 
   /* header button container */
@@ -413,6 +418,8 @@ main {
   }
   header > img {
     /* display: none; */
+    width: 45%;
+    margin: auto;
     margin-bottom: 18px;
   }
   .about-wrapper__detail {
@@ -452,12 +459,12 @@ main {
     margin-right: 1rem;
     margin-left: 1rem;
   }
-  .about-wrapper__detail > p span {
+/*   .about-wrapper__detail > p span {
     display: block;
   }
   .about-wrapper__detail > p span::after {
     content: none;
-  }
+  } */
   @keyframes flow {
     0% {
       transform: translateX(-100%);
@@ -476,7 +483,9 @@ main {
   .project h3 {
     display: block;
   }
-
+  .project-lists__skills {
+    justify-content: center;
+  }
   /* indicator */
   .indicator-container {
     position: fixed;
@@ -510,9 +519,10 @@ main {
 
   /* main */
   main {
-    width: 100%;
-    margin: 0;
+    width: 90%;
+    margin: auto;
     padding-top: 1rem;
+    text-align: center;
   }
 
   .section--about {
@@ -526,6 +536,7 @@ main {
 @media (max-width: 430px) {
   header > img {
     display: block;
+    width: 100%;
     /* float: right; */
   }
   
