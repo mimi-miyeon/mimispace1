@@ -90,7 +90,7 @@ li.year-indicator::after {
 .header__button-container {
   position: fixed;
   top: 2.5rem;
-  right: calc((100% - var(--wContent))/2));
+  right: calc((100% - var(--wContent)) / 2));
   flex-direction: column;
   align-items: center;
   /* opacity: .5; */
