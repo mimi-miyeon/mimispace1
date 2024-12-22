@@ -90,10 +90,9 @@ li.year-indicator::after {
 .header__button-container {
   position: fixed;
   top: 2.5rem;
-  right: calc((100% - var(--wContent)) / 2));
+  right: calc((100% - var(--wContent)) / 2);
   flex-direction: column;
   align-items: center;
-  /* opacity: .5; */
 }
 
 .switch-button {
@@ -220,11 +219,11 @@ li.year-indicator::after {
 } */
 @keyframes click-blink {
   0% {opacity: 0;}
-  10% {opacity: 0.8;}
+  10% {opacity: 1;}
   20% {opacity: 0;}
-  30% {opacity: 0.8;}
+  30% {opacity: 1;}
   40% {opacity: 0;}
-  80% {opacity: 0.8;}
+  80% {opacity: 1;}
   100% {opacity: 0;}
 }
 .contact-wrapper {
