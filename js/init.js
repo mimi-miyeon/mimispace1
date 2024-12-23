@@ -329,11 +329,12 @@ function f_moveScroll(indicatorBtnEls, projectScroll) {
     btn.onclick=()=>
     {
       // MOVE SCROLL
-      if(name === 'about') 
-      {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-      } 
-      else if (name === 'project') 
+      // if(name === 'about') 
+      // {
+      //   window.scrollTo({top: 0, behavior: 'smooth'});
+      // } 
+      // else 
+        if (name === 'project') 
       {
         window.scrollTo({top: projectScroll, behavior: 'smooth'});
       }
@@ -351,7 +352,7 @@ function f_scrollDetector(indicatorBtnEls, projectScroll)
     if(projectScroll <= window.scrollY) {
       document.getElementsByName('project')[0].classList.add('active');
     } else {
-      document.getElementsByName('about')[0].classList.add('active');
+      // document.getElementsByName('about')[0].classList.add('active');
     }
   };
 };
