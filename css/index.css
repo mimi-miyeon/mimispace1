@@ -468,12 +468,12 @@ main {
     margin-right: 1rem;
     margin-left: 1rem;
   }
-/*   .about-wrapper__detail > p span {
+  .about-wrapper__detail > p span {
     display: block;
   }
   .about-wrapper__detail > p span::after {
     content: none;
-  } */
+  }
   @keyframes flow {
     0% {
       transform: translateX(-100%);
