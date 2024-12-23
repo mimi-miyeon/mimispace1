@@ -422,3 +422,20 @@ const f_addEventHandler = function()
     fetchHTML(rootPath);
   });
 };
+
+function loadingHandler() {
+  // const loading = document.createElement("div");
+  // loadingBgEl.classList.add("loading");
+  // document.querySelector("body").appendChild(loadingBgEl);
+
+  start: () => {
+    const loading = document.querySelector('.loading');
+    loading.style.display = 'block';
+  },
+  end: () => {
+    const loading = document.querySelector('.loading');
+    loading.style.display = 'none';
+  },
+};
+
+loadingHandler();
