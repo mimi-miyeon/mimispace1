@@ -44,6 +44,19 @@ function videoControl() {
         playIcon.style.display = "flex";
         video.style.opacity = .8;
       });
+      videoWrap.querySelector(".icon_play").addEventListener('click',()=>{
+        // video.paused ?  : 
+        if(video.paused){
+          video.play();
+          video.style.opacity = 1;
+          playIcon.style.display = "none";
+        }
+        else {
+          video.pause();
+          video.style.opacity = .8;
+          playIcon.style.display = "flex";
+        }
+      });
       video.addEventListener('click',()=>{
         // video.paused ?  : 
         if(video.paused){
