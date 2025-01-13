@@ -487,6 +487,8 @@ iframe.video {
   .detail-img-wrapper.swiper-container.scroll-container{
     width: calc(100% - 6rem);
     margin-top: 4rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   .scroll-container.detail-img-wrapper .scroll, 
   .swiper-container.detail-img-wrapper .swiper {
