@@ -168,6 +168,7 @@ main {
   line-height: 2rem;
   letter-spacing: .02rem;
   word-break: keep-all;
+  text-align: center;
 }
 .section--detail > img {
   margin-top: 4rem;
