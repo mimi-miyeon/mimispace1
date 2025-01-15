@@ -3,7 +3,7 @@
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
 // GET USER'S LANGUAGE SETTING
 const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
-let lang = (userLanguage !== "ko") ? "en" : "ko";
+let lang = (userLanguage !== "en") ? "ko" : "en";
 sessionStorage.setItem("lang", lang);
 let rootPath;
 // alert(lang)
@@ -401,8 +401,6 @@ const f_addEventHandler = function()
 
 
   const langBtnEl = document.getElementById("langBtn");
-  const enBtn = document.getElementById("enBtn");
-  const koBtn = document.getElementById("koBtn");
   langBtnEl.classList.add(lang);
   langBtnEl.addEventListener("click",()=>
   {
