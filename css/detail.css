@@ -409,6 +409,7 @@ iframe.video {
 .scroll-container.detail-img-wrapper .scroll,
   .swiper-container.detail-img-wrapper .swiper {
   width: calc(50% - 6rem);
+  height: calc(100% - 6rem);
   overflow: hidden;
   border: .7vw solid var(--cDark-background);
   border-radius: 32px;
