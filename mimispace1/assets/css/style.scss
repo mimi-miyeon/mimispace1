@@ -1,0 +1,155 @@
+// include individual style files
+@use "includePages" as *;
+
+// include default style files
+@use "includeDefault" as *;
+
+/*
+*
+* 브라우저 스타일 초기화
+* Initialize browser css style
+*
+*/
+
+/*
+*
+* 변수 값 설정
+*
+*/
+:root {
+  --wContent: 1200px;
+  --hHeader: 5rem;
+  --content-padding: 4rem;
+
+  /* --cDark-background: rgb(172 114 47); */
+  --cDark-background: #415441;
+  --cGreen: #3f8637;
+  --cDark-green: #41544199;
+  --cGreyOne: #dbede0;
+  --cGreyTwo: #acc3b1;
+  --cTintBlue: #50e0b5;
+  --cBeige: #f0e7a2;
+
+  --cLight-background: #c6be8d;
+  --ffHighLight: "Jua", sans-serif;
+
+  --wText: 70%;
+}
+
+/*
+*
+* css 유틸리티
+*
+*/
+.text-width {
+  width: var(--wText);
+  margin-left: auto;
+  margin-right: auto;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+}
+.column {
+  flex-direction: column;
+}
+.grid {
+  display: grid;
+}
+
+/*
+*
+* 기본 스타일 설정
+*
+*/
+body {
+  font-family: "IBM Plex Sans KR", sans-serif;
+  font-size: 1.1rem;
+  color: var(--cGreyTwo);
+  background-color: var(--cDark-background);
+  background-image: linear-gradient(-50deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #152415, #2d1515, #000000, #000000, #000000, #172417, #322619, #000000, #000000, #000000, #000000);
+}
+a,
+button {
+  font-weight: 700;
+  font-style: italic;
+  transition: 0.3s;
+}
+button:hover,
+a:hover {
+  color: var(--cTintBlue);
+}
+button:active,
+a:active {
+  opacity: 0.8;
+}
+.btnIcon {
+  display: inline-block;
+  transition: 0.3s;
+}
+a:hover .btnIcon,
+button:hover .btnIcon {
+  animation: btnIcon 1s ease-out;
+}
+a:active .btnIcon,
+button:active .btnIcon {
+  opacity: 0.8;
+}
+@keyframes btnIcon {
+  0% {
+    transform: translateY(0px);
+  }
+  25% {
+    transform: translateY(-5px) rotateZ(15deg);
+  }
+  50% {
+    transform: translateY(-5px) rotateZ(-15deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+
+/* 영문 폰트 */
+.en {
+  font-family: "Montserrat", sans-serif;
+}
+.container {
+  width: var(--wContent);
+  margin-left: auto;
+  margin-right: auto;
+}
+section {
+  margin-top: 4rem;
+}
+p {
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+/*
+*
+* Mobile 스타일링
+*
+*/
+@media (max-width: 1200px) {
+  :root {
+    --wContent: 100%;
+    --content-padding: 2.5rem;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --content-padding: 1.5rem;
+  }
+  body {
+    font-size: 1rem;
+  }
+}
