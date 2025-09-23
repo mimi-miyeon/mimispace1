@@ -3,8 +3,10 @@
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
 // GET USER'S LANGUAGE SETTING
 const userLanguage = navigator.languages !== undefined ? navigator.languages[0] : navigator.language
-let lang = userLanguage !== "ko" ? "en" : "ko"
+// let lang = userLanguage !== "ko" ? "en" : "ko"
 // export let lang = userLanguage !== "ko" ? "en" : "ko"
+export let lang = navigator.language.startsWith("ko") ? "ko" : "en"
+
 let rootPath
 
 function fetchHTML(rootPath) {
@@ -129,29 +131,30 @@ async function fetchProjectList(langSelect) {
 
                     // 프로젝트 링크 여부에 따른 아이콘
                     let icon = `
-          <span class="icon">
-            <svg class="icon__svg" viewBox="0 0 19 19">
-              <line x1="0.5" y1="17.51" x2="17.51" y2="0.5"/>
-              <polyline points="2.71 0.5 17.51 0.5 17.51 15.29"/>
-            </svg>
-          </span>
-        `
+                            <span class="icon">
+                                <svg class="icon__svg" viewBox="0 0 19 19">
+                                <line x1="0.5" y1="17.51" x2="17.51" y2="0.5"/>
+                                <polyline points="2.71 0.5 17.51 0.5 17.51 15.29"/>
+                                </svg>
+                            </span>
+                            `
                     if (list.icon === "BROWSER") {
                         icon = `
-            <span class="icon browser-box">
-              <svg class="icon__svg" viewBox="0 0 19 19">
-                <circle cx="3" cy="3" r="0.5" fill="white" />
-                <circle cx="6" cy="3" r="0.5" fill="white" />
-                <circle cx="9" cy="3" r="0.5" fill="white" />
-                <rect x="0.5" y="0.5" width="17.01" height="17.01"/>
-                <line x1="0.5" y1="5" x2="17.51" y2="5"/>
-              </svg>
-            </span>
-          `
+                            <span class="icon browser-box">
+                            <svg class="icon__svg" viewBox="0 0 19 19">
+                                <circle cx="3" cy="3" r="0.5" fill="white" />
+                                <circle cx="6" cy="3" r="0.5" fill="white" />
+                                <circle cx="9" cy="3" r="0.5" fill="white" />
+                                <rect x="0.5" y="0.5" width="17.01" height="17.01"/>
+                                <line x1="0.5" y1="5" x2="17.51" y2="5"/>
+                            </svg>
+                            </span>
+                        `
                     }
 
-                    let link = list.link
+                    let link = `/mimispace1/assets/${list.link}`
                     let target = "_blank"
+
                     if (!list.link) {
                         link = ""
                         target = "_self"
@@ -159,21 +162,21 @@ async function fetchProjectList(langSelect) {
 
                     // 프로젝트 <li>
                     return `
-          <li class="project">
-            <a id="${list.id}" href="${list.link}" target="${target}">
-              <h3>${list.title}
-                ${icon}
-              </h3>
-              <p class="project__role">${list.role}</p>
-              <p class="project__description">
-                ${list.description}
-              </p>
-              <ul class="project-lists__skills">
-                ${skillList}
-              </ul>
-            </a>
-          </li>
-        `
+                        <li class="project">
+                            <a id="${list.id}" href="${link}" target="${target}">
+                            <h3>${list.title}
+                                ${icon}
+                            </h3>
+                            <p class="project__role">${list.role}</p>
+                            <p class="project__description">
+                                ${list.description}
+                            </p>
+                            <ul class="project-lists__skills">
+                                ${skillList}
+                            </ul>
+                            </a>
+                        </li>
+                        `
                 })
                 .join("")
         }
