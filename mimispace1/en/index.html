@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너</title>
-        <meta name="author" content="양미연" />
-        <meta property="description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." />
+        <title>Mimi's portfolio site</title>
+        <meta name="author" content="Miyeon Mimi Yang" />
+        <meta property="description" content="Portfolio site where you can explore my journey from graphic designer to publisher and front-end developer." />
         <link rel="shortcut icon" href="/mimispace1/assets/images/favicon.gif" type="image/gif" />
 
         <!-- Open Graph -->
@@ -13,18 +13,18 @@
         <meta property="og:site_name" content="미미의 포트폴리오" />
         <meta property="og:locale" content="ko" />
         <meta property="og:url" content="https://mimi-miyeon.github.io/mimispace1/" />
-        <meta property="og:title" content="미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너" />
-        <meta property="og:description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." />
+        <meta property="og:title" content="Mimi's portfolio site - UI/UX Designer, Graphic Designer" />
+        <meta property="og:description" content="Portfolio site where you can explore my journey from graphic designer to publisher and front-end developer." />
         <meta property="og:image" content="/mimispace1/assets/images/metaOg.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
 
         <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너" />
-        <meta name="twitter:description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." />
+        <meta name="twitter:title" content="Mimi's portfolio site - UI/UX Designer, Graphic Designer" />
+        <meta name="twitter:description" content="Portfolio site where you can explore my journey from graphic designer to publisher and front-end developer." />
         <meta name="twitter:image" content="/mimispace1/assets/images/metaOg.jpg" />
-        <meta name="keywords" content="웹 퍼블리셔, 프론트 엔드, 개발자, 포트폴리오, 디자이너, 미미의 포트폴리오, 양미연" />
+        <meta name="keywords" content="UI/UX Designer, Front-end developer, Portfolio, Designer, Mimi, miyeon yang" />
 
         <!-- Canonical -->
         <link rel="canonical" href="https://mimi-miyeon.github.io/mimispace1/" />
@@ -38,26 +38,25 @@
         <!-- js -->
         <script src="/mimispace1/assets/js/init.js" type="module"></script>
     </head>
-
     <body class="body">
         <div class="body-container container">
             <!-- Header Starts -->
             <header id="header">
-                <img id="headerImg" src="/mimispace1/assets/images/chill.png" alt="" />
+                <img id="headerImg" alt="" />
 
                 <ul id="indicator" class="indicator-container">
                     <li class="active" name="about">
                         <button>
                             <span></span>
                             <div class="btnIcon">🙋‍♀️</div>
-                            자기소개
+                            About
                         </button>
                     </li>
                     <li name="project">
                         <button>
                             <span></span>
                             <div class="btnIcon">👩‍🏫</div>
-                            프로젝트
+                            Projects
                         </button>
                     </li>
                 </ul>
@@ -65,7 +64,7 @@
                 <!-- mode & lang buttons 보류 -->
                 <div class="header__button-container flex">
                     <div class="switch-container lang-container">
-                        <button id="langBtn" class="switch-button lang-button flex column" aria-label="언어변경 버튼">
+                        <button id="langBtn" class="switch-button lang-button flex column" aria-label="Language switch">
                             <span id="enBtn" class="switch-top"></span>
                             <span id="koBtn" class="switch-bottom"></span>
                         </button>
@@ -74,21 +73,21 @@
 
                 <div class="header-container">
                     <div class="about-wrapper">
-                        <h2 id="myName">양미연</h2>
+                        <h2 id="myName">Miyeon Yang</h2>
                         <div class="about-wrapper__detail">
-                            <p id="myCareer"><span>프론트 개발자(2024)</span> <span>웹 퍼블리셔</span> <span>그래픽 디자이너</span> <span>일러스트레이터</span></p>
+                            <p id="myCareer"><span>Front-end developer(potential)</span> <span>UI/UX Designer</span> <span>Graphic Designer</span> <span>Illustrator</span></p>
                             <div class="description">
-                                <p id="myLocation"><span id="temp" class="temp"></span><img id="weatherIcon" class="weatherIcon" /> 대한민국 <span id="localtime"></span></p>
-                                <p id="myState">💚 현재 취업중</p>
-                                <button id="email" value="miyeon9143@naver.com"><span class="btnIcon">💌</span> miyeon9143@naver.com</button>
+                                <p id="myLocation"><span id="temp" class="temp"></span><img id="weatherIcon" class="weatherIcon" /> South Korea <span id="localtime"></span></p>
+                                <p id="myState">💚 Free from end of 2024</p>
+                                <button id="email" value="my.yang22@hotmail.com"><span class="btnIcon">💌</span> my.yang22@hotmail.com</button>
                             </div>
                         </div>
                     </div>
                     <div class="contact-wrapper">
                         <p>
                             <small>
-                                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank">깃헙 <span class="btnIcon">🐱</span></a> / <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank">샌드박스 <span class="btnIcon">📦</span></a> /
-                                <a id="blogLink" href="https://mionager.tistory.com/" target="_blank">블로그 <span class="btnIcon">📝</span></a>
+                                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank">Github <span class="btnIcon">🐱</span></a> / <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank">Sandbox <span class="btnIcon">📦</span></a> /
+                                <!-- <a id="blogLink" href="https://mionager.tistory.com/" target="_blank">블로그 <span class="btnIcon">📝</span></a> -->
                             </small>
                         </p>
                     </div>
