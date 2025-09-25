@@ -127,7 +127,7 @@ async function fetchProjectList(langSelect) {
         const projectList = () => {
             return data
                 .map((list) => {
-                    const skillList = list ? list.skill.map((skill) => `<li>${skill}</li>`).join("") : ""
+                    const skillList = Array.isArray(list.skill) ? list.skill.map((skill) => `<li>${skill}</li>`).join("") : ""
 
                     // 프로젝트 링크 여부에 따른 아이콘
                     let icon = `
@@ -183,7 +183,7 @@ async function fetchProjectList(langSelect) {
 
         document.querySelector(".section--project .project-lists").innerHTML = projectList()
 
-        handleProjectId(langSelect)
+        handleProjectId()
     } catch (error) {
         console.error("Error fetching project list data:", error)
         document.getElementById("project").innerHTML = "<li>프로젝트 리스트를 가져오는데 실패했어요 :(</li>"
@@ -191,13 +191,14 @@ async function fetchProjectList(langSelect) {
 }
 
 /* PROJECT DETAIL PAGE LINK */
-const handleProjectId = (langSelect) => {
+const handleProjectId = () => {
     const projectListEls = document.querySelectorAll(".project a")
     projectListEls.forEach((a) => {
         if (a.getAttribute("href") === "") {
             a.addEventListener("click", (e) => {
                 e.preventDefault()
                 const id = a.getAttribute("id")
+                // window.location.href = `detail.html`
                 window.location.href = `detail.html?id=${id}`
             })
         }
@@ -244,6 +245,7 @@ const headerImg = [
         alt: "설산",
     },
 ]
+
 // RETURN RANDOM NUMBER
 function getHeaderImgIndex() {
     return Math.floor(Math.random() * headerImg.length)
@@ -270,6 +272,7 @@ function f_indicator() {
     f_moveScroll(indicatorBtnEls, projectScroll)
     f_scrollDetector(indicatorBtnEls, projectScroll)
 }
+
 // DELETE ACTIVE CLASS FROM BUTTONS
 function deleteActive(indicatorBtnEls) {
     indicatorBtnEls.forEach((btn) => {
@@ -310,7 +313,6 @@ function f_scrollDetector(indicatorBtnEls, projectScroll) {
 const setHTML = function () {
     document.addEventListener("DOMContentLoaded", () => {
         // LOADING INDEX.HTML
-        // rootPath = `/mimispace1/ko/index.html`
         rootPath = `/mimispace1/${lang}/index.html`
         fetchHTML(rootPath)
     })

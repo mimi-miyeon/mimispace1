@@ -1,11 +1,11 @@
 import { lang } from "./init.js"
-console.log(lang)
 
 /* LOADING DETAIL PAGE HTML */
 /* GET ID PARAM TO FETCH THE SAME NAME FILE */
 async function fetchPage() {
     const urlParams = new URLSearchParams(window.location.search)
     const linkId = urlParams.get("id")
+    console.log(linkId)
     const errorMsg = lang === "ko" ? "아직 준비가 덜 됐네요😲" : "Not quite ready yet😲"
 
     try {
@@ -34,8 +34,7 @@ async function drawHtml() {
         // 가져올 수 없음 표시 필요
         console.log("Failed to fetch")
     }
-    body.innerHTML = fetchedHtml
-    // body.innerHTML = body.innerHTML + fetchedHtml
+    body.innerHTML = body.innerHTML + fetchedHtml
     animation()
 }
 drawHtml()
