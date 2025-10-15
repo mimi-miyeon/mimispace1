@@ -6,6 +6,8 @@ const userLanguage = navigator.languages !== undefined ? navigator.languages[0] 
 // let lang = userLanguage !== "ko" ? "en" : "ko"
 // export let lang = userLanguage !== "ko" ? "en" : "ko"
 export let lang = navigator.language.startsWith("ko") ? "ko" : "en"
+// localStorage에 언어 정보 저장
+localStorage.setItem('userLang', lang)
 
 let rootPath
 
@@ -199,7 +201,7 @@ const handleProjectId = () => {
                 e.preventDefault()
                 const id = a.getAttribute("id")
                 // window.location.href = `detail.html`
-                window.location.href = `detail.html?id=${id}`
+                window.location.href = `detail.html?id=${id}&lang=${lang}`
             })
         }
     })
@@ -341,6 +343,8 @@ const f_addEventHandler = function () {
     langBtnEl.classList.add(lang)
     langBtnEl.addEventListener("click", () => {
         lang = lang === "ko" ? "en" : "ko"
+        // localStorage 업데이트
+        localStorage.setItem('userLang', lang)
         if (lang === "ko") {
             langBtnEl.classList.add("ko")
         } else {
@@ -350,3 +354,5 @@ const f_addEventHandler = function () {
         fetchHTML(rootPath)
     })
 }
+
+console.log("init.js")

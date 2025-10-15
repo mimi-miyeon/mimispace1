@@ -57,6 +57,12 @@ header {
   transform: translateY(-100%);
   transition-duration: 0.5s;
   transition-timing-function: cubic-bezier(0.98, 0, 0.76, 0.99);
+  opacity: 0;
+}
+
+#headerBg.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .header-title-wrapper {
@@ -89,6 +95,28 @@ header {
   transform: translateY(13rem);
   transition-duration: 0.4s;
   transition-timing-function: cubic-bezier(0.98, 0, 0.76, 0.99);
+  opacity: 0;
+}
+
+#headerTitle.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* 애니메이션이 실행되지 않을 경우를 대비한 fallback */
+#headerTitle:not(.visible) {
+  animation: fadeInUp 0.4s ease-out 0.6s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(13rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* main starts */
@@ -114,6 +142,12 @@ main {
   transform: translateY(13em);
   transition-duration: 0.5s;
   transition-timing-function: cubic-bezier(0.98, 0, 0.76, 0.99);
+  opacity: 0;
+}
+
+#projectDescription.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .section--description ul {
@@ -267,7 +301,12 @@ iframe.video {
   transform: translateY(-5em);
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.98, 0, 0.76, 0.99);
-  opacity: 0.1;
+  opacity: 0;
+}
+
+#projectLinks.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /* kiosk */

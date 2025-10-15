@@ -1,26 +1,58 @@
-import { lang } from "./init.js"
+// 언어 감지 (URL 파라미터 > localStorage > 기본값 순서로 확인)
+const urlParams = new URLSearchParams(window.location.search)
+const lang = urlParams.get('lang') || localStorage.getItem('userLang') || (navigator.language.startsWith("ko") ? "ko" : "en")
+console.log("Detected language:", lang)
+console.log("URL params:", urlParams.toString())
 
 /* LOADING DETAIL PAGE HTML */
 /* GET ID PARAM TO FETCH THE SAME NAME FILE */
 async function fetchPage() {
-    const urlParams = new URLSearchParams(window.location.search)
     const linkId = urlParams.get("id")
     console.log(linkId)
     const errorMsg = lang === "ko" ? "아직 준비가 덜 됐네요😲" : "Not quite ready yet😲"
 
     try {
-        const response = await fetch(`/mimispace1/data/${lang}/project/detail/${linkId}.html`)
+        // 상대 경로와 절대 경로 모두 시도
+        const relativeUrl = `../../data/${lang}/project/detail/${linkId}.html`
+        const absoluteUrl = `/mimispace1/data/${lang}/project/detail/${linkId}.html`
+        
+        console.log("Trying relative URL:", relativeUrl)
+        console.log("Trying absolute URL:", absoluteUrl)
+        console.log("Current location:", window.location.href)
+        
+        // 먼저 절대 경로로 시도
+        let response = await fetch(absoluteUrl)
+        let fetchUrl = absoluteUrl
+        
+        // 절대 경로가 실패하면 상대 경로로 시도
+        if (!response.ok) {
+            console.log("Absolute path failed, trying relative path...")
+            response = await fetch(relativeUrl)
+            fetchUrl = relativeUrl
+        }
+        console.log("Response status:", response.status)
+        console.log("Response ok:", response.ok)
 
         if (!response.ok) {
-            throw new Error("Network response was not ok")
+            throw new Error(`HTTP error! status: ${response.status}`)
         }
 
         const htmlContent = await response.text()
+        console.log("Successfully fetched HTML content, length:", htmlContent.length)
         return htmlContent
     } catch (error) {
         // WHEN FILE IS NOT FOUND
         console.error("Error fetching page:", error)
-        alert(errorMsg)
+        console.error("Failed URL:", fetchUrl)
+        console.error("Project ID:", linkId)
+        console.error("Language:", lang)
+        
+        // 더 구체적인 에러 메시지
+        const detailedErrorMsg = lang === "ko" 
+            ? `프로젝트 "${linkId}"의 상세 페이지를 찾을 수 없습니다😲` 
+            : `Project detail page for "${linkId}" not found😲`
+        
+        alert(detailedErrorMsg)
         window.history.back()
         return null
     }
@@ -79,3 +111,5 @@ function projectLinksAnimation() {
         }
     })
 }
+
+console.log("detail.js")
