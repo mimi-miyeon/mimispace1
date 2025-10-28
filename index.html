@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const userLang = navigator.language || navigator.userLanguage
+                const lang = userLang ? userLang.substring(0, 2).toLowerCase() : "en"
+
+                let target = "/mimispace1/en/"
+                if (lang === "ko") {
+                    target = "/mimispace1/ko/"
+                }
+
+                window.location.replace(target)
+            })
+        </script>
+    </body>
+</html>

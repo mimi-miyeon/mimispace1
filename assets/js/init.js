@@ -7,7 +7,7 @@ const userLanguage = navigator.languages !== undefined ? navigator.languages[0] 
 // export let lang = userLanguage !== "ko" ? "en" : "ko"
 export let lang = navigator.language.startsWith("ko") ? "ko" : "en"
 // localStorage에 언어 정보 저장
-localStorage.setItem('userLang', lang)
+localStorage.setItem("userLang", lang)
 
 let rootPath
 
@@ -154,7 +154,7 @@ async function fetchProjectList(langSelect) {
                         `
                     }
 
-                    let link = `/mimispace1/assets/${list.link}`
+                    let link = `/mimispace1/assets/site/${list.link}`
                     let target = "_blank"
 
                     if (!list.link) {
@@ -344,7 +344,7 @@ const f_addEventHandler = function () {
     langBtnEl.addEventListener("click", () => {
         lang = lang === "ko" ? "en" : "ko"
         // localStorage 업데이트
-        localStorage.setItem('userLang', lang)
+        localStorage.setItem("userLang", lang)
         if (lang === "ko") {
             langBtnEl.classList.add("ko")
         } else {

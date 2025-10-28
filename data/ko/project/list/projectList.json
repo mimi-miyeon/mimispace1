@@ -26,7 +26,7 @@
     "role": "웹 퍼블리싱",
     "description": "자바스크립트의 단골 프로젝트이자 다양한 개념에 대해 연습할 수 있는 '투두 앱'. 업무적으로 할 일과 개인적으로 해야 할 일을 분류해서 색상으로 나타내고, 막대도표로 진행 정도를 나타낸다. 바닐라 자바스크립트를 조금 더 깊이 있게 공부하며 작업하게 된 프로젝트로 Tailwind를 사용해 스타일 되었다.",
     "skill": ["Javascript", "HTML", "CSS", "Tailwind"],
-    "link": "site/todoApp",
+    "link": "todoApp",
     "year": "2023"
   },
   {
@@ -36,7 +36,7 @@
     "role": "웹 퍼블리싱",
     "description": "실물 키보드가 없어도 클릭/터치로 문자 입력이 가능한 가상 키보드. 이름('key'), 값('value'), 메서드를 객체에 정의해 키보드를 생성하고 각 키에 맞는 이벤트를 추가하는 방식으로 하나의 객체를 통해 키보드를 만들었다.",
     "skill": ["Javascript", "HTML", "CSS"],
-    "link": "site/keyboard",
+    "link": "keyboard",
     "year": "2023"
   },
   {
@@ -46,7 +46,7 @@
     "role": "웹 퍼블리싱",
     "description": "간단한 이미지 짤을 만들어 저장할 수 있는 사이트. 이미지 객체를 사용해서 파일을 불러와 캔버스에 해당 이미지를 넣고 캔버스의 상·하단에 내가 입력한 텍스트를 이미지와 결합해 나만의 짤을 만들 수 있다.",
     "skill": ["Javascript", "HTML", "CSS"],
-    "link": "site/memeGen",
+    "link": "memeGen",
     "year": "2023"
   },
   {
@@ -66,7 +66,7 @@
     "role": "웹 퍼블리싱",
     "description": "'리얼셀러' 회사소개 사이트. 기존에 있던 회사 웹사이트를 서비스 소개와 회사소개로 사이트로 나눠 리디자인한 프로젝트이다. 리얼셀러만의 본인 확인 서비스로 믿을 수 있는 판매자를 인증해 주는 서비스를 제공한다. 프로젝트의 시간 단축을 위해 css 유틸리티 클래스를 사용한 템플릿을 구매해 작업 되었다.",
     "skill": ["Javascript", "jQuery", "HTML", "CSS", "Adobe XD", "Illustrator", "Procreate"],
-    "link": "https://real-seller.com/",
+    "link": "",
     "year": "2022"
   },
   {
@@ -76,7 +76,7 @@
     "role": "웹 퍼블리싱",
     "description": "'리얼셀러' 서비스소개 사이트. 기존에 있던 회사 웹사이트를 서비스 소개와 회사소개로 사이트로 나눠 서비스 소개 및 사용 웹사이트를 리디자인한 프로젝트. RAS는 리얼셀러의 인증방식으로 본인 인증을 받은 판매자인지 검색을 할 수 있는 서비스이다. 시간 단축을 위해 css 유틸리티 클래스를 사용한 템플릿을 구매해 작업 되었다.",
     "skill": ["Javascript", "HTML", "CSS", "Adobe XD"],
-    "link": "https://ras.real-seller.com/",
+    "link": "",
     "year": "2022"
   },
   {
@@ -96,7 +96,7 @@
     "role": "웹 퍼블리싱",
     "description": "다양한 사이트에 업로드된 중고폰 상품을 크롤링해 가격을 비교할 수 있는 플랫폼. 핸드폰 모델과 제조사별로 평균적인 가격뿐만 아니라 중고폰 구매가 가능한 매장을 지도로 확인할 수 있고 사이트를 통해 직접 구매 및 판매가 가능하다. 일반적인 반응형 사이트에서 모바일에 최적화된 디자인으로 리디자인한 프로젝트이다.",
     "skill": ["Javascript", "HTML", "CSS", "Adobe XD", "Illustrator", "Zeplin"],
-    "link": "https://wantit.real-seller.com/",
+    "link": "",
     "year": "2022"
   },
   {
@@ -106,7 +106,7 @@
     "role": "웹 디자인, 웹 퍼블리싱",
     "description": "취준생이던 친구를 위해 만든 놀이 추천 사이트. 크리스마스 선물과 함께 준비한 사이트로 취업 준비 중에 지치고 힘들 때 활력을 불어넣어 줄 수 있는 활동을 추천해 준다. 활력을 줄 수 있는 색상과 아이콘으로 귤을 캐릭터로 만들어서 작업했다.",
     "skill": ["jQuery", "HTML", "CSS", "Illustrator"],
-    "link": "site/sohee",
+    "link": "sohee",
     "year": "2021"
   },
   {
@@ -116,7 +116,7 @@
     "role": "웹 퍼블리싱",
     "description": "퀴즈를 맞혀 숨겨 놓은 선물을 찾는 보물찾기 사이트. 개인적으로 진행한 작은 프로젝트로 질문에 맞는 대답을 했을 때 선물이 숨겨진 위치까지 가는 방향에 대한 힌트를 조금씩 알려준다.",
     "skill": ["jQuery", "HTML", "CSS", "Adobe XD", "Illustrator"],
-    "link": "site/treasureHunt",
+    "link": "treasureHunt",
     "year": "2020"
   },
   {
@@ -166,7 +166,7 @@
     "role": "웹 퍼블리싱",
     "description": "쉽게 건강한 음식을 요리할 수 있는 콘셉트의 레시피 사이트. 국비지원 수업 중 2인 1조 팀으로 작업한 프로젝트로 재료 주문하기, 냉장고 확인하기, 나의 식단 등 다양한 기능을 제공하고 큼직한 글씨체로 요리 중간에도 쉽게 읽을 수 있게 만들었다.",
     "skill": ["jQuery", "HTML", "CSS", "Photoshop"],
-    "link": "site/soop",
+    "link": "soop",
     "year": "2019"
   },
   {
