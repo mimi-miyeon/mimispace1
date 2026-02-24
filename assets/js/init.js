@@ -35,7 +35,7 @@ function fetchHTML(rootPath) {
                     fetchWeatherData()
 
                     // BUTTONS TO SCROLL TO MENU
-                    f_indicator()
+                    // f_indicator()
 
                     // EXCUTING ELEMENTS EVENTS
                     f_addEventHandler()
@@ -133,23 +133,23 @@ async function fetchProjectList(langSelect) {
 
                     // 프로젝트 링크 여부에 따른 아이콘
                     let icon = `
-                            <span class="icon">
-                                <svg class="icon__svg" viewBox="0 0 19 19">
-                                <line x1="0.5" y1="17.51" x2="17.51" y2="0.5"/>
-                                <polyline points="2.71 0.5 17.51 0.5 17.51 15.29"/>
-                                </svg>
-                            </span>
-                            `
-                    if (list.icon === "BROWSER") {
+                        <span class="icon browser-box">
+                            <svg class="icon__svg" viewBox="0 0 19 19">
+                                <line x1="0.5" y1="17.51" x2="17.51" y2="0.5" />
+                                <polyline points="2.71 0.5 17.51 0.5 17.51 15.29" />
+                            </svg>
+                        </span>
+                    `
+                    if (list.icon !== "") {
                         icon = `
                             <span class="icon browser-box">
-                            <svg class="icon__svg" viewBox="0 0 19 19">
-                                <circle cx="3" cy="3" r="0.5" fill="white" />
-                                <circle cx="6" cy="3" r="0.5" fill="white" />
-                                <circle cx="9" cy="3" r="0.5" fill="white" />
-                                <rect x="0.5" y="0.5" width="17.01" height="17.01"/>
-                                <line x1="0.5" y1="5" x2="17.51" y2="5"/>
-                            </svg>
+                                <svg class="icon__svg" viewBox="0 0 19 19">
+                                    <circle cx="3" cy="3" r="0.5" fill="white" />
+                                    <circle cx="6" cy="3" r="0.5" fill="white" />
+                                    <circle cx="9" cy="3" r="0.5" fill="white" />
+                                    <rect x="0.5" y="0.5" width="17.01" height="17.01"/>
+                                    <line x1="0.5" y1="5" x2="17.51" y2="5"/>
+                                </svg>
                             </span>
                         `
                     }
@@ -166,16 +166,16 @@ async function fetchProjectList(langSelect) {
                     return `
                         <li class="project">
                             <a id="${list.id}" href="${link}" target="${target}">
-                            <h3>${list.title}
-                                ${icon}
-                            </h3>
-                            <p class="project__role">${list.role}</p>
-                            <p class="project__description">
-                                ${list.description}
-                            </p>
-                            <ul class="project-lists__skills">
-                                ${skillList}
-                            </ul>
+                                <h3>${list.title}
+                                    ${icon}
+                                </h3>
+                                <p class="project__role">${list.role}</p>
+                                <p class="project__description">
+                                    ${list.description}
+                                </p>
+                                <ul class="project-lists__skills">
+                                    ${skillList}
+                                </ul>
                             </a>
                         </li>
                         `
@@ -317,6 +317,36 @@ const setHTML = function () {
         // LOADING INDEX.HTML
         rootPath = `/mimispace1/${lang}/index.html`
         fetchHTML(rootPath)
+        f_indicator()
+        console.log(document.getElementById("project").getBoundingClientRect().top)
+        const indicator = document.querySelector("#indicator")
+        const indicatorBtnEls = indicator.querySelectorAll("#indicator li")
+        const indicatorH = indicator.offsetHeight
+        const project = document.querySelector("#project")
+        const projectY = Math.round(project.getBoundingClientRect().top)
+        const projectScroll = projectY - indicatorH
+
+        console.log(indicator)
+        console.log(indicatorBtnEls)
+        console.log(indicatorH)
+        console.log(project)
+        console.log(projectY)
+        console.log(projectScroll)
+
+        indicatorBtnEls.forEach((btn) => {
+            const name = btn.getAttribute("name")
+
+            btn.onclick = () => {
+                // MOVE SCROLL
+                if (name === "about") {
+                    window.scrollTo({ top: 0, behavior: "smooth" })
+                } else if (name === "project") {
+                    window.scrollTo({ top: projectScroll, behavior: "smooth" })
+                }
+            }
+        })
+        // f_moveScroll(indicatorBtnEls, projectScroll)
+        f_scrollDetector(indicatorBtnEls, projectScroll)
     })
 }
 // if (location.pathname === "/") {
@@ -354,5 +384,3 @@ const f_addEventHandler = function () {
         fetchHTML(rootPath)
     })
 }
-
-console.log("init.js")
