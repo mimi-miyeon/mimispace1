@@ -1,0 +1,1735 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>My Planner</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=EB+Garamond:wght@700;800&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --bg: #f5f2eb;
+                --dark: #1a1a1a;
+                --mid: #888;
+                --line: #ddd8cf;
+                --not-free: #d9d4c9;
+                --half-free: #f0b429;
+                --free: #3db87a;
+                --exercise: #4488ff;
+                --pink: #ff6b9d;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Montserrat", sans-serif;
+                background: var(--bg);
+                color: var(--dark);
+                min-height: 100vh;
+            }
+
+            /* ── NAV ── */
+            nav {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 22px 40px;
+                gap: 0;
+                position: sticky;
+                top: 0;
+                background: var(--bg);
+                z-index: 100;
+                border-bottom: 1.5px solid var(--line);
+            }
+
+            .nav-inner {
+                display: flex;
+                align-items: center;
+                border: 1.5px solid var(--dark);
+                border-radius: 50px;
+                overflow: hidden;
+                background: var(--bg);
+            }
+
+            .tab-btn {
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                padding: 11px 26px;
+                border: none;
+                background: none;
+                color: var(--mid);
+                cursor: pointer;
+                transition: all 0.2s;
+                letter-spacing: 0.2px;
+                position: relative;
+                margin: 3px;
+            }
+            .tab-btn:not(:last-child)::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 25%;
+                bottom: 25%;
+                width: 1px;
+                background: var(--line);
+            }
+            .tab-btn:hover {
+                color: var(--dark);
+            }
+            .tab-btn.active {
+                background: var(--dark);
+                color: #fff;
+                border-radius: 50px;
+            }
+            .tab-btn.active::after {
+                display: none;
+            }
+
+            /* ── PAGE ── */
+            .tab {
+                display: none;
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 60px 40px;
+            }
+            .tab.active {
+                display: block;
+            }
+
+            /* ═══════════════════════════
+   TAB 1 — SUMMARY
+═══════════════════════════ */
+            .hero-area {
+                margin-bottom: 64px;
+                text-align: center;
+            }
+            .hero-title-display {
+                font-size: 64px;
+                font-weight: 800;
+                line-height: 1.15;
+                color: var(--dark);
+                font-family: "EB Garamond", serif;
+                letter-spacing: -0.5px;
+                white-space: pre-wrap;
+                word-break: break-word;
+            }
+
+            /* Habit rows */
+            .habits-section {
+            }
+            .habit-row {
+                display: flex;
+                align-items: center;
+                gap: 0;
+                padding: 20px 0;
+                border-bottom: 1.5px solid var(--line);
+                transition: all 0.15s;
+            }
+            .habit-row:first-child {
+                border-top: 1.5px solid var(--line);
+            }
+
+            .habit-row-left {
+                flex: 0 0 220px;
+            }
+            .habit-row-name {
+                font-size: 17px;
+                font-weight: 800;
+                color: var(--dark);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .habit-colour-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+            .habit-row-desc {
+                font-size: 11px;
+                color: var(--mid);
+                font-weight: 600;
+                margin-top: 3px;
+                padding-left: 16px;
+            }
+
+            .habit-row-days {
+                flex: 1;
+                display: flex;
+                gap: 6px;
+            }
+            .day-dot {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 10px;
+                font-weight: 800;
+                cursor: pointer;
+                transition: all 0.15s;
+                user-select: none;
+                border: 1.5px solid var(--line);
+                color: #ccc;
+            }
+            .day-dot.scheduled {
+                border-color: currentColor;
+            }
+            .day-dot.done {
+                color: #fff !important;
+                border-color: transparent;
+            }
+            .day-dot.not-scheduled {
+                opacity: 0.25;
+                cursor: default;
+                pointer-events: none;
+            }
+
+            .habit-row-pct {
+                flex: 0 0 80px;
+                text-align: right;
+                font-size: 22px;
+                font-weight: 900;
+                letter-spacing: -1px;
+            }
+
+            .summary-empty {
+                padding: 80px 0;
+                font-size: 16px;
+                font-weight: 700;
+                text-align: center;
+                color: var(--mid);
+            }
+            .summary-empty a {
+                color: var(--dark);
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            /* ═══════════════════════════
+   TAB 2 — TIME
+═══════════════════════════ */
+            .time-header {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                margin-bottom: 36px;
+            }
+            .time-header h2 {
+                font-size: 40px;
+                font-weight: 900;
+                letter-spacing: -1px;
+                font-family: "EB Garamond", serif;
+            }
+            .time-hint {
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--mid);
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+            .hint-dot {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+            }
+            .hint-pip {
+                width: 10px;
+                height: 10px;
+                border-radius: 3px;
+                flex-shrink: 0;
+            }
+
+            /* Header stats: Free / Half Free counts */
+            .time-stats {
+                display: flex;
+                gap: 24px;
+                align-items: center;
+            }
+            .time-stat-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                /* gap: 7px; */
+            }
+            .time-stat-label {
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--mid);
+            }
+            .time-stat-value {
+                font-size: 18px;
+                font-weight: 900;
+                color: var(--dark);
+                letter-spacing: -0.5px;
+            }
+
+            /* Legend at bottom */
+            .time-legend {
+                display: flex;
+                gap: 16px;
+                flex-wrap: wrap;
+                justify-content: end;
+                align-items: center;
+                margin-top: 16px;
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--mid);
+            }
+
+            /* Outer wrapper: AM block + PM block stacked */
+            .time-band {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            /* Each half-day (AM / PM) */
+            .time-halfday {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .time-halfday-label {
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                color: var(--mid);
+                margin-bottom: 6px;
+            }
+
+            /* Grid of 12 columns = 12 hours */
+            .time-grid {
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                border-radius: 0;
+                overflow: hidden;
+                border: 1.5px solid var(--line);
+            }
+
+            /* Hour label row */
+            .time-hour-labels {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                border-bottom: 1.5px solid var(--line);
+                background: transparent;
+            }
+            .time-hour-label {
+                text-align: center;
+                font-size: 10px;
+                font-weight: 800;
+                color: var(--mid);
+                letter-spacing: 0.3px;
+                padding: 5px 0;
+                border-right: 1.5px solid var(--line);
+            }
+            .time-hour-label:last-child {
+                border-right: none;
+            }
+
+            /* Two slot rows: :00 and :30 */
+            .time-slots-row {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: repeat(12, 1fr);
+                position: relative;
+            }
+            .time-slots-row::before {
+                content: "";
+                position: absolute;
+                left: -38px;
+                top: 50%;
+                transform: translateY(-50%);
+                font-size: 9px;
+            }
+            .time-slots-row + .time-slots-row {
+                border-top: 1.5px solid var(--line);
+            }
+
+            /* Individual clickable slot */
+            .time-slot {
+                height: 44px;
+                cursor: pointer;
+                transition: filter 0.1s;
+                border-right: 1.5px solid var(--line);
+                background: var(--not-free);
+                position: relative;
+            }
+            .time-slot:last-child {
+                border-right: none;
+            }
+            .time-slot:hover {
+                filter: brightness(0.88);
+            }
+
+            /* Slot min-label (:00 / :30) */
+            .time-slot-tag {
+                position: absolute;
+                bottom: 4px;
+                right: 5px;
+                font-size: 8px;
+                font-weight: 800;
+                color: rgba(0, 0, 0, 0.25);
+                pointer-events: none;
+                letter-spacing: 0.2px;
+            }
+            .time-slot[data-status="free"] .time-slot-tag,
+            .time-slot[data-status="exercise"] .time-slot-tag {
+                color: rgba(255, 255, 255, 0.4);
+            }
+            .time-slot[data-status="not-free"] {
+                background: var(--not-free);
+            }
+            .time-slot[data-status="half-free"] {
+                background: var(--half-free);
+            }
+            .time-slot[data-status="free"] {
+                background: var(--free);
+            }
+            .time-slot[data-status="exercise"] {
+                background: var(--exercise);
+            }
+            .time-slot[data-status="none"] {
+                background: transparent;
+            }
+            .time-slot[data-status="none"]:hover {
+                background: rgba(0, 0, 0, 0.04);
+                filter: none;
+            }
+            .time-slot[data-status="free"] .time-slot-tag,
+            .time-slot[data-status="exercise"] .time-slot-tag {
+                color: rgba(255, 255, 255, 0.35);
+            }
+
+            /* ═══════════════════════════
+   TAB 3 — CALENDAR
+═══════════════════════════ */
+            .plans-header {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                margin-bottom: 48px;
+            }
+            .plans-header h2 {
+                font-size: 40px;
+                font-weight: 900;
+                letter-spacing: -1px;
+                font-family: "EB Garamond", serif;
+            }
+            .month-nav {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-left: auto;
+            }
+            .month-nav button {
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                border: 1.5px solid var(--dark);
+                background: none;
+                font-size: 16px;
+                cursor: pointer;
+                transition: all 0.2s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--dark);
+            }
+            .month-nav button:hover {
+                background: var(--dark);
+                color: #fff;
+            }
+
+            .cal-day-labels {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+                margin-bottom: 6px;
+            }
+            .cal-day-label {
+                text-align: center;
+                font-size: 10px;
+                font-weight: 800;
+                color: var(--mid);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                padding: 4px 0;
+            }
+
+            .date-grid {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+            }
+
+            /* Each cell is a flex column: number on top, dots below */
+            .date-block {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding: 10px 4px 10px;
+                border-radius: 12px;
+                cursor: pointer;
+                user-select: none;
+                position: relative;
+                min-height: 64px;
+                border: 1.5px solid transparent;
+                transition: background 0.15s;
+            }
+            .date-block:hover {
+                background: rgba(0, 0, 0, 0.04);
+            }
+            .date-block.empty-slot {
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .date-num {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 13px;
+                font-weight: 800;
+                color: var(--dark);
+                flex-shrink: 0;
+                margin-bottom: 5px;
+            }
+            .date-block.past .date-num {
+                color: #ccc;
+            }
+            .date-block.today-date .date-num {
+                background: var(--dark);
+                color: #fff;
+            }
+            .date-block.selected-date .date-num {
+                background: var(--mid);
+                color: #fff;
+            }
+
+            /* Habit dots row */
+            .date-habit-dots {
+                display: flex;
+                gap: 3px;
+                flex-wrap: wrap;
+                justify-content: center;
+                max-width: 100%;
+            }
+            .habit-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+            /* unfilled scheduled dot */
+            .habit-dot.empty {
+                border: 1.5px solid currentColor;
+                background: transparent;
+                opacity: 0.25;
+            }
+
+            /* Day detail panel */
+            /* Calendar inline day detail */
+            .cal-divider {
+                display: none;
+                height: 1.5px;
+                background: var(--line);
+                margin: 32px 0 0;
+            }
+            .cal-divider.visible {
+                display: block;
+            }
+
+            .cal-day-detail {
+                display: none;
+                padding: 28px 0 8px;
+            }
+            .cal-day-detail.visible {
+                display: block;
+            }
+
+            .cal-day-detail-date {
+                font-family: "EB Garamond", serif;
+                font-size: 28px;
+                font-weight: 800;
+                color: var(--dark);
+                margin-bottom: 20px;
+            }
+            .day-panel-empty {
+                font-size: 13px;
+                font-weight: 700;
+                color: #bbb;
+                padding: 12px 0;
+            }
+            .day-panel-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 13px 0;
+                border-bottom: 1px solid var(--line);
+            }
+            .day-panel-item:last-child {
+                border-bottom: none;
+            }
+            .day-panel-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+            .day-panel-name {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--dark);
+            }
+            .day-panel-desc {
+                font-size: 12px;
+                font-weight: 600;
+                color: var(--mid);
+                margin-top: 1px;
+            }
+            .hs-page-title-section {
+                margin-bottom: 40px;
+                padding-bottom: 32px;
+                border-bottom: 1.5px solid var(--line);
+            }
+            .hs-section-label {
+                font-size: 22px;
+                font-weight: 900;
+                font-family: "EB Garamond", serif;
+                letter-spacing: -0.3px;
+                text-transform: uppercase;
+                /* color: var(--mid); */
+                margin-bottom: 10px;
+            }
+            .hs-page-title-input {
+                width: 100%;
+                padding: 10px 14px;
+                border: 1.5px solid var(--line);
+                border-radius: 10px;
+                background: var(--bg);
+                font-family: "Montserrat", sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                outline: none;
+                transition: border-color 0.2s;
+                color: var(--dark);
+                box-sizing: border-box;
+            }
+            .hs-page-title-input:focus {
+                border-color: var(--dark);
+                background: #fff;
+            }
+
+            .hs-layout {
+                display: grid;
+                grid-template-columns: 380px 1fr;
+                gap: 40px;
+                align-items: start;
+            }
+            @media (max-width: 800px) {
+                .hs-layout {
+                    grid-template-columns: 1fr;
+                    gap: 32px;
+                }
+            }
+
+            /* ── Form card ── */
+            .hs-form-title {
+                font-size: 22px;
+                font-weight: 900;
+                letter-spacing: -0.3px;
+                margin-bottom: 14px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: "EB Garamond", serif;
+            }
+            .hs-form-card {
+                background: #fff;
+                border-radius: 20px;
+                padding: 32px;
+                border: 1.5px solid var(--line);
+                position: sticky;
+                top: 90px;
+                transition: border-color 0.25s;
+            }
+            .hs-form-card.editing {
+                border-color: var(--dark);
+            }
+            .edit-tag {
+                font-size: 9px;
+                font-weight: 800;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                background: var(--dark);
+                color: #fff;
+                padding: 4px 10px;
+                border-radius: 50px;
+                display: none;
+            }
+            .edit-tag.show {
+                display: inline-block;
+            }
+
+            .hf {
+                margin-bottom: 22px;
+            }
+            .hf label {
+                display: block;
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                color: var(--mid);
+                margin-bottom: 8px;
+            }
+            .hf input,
+            .hf textarea {
+                width: 100%;
+                padding: 10px 14px;
+                border: 1.5px solid var(--line);
+                border-radius: 10px;
+                background: var(--bg);
+                font-family: "Montserrat", sans-serif;
+                font-size: 14px;
+                font-weight: 600;
+                outline: none;
+                transition: border-color 0.2s;
+                color: var(--dark);
+                resize: none;
+            }
+            .hf input:focus,
+            .hf textarea:focus {
+                border-color: var(--dark);
+                background: #fff;
+            }
+            .hf textarea {
+                min-height: 70px;
+            }
+
+            /* Day pills */
+            .dt-row {
+                display: flex;
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+            .dt {
+                padding: 6px 12px;
+                border-radius: 50px;
+                border: 1.5px solid var(--line);
+                background: none;
+                font-family: "Montserrat", sans-serif;
+                font-size: 11px;
+                font-weight: 800;
+                color: #bbb;
+                cursor: pointer;
+                transition: all 0.15s;
+                user-select: none;
+            }
+            .dt:hover {
+                border-color: var(--dark);
+                color: var(--dark);
+            }
+            .dt.on {
+                color: #fff !important;
+                border-color: transparent;
+            }
+
+            /* Colour dots */
+            .cs-row {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .cs {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                cursor: pointer;
+                border: 2.5px solid transparent;
+                transition: transform 0.15s;
+                flex-shrink: 0;
+            }
+            .cs:hover {
+                transform: scale(1.2);
+            }
+            .cs.sel {
+                border-color: var(--dark);
+                transform: scale(1.15);
+            }
+            .cs.used {
+                opacity: 0.25;
+                cursor: not-allowed;
+                position: relative;
+            }
+            .cs.used::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                border-radius: 50%;
+                background: repeating-linear-gradient(45deg, transparent, transparent 3px, rgba(255, 255, 255, 0.6) 3px, rgba(255, 255, 255, 0.6) 4px);
+            }
+
+            .hs-btn-row {
+                display: flex;
+                gap: 10px;
+                margin-top: 6px;
+                align-items: center;
+            }
+            .hs-submit {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                background: var(--dark);
+                color: #fff;
+                border: none;
+                border-radius: 50px;
+                padding: 11px 26px;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 800;
+                font-size: 13px;
+                cursor: pointer;
+                transition: opacity 0.2s;
+                letter-spacing: 0.3px;
+            }
+            .hs-submit:hover {
+                opacity: 0.75;
+            }
+            .hs-cancel {
+                background: none;
+                border: none;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                color: var(--mid);
+                cursor: pointer;
+                display: none;
+                transition: color 0.2s;
+                padding: 4px;
+            }
+            .hs-cancel:hover {
+                color: var(--dark);
+            }
+            .hs-cancel.show {
+                display: inline-block;
+            }
+
+            /* ── Habit list cards ── */
+            .hs-list-title {
+                font-size: 22px;
+                font-weight: 900;
+                letter-spacing: -0.3px;
+                margin-bottom: 16px;
+                font-family: "EB Garamond", serif;
+            }
+            .hs-habit-list {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .hs-habit-card {
+                border: none;
+                border-radius: 18px;
+                overflow: hidden;
+                transition:
+                    transform 0.15s,
+                    filter 0.15s;
+            }
+            .hs-habit-card:hover {
+                transform: translateY(-2px);
+                filter: brightness(0.95);
+            }
+
+            /* Coloured top stripe — hidden now that card has full bg colour */
+            .hs-card-stripe {
+                display: none;
+            }
+
+            .hs-card-body {
+                padding: 20px 22px;
+            }
+
+            .hs-hr-top {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                margin-bottom: 6px;
+            }
+            .hs-hr-name {
+                font-size: 15px;
+                font-weight: 900;
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                line-height: 1.3;
+            }
+            .hs-hr-freq {
+                font-size: 10px;
+                font-weight: 800;
+                color: var(--mid);
+                margin-top: 2px;
+            }
+            .hs-hr-actions {
+                display: flex;
+                gap: 4px;
+                flex-shrink: 0;
+                margin-left: 8px;
+            }
+            .hs-hr-btn {
+                background: none;
+                border: 1.5px solid var(--line);
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 11px;
+                padding: 4px 9px;
+                color: var(--mid);
+                transition: all 0.15s;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
+            }
+            .hs-hr-btn:hover {
+                border-color: var(--dark);
+                color: var(--dark);
+            }
+            .hs-hr-btn.del:hover {
+                border-color: #e85d5d;
+                color: #e85d5d;
+            }
+
+            .hs-hr-desc {
+                font-size: 11px;
+                color: var(--mid);
+                font-weight: 600;
+                margin-bottom: 12px;
+                line-height: 1.55;
+            }
+
+            .hs-hr-days {
+                display: flex;
+                gap: 4px;
+                flex-wrap: wrap;
+                margin-bottom: 12px;
+            }
+            .hs-day-pill {
+                padding: 3px 9px;
+                border-radius: 50px;
+                font-size: 10px;
+                font-weight: 800;
+                border: 1.5px solid var(--line);
+                color: #ccc;
+            }
+            .hs-day-pill.on {
+                color: #fff;
+                border-color: transparent;
+            }
+
+            .hs-hr-progress {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .hs-prog-track {
+                flex: 1;
+                height: 3px;
+                background: var(--line);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+            .hs-prog-fill {
+                height: 100%;
+                border-radius: 10px;
+                transition: width 0.5s ease;
+            }
+            .hs-prog-pct {
+                font-size: 11px;
+                font-weight: 800;
+                color: var(--mid);
+                min-width: 36px;
+                text-align: right;
+            }
+
+            /* Done-day dots */
+            .hs-hr-dots {
+                display: flex;
+                gap: 4px;
+                margin-top: 10px;
+            }
+            .hs-dd {
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 9px;
+                font-weight: 800;
+                cursor: pointer;
+                transition: all 0.15s;
+                user-select: none;
+                border: 1.5px solid var(--line);
+                color: #ccc;
+            }
+            .hs-dd:hover {
+                border-color: var(--mid);
+            }
+            .hs-dd.done {
+                color: #fff;
+                border-color: transparent;
+            }
+            .hs-dd.off {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .hs-empty {
+                padding: 40px 0;
+                font-size: 13px;
+                font-weight: 700;
+                color: #ccc;
+            }
+
+            @media (max-width: 600px) {
+                /* ── Layout ── */
+                .tab {
+                    padding: 32px 18px;
+                }
+                nav {
+                    padding: 12px 16px;
+                }
+
+                /* ── Nav: shrink buttons so all four fit ── */
+                .tab-btn {
+                    font-size: 11px;
+                    padding: 10px 13px;
+                }
+
+                /* ── Tab 1: Summary ── */
+                .hero-title-display {
+                    font-size: 38px;
+                }
+                /* Stack habit row: name full-width, then days + pct side-by-side */
+                .habit-row {
+                    flex-wrap: wrap;
+                    gap: 8px;
+                }
+                .habit-row-left {
+                    flex: 1 1 100%;
+                }
+                .habit-row-days {
+                    flex: 1 1 auto;
+                    gap: 4px;
+                }
+                .day-dot {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 9px;
+                }
+                .habit-row-pct {
+                    flex: 0 0 auto;
+                    font-size: 18px;
+                    text-align: right;
+                }
+
+                /* ── Tab 2: Time ── */
+                .time-header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 12px;
+                    margin-bottom: 24px;
+                }
+                .time-header h2 {
+                    font-size: 32px;
+                }
+                /* Allow horizontal scroll so the 12-col grid stays intact */
+                .time-band {
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+                .time-halfday {
+                    min-width: 480px;
+                }
+                .time-slot {
+                    height: 36px;
+                }
+                .time-slot-tag {
+                    font-size: 7px;
+                }
+
+                /* ── Tab 3: Calendar ── */
+                .plans-header {
+                    margin-bottom: 24px;
+                }
+                .plans-header h2 {
+                    font-size: 30px;
+                }
+                .date-block {
+                    min-height: 52px;
+                    padding: 8px 2px;
+                    border-radius: 8px;
+                }
+                .date-num {
+                    width: 26px;
+                    height: 26px;
+                    font-size: 11px;
+                    margin-bottom: 3px;
+                }
+                .habit-dot {
+                    width: 5px;
+                    height: 5px;
+                }
+
+                .hs-empty {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+
+                /* ── Tab 4: Habit Setup ── */
+                .hs-page-title-section {
+                    margin-bottom: 16px;
+                    padding-bottom: 20px;
+                }
+                .hs-layout {
+                    grid-template-columns: 1fr;
+                    gap: 32px;
+                }
+                /* Un-stick form on mobile so it doesn't obscure content */
+                .hs-form-card {
+                    position: static;
+                    padding: 24px 18px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-inner">
+                <button class="tab-btn active" onclick="switchTab(0)">Summary</button>
+                <button class="tab-btn" onclick="switchTab(1)">Time</button>
+                <button class="tab-btn" onclick="switchTab(2)">Calendar</button>
+                <button class="tab-btn" onclick="switchTab(3)">Habit Setup</button>
+            </div>
+        </nav>
+
+        <!-- ═══ TAB 1: SUMMARY ═══ -->
+        <div class="tab active" id="tab0">
+            <div class="hero-area">
+                <div class="hero-title-display" id="heroTitleDisplay"></div>
+            </div>
+            <div id="habitsSection"></div>
+        </div>
+
+        <!-- ═══ TAB 2: TIME PLANNER ═══ -->
+        <div class="tab" id="tab1">
+            <div class="time-header">
+                <h2>Time</h2>
+                <div class="time-stats">
+                    <div class="time-stat-item">
+                        <!-- <span class="hint-pip" style="background: var(--free)"></span> -->
+                        <span class="time-stat-label" style="color: var(--free)">Free</span>
+                        <span class="time-stat-value" id="statFree">—</span>
+                    </div>
+                    <div class="time-stat-item">
+                        <!-- <span class="hint-pip" style="background: var(--half-free)"></span> -->
+                        <span class="time-stat-label" style="color: var(--half-free)">Half Free</span>
+                        <span class="time-stat-value" id="statHalfFree">—</span>
+                    </div>
+                </div>
+            </div>
+            <div class="time-band" id="timeBand"></div>
+            <div class="time-legend">
+                <span class="hint-dot"><span class="hint-pip" style="background: var(--not-free)"></span>Not Free</span>
+                <span class="hint-dot"><span class="hint-pip" style="background: var(--half-free)"></span>Half Free</span>
+                <span class="hint-dot"><span class="hint-pip" style="background: var(--free)"></span>Free</span>
+                <span class="hint-dot"><span class="hint-pip" style="background: var(--exercise)"></span>Exercise</span>
+            </div>
+        </div>
+
+        <!-- ═══ TAB 3: CALENDAR ═══ -->
+        <div class="tab" id="tab2">
+            <div class="plans-header">
+                <h2 id="monthName"></h2>
+                <div class="month-nav">
+                    <button onclick="changeMonth(-1)">‹</button>
+                    <button onclick="changeMonth(1)">›</button>
+                </div>
+            </div>
+            <div class="cal-day-labels">
+                <div class="cal-day-label">Mon</div>
+                <div class="cal-day-label">Tue</div>
+                <div class="cal-day-label">Wed</div>
+                <div class="cal-day-label">Thu</div>
+                <div class="cal-day-label">Fri</div>
+                <div class="cal-day-label">Sat</div>
+                <div class="cal-day-label">Sun</div>
+            </div>
+            <div class="date-grid" id="dateGrid"></div>
+
+            <!-- Inline day detail — hidden until a date is clicked -->
+            <div class="cal-divider" id="calDivider"></div>
+            <div class="cal-day-detail" id="calDayDetail">
+                <div class="cal-day-detail-date" id="calDayDetailDate"></div>
+                <div id="calDayDetailList"></div>
+            </div>
+        </div>
+
+        <!-- ═══ TAB 4: HABIT SETUP ═══ -->
+        <div class="tab" id="tab3">
+            <!-- Page Title — 최상단 분리 -->
+            <div class="hs-page-title-section">
+                <div class="hs-section-label">Page Title</div>
+                <input type="text" id="pageTitleInput" class="hs-page-title-input" placeholder="e.g. Hello, Let's crush it!" oninput="saveHeroTitle()" />
+            </div>
+
+            <div class="hs-layout">
+                <!-- Form: title outside card -->
+                <div>
+                    <div class="hs-form-title">
+                        <span id="formTitleText">New Habit</span>
+                        <span class="edit-tag" id="editTag">Editing</span>
+                    </div>
+                    <div class="hs-form-card" id="hsFormCard">
+                        <input type="hidden" id="editId" />
+                        <div class="hf">
+                            <label>Name *</label>
+                            <input type="text" id="hfName" placeholder="e.g. Morning Run, Drawing…" maxlength="50" />
+                        </div>
+                        <div class="hf">
+                            <label>Description</label>
+                            <textarea id="hfDesc" placeholder="Goals, methods, notes…"></textarea>
+                        </div>
+                        <div class="hf">
+                            <label>Repeat on</label>
+                            <div class="dt-row" id="dtRow"></div>
+                        </div>
+                        <div class="hf">
+                            <label>Colour</label>
+                            <div class="cs-row" id="csRow"></div>
+                        </div>
+                        <div class="hs-btn-row">
+                            <button class="hs-submit" id="submitBtn" onclick="submitHabit()">+ Add Habit</button>
+                            <button class="hs-cancel" id="cancelBtn" onclick="cancelEdit()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habit list -->
+                <div>
+                    <div class="hs-list-title">
+                        Your Habits
+                        <span id="hCount" style="font-size: 14px; font-weight: 700; color: #bbb; margin-left: 6px"></span>
+                    </div>
+                    <div class="hs-habit-list" id="hList"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // ═══════════════ DATA ═══════════════
+            const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+            const DS = ["M", "T", "W", "T", "F", "S", "S"]
+            const STATUS_LABELS = { "not-free": "Not Free", "half-free": "Half Free", free: "Free", exercise: "Exercise", none: "" }
+            const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+            const COLOURS = {
+                coral: "#e85d5d",
+                amber: "#f0b429",
+                sage: "#3db87a",
+                sky: "#4488ff",
+                pink: "#FF6B9D",
+                violet: "#9b59b6",
+                teal: "#2EC4B6",
+                slate: "#607d8b",
+            }
+
+            let habits = JSON.parse(localStorage.getItem("myplan_habits") || "[]")
+            let hourStatuses = JSON.parse(localStorage.getItem("myplan_hours") || "{}")
+            let plans = JSON.parse(localStorage.getItem("myplan_plans") || "{}")
+            let habitDayLog = JSON.parse(localStorage.getItem("myplan_daylog") || "{}")
+            let selDate = null
+            let selectedDayKey = null
+            let curMonth = new Date().getMonth()
+            let curYear = new Date().getFullYear()
+            let formDays = [false, false, false, false, false, false, false]
+            let formColour = "coral"
+
+            function persist() {
+                localStorage.setItem("myplan_habits", JSON.stringify(habits))
+                localStorage.setItem("myplan_hours", JSON.stringify(hourStatuses))
+                localStorage.setItem("myplan_plans", JSON.stringify(plans))
+                localStorage.setItem("myplan_daylog", JSON.stringify(habitDayLog))
+            }
+
+            // ═══════════════ TABS ═══════════════
+            function switchTab(i) {
+                document.querySelectorAll(".tab").forEach((t, idx) => t.classList.toggle("active", idx === i))
+                document.querySelectorAll(".tab-btn").forEach((b, idx) => b.classList.toggle("active", idx === i))
+                if (i === 0) renderSummary()
+                // if(i===1) { buildTimeLegend(); renderTimeline(); }
+                if (i === 2) renderCalendar()
+                if (i === 3) renderHabitList()
+            }
+
+            // ═══════════════ TAB 1: SUMMARY ═══════════════
+            function renderSummary() {
+                const sec = document.getElementById("habitsSection")
+                if (!habits.length) {
+                    sec.innerHTML = `<div class="summary-empty">No habits yet — go to <a onclick="switchTab(3)">Habit Setup</a> to add some.</div>`
+                    return
+                }
+                sec.innerHTML = habits
+                    .map((h, hi) => {
+                        const hex = COLOURS[h.colour] || "#e85d5d"
+                        const sched = h.days.filter(Boolean).length
+                        const done = h.weekDone.filter(Boolean).length
+                        const pct = sched ? Math.round((done / sched) * 100) : 0
+                        const dots = DAYS.map((d, i) => {
+                            const isSched = h.days[i],
+                                isDone = h.weekDone[i]
+                            let cls = isSched ? (isDone ? "done" : "scheduled") : "not-scheduled"
+                            const click = isSched ? `onclick="toggleDay(${hi},${i})"` : ""
+                            const style = isDone ? `background:${hex};color:#fff` : isSched ? `border-color:${hex};color:${hex}` : ""
+                            return `<div class="day-dot ${cls}" ${click} style="${style}" title="${d}">${DS[i]}</div>`
+                        }).join("")
+                        return `<div class="habit-row">
+      <div class="habit-row-left">
+        <div class="habit-row-name">
+          <span class="habit-colour-dot" style="background:${hex}"></span>
+          ${h.name}
+        </div>
+        ${h.desc ? `<div class="habit-row-desc">${h.desc}</div>` : ""}
+      </div>
+      <div class="habit-row-days">${dots}</div>
+      <div class="habit-row-pct" style="color:${hex}">${pct}%</div>
+    </div>`
+                    })
+                    .join("")
+            }
+
+            function toggleDay(hi, di) {
+                habits[hi].weekDone[di] = !habits[hi].weekDone[di]
+                // Log this to the calendar day record
+                // Calculate the actual date for this day-of-week in the current week (Mon=0)
+                const today = new Date()
+                const todayDi = today.getDay() === 0 ? 6 : today.getDay() - 1
+                const diff = di - todayDi
+                const target = new Date(today)
+                target.setDate(today.getDate() + diff)
+                const k = `${target.getFullYear()}-${target.getMonth()}-${target.getDate()}`
+                if (!habitDayLog[k]) habitDayLog[k] = {}
+                if (habits[hi].weekDone[di]) habitDayLog[k][habits[hi].id] = true
+                else delete habitDayLog[k][habits[hi].id]
+                persist()
+                renderSummary()
+            }
+
+            // ═══════════════ HERO TITLE ═══════════════
+            function saveHeroTitle() {
+                const val = document.getElementById("pageTitleInput").value
+                localStorage.setItem("myplan_title", val)
+                document.getElementById("heroTitleDisplay").textContent = val || "Hello,\nLet's crush it!"
+            }
+            function loadHeroTitle() {
+                const saved = localStorage.getItem("myplan_title") || "Hello,\nLet's crush it!"
+                document.getElementById("pageTitleInput").value = saved
+                document.getElementById("heroTitleDisplay").textContent = saved
+            }
+
+            // ═══════════════ TAB 2: TIME ═══════════════
+            const CYCLE = ["not-free", "half-free", "free", "exercise"]
+
+            function updateTimeStats() {
+                let free = 0,
+                    half = 0
+                for (let i = 0; i < 24; i++) {
+                    const st0 = hourStatuses[`h${i}_0`]
+                    const st1 = hourStatuses[`h${i}_1`]
+                    if (st0 === "free" || (!st0 && false)) free++
+                    if (st1 === "free") free++
+                    if (st0 === "half-free") half++
+                    if (st1 === "half-free") half++
+                }
+                function fmt(slots) {
+                    const mins = slots * 30
+                    const h = Math.floor(mins / 60),
+                        m = mins % 60
+                    return h > 0 && m > 0 ? `${h}h ${m}m` : h > 0 ? `${h}h` : `${m}m`
+                }
+                document.getElementById("statFree").textContent = free ? fmt(free) : "0m"
+                document.getElementById("statHalfFree").textContent = half ? fmt(half) : "0m"
+            }
+
+            function renderHours() {
+                function buildHalfDay(startH, labelText) {
+                    // Hour label row
+                    let labels = ""
+                    for (let i = startH; i < startH + 12; i++) {
+                        labels += `<div class="time-hour-label">${String(i).padStart(2, "0")}</div>`
+                    }
+
+                    // :00 slot row
+                    let row00 = ""
+                    for (let i = startH; i < startH + 12; i++) {
+                        const k = `h${i}_0`
+                        const st = hourStatuses[k] !== undefined ? hourStatuses[k] : "not-free"
+                        row00 += `<div class="time-slot" data-key="${k}" data-status="${st}" onclick="cycleHour(this)"><span class="time-slot-tag">:00</span></div>`
+                    }
+
+                    // :30 slot row
+                    let row30 = ""
+                    for (let i = startH; i < startH + 12; i++) {
+                        const k = `h${i}_1`
+                        const st = hourStatuses[k] !== undefined ? hourStatuses[k] : "not-free"
+                        row30 += `<div class="time-slot" data-key="${k}" data-status="${st}" onclick="cycleHour(this)"><span class="time-slot-tag">:30</span></div>`
+                    }
+
+                    return `<div class="time-halfday">
+      <div class="time-halfday-label">${labelText}</div>
+      <div class="time-grid">
+        <div class="time-hour-labels">${labels}</div>
+        <div class="time-slots-row">${row00}</div>
+        <div class="time-slots-row">${row30}</div>
+      </div>
+    </div>`
+                }
+
+                document.getElementById("timeBand").innerHTML = buildHalfDay(0, "AM  00 – 11") + buildHalfDay(12, "PM  12 – 23")
+                updateTimeStats()
+            }
+
+            function cycleHour(el) {
+                const k = el.dataset.key
+                const cur = el.dataset.status
+                const next = CYCLE[(CYCLE.indexOf(cur) + 1) % CYCLE.length]
+                hourStatuses[k] = next
+                el.dataset.status = next
+                persist()
+                updateTimeStats()
+            }
+
+            // ═══════════════ TAB 3: CALENDAR ═══════════════
+            function renderCalendar() {
+                document.getElementById("monthName").textContent = `${MONTH_NAMES[curMonth]} ${curYear}`
+                const daysInMonth = new Date(curYear, curMonth + 1, 0).getDate()
+                const firstDow = new Date(curYear, curMonth, 1).getDay()
+                const startOffset = firstDow === 0 ? 6 : firstDow - 1
+                const today = new Date()
+                const todayStr = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
+
+                // Build a DOW index for a given date: 0=Mon … 6=Sun
+                function dowIdx(d) {
+                    const raw = new Date(curYear, curMonth, d).getDay()
+                    return raw === 0 ? 6 : raw - 1
+                }
+
+                // For each date, figure out which habits were scheduled AND done
+                // We use weekDone per-habit (the current week tracking).
+                // For a richer per-day record we use habitDayLog stored separately.
+                let cells = ""
+                for (let e = 0; e < startOffset; e++) cells += `<div class="date-block empty-slot"></div>`
+
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const k = `${curYear}-${curMonth}-${d}`
+                    const isT = k === todayStr
+                    const isPast = new Date(curYear, curMonth, d) < today && !isT
+                    const di = dowIdx(d)
+
+                    // Gather dots: one per habit that is scheduled on this weekday
+                    const log = habitDayLog[k] || {}
+                    const dotHtml = habits
+                        .map((h) => {
+                            if (!h.days[di]) return "" // not scheduled this day-of-week
+                            const hex = COLOURS[h.colour] || "#e85d5d"
+                            const isDone = !!log[h.id]
+                            return isDone ? `<div class="habit-dot" style="background:${hex}"></div>` : `<div class="habit-dot empty" style="color:${hex}"></div>`
+                        })
+                        .join("")
+
+                    cells += `<div class="date-block${isT ? " today-date" : ""}${isPast ? " past" : ""}${selectedDayKey === k ? " selected-date" : ""}" onclick="toggleDayPanel('${k}', ${d})">
+      <div class="date-num">${d}</div>
+      ${dotHtml ? `<div class="date-habit-dots">${dotHtml}</div>` : ""}
+    </div>`
+                }
+
+                document.getElementById("dateGrid").innerHTML = cells
+            }
+            function changeMonth(d) {
+                curMonth += d
+                if (curMonth > 11) {
+                    curMonth = 0
+                    curYear++
+                }
+                if (curMonth < 0) {
+                    curMonth = 11
+                    curYear--
+                }
+                renderCalendar()
+            }
+
+            function toggleDayPanel(k, d) {
+                if (selectedDayKey === k) {
+                    closeDayPanel()
+                } else {
+                    openDayPanel(k, d)
+                }
+            }
+
+            function openDayPanel(k, d) {
+                const log = habitDayLog[k] || {}
+                const di = (() => {
+                    const raw = new Date(curYear, curMonth, d).getDay()
+                    return raw === 0 ? 6 : raw - 1
+                })()
+
+                const dateObj = new Date(curYear, curMonth, d)
+                const label = dateObj.toLocaleDateString("en", { day: "numeric", weekday: "long" })
+                document.getElementById("calDayDetailDate").textContent = label
+
+                const scheduled = habits.filter((h) => h.days[di])
+                const done = scheduled.filter((h) => log[h.id])
+                const notDone = scheduled.filter((h) => !log[h.id])
+
+                let html = ""
+                if (!scheduled.length) {
+                    html = `<div class="day-panel-empty">No habits scheduled for this day.</div>`
+                } else if (!done.length) {
+                    html = `<div class="day-panel-empty">No habits completed.</div>`
+                    notDone.forEach((h) => {
+                        const hex = COLOURS[h.colour] || "#e85d5d"
+                        html += `<div class="day-panel-item" style="opacity:0.35">
+        <div class="day-panel-dot" style="background:${hex}"></div>
+        <div><div class="day-panel-name">${h.name}</div>${h.desc ? `<div class="day-panel-desc">${h.desc}</div>` : ""}</div>
+      </div>`
+                    })
+                } else {
+                    done.forEach((h) => {
+                        const hex = COLOURS[h.colour] || "#e85d5d"
+                        html += `<div class="day-panel-item">
+        <div class="day-panel-dot" style="background:${hex}"></div>
+        <div><div class="day-panel-name">${h.name}</div>${h.desc ? `<div class="day-panel-desc">${h.desc}</div>` : ""}</div>
+      </div>`
+                    })
+                    if (notDone.length) {
+                        html += `<div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#bbb;padding:14px 0 6px">Incomplete</div>`
+                        notDone.forEach((h) => {
+                            const hex = COLOURS[h.colour] || "#e85d5d"
+                            html += `<div class="day-panel-item" style="opacity:0.35">
+          <div class="day-panel-dot" style="background:${hex}"></div>
+          <div><div class="day-panel-name">${h.name}</div>${h.desc ? `<div class="day-panel-desc">${h.desc}</div>` : ""}</div>
+        </div>`
+                        })
+                    }
+                }
+
+                document.getElementById("calDayDetailList").innerHTML = html
+                document.getElementById("calDivider").classList.add("visible")
+                document.getElementById("calDayDetail").classList.add("visible")
+                selectedDayKey = k
+                renderCalendar()
+            }
+
+            function closeDayPanel() {
+                document.getElementById("calDivider").classList.remove("visible")
+                document.getElementById("calDayDetail").classList.remove("visible")
+                selectedDayKey = null
+                renderCalendar()
+            }
+
+            // ═══════════════ TAB 4: HABIT SETUP ═══════════════
+            function buildDayToggles() {
+                const hex = COLOURS[formColour] || "#e85d5d"
+                document.getElementById("dtRow").innerHTML = DAYS.map(
+                    (d, i) =>
+                        `<button class="dt${formDays[i] ? " on" : ""}" onclick="toggleFormDay(${i})"
+      style="${formDays[i] ? `background:${hex};` : ""}">
+      ${d}</button>`,
+                ).join("")
+            }
+            function toggleFormDay(i) {
+                formDays[i] = !formDays[i]
+                buildDayToggles()
+            }
+
+            function buildColourSwatches() {
+                const editId = document.getElementById("editId").value
+                const usedColours = new Set(habits.filter((h) => h.id !== editId).map((h) => h.colour))
+                document.getElementById("csRow").innerHTML = Object.entries(COLOURS)
+                    .map(([k, v]) => {
+                        const isUsed = usedColours.has(k)
+                        const isSel = formColour === k
+                        // If current selection is used (editing), still allow it
+                        if (isUsed && !isSel) {
+                            return `<div class="cs used" style="background:${v}" title="Already in use" data-c="${k}"></div>`
+                        }
+                        return `<div class="cs${isSel ? " sel" : ""}" style="background:${v}" data-c="${k}" onclick="pickColour(this)"></div>`
+                    })
+                    .join("")
+            }
+            function pickColour(el) {
+                const editId = document.getElementById("editId").value
+                const usedColours = new Set(habits.filter((h) => h.id !== editId).map((h) => h.colour))
+                if (usedColours.has(el.dataset.c)) return
+                formColour = el.dataset.c
+                buildColourSwatches()
+                buildDayToggles()
+            }
+
+            function submitHabit() {
+                const name = document.getElementById("hfName").value.trim()
+                if (!name) {
+                    document.getElementById("hfName").focus()
+                    return
+                }
+                const desc = document.getElementById("hfDesc").value.trim()
+                const eid = document.getElementById("editId").value
+                if (eid) {
+                    const idx = habits.findIndex((h) => h.id === eid)
+                    if (idx !== -1) habits[idx] = { ...habits[idx], name, desc, days: [...formDays], colour: formColour }
+                    cancelEdit()
+                } else {
+                    habits.push({ id: Date.now().toString(), name, desc, days: [...formDays], colour: formColour, weekDone: [false, false, false, false, false, false, false] })
+                    resetForm()
+                }
+                persist()
+                renderHabitList()
+            }
+            function resetForm() {
+                document.getElementById("hfName").value = ""
+                document.getElementById("hfDesc").value = ""
+                document.getElementById("editId").value = ""
+                formDays = [false, false, false, false, false, false, false]
+                // Auto-pick first unused colour
+                const usedColours = new Set(habits.map((h) => h.colour))
+                formColour = Object.keys(COLOURS).find((k) => !usedColours.has(k)) || "coral"
+                buildDayToggles()
+                buildColourSwatches()
+                document.getElementById("submitBtn").textContent = "+ Add Habit"
+                document.getElementById("cancelBtn").classList.remove("show")
+                document.getElementById("editTag").classList.remove("show")
+                document.getElementById("formTitleText").textContent = "New Habit"
+                document.getElementById("hsFormCard").classList.remove("editing")
+            }
+            function cancelEdit() {
+                resetForm()
+            }
+            function editHabit(id) {
+                const h = habits.find((x) => x.id === id)
+                if (!h) return
+                document.getElementById("hfName").value = h.name
+                document.getElementById("hfDesc").value = h.desc || ""
+                document.getElementById("editId").value = id
+                formDays = [...h.days]
+                formColour = h.colour
+                buildDayToggles()
+                buildColourSwatches()
+                document.getElementById("submitBtn").textContent = "Save Changes"
+                document.getElementById("cancelBtn").classList.add("show")
+                document.getElementById("editTag").classList.add("show")
+                document.getElementById("formTitleText").textContent = "Edit Habit"
+                document.getElementById("hsFormCard").classList.add("editing")
+                document.getElementById("hsFormCard").scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+            function deleteHabit(id) {
+                if (!confirm("Delete this habit?")) return
+                habits = habits.filter((h) => h.id !== id)
+                persist()
+                renderHabitList()
+            }
+            function toggleHabitDayInline(id, di) {
+                const h = habits.find((x) => x.id === id)
+                if (!h || !h.days[di]) return
+                h.weekDone[di] = !h.weekDone[di]
+                // Mirror to calendar log
+                const today = new Date()
+                const todayDi = today.getDay() === 0 ? 6 : today.getDay() - 1
+                const diff = di - todayDi
+                const target = new Date(today)
+                target.setDate(today.getDate() + diff)
+                const k = `${target.getFullYear()}-${target.getMonth()}-${target.getDate()}`
+                if (!habitDayLog[k]) habitDayLog[k] = {}
+                if (h.weekDone[di]) habitDayLog[k][h.id] = true
+                else delete habitDayLog[k][h.id]
+                persist()
+                renderHabitList()
+                renderSummary()
+            }
+
+            function renderHabitList() {
+                document.getElementById("hCount").textContent = habits.length ? `(${habits.length})` : ""
+                const list = document.getElementById("hList")
+                if (!habits.length) {
+                    list.innerHTML = `<div class="hs-empty">No habits yet. <button onclick="document.getElementById('hfName').focus()" style="background:none;border:none;padding:0;cursor:pointer;font:inherit;color:var(--dark);text-decoration:underline;text-underline-offset:2px;">Add your first one</button></div>`
+                    return
+                }
+                list.innerHTML = habits
+                    .map((h) => {
+                        const hex = COLOURS[h.colour] || "#e85d5d"
+                        const sched = h.days.filter(Boolean).length
+                        const done = h.weekDone.filter(Boolean).length
+                        const pct = sched ? Math.round((done / sched) * 100) : 0
+                        const pills = DAYS.map(
+                            (d, i) =>
+                                `<span class="hs-day-pill${h.days[i] ? " on" : ""}" style="${h.days[i] ? "background:rgba(255,255,255,0.3);color:#fff" : "background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.5)"}">
+        ${d}</span>`,
+                        ).join("")
+                        const dots = DAYS.map((d, i) => {
+                            if (!h.days[i]) return `<div class="hs-dd off" style="border-color:rgba(255,255,255,0.15)"></div>`
+                            const isDone = h.weekDone[i]
+                            return `<div class="hs-dd${isDone ? " done" : ""}"
+        style="${isDone ? "background:#fff;border-color:#fff;color:" + hex : "border-color:rgba(255,255,255,0.6);color:#fff"}"
+        onclick="toggleHabitDayInline('${h.id}',${i})"
+        title="${isDone ? "Unmark" : "Done"} — ${d}">${DS[i]}</div>`
+                        }).join("")
+                        return `<div class="hs-habit-card" style="background:${hex}">
+      <div class="hs-card-body">
+        <div class="hs-hr-top">
+          <div>
+            <div class="hs-hr-name" style="color:#fff">${h.name}</div>
+            <div class="hs-hr-freq" style="color:rgba(255,255,255,0.65)">${sched}× per week</div>
+          </div>
+          <div class="hs-hr-actions">
+            <button class="hs-hr-btn" style="border-color:rgba(255,255,255,0.4);color:#fff" onclick="editHabit('${h.id}')">Edit</button>
+            <button class="hs-hr-btn del" style="border-color:rgba(255,255,255,0.4);color:#fff" onclick="deleteHabit('${h.id}')">Delete</button>
+          </div>
+        </div>
+        ${h.desc ? `<div class="hs-hr-desc" style="color:rgba(255,255,255,0.7)">${h.desc}</div>` : ""}
+        <div class="hs-hr-days">${pills}</div>
+        <div class="hs-hr-progress">
+          <div class="hs-prog-track" style="background:rgba(255,255,255,0.25)"><div class="hs-prog-fill" style="width:${pct}%;background:#fff"></div></div>
+          <div class="hs-prog-pct" style="color:rgba(255,255,255,0.8)">${done}/${sched}</div>
+        </div>
+        <div class="hs-hr-dots">${dots}</div>
+      </div>
+    </div>`
+                    })
+                    .join("")
+            }
+
+            // ═══════════════ INIT ═══════════════
+            buildDayToggles()
+            buildColourSwatches()
+            loadHeroTitle()
+            renderSummary()
+            renderHours()
+            renderCalendar()
+            renderHabitList()
+            const _today = new Date()
+            openDayPanel(`${_today.getFullYear()}-${_today.getMonth()}-${_today.getDate()}`, _today.getDate())
+        </script>
+    </body>
+</html>
