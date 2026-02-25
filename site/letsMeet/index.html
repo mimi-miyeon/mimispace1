@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>나랑 만나죠</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=DM+Serif+Display:ital@0;1&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --cream: #faf3e8;
+                --coral: #d94f3d;
+                --coral-lt: #e8756a;
+                --blue: #7bbfcf;
+                --blue-dk: #4a9ab5;
+                --yellow: #f0b429;
+                --pink: #f2a7b0;
+                --pink-dk: #e07b8a;
+                --text: #2a1f1a;
+                --text-md: #6b4f45;
+                --text-lt: #a0837a;
+                --border: #e0d0c4;
+            }
+
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body {
+                background: var(--cream);
+                color: var(--text);
+                font-family: "Noto Sans KR", sans-serif;
+                min-height: 100vh;
+            }
+
+            /* ── HERO HEADER ── */
+            .hero {
+                background: var(--coral);
+                padding: 48px 40px 40px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::before {
+                content: "";
+                position: absolute;
+                top: -60px;
+                right: -60px;
+                width: 220px;
+                height: 220px;
+                background: var(--yellow);
+                border-radius: 50%;
+                opacity: 0.25;
+            }
+            .hero::after {
+                content: "";
+                position: absolute;
+                bottom: -40px;
+                left: 20%;
+                width: 140px;
+                height: 140px;
+                background: var(--pink);
+                border-radius: 50%;
+                opacity: 0.3;
+            }
+
+            .hero-inner {
+                max-width: 680px;
+                margin: 0 auto;
+                position: relative;
+                z-index: 1;
+            }
+
+            .hero-eyebrow {
+                display: inline-block;
+                background: var(--yellow);
+                color: var(--text);
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                padding: 4px 14px;
+                border-radius: 20px;
+                margin-bottom: 16px;
+            }
+
+            .hero-title {
+                /* font-family: 'DM Serif Display', serif; */
+                font-size: clamp(3rem, 8vw, 5.5rem);
+                color: var(--cream);
+                line-height: 1;
+                margin-bottom: 14px;
+                letter-spacing: -0.02em;
+            }
+
+            .hero-title em {
+                font-style: italic;
+                color: var(--yellow);
+            }
+
+            .hero-sub {
+                color: rgba(250, 243, 232, 0.75);
+                font-size: 0.9rem;
+                font-weight: 300;
+                letter-spacing: 0.02em;
+            }
+
+            /* ── PAGE BODY ── */
+            .page {
+                max-width: 680px;
+                margin: 0 auto;
+                padding: 0 24px 80px;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+            }
+
+            /* ── SECTION CARD ── */
+            .section-card {
+                background: #fff;
+                border: 2px solid var(--border);
+                border-radius: 20px;
+                padding: 28px 28px 24px;
+                margin-top: 20px;
+            }
+
+            .section-card.card-yellow {
+                background: #fff9ec;
+                border-color: var(--yellow);
+            }
+            .section-card.card-blue {
+                background: #f0f8fb;
+                border-color: var(--blue);
+            }
+            .section-card.card-pink {
+                background: #fdf3f5;
+                border-color: var(--pink);
+            }
+            .section-card.card-coral {
+                background: #fdf1f0;
+                border-color: var(--coral-lt);
+            }
+
+            .card-label {
+                font-size: 0.68rem;
+                font-weight: 500;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                margin-bottom: 14px;
+            }
+            .card-yellow .card-label {
+                color: #b07d10;
+            }
+            .card-blue .card-label {
+                color: var(--blue-dk);
+            }
+            .card-pink .card-label {
+                color: var(--pink-dk);
+            }
+            .card-coral .card-label {
+                color: var(--coral);
+            }
+
+            .card-title {
+                /* font-family: "Noto Serif KR", serif; */
+                font-size: 1.15rem;
+                font-weight: 700;
+                margin-bottom: 18px;
+                color: var(--text);
+            }
+
+            /* ── SETUP ROW ── */
+            .setup-row {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .count-input {
+                width: 72px;
+                background: var(--cream);
+                border: 2px solid var(--yellow);
+                border-radius: 10px;
+                color: var(--text);
+                /* font-family: "Noto Serif KR", serif; */
+                font-size: 1.3rem;
+                font-weight: 700;
+                padding: 8px 10px;
+                text-align: center;
+                outline: none;
+                transition:
+                    border-color 0.2s,
+                    box-shadow 0.2s;
+            }
+            .count-input:focus {
+                border-color: var(--coral);
+                box-shadow: 0 0 0 3px rgba(217, 79, 61, 0.12);
+            }
+
+            .unit-text {
+                font-size: 0.88rem;
+                color: var(--text-md);
+            }
+
+            .btn-start {
+                background: var(--coral);
+                border: none;
+                border-radius: 10px;
+                color: #fff;
+                cursor: pointer;
+                /* font-family: "Noto Sans KR", sans-serif; */
+                font-size: 0.85rem;
+                font-weight: 500;
+                padding: 10px 22px;
+                transition:
+                    background 0.18s,
+                    transform 0.1s,
+                    box-shadow 0.18s;
+                box-shadow: 0 3px 0 #a83028;
+            }
+            .btn-start:hover {
+                background: var(--coral-lt);
+            }
+            .btn-start:active {
+                transform: translateY(2px);
+                box-shadow: 0 1px 0 #a83028;
+            }
+
+            /* ── CHIPS ── */
+            .chips-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 8px;
+            }
+
+            .chip {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                padding: 9px 12px;
+                border-radius: 12px;
+                cursor: pointer;
+                border: 2px solid transparent;
+                background: var(--cream);
+                transition:
+                    border-color 0.15s,
+                    background 0.15s,
+                    transform 0.1s;
+            }
+            .chip:hover {
+                transform: translateY(-1px);
+            }
+            .chip.active {
+                border-color: currentColor;
+                background: #fff;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            }
+
+            .chip-dot {
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                flex-shrink: 0;
+            }
+
+            .chip-name {
+                font-size: 0.82rem;
+                /* font-family: "Noto Sans KR", sans-serif; */
+                background: none;
+                border: none;
+                border-bottom: 1px solid transparent;
+                color: var(--text);
+                outline: none;
+                width: 100%;
+                cursor: text;
+                padding: 1px 0;
+                transition: border-color 0.2s;
+                min-width: 0;
+                font-weight: 500;
+            }
+            .chip-name:focus {
+                border-bottom-color: currentColor;
+            }
+
+            /* ── CALENDAR ── */
+            .cal-nav {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 20px;
+            }
+
+            .cal-month {
+                /* font-family: 'DM Serif Display', serif; */
+                font-size: 1.4rem;
+                color: var(--text);
+            }
+
+            .cal-arrow {
+                background: var(--cream);
+                border: 2px solid var(--border);
+                border-radius: 50%;
+                color: var(--text);
+                cursor: pointer;
+                font-size: 1rem;
+                width: 36px;
+                height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    background 0.15s,
+                    border-color 0.15s;
+            }
+            .cal-arrow:hover {
+                background: var(--yellow);
+                border-color: var(--yellow);
+            }
+
+            .cal-grid {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+            }
+
+            .cal-dow {
+                text-align: center;
+                font-size: 0.65rem;
+                font-weight: 500;
+                color: var(--text-lt);
+                padding: 4px 0 8px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+            }
+            .cal-dow:first-child {
+                color: var(--coral);
+            }
+            .cal-dow:last-child {
+                color: var(--blue-dk);
+            }
+
+            .cal-day {
+                position: relative;
+                aspect-ratio: 1;
+                min-height: 44px;
+                border-radius: 10px;
+                cursor: pointer;
+                overflow: hidden;
+                border: 1.5px solid transparent;
+                transition: border-color 0.15s;
+            }
+            .cal-day.empty {
+                pointer-events: none;
+            }
+            .cal-day:not(.empty):hover {
+                border-color: var(--coral-lt);
+            }
+
+            .day-bg {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                flex-direction: column;
+                border-radius: 8px;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            .day-stripe {
+                flex: 1;
+                opacity: 0.38;
+            }
+
+            .day-num {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.78rem;
+                font-weight: 500;
+                z-index: 1;
+                pointer-events: none;
+                color: var(--text);
+            }
+            /* when stripes present, make number readable */
+            .cal-day .day-bg + .day-num {
+                text-shadow:
+                    0 0 6px rgba(255, 255, 255, 0.9),
+                    0 1px 3px rgba(0, 0, 0, 0.25);
+            }
+
+            /* ── ANALYSIS ── */
+            .btn-analyze {
+                width: 100%;
+                background: var(--coral);
+                border: none;
+                border-radius: 12px;
+                color: #fff;
+                cursor: pointer;
+                /* font-family: "Noto Sans KR", sans-serif; */
+                font-size: 0.9rem;
+                font-weight: 500;
+                padding: 13px;
+                transition:
+                    background 0.18s,
+                    transform 0.1s,
+                    box-shadow 0.18s;
+                box-shadow: 0 3px 0 #a83028;
+                margin-bottom: 20px;
+            }
+            .btn-analyze:hover {
+                background: var(--coral-lt);
+            }
+            .btn-analyze:active {
+                transform: translateY(2px);
+                box-shadow: 0 1px 0 #a83028;
+            }
+
+            .analyze-hint {
+                text-align: center;
+                color: var(--text-lt);
+                font-size: 0.82rem;
+                padding: 16px 0 4px;
+                line-height: 1.7;
+            }
+
+            .summary-body {
+                display: none;
+            }
+            .summary-body.visible {
+                display: block;
+            }
+
+            .summary-section {
+                margin-bottom: 20px;
+            }
+
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.04em;
+                margin-bottom: 10px;
+            }
+            .badge::before {
+                content: "";
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                display: block;
+            }
+            .badge-green {
+                background: rgba(72, 199, 142, 0.15);
+                color: #2a8a5e;
+            }
+            .badge-green::before {
+                background: #48c78e;
+            }
+            .badge-yellow {
+                background: rgba(240, 180, 41, 0.18);
+                color: #8a6010;
+            }
+            .badge-yellow::before {
+                background: var(--yellow);
+            }
+            .badge-red {
+                background: rgba(217, 79, 61, 0.12);
+                color: var(--coral);
+            }
+            .badge-red::before {
+                background: var(--coral);
+            }
+
+            .summary-date {
+                background: var(--cream);
+                border: 1.5px solid var(--border);
+                border-radius: 10px;
+                padding: 9px 12px;
+                margin-bottom: 6px;
+                font-size: 0.8rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 8px;
+                transition: border-color 0.15s;
+            }
+            .summary-date:hover {
+                border-color: var(--blue);
+            }
+
+            .sum-chips {
+                display: flex;
+                gap: 4px;
+                flex-wrap: wrap;
+            }
+
+            .sum-chip {
+                width: 11px;
+                height: 11px;
+                border-radius: 3px;
+            }
+
+            .no-data {
+                color: var(--text-lt);
+                font-size: 0.8rem;
+                font-style: italic;
+                padding: 4px 0;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            /* ── DIVIDER ── */
+            .section-divider {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin: 24px 0 0;
+                padding: 0 4px;
+            }
+            .section-divider span {
+                /* font-family: 'DM Serif Display', serif; */
+                font-size: 0.88rem;
+                color: var(--text-lt);
+                white-space: nowrap;
+            }
+            .section-divider::before,
+            .section-divider::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--border);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-inner">
+                <!-- <div class="hero-eyebrow">📅 일정 조율</div> -->
+                <h1 class="hero-title">나랑 만나죠</h1>
+                <p class="hero-sub">불가능한 날짜를 표시하고, 모두가 만날 수 있는 날을 찾아보세요</p>
+            </div>
+        </div>
+
+        <!-- PAGE BODY -->
+        <div class="page">
+            <!-- 01 총 인원 설정 -->
+            <div class="section-divider"><span>01</span></div>
+            <div class="section-card card-yellow">
+                <div class="card-label">총 인원 설정</div>
+                <!-- <p class="card-title">몇 명이 만나나요?</p> -->
+                <div class="setup-row">
+                    <input type="number" class="count-input" id="countInput" min="2" max="10" value="3" />
+                    <span class="unit-text">명</span>
+                    <button class="btn-start" onclick="initChips()">시작하기 →</button>
+                </div>
+            </div>
+
+            <!-- 02 참여자 -->
+            <div id="participantSection" class="hidden">
+                <div class="section-divider"><span>02</span></div>
+                <div class="section-card card-blue">
+                    <div class="card-label">참여자</div>
+                    <p class="card-title">누가 참여하나요? <small style="font-weight: 300; font-size: 0.82rem; color: var(--text-md)">이름을 클릭해 수정하세요</small></p>
+                    <div class="chips-grid" id="chipsContainer"></div>
+                </div>
+            </div>
+
+            <!-- 03 달력 -->
+            <div id="calendarSection" class="hidden">
+                <div class="section-divider"><span>03</span></div>
+                <div class="section-card card-pink">
+                    <div class="card-label">불가능한 날짜</div>
+                    <p class="card-title">참여자를 선택하고 갈 수 없는 날을 눌러주세요</p>
+                    <div class="cal-nav">
+                        <button class="cal-arrow" onclick="changeMonth(-1)">‹</button>
+                        <div class="cal-month" id="calMonth"></div>
+                        <button class="cal-arrow" onclick="changeMonth(1)">›</button>
+                    </div>
+                    <div class="cal-grid" id="calGrid"></div>
+                </div>
+            </div>
+
+            <!-- 04 날짜 분석 -->
+            <div id="analysisSection" class="hidden">
+                <div class="section-divider"><span>04</span></div>
+                <div class="section-card card-coral">
+                    <div class="card-label">날짜 분석</div>
+                    <p class="card-title">언제 만날 수 있을까요?</p>
+                    <button class="btn-analyze" id="btnAnalyze" onclick="runAnalysis()">✦ 분석하기</button>
+                    <div class="analyze-hint" id="analyzeHint">모든 날짜 표시가 끝났으면<br />분석 버튼을 눌러보세요 🎉</div>
+                    <div class="summary-body" id="summaryBody">
+                        <div class="summary-section">
+                            <span class="badge badge-green">모두 가능</span>
+                            <div id="sumAll"></div>
+                        </div>
+                        <div class="summary-section">
+                            <span class="badge badge-yellow">1명 불가</span>
+                            <div id="sum1"></div>
+                        </div>
+                        <div class="summary-section">
+                            <span class="badge badge-red">2명 불가</span>
+                            <div id="sum2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page -->
+
+        <script>
+            const PALETTE = ["#d94f3d", "#f0b429", "#7bbfcf", "#e07b8a", "#4a9ab5", "#c8873a", "#8abf5a", "#b87ab5", "#5ab5a0", "#d4a843"]
+            const NAMES = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+
+            let chips = []
+            let activeChip = null
+            // dateData[key] = Set of chipIds marked unavailable
+            let dateData = {}
+            let currentYear, currentMonth
+
+            function initChips() {
+                const n = Math.max(2, Math.min(10, parseInt(document.getElementById("countInput").value) || 3))
+                chips = Array.from({ length: n }, (_, i) => ({ id: i, name: `참여자 ${NAMES[i]}`, color: PALETTE[i % PALETTE.length] }))
+                activeChip = chips[0]
+                dateData = {}
+                currentYear = new Date().getFullYear()
+                currentMonth = new Date().getMonth()
+
+                document.getElementById("participantSection").classList.remove("hidden")
+                document.getElementById("calendarSection").classList.remove("hidden")
+                document.getElementById("analysisSection").classList.remove("hidden")
+                document.getElementById("analyzeHint").style.display = "block"
+                document.getElementById("summaryBody").classList.remove("visible")
+
+                renderChips()
+                renderCalendar()
+            }
+
+            function renderChips() {
+                document.getElementById("chipsContainer").innerHTML = chips
+                    .map(
+                        (chip) => `
+    <div class="chip ${chip.id === activeChip?.id ? "active" : ""}"
+         style="color:${chip.color}"
+         onclick="selectChip(${chip.id})">
+      <div class="chip-dot" style="background:${chip.color}"></div>
+      <input
+        class="chip-name"
+        type="text"
+        value="${chip.name}"
+        onclick="event.stopPropagation()"
+        oninput="renameChip(${chip.id}, this.value)"
+      >
+    </div>
+  `,
+                    )
+                    .join("")
+            }
+
+            function renameChip(id, value) {
+                const chip = chips.find((c) => c.id === id)
+                if (chip) chip.name = value
+            }
+
+            function selectChip(id) {
+                activeChip = chips.find((c) => c.id === id)
+                renderChips()
+            }
+
+            function changeMonth(d) {
+                currentMonth += d
+                if (currentMonth > 11) {
+                    currentMonth = 0
+                    currentYear++
+                }
+                if (currentMonth < 0) {
+                    currentMonth = 11
+                    currentYear--
+                }
+                renderCalendar()
+            }
+
+            function renderCalendar() {
+                const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+                document.getElementById("calMonth").textContent = `${months[currentMonth]} ${currentYear}`
+
+                const firstDay = new Date(currentYear, currentMonth, 1).getDay()
+                const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate()
+                const dows = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+
+                let html = dows.map((d) => `<div class="cal-dow">${d}</div>`).join("")
+                for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`
+
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const key = `${currentYear}-${currentMonth + 1}-${d}`
+                    const marked = dateData[key] || new Set()
+
+                    let bgHtml = ""
+                    if (marked.size > 0) {
+                        const stripes = chips
+                            .filter((ch) => marked.has(ch.id))
+                            .map((ch) => `<div class="day-stripe" style="background:${ch.color}"></div>`)
+                            .join("")
+                        bgHtml = `<div class="day-bg">${stripes}</div>`
+                    }
+
+                    html += `<div class="cal-day" onclick="toggleDate(${d})">
+      ${bgHtml}
+      <div class="day-num">${d}</div>
+    </div>`
+                }
+
+                document.getElementById("calGrid").innerHTML = html
+            }
+
+            function toggleDate(d) {
+                if (!activeChip) return
+                const key = `${currentYear}-${currentMonth + 1}-${d}`
+                if (!dateData[key]) dateData[key] = new Set()
+                if (dateData[key].has(activeChip.id)) {
+                    dateData[key].delete(activeChip.id)
+                    if (dateData[key].size === 0) delete dateData[key]
+                } else {
+                    dateData[key].add(activeChip.id)
+                }
+                renderCalendar()
+            }
+
+            /* ── Analysis ── */
+            function runAnalysis() {
+                const all = [],
+                    one = [],
+                    two = []
+
+                for (const key of Object.keys(dateData)) {
+                    const marked = dateData[key]
+                    const unavail = marked.size
+                    if (unavail === 0) all.push({ key, marked })
+                    else if (unavail === 1) one.push({ key, marked })
+                    else if (unavail === 2) two.push({ key, marked })
+                }
+
+                const sortByDate = (arr) =>
+                    arr.sort((a, b) => {
+                        const n = (k) => {
+                            const [y, m, d] = k.split("-")
+                            return y * 10000 + parseInt(m) * 100 + parseInt(d)
+                        }
+                        return n(a.key) - n(b.key)
+                    })
+
+                renderSumSection("sumAll", sortByDate(all))
+                renderSumSection("sum1", sortByDate(one))
+                renderSumSection("sum2", sortByDate(two))
+
+                document.getElementById("analyzeHint").style.display = "none"
+                document.getElementById("summaryBody").classList.add("visible")
+
+                const btn = document.getElementById("btnAnalyze")
+                btn.textContent = "✓ 분석 완료!"
+                setTimeout(() => {
+                    btn.textContent = "✦ 다시 분석하기"
+                }, 1600)
+            }
+
+            function formatKey(key) {
+                const [y, m, d] = key.split("-")
+                const date = new Date(y, m - 1, d)
+                const dows = ["일", "월", "화", "수", "목", "금", "토"]
+                return `${m}월 ${d}일 (${dows[date.getDay()]})`
+            }
+
+            function renderSumSection(id, items) {
+                const el = document.getElementById(id)
+                if (!items.length) {
+                    el.innerHTML = `<div class="no-data">해당 없음</div>`
+                    return
+                }
+                el.innerHTML = items
+                    .map(({ key, marked }) => {
+                        const chipsHtml = chips
+                            .map((chip) => {
+                                const isUnavail = marked.has(chip.id)
+                                const style = isUnavail ? `background:transparent;border:2px solid ${chip.color};opacity:0.7;` : `background:${chip.color};`
+                                return `<div class="sum-chip" title="${chip.name}" style="${style}"></div>`
+                            })
+                            .join("")
+                        return `<div class="summary-date">
+      <span>${formatKey(key)}</span>
+      <div class="sum-chips">${chipsHtml}</div>
+    </div>`
+                    })
+                    .join("")
+            }
+
+            // Boot — show setup only
+        </script>
+    </body>
+</html>
