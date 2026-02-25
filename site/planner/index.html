@@ -44,7 +44,7 @@
                 top: 0;
                 background: var(--bg);
                 z-index: 100;
-                border-bottom: 1.5px solid var(--line);
+                /* border-bottom: 1.5px solid var(--line); */
             }
 
             .nav-inner {
@@ -96,7 +96,8 @@
                 display: none;
                 max-width: 960px;
                 margin: 0 auto;
-                padding: 60px 40px;
+                /* padding: 60px 40px; */
+                padding: 30px 0;
             }
             .tab.active {
                 display: block;
@@ -106,7 +107,7 @@
    TAB 1 — SUMMARY
 ═══════════════════════════ */
             .hero-area {
-                margin-bottom: 64px;
+                margin-bottom: 40px;
                 text-align: center;
             }
             .hero-title-display {
@@ -219,9 +220,9 @@
 ═══════════════════════════ */
             .time-header {
                 display: flex;
-                align-items: baseline;
+                align-items: center;
                 justify-content: space-between;
-                margin-bottom: 36px;
+                /* margin-bottom: 36px; */
             }
             .time-header h2 {
                 font-size: 40px;
@@ -310,10 +311,10 @@
                 margin-bottom: 6px;
             }
 
-            /* Grid of 12 columns = 12 hours */
+            /* Grid — column count controlled by --col-count (default 12) */
             .time-grid {
                 display: grid;
-                grid-template-columns: repeat(12, 1fr);
+                grid-template-columns: repeat(var(--col-count, 12), 1fr);
                 border-radius: 0;
                 overflow: hidden;
                 border: 1.5px solid var(--line);
@@ -323,7 +324,7 @@
             .time-hour-labels {
                 grid-column: 1 / -1;
                 display: grid;
-                grid-template-columns: repeat(12, 1fr);
+                grid-template-columns: repeat(var(--col-count, 12), 1fr);
                 border-bottom: 1.5px solid var(--line);
                 background: transparent;
             }
@@ -344,7 +345,7 @@
             .time-slots-row {
                 grid-column: 1 / -1;
                 display: grid;
-                grid-template-columns: repeat(12, 1fr);
+                grid-template-columns: repeat(var(--col-count, 12), 1fr);
                 position: relative;
             }
             .time-slots-row::before {
@@ -548,18 +549,23 @@
             /* Day detail panel */
             /* Calendar inline day detail */
             .cal-divider {
-                display: none;
+                /* display: none; */
                 height: 1.5px;
                 background: var(--line);
                 margin: 32px 0 0;
             }
-            .cal-divider.visible {
+            /* .cal-divider.visible {
                 display: block;
-            }
+            } */
 
             .cal-day-detail {
                 display: none;
                 padding: 28px 0 8px;
+            }
+            @media (max-width: 600px) {
+                .cal-day-detail {
+                    padding-top: 12px;
+                }
             }
             .cal-day-detail.visible {
                 display: block;
@@ -615,7 +621,6 @@
                 font-weight: 900;
                 font-family: "EB Garamond", serif;
                 letter-spacing: -0.3px;
-                text-transform: uppercase;
                 /* color: var(--mid); */
                 margin-bottom: 10px;
             }
@@ -672,7 +677,11 @@
                 transition: border-color 0.25s;
             }
             .hs-form-card.editing {
-                border-color: var(--dark);
+                border-color: var(--edit-color, var(--dark));
+            }
+            .hs-form-card.editing .hf input:focus,
+            .hs-form-card.editing .hf textarea:focus {
+                border-color: var(--edit-color, var(--dark));
             }
             .edit-tag {
                 font-size: 9px;
@@ -857,6 +866,12 @@
             .hs-habit-card:hover {
                 transform: translateY(-2px);
                 filter: brightness(0.95);
+            }
+            .hs-habit-card.is-editing {
+                opacity: 0.5;
+                filter: grayscale(1);
+                pointer-events: none;
+                transform: none;
             }
 
             /* Coloured top stripe — hidden now that card has full bg colour */
@@ -1051,7 +1066,7 @@
 
                 /* ── Tab 2: Time ── */
                 .time-header {
-                    flex-direction: column;
+                    flex-direction: row;
                     align-items: flex-start;
                     gap: 12px;
                     margin-bottom: 24px;
@@ -1059,13 +1074,12 @@
                 .time-header h2 {
                     font-size: 32px;
                 }
-                /* Allow horizontal scroll so the 12-col grid stays intact */
+                /* 8-col sections fit on screen — no horizontal scroll needed */
                 .time-band {
-                    overflow-x: auto;
-                    -webkit-overflow-scrolling: touch;
+                    overflow-x: visible;
                 }
                 .time-halfday {
-                    min-width: 480px;
+                    min-width: 0;
                 }
                 .time-slot {
                     height: 36px;
@@ -1114,7 +1128,48 @@
                 /* Un-stick form on mobile so it doesn't obscure content */
                 .hs-form-card {
                     position: static;
+                    padding: 0 18px;
+                    max-height: 0;
+                    overflow: hidden;
+                    border-color: transparent;
+                    transition:
+                        max-height 0.35s ease,
+                        padding 0.35s ease,
+                        border-color 0.25s;
+                    opacity: 0;
+                }
+                .hs-form-card.open {
+                    max-height: 800px;
                     padding: 24px 18px;
+                    border-color: var(--line);
+                    opacity: 1;
+                }
+                .hs-form-card.editing.open {
+                    border-color: var(--edit-color, var(--dark));
+                    opacity: 1;
+                }
+                .hs-form-title {
+                    cursor: pointer;
+                    user-select: none;
+                    justify-content: space-between;
+                    padding-bottom: 14px;
+                    border-bottom: 1.5px solid var(--line);
+                    margin-bottom: 0;
+                }
+                .hs-form-title::after {
+                    content: "›";
+                    font-size: 22px;
+                    font-weight: 400;
+                    color: var(--mid);
+                    display: inline-block;
+                    transform: rotate(0deg);
+                    transition: transform 0.25s;
+                }
+                .hs-form-title.open {
+                    border-bottom-color: transparent;
+                }
+                .hs-form-title.open::after {
+                    transform: rotate(90deg);
                 }
             }
         </style>
@@ -1202,7 +1257,7 @@
             <div class="hs-layout">
                 <!-- Form: title outside card -->
                 <div>
-                    <div class="hs-form-title">
+                    <div class="hs-form-title" id="hsFormTitle" onclick="toggleFormAccordion()">
                         <span id="formTitleText">New Habit</span>
                         <span class="edit-tag" id="editTag">Editing</span>
                     </div>
@@ -1377,30 +1432,24 @@
             }
 
             function renderHours() {
-                function buildHalfDay(startH, labelText) {
-                    // Hour label row
+                function buildHalfDay(startH, count, labelText) {
                     let labels = ""
-                    for (let i = startH; i < startH + 12; i++) {
+                    for (let i = startH; i < startH + count; i++) {
                         labels += `<div class="time-hour-label">${String(i).padStart(2, "0")}</div>`
                     }
-
-                    // :00 slot row
                     let row00 = ""
-                    for (let i = startH; i < startH + 12; i++) {
+                    for (let i = startH; i < startH + count; i++) {
                         const k = `h${i}_0`
                         const st = hourStatuses[k] !== undefined ? hourStatuses[k] : "not-free"
                         row00 += `<div class="time-slot" data-key="${k}" data-status="${st}" onclick="cycleHour(this)"><span class="time-slot-tag">:00</span></div>`
                     }
-
-                    // :30 slot row
                     let row30 = ""
-                    for (let i = startH; i < startH + 12; i++) {
+                    for (let i = startH; i < startH + count; i++) {
                         const k = `h${i}_1`
                         const st = hourStatuses[k] !== undefined ? hourStatuses[k] : "not-free"
                         row30 += `<div class="time-slot" data-key="${k}" data-status="${st}" onclick="cycleHour(this)"><span class="time-slot-tag">:30</span></div>`
                     }
-
-                    return `<div class="time-halfday">
+                    return `<div class="time-halfday" style="--col-count:${count}">
       <div class="time-halfday-label">${labelText}</div>
       <div class="time-grid">
         <div class="time-hour-labels">${labels}</div>
@@ -1410,9 +1459,23 @@
     </div>`
                 }
 
-                document.getElementById("timeBand").innerHTML = buildHalfDay(0, "AM  00 – 11") + buildHalfDay(12, "PM  12 – 23")
+                const mob = window.innerWidth <= 600
+                document.getElementById("timeBand").innerHTML = mob ? buildHalfDay(0, 8, "00 – 07") + buildHalfDay(8, 8, "08 – 15") + buildHalfDay(16, 8, "16 – 23") : buildHalfDay(0, 12, "AM  00 – 11") + buildHalfDay(12, 12, "PM  12 – 23")
                 updateTimeStats()
             }
+
+            let _lastMob = window.innerWidth <= 600
+            window.addEventListener("resize", () => {
+                const isMob = window.innerWidth <= 600
+                if (isMob !== _lastMob) {
+                    _lastMob = isMob
+                    renderHours()
+                    if (!isMob) {
+                        document.getElementById("hsFormCard").classList.remove("open")
+                        document.getElementById("hsFormTitle").classList.remove("open")
+                    }
+                }
+            })
 
             function cycleHour(el) {
                 const k = el.dataset.key
@@ -1624,10 +1687,23 @@
                 document.getElementById("cancelBtn").classList.remove("show")
                 document.getElementById("editTag").classList.remove("show")
                 document.getElementById("formTitleText").textContent = "New Habit"
-                document.getElementById("hsFormCard").classList.remove("editing")
+                const card = document.getElementById("hsFormCard")
+                card.classList.remove("editing")
+                card.style.removeProperty("--edit-color")
+                if (window.innerWidth <= 600) setFormAccordion(false)
+            }
+            function setFormAccordion(open) {
+                document.getElementById("hsFormCard").classList.toggle("open", open)
+                document.getElementById("hsFormTitle").classList.toggle("open", open)
+            }
+            function toggleFormAccordion() {
+                if (window.innerWidth > 600) return
+                const isOpen = document.getElementById("hsFormCard").classList.contains("open")
+                setFormAccordion(!isOpen)
             }
             function cancelEdit() {
                 resetForm()
+                renderHabitList()
             }
             function editHabit(id) {
                 const h = habits.find((x) => x.id === id)
@@ -1643,8 +1719,14 @@
                 document.getElementById("cancelBtn").classList.add("show")
                 document.getElementById("editTag").classList.add("show")
                 document.getElementById("formTitleText").textContent = "Edit Habit"
-                document.getElementById("hsFormCard").classList.add("editing")
-                document.getElementById("hsFormCard").scrollIntoView({ behavior: "smooth", block: "start" })
+                const hex = COLOURS[h.colour] || "#e85d5d"
+                const formCard = document.getElementById("hsFormCard")
+                formCard.style.setProperty("--edit-color", hex)
+                formCard.classList.add("editing")
+                if (window.innerWidth <= 600) setFormAccordion(true)
+                renderHabitList()
+                // formCard.scrollIntoView({ behavior: "smooth", block: "start" })
+                setTimeout(() => document.getElementById("hfName").focus(), 300)
             }
             function deleteHabit(id) {
                 if (!confirm("Delete this habit?")) return
@@ -1678,9 +1760,11 @@
                     list.innerHTML = `<div class="hs-empty">No habits yet. <button onclick="document.getElementById('hfName').focus()" style="background:none;border:none;padding:0;cursor:pointer;font:inherit;color:var(--dark);text-decoration:underline;text-underline-offset:2px;">Add your first one</button></div>`
                     return
                 }
+                const currentEditId = document.getElementById("editId").value
                 list.innerHTML = habits
                     .map((h) => {
                         const hex = COLOURS[h.colour] || "#e85d5d"
+                        const isBeingEdited = currentEditId && h.id === currentEditId
                         const sched = h.days.filter(Boolean).length
                         const done = h.weekDone.filter(Boolean).length
                         const pct = sched ? Math.round((done / sched) * 100) : 0
@@ -1697,7 +1781,7 @@
         onclick="toggleHabitDayInline('${h.id}',${i})"
         title="${isDone ? "Unmark" : "Done"} — ${d}">${DS[i]}</div>`
                         }).join("")
-                        return `<div class="hs-habit-card" style="background:${hex}">
+                        return `<div class="hs-habit-card${isBeingEdited ? " is-editing" : ""}" style="background:${hex}">
       <div class="hs-card-body">
         <div class="hs-hr-top">
           <div>
