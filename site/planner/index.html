@@ -1173,6 +1173,169 @@
                 }
             }
         </style>
+        <style>
+            /* ── SYNC BAR ── */
+            nav { position: relative; }
+            .sync-bar {
+                position: absolute;
+                right: 40px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .sync-status {
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--mid);
+                letter-spacing: 0.3px;
+                white-space: nowrap;
+            }
+            .sync-status.syncing { color: #f0b429; }
+            .sync-status.synced  { color: #3db87a; }
+            .sync-status.error   { color: #e85d5d; }
+            .sync-cfg-btn {
+                background: none;
+                border: 1.5px solid var(--line);
+                border-radius: 50px;
+                padding: 6px 13px;
+                font-size: 11px;
+                font-weight: 700;
+                font-family: "Montserrat", sans-serif;
+                cursor: pointer;
+                color: var(--mid);
+                transition: all 0.2s;
+                white-space: nowrap;
+            }
+            .sync-cfg-btn:hover { color: var(--dark); border-color: var(--dark); }
+            .sync-cfg-btn.active { color: #3db87a; border-color: #3db87a; }
+
+            /* ── SYNC MODAL ── */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(26,26,26,0.45);
+                z-index: 2000;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            .modal-overlay.open { display: flex; }
+            .modal-card {
+                background: var(--bg);
+                border: 1.5px solid var(--dark);
+                border-radius: 20px;
+                padding: 36px 32px 28px;
+                width: 460px;
+                max-width: 100%;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .modal-title {
+                font-size: 18px;
+                font-weight: 800;
+                margin-bottom: 6px;
+            }
+            .modal-subtitle {
+                font-size: 12px;
+                color: var(--mid);
+                margin-bottom: 26px;
+                line-height: 1.5;
+            }
+            .modal-field { margin-bottom: 18px; }
+            .modal-field label {
+                display: block;
+                font-size: 10px;
+                font-weight: 800;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                color: var(--mid);
+                margin-bottom: 7px;
+            }
+            .modal-field input {
+                width: 100%;
+                border: 1.5px solid var(--line);
+                border-radius: 10px;
+                padding: 11px 14px;
+                font-family: "Montserrat", sans-serif;
+                font-size: 13px;
+                background: #fff;
+                outline: none;
+                color: var(--dark);
+                transition: border-color 0.2s;
+            }
+            .modal-field input:focus { border-color: var(--dark); }
+            .modal-hint {
+                font-size: 11px;
+                color: var(--mid);
+                margin-top: 6px;
+                line-height: 1.6;
+            }
+            .modal-hint a { color: var(--dark); font-weight: 700; }
+            .modal-btn-row {
+                display: flex;
+                gap: 8px;
+                margin-top: 28px;
+            }
+            .modal-save {
+                flex: 1;
+                background: var(--dark);
+                color: #fff;
+                border: none;
+                border-radius: 10px;
+                padding: 13px;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                cursor: pointer;
+                transition: opacity 0.2s;
+            }
+            .modal-save:hover { opacity: 0.85; }
+            .modal-cancel-btn {
+                background: none;
+                color: var(--mid);
+                border: 1.5px solid var(--line);
+                border-radius: 10px;
+                padding: 13px 20px;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
+                font-size: 13px;
+                cursor: pointer;
+            }
+            .modal-feedback {
+                font-size: 12px;
+                font-weight: 600;
+                text-align: center;
+                margin-top: 14px;
+                min-height: 18px;
+                color: var(--mid);
+            }
+            .modal-feedback.ok  { color: #3db87a; }
+            .modal-feedback.err { color: #e85d5d; }
+            .modal-divider {
+                border: none;
+                border-top: 1.5px solid var(--line);
+                margin: 24px 0 18px;
+            }
+            .modal-danger-btn {
+                width: 100%;
+                background: none;
+                border: 1.5px solid #e85d5d33;
+                border-radius: 10px;
+                padding: 11px;
+                font-family: "Montserrat", sans-serif;
+                font-weight: 700;
+                font-size: 12px;
+                color: #e85d5d;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+            .modal-danger-btn:hover { background: #e85d5d11; }
+            @media (max-width: 600px) {
+                .sync-bar { right: 16px; }
+                .sync-status { display: none; }
+            }
+        </style>
     </head>
     <body>
         <nav>
@@ -1182,7 +1345,42 @@
                 <button class="tab-btn" onclick="switchTab(2)">Calendar</button>
                 <button class="tab-btn" onclick="switchTab(3)">Habit Setup</button>
             </div>
+            <div class="sync-bar">
+                <span class="sync-status" id="syncStatus"></span>
+                <button class="sync-cfg-btn" id="syncCfgBtn" onclick="openSyncSettings()">Sync</button>
+            </div>
         </nav>
+
+        <!-- ═══ SYNC SETTINGS MODAL ═══ -->
+        <div class="modal-overlay" id="syncModal" onclick="handleModalOverlayClick(event)">
+            <div class="modal-card">
+                <div class="modal-title">Sync Settings</div>
+                <div class="modal-subtitle">
+                    GitHub Gist를 통해 여러 기기에서 같은 데이터를 사용할 수 있어요.<br>
+                    토큰은 이 기기에만 저장되며, 외부로 전송되지 않습니다.
+                </div>
+                <div class="modal-field">
+                    <label>GitHub Token</label>
+                    <input type="password" id="syncToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" />
+                    <div class="modal-hint">
+                        <strong>gist</strong> 권한이 있는 Personal Access Token이 필요해요.<br>
+                        <a href="https://github.com/settings/tokens/new?scopes=gist&description=Mimispace+Planner" target="_blank" rel="noopener">→ 여기서 토큰 만들기 (gist 체크 후 Generate)</a>
+                    </div>
+                </div>
+                <div class="modal-field">
+                    <label>Gist ID <span style="font-weight:400;text-transform:none;letter-spacing:0">(선택 — 비워두면 자동 생성)</span></label>
+                    <input type="text" id="syncGistId" placeholder="기존 Gist ID 입력 또는 비워두기" autocomplete="off" />
+                    <div class="modal-hint">URL: gist.github.com/username/<strong>여기가 Gist ID</strong></div>
+                </div>
+                <div class="modal-btn-row">
+                    <button class="modal-save" onclick="saveSyncSettings()">저장 &amp; 연결</button>
+                    <button class="modal-cancel-btn" onclick="closeSyncSettings()">취소</button>
+                </div>
+                <div class="modal-feedback" id="syncModalFeedback"></div>
+                <hr class="modal-divider" id="syncDisconnectDivider" style="display:none">
+                <button class="modal-danger-btn" id="syncDisconnectBtn" style="display:none" onclick="disconnectSync()">이 기기에서 동기화 해제</button>
+            </div>
+        </div>
 
         <!-- ═══ TAB 1: SUMMARY ═══ -->
         <div class="tab active" id="tab0">
@@ -1325,11 +1523,204 @@
             let formDays = [false, false, false, false, false, false, false]
             let formColour = "coral"
 
+            // ═══════════════ GIST SYNC ═══════════════
+            let _syncTimer = null
+
+            function getSyncCreds() {
+                return {
+                    token: localStorage.getItem("gist_token") || "",
+                    gistId: localStorage.getItem("gist_id") || "",
+                }
+            }
+
+            function setSyncStatus(state, msg) {
+                const el = document.getElementById("syncStatus")
+                el.className = "sync-status" + (state ? " " + state : "")
+                el.textContent = msg
+                const btn = document.getElementById("syncCfgBtn")
+                btn.classList.toggle("active", !!getSyncCreds().gistId)
+            }
+
+            function getAllData() {
+                return {
+                    myplan_habits: habits,
+                    myplan_hours: hourStatuses,
+                    myplan_plans: plans,
+                    myplan_daylog: habitDayLog,
+                    myplan_title: localStorage.getItem("myplan_title") || "",
+                }
+            }
+
+            function applyData(data) {
+                if (data.myplan_habits !== undefined) {
+                    habits = data.myplan_habits
+                    localStorage.setItem("myplan_habits", JSON.stringify(habits))
+                }
+                if (data.myplan_hours !== undefined) {
+                    hourStatuses = data.myplan_hours
+                    localStorage.setItem("myplan_hours", JSON.stringify(hourStatuses))
+                }
+                if (data.myplan_plans !== undefined) {
+                    plans = data.myplan_plans
+                    localStorage.setItem("myplan_plans", JSON.stringify(plans))
+                }
+                if (data.myplan_daylog !== undefined) {
+                    habitDayLog = data.myplan_daylog
+                    localStorage.setItem("myplan_daylog", JSON.stringify(habitDayLog))
+                }
+                if (data.myplan_title !== undefined) {
+                    localStorage.setItem("myplan_title", data.myplan_title)
+                    const titleEl = document.getElementById("heroTitleDisplay")
+                    const inputEl = document.getElementById("pageTitleInput")
+                    if (titleEl) titleEl.textContent = data.myplan_title || "Hello,\nLet's crush it!"
+                    if (inputEl) inputEl.value = data.myplan_title
+                }
+            }
+
+            async function loadFromGist() {
+                const { token, gistId } = getSyncCreds()
+                if (!token || !gistId) return
+                setSyncStatus("syncing", "↓ Loading…")
+                try {
+                    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+                        headers: { Authorization: `token ${token}`, Accept: "application/vnd.github+json" },
+                    })
+                    if (!res.ok) throw new Error(res.status)
+                    const gist = await res.json()
+                    const file = gist.files["mimispace-planner.json"]
+                    if (!file) throw new Error("file not found")
+                    applyData(JSON.parse(file.content))
+                    renderSummary()
+                    renderHours()
+                    renderCalendar()
+                    renderHabitList()
+                    setSyncStatus("synced", "✓ Synced")
+                    setTimeout(() => setSyncStatus("", ""), 3000)
+                } catch (e) {
+                    console.error("Gist load error:", e)
+                    setSyncStatus("error", "✗ Load failed")
+                }
+            }
+
+            async function saveToGist() {
+                const { token, gistId } = getSyncCreds()
+                if (!token || !gistId) return
+                setSyncStatus("syncing", "↑ Saving…")
+                try {
+                    const res = await fetch(`https://api.github.com/gists/${gistId}`, {
+                        method: "PATCH",
+                        headers: {
+                            Authorization: `token ${token}`,
+                            Accept: "application/vnd.github+json",
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ files: { "mimispace-planner.json": { content: JSON.stringify(getAllData(), null, 2) } } }),
+                    })
+                    if (!res.ok) throw new Error(res.status)
+                    setSyncStatus("synced", "✓ Saved")
+                    setTimeout(() => setSyncStatus("", ""), 3000)
+                } catch (e) {
+                    console.error("Gist save error:", e)
+                    setSyncStatus("error", "✗ Save failed")
+                }
+            }
+
+            function scheduleSave() {
+                clearTimeout(_syncTimer)
+                _syncTimer = setTimeout(saveToGist, 2000)
+            }
+
+            // Settings modal
+            function openSyncSettings() {
+                const { token, gistId } = getSyncCreds()
+                document.getElementById("syncToken").value = token
+                document.getElementById("syncGistId").value = gistId
+                const fb = document.getElementById("syncModalFeedback")
+                fb.textContent = ""
+                fb.className = "modal-feedback"
+                const hasGist = !!gistId
+                document.getElementById("syncDisconnectDivider").style.display = hasGist ? "" : "none"
+                document.getElementById("syncDisconnectBtn").style.display = hasGist ? "" : "none"
+                document.getElementById("syncModal").classList.add("open")
+            }
+
+            function closeSyncSettings() {
+                document.getElementById("syncModal").classList.remove("open")
+            }
+
+            function handleModalOverlayClick(e) {
+                if (e.target === document.getElementById("syncModal")) closeSyncSettings()
+            }
+
+            async function saveSyncSettings() {
+                const token = document.getElementById("syncToken").value.trim()
+                const gistIdInput = document.getElementById("syncGistId").value.trim()
+                const fb = document.getElementById("syncModalFeedback")
+                fb.className = "modal-feedback"
+
+                if (!token) {
+                    fb.textContent = "GitHub Token을 입력해주세요."
+                    fb.className = "modal-feedback err"
+                    return
+                }
+
+                let finalGistId = gistIdInput
+                if (!gistIdInput) {
+                    fb.textContent = "새 Gist 생성 중…"
+                    try {
+                        const res = await fetch("https://api.github.com/gists", {
+                            method: "POST",
+                            headers: {
+                                Authorization: `token ${token}`,
+                                Accept: "application/vnd.github+json",
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                description: "Mimispace Planner Data",
+                                public: false,
+                                files: { "mimispace-planner.json": { content: JSON.stringify(getAllData(), null, 2) } },
+                            }),
+                        })
+                        if (!res.ok) throw new Error(res.status)
+                        const gist = await res.json()
+                        finalGistId = gist.id
+                        fb.textContent = `✓ Gist 생성 완료! ID: ${finalGistId}`
+                        fb.className = "modal-feedback ok"
+                    } catch (e) {
+                        fb.textContent = "✗ Gist 생성 실패. Token 권한을 확인해주세요."
+                        fb.className = "modal-feedback err"
+                        return
+                    }
+                }
+
+                localStorage.setItem("gist_token", token)
+                localStorage.setItem("gist_id", finalGistId)
+                document.getElementById("syncGistId").value = finalGistId
+                document.getElementById("syncDisconnectDivider").style.display = ""
+                document.getElementById("syncDisconnectBtn").style.display = ""
+
+                setTimeout(() => {
+                    closeSyncSettings()
+                    loadFromGist()
+                }, gistIdInput ? 0 : 1500)
+            }
+
+            function disconnectSync() {
+                if (!confirm("이 기기에서 동기화를 해제할까요?\n(Gist 데이터는 삭제되지 않아요)")) return
+                localStorage.removeItem("gist_token")
+                localStorage.removeItem("gist_id")
+                setSyncStatus("", "")
+                closeSyncSettings()
+            }
+
+            // ═══════════════════════════════════════
+
             function persist() {
                 localStorage.setItem("myplan_habits", JSON.stringify(habits))
                 localStorage.setItem("myplan_hours", JSON.stringify(hourStatuses))
                 localStorage.setItem("myplan_plans", JSON.stringify(plans))
                 localStorage.setItem("myplan_daylog", JSON.stringify(habitDayLog))
+                scheduleSave()
             }
 
             // ═══════════════ TABS ═══════════════
@@ -1400,6 +1791,7 @@
                 const val = document.getElementById("pageTitleInput").value
                 localStorage.setItem("myplan_title", val)
                 document.getElementById("heroTitleDisplay").textContent = val || "Hello,\nLet's crush it!"
+                scheduleSave()
             }
             function loadHeroTitle() {
                 const saved = localStorage.getItem("myplan_title") || "Hello,\nLet's crush it!"
@@ -1816,6 +2208,9 @@
             renderHabitList()
             const _today = new Date()
             openDayPanel(`${_today.getFullYear()}-${_today.getMonth()}-${_today.getDate()}`, _today.getDate())
+            // Gist sync: 페이지 열 때 자동으로 최신 데이터 불러오기
+            setSyncStatus("", "")
+            loadFromGist()
         </script>
     </body>
 </html>
