@@ -1,102 +1,105 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mimi-miyeon.github.io/mimispace1/" />
-    <meta property="og:title" content="미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너, 프론트 개발자(2024)" />
-    <meta property="og:image" content="images/metaOg.jpg" />
-    <meta property="description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." />
-    <meta property="og:site_name" content="미미의 포트폴리오" />
-    <meta property="og:locale" content="ko" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta name="twitter:card" content="summary" /> 
-    <meta name="twitter:title" content="미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너, 프론트 개발자(2024)" /> 
-    <meta name="twitter:description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." /> 
-    <meta name="twitter:image" content="images/metaOg.jpg" />
-    <meta name="keywords" content="HTML, CSS, Javascript, React, jQuery, Adobe XD, Adobe Illustrator, Adobe Photoshop, Zeplin, 웹 퍼블리셔, 프론트 엔드, 프론트 엔드 개발자, 포트폴리오, 디자이너, 미미의 포트폴리오" />
-    <meta name="author" content="Miyeon Mimi Yang" />
-  
-    <title>미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너, 프론트 개발자(2024)</title>
-    <link rel="shortcut icon" href="images/favicon.gif" type="image/gif">
-  
-    <!-- css -->
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/index.css">
-  
-  </head>
-  
-  <body class="body">
-    <div class="loading"></div>
-    <div class="body-container container">
-      <!-- Header Starts -->
-      <header id="header">
-        <img id="headerImg" alt="" />
-  
-        <ul id="indicator" class="indicator-container">
-          <!-- <li class="active" name="about"><button><span></span><div class="btnIcon">🙋‍♀️ </div> 자기소개</button></li> -->
-          <li name="project"><button><span></span><div class="btnIcon">👩‍🏫 </div> 프로젝트</button></li>
-        </ul>
-        
-        <!-- mode & lang buttons 보류 -->
-        <div class="header__button-container flex">
-  
-          <div class="switch-container lang-container">
-            <button id="langBtn" class="switch-button lang-button flex column" aria-label="언어변경 버튼">
-              <span id="enBtn" class="switch-top"></span>
-              <span id="koBtn" class="switch-bottom"></span>
-            </button>
-          </div>
-          
-        </div>
-  
-        <div class="header-container">
-          <div class="about-wrapper">
-            <h2 id="myName">양미연</h2>
-            <div class="about-wrapper__detail">
-              <p id="myCareer"><!--<span>프론트 개발자(2024)</span>--> <span>웹 퍼블리셔</span> <span>그래픽 디자이너</span> <span>일러스트레이터</span></p>
-              <div class="description">
-                <p id="myLocation">
-                  <span id="temp" class="temp"></span><img id="weatherIcon" class="weatherIcon" /> 대한민국 <span id="localtime"></span>
-                </p>
-                <p id="myState">💚 현재 취업중</p>
-                <button onclick=copyButtonValue() id="email" value="miyeon9143@naver.com"><span class="btnIcon">💌</span> miyeon9143@naver.com<span class="copy-badge">Click!</span></button> 
-              </div>
-            </div>
-          </div>
-          <div class="contact-wrapper">
-            <p>
-              <small>
-                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank">깃헙 <span class="btnIcon">🐱</span></a> / 
-                <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank">샌드박스 <span class="btnIcon">📦</span></a> /
-                <a id="blogLink" href="https://mionager.tistory.com/" target="_blank">블로그 <span class="btnIcon">📝</span></a>
-              </small>
-            </p>
-          </div>
-        </div>
-      </header>
-  
-      <!-- Main Starts -->
-      <main id="main">
-        <div class="main-container container">
-          <!-- <section id="about" class="section--about">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mimi-miyeon.github.io/mimispace1/" />
+        <meta property="og:title" content="미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너, 프론트 개발자(2024)" />
+        <meta property="og:image" content="images/metaOg.jpg" />
+        <meta property="description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." />
+        <meta property="og:site_name" content="미미의 포트폴리오" />
+        <meta property="og:locale" content="ko" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너, 프론트 개발자(2024)" />
+        <meta name="twitter:description" content="그래픽 디자이너에서 퍼블리셔, 프론트 개발자가 되기 위한 흔적들을 구경할 수 있는 포트폴리오 사이트입니다." />
+        <meta name="twitter:image" content="images/metaOg.jpg" />
+        <meta name="keywords" content="HTML, CSS, Javascript, React, jQuery, Adobe XD, Adobe Illustrator, Adobe Photoshop, Zeplin, 웹 퍼블리셔, 프론트 엔드, 프론트 엔드 개발자, 포트폴리오, 디자이너, 미미의 포트폴리오" />
+        <meta name="author" content="Miyeon Mimi Yang" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1811956987410756" crossorigin="anonymous"></script>
+        <title>미미의 포트폴리오 - 웹 퍼블리셔, 그래픽 디자이너, 프론트 개발자(2024)</title>
+        <link rel="shortcut icon" href="images/favicon.gif" type="image/gif" />
+
+        <!-- css -->
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/index.css" />
+    </head>
+
+    <body class="body">
+        <div class="loading"></div>
+        <div class="body-container container">
+            <!-- Header Starts -->
+            <header id="header">
+                <img id="headerImg" alt="" />
+
+                <ul id="indicator" class="indicator-container">
+                    <!-- <li class="active" name="about"><button><span></span><div class="btnIcon">🙋‍♀️ </div> 자기소개</button></li> -->
+                    <li name="project">
+                        <button>
+                            <span></span>
+                            <div class="btnIcon">👩‍🏫</div>
+                            프로젝트
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- mode & lang buttons 보류 -->
+                <div class="header__button-container flex">
+                    <div class="switch-container lang-container">
+                        <button id="langBtn" class="switch-button lang-button flex column" aria-label="언어변경 버튼">
+                            <span id="enBtn" class="switch-top"></span>
+                            <span id="koBtn" class="switch-bottom"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="header-container">
+                    <div class="about-wrapper">
+                        <h2 id="myName">양미연</h2>
+                        <div class="about-wrapper__detail">
+                            <p id="myCareer">
+                                <!--<span>프론트 개발자(2024)</span>-->
+                                <span>웹 퍼블리셔</span> <span>그래픽 디자이너</span> <span>일러스트레이터</span>
+                            </p>
+                            <div class="description">
+                                <p id="myLocation"><span id="temp" class="temp"></span><img id="weatherIcon" class="weatherIcon" /> 대한민국 <span id="localtime"></span></p>
+                                <p id="myState">💚 현재 취업중</p>
+                                <button onclick="copyButtonValue()" id="email" value="miyeon9143@naver.com"><span class="btnIcon">💌</span> miyeon9143@naver.com<span class="copy-badge">Click!</span></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-wrapper">
+                        <p>
+                            <small>
+                                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank">깃헙 <span class="btnIcon">🐱</span></a> / <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank">샌드박스 <span class="btnIcon">📦</span></a> /
+                                <a id="blogLink" href="https://mionager.tistory.com/" target="_blank">블로그 <span class="btnIcon">📝</span></a>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Starts -->
+            <main id="main">
+                <div class="main-container container">
+                    <!-- <section id="about" class="section--about">
             <h3>디자인하고</h3>
             <h3>코딩하고</h3>
             <h3>그리고</h3>
             <h3>만들고</h3>
           </section> -->
-          
-          <section id="project" class="section--project">
-            <ul class="project-lists"></ul>
-          </section>
+
+                    <section id="project" class="section--project">
+                        <ul class="project-lists"></ul>
+                    </section>
+                </div>
+            </main>
         </div>
-      </main>
-    </div>
-  </body>
+    </body>
 </html>
