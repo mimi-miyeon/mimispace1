@@ -1,3 +1,7 @@
+html[lang="en"] .blog-link-wrapper {
+  display: none;
+}
+
 .loading {
   display: none;
   position: fixed;

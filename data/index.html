@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://mimi-miyeon.github.io/mimispace1/" />
+        <meta property="og:title" content="" data-i18n-attr="content:meta.og.title" />
+        <meta property="og:image" content="images/metaOg.jpg" />
+        <meta property="description" content="" data-i18n-attr="content:meta.description" />
+        <meta property="og:site_name" content="" data-i18n-attr="content:meta.og.siteName" />
+        <meta property="og:locale" content="" data-i18n-attr="content:meta.og.locale" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content="" data-i18n-attr="content:meta.twitter.title" />
+        <meta name="twitter:description" content="" data-i18n-attr="content:meta.twitter.description" />
+        <meta name="twitter:image" content="images/metaOg.jpg" />
+        <meta name="keywords" content="" data-i18n-attr="content:meta.keywords" />
+        <meta name="author" content="Miyeon Mimi Yang" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1811956987410756" crossorigin="anonymous"></script>
+        <title data-i18n="title"></title>
+        <link rel="shortcut icon" href="images/favicon.gif" type="image/gif" />
+
+        <!-- css -->
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="css/styles.css" />
+        <link rel="stylesheet" href="css/index.css" />
+    </head>
+
+    <body class="body">
+        <div class="loading"></div>
+        <div class="body-container container">
+            <!-- Header Starts -->
+            <header id="header">
+                <img id="headerImg" alt="" />
+
+                <ul id="indicator" class="indicator-container">
+                    <li name="project">
+                        <button>
+                            <span></span>
+                            <div class="btnIcon">👩‍🏫</div>
+                            <span data-i18n="nav.project"></span>
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="header__button-container flex">
+                    <div class="switch-container lang-container">
+                        <button id="langBtn" class="switch-button lang-button flex column" data-i18n-attr="aria-label:langBtn.ariaLabel">
+                            <span id="enBtn" class="switch-top"></span>
+                            <span id="koBtn" class="switch-bottom"></span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="header-container">
+                    <div class="about-wrapper">
+                        <h2 id="myName" data-i18n="myName"></h2>
+                        <div class="about-wrapper__detail">
+                            <p id="myCareer" data-i18n="myCareer"></p>
+                            <div class="description">
+                                <p id="myLocation">
+                                    <span id="temp" class="temp"></span>
+                                    <img id="weatherIcon" class="weatherIcon" />
+                                    <span data-i18n="country"></span>
+                                    <span id="localtime"></span>
+                                </p>
+                                <p id="myState" data-i18n="myState"></p>
+                                <button id="email" data-i18n-attr="value:email.address">
+                                    <span class="btnIcon">💌</span>
+                                    <span data-i18n="email.address"></span>
+                                    <span class="copy-badge">Click!</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-wrapper">
+                        <p>
+                            <small>
+                                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank" data-i18n="link.github"></a>
+                                /
+                                <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank" data-i18n="link.sandbox"></a>
+                                <span class="blog-link-wrapper"> /
+                                    <a id="blogLink" href="https://mionager.tistory.com/" target="_blank" data-i18n="link.blog"></a>
+                                </span>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Starts -->
+            <main id="main">
+                <div class="main-container container">
+                    <section id="project" class="section--project">
+                        <ul class="project-lists"></ul>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

@@ -1,3 +1,4 @@
+import { applyTranslations } from './i18n.js';
 import { fetchWeatherData } from './weather.js';
 import { drawTime } from './time.js';
 import { fetchProjectList } from './projectList.js';
@@ -7,29 +8,25 @@ import { f_indicator } from './indicator.js';
 const userLanguage = (navigator.languages !== undefined) ? navigator.languages[0] : navigator.language;
 let lang = (userLanguage !== 'en') ? 'ko' : 'en';
 sessionStorage.setItem('lang', lang);
-let rootPath;
 
-function fetchHTML(rootPath) {
+const INDEX_PATH = './data/index.html';
+
+async function fetchHTML() {
   const html = document.getElementsByTagName('html')[0];
-  const xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState === 4) {
-      if (this.status === 200) {
-        html.innerHTML = this.responseText;
-        drawTime();
-        fetchProjectList(lang);
-        f_header_img();
-        fetchWeatherData();
-        f_indicator();
-        f_addEventHandler();
-      }
-      if (this.status === 404) {
-        html.innerHTML = 'Page not found.';
-      }
-    }
-  };
-  xhttp.open('GET', rootPath, true);
-  xhttp.send();
+  try {
+    const response = await fetch(INDEX_PATH);
+    if (!response.ok) { html.innerHTML = 'Page not found.'; return; }
+    html.innerHTML = await response.text();
+    await applyTranslations(lang);
+    drawTime();
+    fetchProjectList(lang);
+    f_header_img();
+    fetchWeatherData();
+    f_indicator();
+    f_addEventHandler();
+  } catch (error) {
+    console.error('Error fetching page:', error);
+  }
 }
 
 function f_addEventHandler() {
@@ -44,17 +41,14 @@ function f_addEventHandler() {
   langBtnEl.classList.add(lang);
   langBtnEl.addEventListener('click', () => {
     lang = (lang === 'ko') ? 'en' : 'ko';
-    langBtnEl.classList.remove('ko', 'en');
-    langBtnEl.classList.add(lang);
-    rootPath = `./data/${lang}/index.html`;
-    fetchHTML(rootPath);
+    sessionStorage.setItem('lang', lang);
+    fetchHTML();
   });
 }
 
 function setHTML() {
   document.addEventListener('DOMContentLoaded', () => {
-    rootPath = `./data/${lang}/index.html`;
-    fetchHTML(rootPath);
+    fetchHTML();
   });
 }
 
