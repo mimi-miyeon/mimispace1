@@ -1,5 +1,5 @@
 // import { lang } from "./init.js";
-let lang = sessionStorage.getItem("lang");
+let lang = sessionStorage.getItem("lang") || "ko";
 
 /* LOADING DETAIL PAGE HTML */
 /* GET ID PARAM TO FETCH THE SAME NAME FILE */

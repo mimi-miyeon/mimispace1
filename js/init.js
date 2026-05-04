@@ -1,3 +1,5 @@
+import { CONFIG } from './config.js';
+
 /* GET INDEX FILE */
 /* DEPENDS ON THE USER'S LANGUAGE SETTING, */
 /* FETCH DIFFRENT INDEX FROM DIFFREMNT PATH*/
@@ -58,7 +60,7 @@ async function fetchWeatherData()
   let tempEl, weatherIconEl, temperatureCelsius, weatherImg;
   tempEl = document.getElementById('temp');
   weatherIconEl = document.getElementById('weatherIcon');
-  const apiUrl = 'https://api.weatherapi.com/v1/current.json?key=e73c70f92c5e4fe5a6865325232112&q=36.51468,127.2604&aqi=no';
+  const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${CONFIG.WEATHER_API_KEY}&q=${CONFIG.WEATHER_API_Q}&aqi=no`;
 
   try 
   {
