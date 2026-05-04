@@ -63,6 +63,19 @@ small {
 
   --wText: 70%;
 
+  /* animation */
+  --duration-fast: .3s;
+  --duration-med: .4s;
+  --duration-slow: .5s;
+  --ease-slide: cubic-bezier(0.98, 0, 0.76, 0.99);
+
+  /* detail page slide-in distances */
+  --slide-header-title: 13rem;
+  --slide-project-desc: 13em;
+  --slide-project-links: -5em;
+
+  /* play button */
+  --size-play-icon: 64px;
 }
 
 
@@ -168,108 +181,6 @@ p {
 *
 */
 
-/* 배경 시작 */
-/* .background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  overflow: hidden;
-}
-.colour-holder {
-  display: grid;
-  width: 100%;
-  height: 100%;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  transform: rotateY(180deg);
-  opacity: .3;
-}
-.colour-holder div {
-  filter: blur(15px);
-  transform-origin: 100%;
-  transform-origin: 0 50%;
-  border-radius: 50%;
-  animation: moveCloud 8s ease-in infinite alternate;
-  transform:  scale(4) skewY(10deg);
-}
-.colour-holder .one {
-  border-radius: 0 0 50% 0;
-  background-color: #ff7cd5;
-}
-.colour-holder .two {
-  border-radius: 50%;
-  background-color: #b9ce1a;
-}
-.colour-holder .three {
-  background-color: #3a90e6;
-}
-.colour-holder .four {
-  background-color: #95d516;
-}
-.colour-holder .five {
-  background-color: #27322a;
-}
-.colour-holder .six {
-  background-color: #0f7124;
-}
-.colour-holder .seven {
-  background-color: #3f8637;
-}
-.colour-holder div:first-child,
-.colour-holder div:nth-of-type(2),
-.colour-holder div:nth-of-type(3),
-.colour-holder div:nth-of-type(9) {
-  animation-name: moveCloudSmall;
-}
-.background .mask {
-  position: absolute;
-  left: 0; bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-image: linear-gradient( 
-    to bottom, 
-    rgba(65, 84, 65, 0) 0%, 
-    rgba(65, 84, 65, .013) 9.7%, 
-    rgba(65, 84, 65, .049) 18.1%, 
-    rgba(65, 84, 65, .104) 25.5%, 
-    rgba(65, 84, 65, .175) 31.9%, 
-    rgba(65, 84, 65, .259) 37.7%, 
-    rgba(65, 84, 65, .352) 43%, 
-    rgba(65, 84, 65, .45) 47.9%, 
-    rgba(65, 84, 65, .55) 52.8%, 
-    rgba(65, 84, 65, .648) 57.7%, 
-    rgba(65, 84, 65, .741) 63%, 
-    rgba(65, 84, 65, .825) 68.7%, 
-    rgba(65, 84, 65, .896) 75%, 
-    rgba(65, 84, 65, .951) 82.2%, 
-    rgba(65, 84, 65, .987) 90.5%, 
-    rgba(65, 84, 65) 100%
-  );
-}
-
-@keyframes moveCloud {
-  0% {
-    opacity: 1;
-    transform: scale(4) skewY(20deg) translate(50px);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(3) skewY(0) translateX(0);
-  }
-}
-@keyframes moveCloudSmall {
-  0% {
-    opacity: .5;
-    transform: scale(2) skewX(20deg);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(2.5) skewX(0);
-  }
-}  */
 
 /*
 *

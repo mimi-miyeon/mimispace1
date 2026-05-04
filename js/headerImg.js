@@ -24,6 +24,13 @@ const headerImg = [
 export function f_header_img() {
   const selectedImg = headerImg[Math.floor(Math.random() * headerImg.length)];
   const headerImgEl = document.getElementById('headerImg');
-  headerImgEl.setAttribute('src', `images/${selectedImg.src}`);
   headerImgEl.setAttribute('alt', selectedImg.alt || '');
+  headerImgEl.onerror = () => {
+    if (headerImgEl.src.includes('visual1.png')) {
+      headerImgEl.style.display = 'none';
+    } else {
+      headerImgEl.src = 'images/visual1.png';
+    }
+  };
+  headerImgEl.setAttribute('src', `images/${selectedImg.src}`);
 }

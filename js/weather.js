@@ -16,6 +16,7 @@ export async function fetchWeatherData() {
     const weatherImg = data.current.condition;
     weatherIconEl.setAttribute('src', weatherImg.icon);
     weatherIconEl.setAttribute('alt', weatherImg.text);
+    weatherIconEl.onerror = () => { weatherIconEl.style.display = 'none'; };
   } catch (error) {
     tempEl.innerText = "🥶";
     console.error('Error fetching weather data:', error);

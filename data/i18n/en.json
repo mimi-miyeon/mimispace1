@@ -7,14 +7,14 @@
   "meta.twitter.title": "Mimi's portfolio site - UI/UX Designer, Graphic Designer, Front-end developer(potential)",
   "meta.twitter.description": "Portfolio site where you can explore my journey from graphic designer to publisher and front-end developer.",
   "meta.keywords": "HTML, CSS, Javascript, React, jQuery, XD, Adobe Illustrator, Adobe Photoshop, Zeplin, UI/UX Designer, Front-end developer, Portfolio, Designer, Mimi's portfolio site",
-  "nav.project": "Projects",
   "langBtn.ariaLabel": "Language switch",
   "myName": "Miyeon Yang",
   "myCareer": "<span>UI/UX Designer</span> <span>Developer</span> <span>Graphic Designer</span> <span>Illustrator</span>",
   "country": "South Korea",
   "myState": "💚 Free from end of 2024",
   "email.address": "my.yang22@hotmail.com",
-  "link.github": "Github 🐱",
-  "link.sandbox": "Sandbox 📦",
+  "email.ariaLabel": "Copy email address",
+  "link.github": "Github",
+  "link.sandbox": "Sandbox",
   "link.blog": null
 }

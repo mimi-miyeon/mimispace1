@@ -60,8 +60,8 @@
                                     <span id="localtime"></span>
                                 </p>
                                 <p id="myState" data-i18n="myState"></p>
-                                <button id="email" data-i18n-attr="value:email.address">
-                                    <span class="btnIcon">💌</span>
+                                <button id="email" data-i18n-attr="value:email.address;aria-label:email.ariaLabel">
+                                    <span class="btnIcon" aria-hidden="true">💌</span>
                                     <span data-i18n="email.address"></span>
                                     <span class="copy-badge">Click!</span>
                                 </button>
@@ -71,11 +71,17 @@
                     <div class="contact-wrapper">
                         <p>
                             <small>
-                                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank" data-i18n="link.github"></a>
+                                <a id="githubLink" href="https://github.com/mimi-miyeon" target="_blank" rel="noopener noreferrer">
+                                    <span data-i18n="link.github"></span><span class="btnIcon" aria-hidden="true"> 🐱</span>
+                                </a>
                                 /
-                                <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank" data-i18n="link.sandbox"></a>
+                                <a id="codesandboxLink" href="https://codesandbox.io/u/mimi-miyeon" target="_blank" rel="noopener noreferrer">
+                                    <span data-i18n="link.sandbox"></span><span class="btnIcon" aria-hidden="true"> 📦</span>
+                                </a>
                                 <span class="blog-link-wrapper"> /
-                                    <a id="blogLink" href="https://mionager.tistory.com/" target="_blank" data-i18n="link.blog"></a>
+                                    <a id="blogLink" href="https://mionager.tistory.com/" target="_blank" rel="noopener noreferrer">
+                                        <span data-i18n="link.blog"></span><span class="btnIcon" aria-hidden="true"> 📝</span>
+                                    </a>
                                 </span>
                             </small>
                         </p>

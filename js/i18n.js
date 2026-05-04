@@ -10,8 +10,10 @@ export async function applyTranslations(lang) {
     });
 
     document.querySelectorAll('[data-i18n-attr]').forEach(el => {
-      const [attr, key] = el.dataset.i18nAttr.split(':');
-      if (t[key] != null) el.setAttribute(attr, t[key]);
+      el.dataset.i18nAttr.split(';').forEach(pair => {
+        const [attr, key] = pair.split(':');
+        if (t[key] != null) el.setAttribute(attr, t[key]);
+      });
     });
 
     document.documentElement.lang = lang;

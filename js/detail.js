@@ -86,10 +86,8 @@ async function drawHtml () {
   videoControl();
   
 
-  // swiper
-  const whowhoOnboarding = new Swiper('#whowhoOnboarding', {
-    slidesPerView: 1,
-    spaceBetween: 0,
+  document.querySelectorAll('.swiper').forEach(el => {
+    new Swiper(el, { slidesPerView: 1, spaceBetween: 0 });
   });
 };
 drawHtml();
@@ -120,23 +118,33 @@ function animation () {
   };
 };
 
+function throttle(fn, delay) {
+  let lastCall = 0;
+  return () => {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      fn();
+    }
+  };
+}
+
 /* ANIMATION FOR VISITING PROJECT SITE BUTTON AT THE BOTTOM  */
-function projectLinksAnimation () 
-{
-  const projectLink = document.getElementById("projectLinks");
+function projectLinksAnimation() {
+  const projectLink = document.getElementById('projectLinks');
   const viewHeight = document.documentElement.clientHeight;
   let projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
 
-  window.addEventListener("scroll", () => 
-  {
-    if(projectLinkPosition !== document.documentElement.offsetHeight - projectLink.offsetHeight) 
-    {
-      projectLinkPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
-    };
-
-    if(window.scrollY + viewHeight + 150 >= projectLinkPosition) {
-      document.getElementById('projectLinks').style.transform = "translateY(0)";
-      document.getElementById('projectLinks').style.opacity = 1;
+  const onScroll = () => {
+    const currentPosition = document.documentElement.offsetHeight - projectLink.offsetHeight;
+    if (projectLinkPosition !== currentPosition) {
+      projectLinkPosition = currentPosition;
     }
-  });
-};
+    if (window.scrollY + viewHeight + 150 >= projectLinkPosition) {
+      projectLink.style.transform = 'translateY(0)';
+      projectLink.style.opacity = 1;
+    }
+  };
+
+  window.addEventListener('scroll', throttle(onScroll, 100));
+}
