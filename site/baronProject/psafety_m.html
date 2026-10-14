@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>피티씨지킴이 프로젝트 정리</title>
+<style>
+  :root {
+    --bg: #f7f8fb;
+    --surface: #ffffff;
+    --surface-2: #f2f4ff;
+    --text: #1f2330;
+    --text-sub: #5b6273;
+    --line: #e3e6ee;
+    --accent: #4c6aff;       /* ptc-50 */
+    --accent-soft: #edf0ff;  /* ptc-5 */
+    --accent-strong: #2e4099;/* ptc-70 */
+    --warn: #b26923;
+    --warn-soft: #fff4ea;
+    --ok: #15803d;
+    --ok-soft: #f0fdf4;
+    --code-bg: #f4f5f8;
+    --shadow: 0 1px 2px rgba(20, 30, 60, .06), 0 4px 16px rgba(20, 30, 60, .04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #12141a; --surface: #1a1d25; --surface-2: #20253a;
+      --text: #e6e8ee; --text-sub: #9aa1b2; --line: #2c3040;
+      --accent: #8297ff; --accent-soft: #1e2a66; --accent-strong: #b7c3ff;
+      --warn: #ffb570; --warn-soft: #2e2214; --ok: #4ade80; --ok-soft: #14291c;
+      --code-bg: #232733; --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #12141a; --surface: #1a1d25; --surface-2: #20253a;
+    --text: #e6e8ee; --text-sub: #9aa1b2; --line: #2c3040;
+    --accent: #8297ff; --accent-soft: #1e2a66; --accent-strong: #b7c3ff;
+    --warn: #ffb570; --warn-soft: #2e2214; --ok: #4ade80; --ok-soft: #14291c;
+    --code-bg: #232733; --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 40px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  nav.toc {
+    position: sticky; top: 24px; align-self: start;
+    font-size: 13.5px;
+  }
+  nav.toc .toc-title { font-weight: 700; color: var(--text-sub); font-size: 12px; letter-spacing: .06em; margin-bottom: 10px; }
+  nav.toc a {
+    display: block; padding: 6px 10px; border-radius: 6px;
+    color: var(--text-sub); text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.toc a.sub { padding-left: 22px; font-size: 13px; }
+  .theme-btn {
+    margin-top: 16px; padding: 6px 10px; font: inherit; font-size: 12.5px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text-sub);
+    border-radius: 6px; cursor: pointer;
+  }
+
+  header.hero {
+    background: linear-gradient(135deg, #3d55cc, #4c6aff 60%, #7088ff);
+    color: #fff; border-radius: 16px; padding: 32px 32px 28px; margin-bottom: 28px;
+  }
+  header.hero .eyebrow { font-size: 12.5px; opacity: .85; letter-spacing: .04em; }
+  header.hero h1 { margin: 6px 0 10px; font-size: 28px; line-height: 1.3; }
+  header.hero p { margin: 0; opacity: .92; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .chips span { background: rgba(255,255,255,.18); padding: 3px 10px; border-radius: 999px; font-size: 12.5px; }
+
+  section.card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 28px 30px; margin-bottom: 20px; box-shadow: var(--shadow);
+  }
+  h2 { margin: 0 0 16px; font-size: 21px; display: flex; align-items: center; gap: 10px; }
+  h2 .num {
+    display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent); font-size: 14px;
+  }
+  h2 .tag { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; }
+  h3 { font-size: 16.5px; margin: 26px 0 10px; padding-left: 10px; position: relative; }
+  h3::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 14px; border-radius: 4px; background: var(--accent); }
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  li::marker { color: var(--accent); }
+  strong { color: var(--text); font-weight: 700; }
+  code {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .88em;
+    background: var(--code-bg); padding: 1px 6px; border-radius: 4px;
+  }
+  pre {
+    background: var(--code-bg); border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px; line-height: 1.6;
+  }
+  pre code { background: none; padding: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 700; font-size: 13px; color: var(--text-sub); white-space: nowrap; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .callout {
+    border-radius: 10px; padding: 14px 16px; margin: 16px 0; font-size: 14px;
+    background: var(--warn-soft); border-left: 4px solid var(--warn);
+  }
+  .callout.ok { background: var(--ok-soft); border-left-color: var(--ok); }
+  .callout b { color: var(--warn); }
+  .callout.ok b { color: var(--ok); }
+
+  .palette { display: grid; gap: 10px; margin: 14px 0 6px; }
+  .palette-row { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 10px; font-size: 12.5px; }
+  .palette-row .name { color: var(--text-sub); font-family: ui-monospace, Consolas, monospace; }
+  .swatches { display: flex; border-radius: 6px; overflow: hidden; height: 26px; border: 1px solid var(--line); }
+  .swatches i { flex: 1; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mini {
+    border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--surface-2);
+  }
+  .mini h4 { margin: 0 0 6px; font-size: 14.5px; }
+  .mini p, .mini li { font-size: 13.5px; color: var(--text-sub); }
+
+  .resume li { background: var(--surface-2); list-style: none; padding: 12px 14px; border-radius: 8px; margin: 8px 0; border-left: 3px solid var(--accent); }
+  .resume { padding-left: 0; }
+
+  footer.note { text-align: center; color: var(--text-sub); font-size: 12.5px; margin-top: 30px; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; gap: 0; padding: 20px 16px 60px; }
+    nav.toc { display: none; }
+    .grid-2 { grid-template-columns: 1fr; }
+    section.card { padding: 22px 18px; }
+    header.hero { padding: 24px 20px; }
+    header.hero h1 { font-size: 23px; }
+  }
+  @media print {
+    nav.toc { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    section.card { break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc">
+    <div class="toc-title">목차</div>
+    <a href="#overview">0. 프로젝트 개요</a>
+    <a href="#style">1. 스타일 (핵심)</a>
+    <a class="sub" href="#style-env">환경</a>
+    <a class="sub" href="#style-arch">아키텍처</a>
+    <a class="sub" href="#style-token">디자인 토큰</a>
+    <a class="sub" href="#style-mixin">함수·믹스인</a>
+    <a class="sub" href="#style-comp">컴포넌트</a>
+    <a class="sub" href="#style-mine">본인 작업</a>
+    <a href="#html">2. HTML / 마크업</a>
+    <a href="#js">3. 프론트엔드 JS</a>
+    <a href="#env">4. 환경</a>
+    <a href="#interview">5. 인터뷰 대비</a>
+    <a href="#resume">6. 경력기술서 문장</a>
+    <button class="theme-btn" type="button" id="themeBtn">라이트 / 다크 전환</button>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="eyebrow">경력기술서 · 인터뷰 준비용 정리 · 2026.10.14</div>
+      <h1>PTC 안전관리 모바일 웹앱 <br />「피티씨지킴이」</h1>
+      <p>우선순위: ① 스타일·HTML → ② 프론트 JS (백엔드 제외)</p>
+      <div class="chips">
+        <span>SCSS 모듈 시스템</span><span>디자인 토큰</span><span>clamp() 유동 타이포</span>
+        <span>모바일 우선 반응형</span><span>EJS 파셜</span><span>Vanilla JS</span>
+      </div>
+    </header>
+
+    <!-- 0 -->
+    <section class="card" id="overview">
+      <h2><span class="num">0</span>프로젝트 개요</h2>
+      <div class="table-wrap"><table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>서비스</td><td>건설현장 안전관리 <strong>모바일 웹앱</strong> (TBM, 위험요소신고, 공지, 교육, 안전비용, 전자서명 등)</td></tr>
+        <tr><td>형태</td><td>모바일 웹 + 안드로이드 앱 WebView 연동(<code>android.js</code>), PWA 매니페스트</td></tr>
+        <tr><td>기간</td><td>저장소 2025.11.13 ~ 2026.06 / <strong>본인 커밋 2025.12.17 ~ 2026.02.20 (101건, 전체 412건 중 2위)</strong></td></tr>
+        <tr><td>팀</td><td>7~8명. 본인은 <strong>퍼블리싱(디자인 → 마크업·스타일) 담당</strong></td></tr>
+        <tr><td>협업</td><td>GitLab, main 브랜치 공동 작업, <code>[페이지명] 작업내용</code> 형식의 커밋 컨벤션</td></tr>
+      </table></div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card" id="style">
+      <h2><span class="num">1</span>스타일 <span class="tag">핵심</span></h2>
+
+      <h3 id="style-env">환경</h3>
+      <ul>
+        <li><strong>Sass(SCSS) 모듈 시스템</strong>: <code>@use</code> / <code>@forward</code> 사용. 예전 방식인 <code>@import</code>는 쓰지 않음</li>
+        <li>빌드 도구 없이 에디터에서 컴파일 (<code>package.json</code>에 sass가 없고 <code>.css.map</code>이 함께 커밋됨 → Live Sass Compiler류로 추정)</li>
+        <li>폰트: <strong>Pretendard Variable(woff2) 직접 호스팅 + <code>preload</code></strong>. Pretendard GOV는 대체용으로 준비</li>
+      </ul>
+
+      <h3 id="style-arch">아키텍처</h3>
+<pre><code>style.scss
+ ├─ _includeDefault  → font / variables / mixins / reset / root / common / utilities / size / modal
+ └─ _includePages    → login / index / board / tbm / formText   (공통 번들)
+pages/*.scss (언더스코어 없음) → 페이지별 개별 CSS로 따로 컴파일 → 해당 페이지에서만 &lt;link&gt;</code></pre>
+      <ul>
+        <li><strong>공통 번들과 페이지별 CSS 이원화</strong>: 무거운 페이지 스타일은 그 페이지에서만 로드 (예: <code>mypage.html</code> → <code>mypage.css</code>만 추가)</li>
+        <li>문서화 헤더 규칙: "style.css 직접 수정 금지", "디자이너 외 수정 시 문의" 등</li>
+      </ul>
+
+      <h3 id="style-token">디자인 토큰 체계 <small style="color:var(--text-sub);font-weight:500">_variables.scss · _root.scss</small></h3>
+      <ul>
+        <li><strong>14개 컬러 팔레트</strong>(primary, secondary, ptc 브랜드 블루, gray, red, green 등)를 0~100 단계로 정의하고 <strong>Sass map</strong>으로 묶음</li>
+        <li><code>@each</code> 루프로 <strong>CSS 커스텀 프로퍼티 자동 생성</strong> → <code>--hm-ptc-50</code>, <code>--hm-gray-90</code> (<code>$prefix: hm-</code>로 네임스페이스 분리)</li>
+        <li>레이아웃 변수: <code>--header-height</code>, <code>--footer-height</code>, <code>--bottom-button-height</code> → 고정 헤더·푸터와 본문 여백 계산</li>
+        <li><strong>브레이크포인트</strong>: PC/모바일 map + 직접 추가한 <code>$bp900 / 820 / 768 / 430</code> (<code>// breakpoints - ymy</code> 주석)</li>
+      </ul>
+      <div class="palette" aria-label="주요 컬러 팔레트 미리보기">
+        <div class="palette-row"><span class="name">ptc</span><div class="swatches"><i style="background:#f2f4ff"></i><i style="background:#dbe1ff"></i><i style="background:#b7c3ff"></i><i style="background:#94a6ff"></i><i style="background:#7088ff"></i><i style="background:#4c6aff"></i><i style="background:#3d55cc"></i><i style="background:#2e4099"></i><i style="background:#1e2a66"></i><i style="background:#0f1533"></i></div></div>
+        <div class="palette-row"><span class="name">secondary</span><div class="swatches"><i style="background:#fff4ea"></i><i style="background:#ffd5ad"></i><i style="background:#ffca99"></i><i style="background:#ffb570"></i><i style="background:#ffa047"></i><i style="background:#ff9633"></i><i style="background:#e5872d"></i><i style="background:#b26923"></i><i style="background:#7f4b19"></i><i style="background:#4c2d0f"></i></div></div>
+        <div class="palette-row"><span class="name">primary</span><div class="swatches"><i style="background:#f1f4f4"></i><i style="background:#bccbc8"></i><i style="background:#8fa8a4"></i><i style="background:#628580"></i><i style="background:#35625b"></i><i style="background:#1e5149"></i><i style="background:#1b4942"></i><i style="background:#18413a"></i><i style="background:#12312c"></i><i style="background:#0c201d"></i></div></div>
+        <div class="palette-row"><span class="name">gray</span><div class="swatches"><i style="background:#f8f8f8"></i><i style="background:#eeeeee"></i><i style="background:#dbdad6"></i><i style="background:#b5b5b5"></i><i style="background:#9e9e9e"></i><i style="background:#818286"></i><i style="background:#696969"></i><i style="background:#606060"></i><i style="background:#424242"></i><i style="background:#212121"></i></div></div>
+        <div class="palette-row"><span class="name">status</span><div class="swatches"><i style="background:#22c55e"></i><i style="background:#7088ff"></i><i style="background:#ffa43a"></i><i style="background:#e8003b"></i><i style="background:#ffb724"></i><i style="background:#008a1e"></i><i style="background:#2768ff"></i></div></div>
+      </div>
+
+      <h3 id="style-mixin">함수·믹스인 <small style="color:var(--text-sub);font-weight:500">_utils.scss</small></h3>
+      <ul>
+        <li><strong>px → vw 변환 함수</strong>: <code>vw(n)</code>(1920 기준), <code>mobile-vw(n)</code>(375 기준). <code>math.div</code>로 계산하고 <code>@for</code>로 1~100 값을 map에 미리 생성</li>
+        <li><strong><code>clamp()</code> 기반 유동 타이포그래피</strong>: <code>fontSize1~7</code> 믹스인으로 글자 크기 단계 표준화 (SCSS 전체에서 clamp 62회)</li>
+        <li>레이아웃·UI 믹스인: <code>flex-layout</code>, <code>position</code>, <code>font</code>, <code>box-style</code>, <code>ellipsis</code>, <code>card-btn-style</code>, <code>numLabel</code></li>
+        <li><strong>모바일 UX 믹스인</strong>: <code>mobile-touch-target</code>(최소 터치 영역 44px), <code>mobile-touch-feedback</code>(<code>:active</code> 시 scale 0.95), <code>mobile-scroll</code></li>
+        <li>기준값: <code>html { font-size: 62.5% }</code> → <strong>1rem = 10px</strong></li>
+      </ul>
+<pre><code>@mixin fontSize2($fw: 500, $lh: null, $color: null, $ta: null) {
+  font-weight: $fw;
+  font-size: clamp(1.6rem, 2vw + 0.6rem, 1.8rem);
+  ...
+}</code></pre>
+
+      <h3 id="style-comp">컴포넌트·유틸리티</h3>
+      <div class="grid-2">
+        <div class="mini"><h4>버튼</h4><p><code>btn--primary / -reverse / secondary / tertiary / rounded / icon</code> — BEM 비슷한 <code>--modifier</code> 네이밍</p></div>
+        <div class="mini"><h4>유틸리티</h4><p><code>display-*</code>, <code>flex-*</code>, <code>txt-ag-*</code>, <code>@for</code>로 생성한 <code>w-/h-/m*/p*-1~100</code></p></div>
+        <div class="mini"><h4>모달 2종</h4><p>바텀시트(<code>translateY(100vh)</code> → 0 트랜지션, 상단 핸들 바) / 센터 모달. <code>body.modal-active</code>로 배경 스크롤 잠금</p></div>
+        <div class="mini"><h4>레이아웃</h4><p>고정 헤더, 하단 탭바(아이콘 활성 색상을 <code>filter</code>로 처리), 하단 고정 버튼, 서명 캔버스(<code>touch-action: none</code>)</p></div>
+      </div>
+
+      <h3 id="style-mine">본인 작업 <small style="color:var(--text-sub);font-weight:500">git 기준, 근거 있음</small></h3>
+      <div class="table-wrap"><table>
+        <tr><th>작업</th><th>내용</th><th>기술 포인트</th></tr>
+        <tr><td>메인 visual 영역</td><td>배경 이미지 투명도, 아이콘 z-index·drop-shadow·위치, 현장정보 카드 위치</td><td>768px 기준 모바일 우선 반응형. 고정 높이 변수에서 <code>calc()</code>로 헤더 높이 차감</td></tr>
+        <tr><td>현장 배너 라벨 공통화</td><td>페이지마다 흩어진 상태 라벨(수행중/준공/중지)을 <code>common</code>으로 모으고 내부 스타일 삭제</td><td>중복 제거, <code>.completed/.progress/.paused</code> 공통 클래스</td></tr>
+        <tr><td>마이페이지 재구성</td><td>내 정보·현장설정·서명 영역, 클래스 모듈화, 공통 스타일에서 분리</td><td><strong>iPad Air(820px) 대응 <code>$bp820</code> 추가</strong></td></tr>
+        <tr><td>로딩 화면</td><td>header partial에 로딩 레이어, 회전 애니메이션, 반투명 배경</td><td><code>@keyframes</code>, <code>.on</code> 토글 구조</td></tr>
+        <tr><td>빈 상태(Empty state)</td><td>"게시글 없음" 이미지·스타일을 게시판 전체에 통일</td><td>게시판 간 일관성</td></tr>
+        <tr><td>유동 타이포 조정</td><td>모바일에서 크게 보이는 문제 → <code>fontSize4~6</code> clamp 최솟값 하향</td><td>믹스인 한 곳 수정으로 전 페이지 반영</td></tr>
+        <tr><td>텍스트 넘침 처리</td><td>첨부 파일명이 길 때 1줄 말줄임</td><td><code>-webkit-line-clamp</code></td></tr>
+        <tr><td>PDF 상세 하단 잘림</td><td>래퍼 <code>height:100%</code> + <code>overflow-y:auto</code></td><td>뷰어 컨테이너 스크롤 문제 해결</td></tr>
+        <tr><td>NEW 공지 영역 (26.02)</td><td>메인 최신글 카드, NEW 말풍선 라벨, 깜빡임 애니메이션</td><td><code>::after</code> border 삼각형, <code>animation: blink 1s 5</code></td></tr>
+        <tr><td>이미지 최적화</td><td>메인 메뉴·배너 svg → png 교체, 배경 webp</td><td><code>&lt;link rel=preload as=image&gt;</code>, 렌더링 깨짐·초기 로딩 대응</td></tr>
+      </table></div>
+
+      <div class="callout">
+        <b>⚠️ 확인 필요</b> — SCSS에 <code>ymy 1114</code>(11/14) 주석이 있는데 본인 첫 커밋은 12/17입니다. 초기 HTML·SCSS가 <strong>민지원 님 커밋으로 일괄 반입</strong>된 것으로 보입니다(README: "디자인 작업 html을 그대로 덮어쓰는 방식으로 시작"). 별도 퍼블리싱 저장소에서 미리 작업했다면 토큰·믹스인·초기 마크업도 본인 성과로 쓸 수 있습니다. git으로는 증명되지 않으니 직접 확인 후 기재하세요.
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="html">
+      <h2><span class="num">2</span>HTML / 마크업</h2>
+      <ul>
+        <li><strong>진행 방식</strong>: 정적 HTML 퍼블리싱 → 개발자가 같은 파일을 <strong>EJS 템플릿</strong>으로 전환 (서버 사이드 렌더링)
+          <ul>
+            <li>초기: <code>dataincludes</code> 속성 + <code>fetch</code>로 header/footer를 클라이언트에서 include (<code>design.js</code>)</li>
+            <li>이후: <code>&lt;%- include('partials/header.html', { pageTitle, leftIcon }) %&gt;</code> — <strong>파셜에 파라미터를 넘기는 구조</strong></li>
+          </ul>
+        </li>
+        <li><strong>partials</strong>: header(타이틀·좌우 아이콘 파라미터 + 로딩 화면), footer(하단 탭바), favicon, modal 2종</li>
+        <li>시맨틱·접근성: <code>header / main / section / footer / nav</code>, <code>lang="ko"</code>, 버튼 <code>aria-label</code>, <code>type="button"</code> 명시, 이미지 <code>alt</code></li>
+        <li>모바일 대응: <code>viewport-fit=cover</code>(노치), <code>min-height: 100dvh</code>, <code>word-break: keep-all</code>(한글 줄바꿈), <code>-webkit-tap-highlight-color: transparent</code></li>
+        <li>네이밍: <code>page--mypage</code>, <code>visual__text-wrap</code>, <code>field-info--selected</code> 등 BEM 비슷한 규칙</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="js">
+      <h2><span class="num">3</span>프론트엔드 JS <span class="tag">2순위</span></h2>
+      <ul>
+        <li><strong>Vanilla JS(ES Modules) + 일부 jQuery</strong>. 프레임워크 미사용</li>
+        <li>데이터 주입: 서버가 <code>window.__INITIAL_DATA__</code>를 내려주고(<code>&lt;</code> 이스케이프로 XSS 방지), 페이지 JS가 읽어 DOM 렌더링</li>
+        <li>캐시 무효화: 모든 정적 리소스에 <code>?v=&lt;버전&gt;</code></li>
+      </ul>
+      <h3>주요 인터랙션</h3>
+      <ul>
+        <li><strong>현장명 무한 흐름(마키)</strong>: 텍스트 폭 실측 → 반복 횟수 계산 → 트랙 2세트를 <code>translateX(-50%)</code>로 루프. 초당 50px 기준 duration 자동 계산, 좌우 <code>mask-image</code> 그라데이션 페이드</li>
+        <li>메인 스크롤 시 헤더 배경 전환(<code>.scrolled</code>, 상태 플래그로 중복 처리 방지)</li>
+        <li>메인 배너 랜덤 노출, 클릭 시 순환</li>
+        <li>하단 탭 active 처리, 현장 미선택 상태에서 TBM 진입 시 모달 가드</li>
+        <li>서명 캔버스, 사진 촬영·압축(compressorjs), EXIF 처리, PDF.js 뷰어, datepicker</li>
+        <li>Service Worker 코드는 작성돼 있지만 캐시 전략 미정으로 비활성</li>
+      </ul>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="env">
+      <h2><span class="num">4</span>환경 <span class="tag">짧게</span></h2>
+      <p>Node + Express 5 + EJS, pnpm, PM2 배포, GitLab(webhook 배포), 세션 인증, Firebase(안드로이드 푸시)</p>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="interview">
+      <h2><span class="num">5</span>인터뷰 대비: 물어볼 만한 약점과 답변 방향</h2>
+      <div class="grid-2">
+        <div class="mini"><h4>1. 같은 코드 중복</h4><p>마키 로직이 JS 9개 파일에 복붙, <code>&lt;style&gt;</code> 인라인 블록도 index·mypage 중복.<br />→ "공통 모듈화가 다음 과제였다" + <strong>본인이 중복을 줄인 사례(라벨 공통화)</strong>를 함께 말하면 강점.</p></div>
+        <div class="mini"><h4>2. <code>!important</code> 남용</h4><p>유틸리티·상태 라벨에 사용.<br />→ "공통 라벨 색상이 페이지 스타일보다 우선해야 해서 의도적으로 썼다."</p></div>
+        <div class="mini"><h4>3. 상태 → 클래스 매핑 불일치</h4><p>index.html에서 <code>'준공완료' → 'progress'</code>, <code>'수행중' → 'completed'</code>로 이름과 의미가 어긋남.<br />→ 질문받으면 인지하고 있다고 답할 것.</p></div>
+        <div class="mini"><h4>4. 빌드 파이프라인 부재</h4><p>에디터에서 컴파일하고 산출 CSS를 커밋.<br />→ 개선안으로 sass CLI / Vite 도입 제시.</p></div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="resume">
+      <h2><span class="num">6</span>경력기술서 문장 예시</h2>
+      <ul class="resume">
+        <li>SCSS 모듈 시스템(@use/@forward)으로 <strong>디자인 토큰을 Sass map으로 정의하고 CSS 변수를 자동 생성</strong>하는 스타일 아키텍처를 운영했습니다.</li>
+        <li><code>clamp()</code> 기반 유동 타이포그래피 믹스인으로 <strong>모바일·태블릿(iPad 820px 포함) 반응형</strong>을 구현했습니다.</li>
+        <li>페이지마다 흩어진 현장 상태 라벨과 빈 상태 UI를 <strong>공통 컴포넌트로 통합</strong>해 화면 간 일관성을 높였습니다.</li>
+        <li>정적 퍼블리싱 결과물을 EJS 파셜 구조로 전환하는 과정에서 개발자와 협업했습니다(헤더·로딩·모달 파셜화).</li>
+      </ul>
+    </section>
+
+    <footer class="note">psafety_m 저장소(git 이력·소스) 분석 기반 · 개인 준비용</footer>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', function () {
+      var cur = root.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
