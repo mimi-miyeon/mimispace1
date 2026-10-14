@@ -1,0 +1,156 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+* {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-progress-appearance: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+ul, li, ol {
+  list-style: none;
+}
+a,
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  line-height: normal;
+  cursor: pointer;
+  overflow: visible;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+small {
+  font-size: .7em;
+}
+
+:root {
+  --wContent: 1200px;
+  --hHeader: 5rem;
+  --content-padding: 4rem;
+
+  --cDark-background: #415441;
+  --cGreen: #3f8637;
+  --cDark-green: #41544199;
+  --cGreyOne: #dbede0;
+  --cGreyTwo: #acc3b1;
+  --cTintBlue: #50e0b5;
+  --cBeige: #f0e7a2;
+  --cLight-background: #c6be8d;
+  --ffHighLight: 'Jua', sans-serif;
+  --wText: 70%;
+
+  --duration-fast: .3s;
+  --duration-med: .4s;
+  --duration-slow: .5s;
+  --ease-slide: cubic-bezier(0.98, 0, 0.76, 0.99);
+
+  --slide-header-title: 13rem;
+  --slide-project-desc: 13em;
+  --slide-project-links: -5em;
+
+  --size-play-icon: 64px;
+}
+
+.text-width {
+  width: var(--wText);
+  margin-left: auto;
+  margin-right: auto;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+}
+.column {
+  flex-direction: column;
+}
+.grid {
+  display: grid;
+}
+
+body {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 1.1rem;
+  color: var(--cGreyTwo);
+  background-color: var(--cDark-background);
+  background-image: linear-gradient(-50deg, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #000000, #152415, #2d1515, #000000, #000000, #000000, #172417, #322619, #000000, #000000, #000000, #000000);
+}
+a,
+button {
+  font-weight: 700;
+  font-style: italic;
+  transition: .3s;
+}
+button:hover, a:hover {
+  color: var(--cTintBlue);
+}
+button:active, a:active {
+  opacity: .8;
+}
+.btnIcon {
+  display: inline-block;
+  transition: .3s;
+}
+a:hover .btnIcon,
+button:hover .btnIcon {
+  animation: btnIcon 1s ease-out;
+}
+a:active .btnIcon,
+button:active .btnIcon {
+  opacity: .8;
+}
+@keyframes btnIcon {
+  0%   { transform: translateY(0px); }
+  25%  { transform: translateY(-5px) rotateZ(15deg); }
+  50%  { transform: translateY(-5px) rotateZ(-15deg); }
+  100% { transform: rotateZ(0deg); }
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+.en {
+  font-family: 'Montserrat', sans-serif;
+}
+.container {
+  width: var(--wContent);
+  margin-left: auto;
+  margin-right: auto;
+}
+section {
+  margin-top: 4rem;
+}
+p {
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+@include tablet {
+  :root {
+    --wContent: 100%;
+    --content-padding: 2.5rem;
+  }
+}
+
+@include mobile {
+  :root {
+    --content-padding: 1.5rem;
+  }
+  body {
+    font-size: 1rem;
+  }
+}
