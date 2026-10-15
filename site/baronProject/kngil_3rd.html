@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>큰길 3차 프로젝트 정리</title>
+<style>
+  :root {
+    --bg: #f7f8f7;
+    --surface: #ffffff;
+    --surface-2: #f1f4f4;
+    --text: #1f2524;
+    --text-sub: #5b6664;
+    --line: #e2e7e5;
+    --accent: #1e5149;       /* primary-50 */
+    --accent-soft: #e9eeed;  /* primary-5 */
+    --accent-strong: #12312c;/* primary-80 */
+    --warn: #a64a1e;
+    --warn-soft: #faefe9;
+    --ok: #15803d;
+    --ok-soft: #f0fdf4;
+    --code-bg: #f3f4f3;
+    --shadow: 0 1px 2px rgba(20, 40, 36, .06), 0 4px 16px rgba(20, 40, 36, .04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111615; --surface: #19201f; --surface-2: #1e2a28;
+      --text: #e6ebea; --text-sub: #9aa8a5; --line: #2b3533;
+      --accent: #8fd0c4; --accent-soft: #1b3a35; --accent-strong: #bde5dd;
+      --warn: #ffb570; --warn-soft: #2e2214; --ok: #4ade80; --ok-soft: #14291c;
+      --code-bg: #222b29; --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111615; --surface: #19201f; --surface-2: #1e2a28;
+    --text: #e6ebea; --text-sub: #9aa8a5; --line: #2b3533;
+    --accent: #8fd0c4; --accent-soft: #1b3a35; --accent-strong: #bde5dd;
+    --warn: #ffb570; --warn-soft: #2e2214; --ok: #4ade80; --ok-soft: #14291c;
+    --code-bg: #222b29; --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 40px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  nav.toc {
+    position: sticky; top: 24px; align-self: start;
+    font-size: 13.5px;
+  }
+  nav.toc .toc-title { font-weight: 700; color: var(--text-sub); font-size: 12px; letter-spacing: .06em; margin-bottom: 10px; }
+  nav.toc a {
+    display: block; padding: 6px 10px; border-radius: 6px;
+    color: var(--text-sub); text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.toc a.sub { padding-left: 22px; font-size: 13px; }
+  .theme-btn {
+    margin-top: 16px; padding: 6px 10px; font: inherit; font-size: 12.5px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text-sub);
+    border-radius: 6px; cursor: pointer;
+  }
+
+  header.hero {
+    background: linear-gradient(135deg, #12312c, #1e5149 60%, #35625b);
+    color: #fff; border-radius: 16px; padding: 32px 32px 28px; margin-bottom: 28px;
+  }
+  header.hero .eyebrow { font-size: 12.5px; opacity: .85; letter-spacing: .04em; }
+  header.hero h1 { margin: 6px 0 10px; font-size: 28px; line-height: 1.3; }
+  header.hero h1 .k { color: #ffa43a; }
+  header.hero p { margin: 0; opacity: .92; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .chips span { background: rgba(255,255,255,.16); padding: 3px 10px; border-radius: 999px; font-size: 12.5px; }
+
+  section.card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 28px 30px; margin-bottom: 20px; box-shadow: var(--shadow);
+  }
+  h2 { margin: 0 0 16px; font-size: 21px; display: flex; align-items: center; gap: 10px; }
+  h2 .num {
+    display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent); font-size: 14px;
+  }
+  h2 .tag { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; }
+  h3 { font-size: 16.5px; margin: 26px 0 10px; padding-left: 10px; position: relative; }
+  h3::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 14px; border-radius: 4px; background: var(--accent); }
+  h3 small { color: var(--text-sub); font-weight: 500; }
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  li::marker { color: var(--accent); }
+  strong { color: var(--text); font-weight: 700; }
+  code {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .88em;
+    background: var(--code-bg); padding: 1px 6px; border-radius: 4px;
+  }
+  pre {
+    background: var(--code-bg); border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px; line-height: 1.6;
+  }
+  pre code { background: none; padding: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 700; font-size: 13px; color: var(--text-sub); white-space: nowrap; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .callout {
+    border-radius: 10px; padding: 14px 16px; margin: 16px 0; font-size: 14px;
+    background: var(--warn-soft); border-left: 4px solid var(--warn);
+  }
+  .callout.ok { background: var(--ok-soft); border-left-color: var(--ok); }
+  .callout b { color: var(--warn); }
+  .callout.ok b { color: var(--ok); }
+
+  .palette { display: grid; gap: 10px; margin: 14px 0 6px; }
+  .palette-row { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 10px; font-size: 12.5px; }
+  .palette-row .name { color: var(--text-sub); font-family: ui-monospace, Consolas, monospace; }
+  .swatches { display: flex; border-radius: 6px; overflow: hidden; height: 26px; border: 1px solid var(--line); }
+  .swatches i { flex: 1; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mini {
+    border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--surface-2);
+  }
+  .mini h4 { margin: 0 0 6px; font-size: 14.5px; }
+  .mini p, .mini li { font-size: 13.5px; color: var(--text-sub); }
+
+  .qa dt { font-weight: 700; margin-top: 14px; }
+  .qa dt::before { content: "Q. "; color: var(--accent); }
+  .qa dd { margin: 4px 0 0; color: var(--text-sub); font-size: 14px; }
+  .qa dd::before { content: "A. "; font-weight: 700; color: var(--text); }
+
+  .resume li { background: var(--surface-2); list-style: none; padding: 12px 14px; border-radius: 8px; margin: 8px 0; border-left: 3px solid var(--accent); }
+  .resume { padding-left: 0; }
+
+  footer.note { text-align: center; color: var(--text-sub); font-size: 12.5px; margin-top: 30px; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; gap: 0; padding: 20px 16px 60px; }
+    nav.toc { display: none; }
+    .grid-2 { grid-template-columns: 1fr; }
+    section.card { padding: 22px 18px; }
+    header.hero { padding: 24px 20px; }
+    header.hero h1 { font-size: 23px; }
+  }
+  @media print {
+    nav.toc { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    section.card { break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc">
+    <div class="toc-title">목차</div>
+    <a href="#overview">0. 프로젝트 개요</a>
+    <a href="#style">1. 스타일 (핵심)</a>
+    <a class="sub" href="#style-env">환경</a>
+    <a class="sub" href="#style-arch">아키텍처</a>
+    <a class="sub" href="#style-token">디자인 토큰</a>
+    <a class="sub" href="#style-mixin">함수·믹스인</a>
+    <a class="sub" href="#style-comp">컴포넌트</a>
+    <a class="sub" href="#style-mine">본인 작업</a>
+    <a href="#html">2. HTML / 마크업</a>
+    <a href="#js">3. 프론트엔드 JS</a>
+    <a href="#env">4. 협업·환경</a>
+    <a href="#interview">5. 인터뷰 대비</a>
+    <a href="#resume">6. 경력기술서 문장</a>
+    <button class="theme-btn" type="button" id="themeBtn">라이트 / 다크 전환</button>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="eyebrow">경력기술서 · 인터뷰 준비용 정리 · 2026.10.15</div>
+      <h1>설계 기초조사 보고서 자동화 플랫폼 <br />「<span class="k">K</span>ngil 큰길」 3차 상용화</h1>
+      <p>디자인셀 퍼블리싱 단계 결과물 (개발 연동 전) · 우선순위: ① 스타일·HTML → ② UI 인터랙션 JS</p>
+      <div class="chips">
+        <span>SCSS 모듈 시스템</span><span>디자인 토큰 → CSS 변수</span><span>PC 와이드 1024~3000px</span>
+        <span>지도 기반 사이드 패널 UI</span><span>모달 시스템</span><span>Vanilla JS</span>
+      </div>
+    </header>
+
+    <!-- 0 -->
+    <section class="card" id="overview">
+      <h2><span class="num">0</span>프로젝트 개요</h2>
+      <div class="table-wrap"><table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>서비스</td><td>사업 대상 구역을 <strong>지도에서 지정</strong>하면 설계 기초조사 <strong>보고서(엑셀)·사업비·데이터 파일을 자동 생성</strong>해 주는 웹 플랫폼 (3차 상용화 버전)</td></tr>
+        <tr><td>서비스 4종</td><td>
+          ① 기초현황 보고서(상하수도) &nbsp;② 기초현황 보고서 &amp; 사업비(도시계획) &nbsp;③ 기초현황 DATA 파일 &nbsp;④ 신청목록<br />
+          → 로고 클릭 시 <strong>서비스 선택 모달</strong>이 뜨고, 카드를 고르면 해당 서비스의 <code>aside</code> 패널이 열리는 구조
+        </td></tr>
+        <tr><td>대상 화면</td><td><strong>PC 전용</strong> 1024px ~ 3000px (모바일 미지원). <code>body { min-width: 100rem }</code></td></tr>
+        <tr><td>기간</td><td>저장소 2025.12.01 ~ 2026.08.12 / <strong>본인 커밋 2025.12.12 ~ 2026.08.12 (42건, merge 제외 전체 92건 중 1위)</strong></td></tr>
+        <tr><td>팀</td><td>디자인셀 퍼블리셔 3명 (HJA 37건, hanul480 12건, 본인 42건). 본인은 <strong>모달 시스템·사업구역/보고서 설정 화면 퍼블리싱 담당</strong></td></tr>
+        <tr><td>산출물</td><td>정적 HTML(<code>main.html</code> 하나에 전체 화면, <code>modal.html</code> 모달 모음, <code>icons.html</code> 아이콘 목록) + SCSS + <code>design.js</code>(UI 동작만)</td></tr>
+        <tr><td>전달</td><td>2026.03.19 개발팀에 수정본 전달(<code>260319 수정본 전송</code> 폴더) → 2026.08 수자원팀에서 받은 CSS와 비교 후 수정본 회신</td></tr>
+      </table></div>
+      <div class="callout">
+        <b>⚠️ 확인 필요</b> — 지도 영역은 <code>map.html</code>(구글 지도 iframe) 자리표시자이고 주석 처리돼 있습니다. 데이터·로그인·파일 생성은 모두 더미입니다.
+        <code>.cursor/rules/smarty.mdc</code>에 "Smarty(PHP) 페이지"라는 언급이 있어, <strong>개발 단에서는 PHP + Smarty 템플릿으로 붙일 계획</strong>이었던 것으로 보입니다. 실제 개발 스택은 직접 확인 후 말하세요.
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card" id="style">
+      <h2><span class="num">1</span>스타일 <span class="tag">핵심</span></h2>
+
+      <h3 id="style-env">환경</h3>
+      <ul>
+        <li><strong>Sass(SCSS) 모듈 시스템</strong>: <code>@use</code> / <code>@forward</code>만 사용 (<code>@import</code> 없음). 파일마다 <code>@use "../component/variables" as *;</code>로 필요한 모듈만 가져옴</li>
+        <li><strong>VS Code Live Sass Compiler</strong>로 저장 시 자동 컴파일 (<code>.vscode/settings.json</code>, autoprefix 끔) + Live Server(5501 포트). 빌드 도구 없음</li>
+        <li>폰트: <strong>Pretendard Variable(woff2) 직접 호스팅</strong>. 2026.03 Pretendard GOV Variable 정의는 삭제</li>
+        <li>파일 헤더에 운영 규칙 명시: "style.css 직접 수정 금지(버전 관리 안 됨)", "디자이너 외 직군 수정 금지, 수정 시 웹솔루션으로 문의"</li>
+      </ul>
+
+      <h3 id="style-arch">아키텍처</h3>
+<pre><code>style.scss
+ ├─ _includeDefault  → pretendard / variables / mixins(utils) / reset / root / utilities
+ │                     / button / header / sidebar / footer / size / modal
+ └─ _includePages    → common / sidebar / header / footer
+                        ↓ 단일 style.css (17,158줄)
+
+scss/
+ ├─ component/  _variables (토큰·함수)   _size (@for 유틸 클래스)
+ ├─ mixins/     _utils (flex-layout, position, font …)
+ └─ common/     _reset _root _common _utilities _button _header _footer
+                _sidebar (2,480줄, 가장 큼)  _modal (738줄)</code></pre>
+      <ul>
+        <li><strong>한 페이지(SPA형) 구조</strong>라 페이지별 CSS 분리 없이 하나의 번들. 화면 단위가 아니라 <strong>레이아웃 영역 단위(header / sidebar / modal)</strong>로 파일을 나눔</li>
+        <li>z-index 체계를 <code>style.scss</code> 주석으로 문서화: slide 5 → sidebar-default 10 → aside 999 → header·footer·modal 1000</li>
+      </ul>
+
+      <h3 id="style-token">디자인 토큰 체계 <small>_variables.scss · _root.scss</small></h3>
+      <ul>
+        <li><strong>13개 컬러 팔레트</strong>(primary 그린, secondary 브라운, accent, orange, sand, gold, skin, brown, light-brown, gray, red, blue, green)를 0~100 단계로 정의하고 <strong>Sass map</strong>으로 묶음 + 시맨틱 색 <code>danger / warning / success / information</code></li>
+        <li><code>_root.scss</code>에서 <code>@each</code> 루프로 <strong>CSS 커스텀 프로퍼티 자동 생성</strong> → <code>--hm-primary-50</code>, <code>--hm-gray-90</code> (<code>$prefix: hm-</code>로 네임스페이스 분리)</li>
+        <li>레이아웃 변수: <code>--header-height: 5.5rem</code>, <code>--footer-height</code>, <code>--sidebar-default-width: 8.6rem</code> → aside 높이를 <code>calc(100% - header - footer)</code>로 계산</li>
+        <li><strong>2026.02.03 푸터 삭제 요청</strong> → 마크업을 지우지 않고 <code>--footer-height: 0</code>으로만 바꿔 aside·main 높이 계산이 그대로 동작하게 처리</li>
+      </ul>
+<pre><code>:root {
+  @each $num, $value in $primary-colors {
+    --#{$prefix}primary-#{$num}: #{$value};   // → --hm-primary-50: #1e5149;
+  }
+  --header-height: 5.5rem;
+  --footer-height: 0;   // footer 삭제요청 26.2.3
+}</code></pre>
+      <div class="palette" aria-label="주요 컬러 팔레트 미리보기">
+        <div class="palette-row"><span class="name">primary</span><div class="swatches"><i style="background:#f1f4f4"></i><i style="background:#cad4cd"></i><i style="background:#8fa8a4"></i><i style="background:#628580"></i><i style="background:#35625b"></i><i style="background:#1e5149"></i><i style="background:#1b4942"></i><i style="background:#18413a"></i><i style="background:#12312c"></i><i style="background:#0c201d"></i></div></div>
+        <div class="palette-row"><span class="name">secondary</span><div class="swatches"><i style="background:#f3f1ed"></i><i style="background:#c6c1b3"></i><i style="background:#b1a995"></i><i style="background:#97907f"></i><i style="background:#81785f"></i><i style="background:#665d44"></i><i style="background:#554b2f"></i><i style="background:#443c26"></i><i style="background:#332d1c"></i><i style="background:#2b2618"></i></div></div>
+        <div class="palette-row"><span class="name">orange</span><div class="swatches"><i style="background:#fff9f3"></i><i style="background:#ffe4c5"></i><i style="background:#ffcf96"></i><i style="background:#ffba68"></i><i style="background:#ffa43a"></i><i style="background:#ff8a00"></i><i style="background:#c56a00"></i><i style="background:#965100"></i><i style="background:#683800"></i><i style="background:#221200"></i></div></div>
+        <div class="palette-row"><span class="name">accent</span><div class="swatches"><i style="background:#faefe9"></i><i style="background:#f1cebe"></i><i style="background:#e8ae93"></i><i style="background:#de8d67"></i><i style="background:#d56c3c"></i><i style="background:#d05c26"></i><i style="background:#bb5322"></i><i style="background:#a64a1e"></i><i style="background:#7d3717"></i><i style="background:#53250f"></i></div></div>
+        <div class="palette-row"><span class="name">gray</span><div class="swatches"><i style="background:#f8f8f8"></i><i style="background:#eeeeee"></i><i style="background:#dbdad6"></i><i style="background:#b5b5b5"></i><i style="background:#9e9e9e"></i><i style="background:#818286"></i><i style="background:#696969"></i><i style="background:#606060"></i><i style="background:#424242"></i><i style="background:#212121"></i></div></div>
+        <div class="palette-row"><span class="name">status</span><div class="swatches"><i style="background:#e8003b"></i><i style="background:#ffb724"></i><i style="background:#008a1e"></i><i style="background:#2768ff"></i></div></div>
+      </div>
+
+      <h3 id="style-mixin">함수·믹스인 <small>_variables.scss · _utils.scss</small></h3>
+      <ul>
+        <li><strong>px → vw 변환 함수</strong>: <code>px-to-vw($px, $base: 1920)</code> — <code>math.div</code>로 계산 후 소수 둘째 자리 반올림, <code>@for</code>로 1~100 값을 map에 미리 만들어 두고 <code>vw(n)</code>으로 꺼내 씀</li>
+        <li>본문 글자 크기: <code>font-size: clamp(1.2rem, vw(12), 1.6rem)</code> → 1920 기준 12px, 와이드 모니터에서 최대 16px까지</li>
+        <li>레이아웃 믹스인: <code>flex-layout($d, $ai, $jc, $fd, $fw)</code>, <code>position($p, $t, $b, $l, $r)</code>, <code>font($fw, $lh, $fz, $color, $ta)</code>, <code>box-style</code>, <code>ellipsis</code>, <code>user-select</code></li>
+        <li>기준값: <code>html { font-size: 62.5% }</code> → <strong>1rem = 10px</strong> (디자인 px 값을 그대로 rem으로 옮기기 쉬움)</li>
+        <li>트랜지션 토큰: <code>$transition-base: 0.4s ease-in-out</code>, <code>$transition-fade</code>, <code>$transition-collapse</code></li>
+      </ul>
+<pre><code>.search-wrap {
+  @include flex-layout($d: flex, $ai: center, $jc: flex-start, $fd: row, $fw: nowrap);
+  border: 0.15rem solid var(--#{$prefix}primary-40);
+  &amp;:focus-within { border-color: $primary-50; }   // 입력 중 테두리 강조
+  &amp;.has-value .search-wrap-clear { display: flex; } // 값 있을 때만 X 버튼
+}</code></pre>
+
+      <h3 id="style-comp">컴포넌트·레이아웃</h3>
+      <div class="grid-2">
+        <div class="mini"><h4>사이드 패널 (3단 구조)</h4><p><code>aside</code> &gt; <code>sidebar-default</code>(STEP 순서도, <code>complete / active</code> 상태) &gt; <code>sidebar-slide-container</code> &gt; <code>sidebar-slide</code>. 슬라이드는 <code>translateX(-100%)</code> → 0, 패널 밖 <strong>세로 탭</strong>은 <code>writing-mode: vertical-rl</code> + <code>::after</code> 탭 끝 svg</p></div>
+        <div class="mini"><h4>열고 닫기 트랜지션</h4><p><code>visibility 0s 0.4s</code>처럼 <strong>visibility에 지연을 줘서</strong> 닫힐 때는 슬라이드·페이드가 끝난 뒤 숨기고, 열릴 때는 바로 보이게 함. 닫힌 패널은 <code>pointer-events: none</code></p></div>
+        <div class="mini"><h4>버튼</h4><p><code>.btn</code> + 색상(<code>btn-primary / gray / light / red / orange / outline-*</code>) + 크기(<code>btn-xsm / sm / lg</code>) + <code>.fit</code>. <code>:disabled</code>는 hover 효과까지 막음</p></div>
+        <div class="mini"><h4>헤더</h4><p>로고 hover 시 빛이 지나가는 효과(<code>::after</code> + <code>skewX(-45deg)</code> + <code>@keyframes logo-shine</code>), 반투명 헤더 <code>rgba(3,26,22,.8)</code>, 회원 등급 뱃지 5종(light ~ enterprise)</p></div>
+        <div class="mini"><h4>폼</h4><p><code>form-row</code>(라벨 + 값 space-between), <strong>분수 입력</strong> <code>form-fraction</code>, 버튼형 라디오 <code>is-button-style</code>, 커스텀 체크박스, date·select 기본 아이콘 숨기고 커스텀 아이콘</p></div>
+        <div class="mini"><h4>면적 통계 바</h4><p><code>area-stats</code>: 누적·신청중·신청·잔여 세그먼트를 flex로 쌓은 프로그레스 바 + 범례. 신청 가능 면적 초과 시 <code>.set-over</code> 하나로 전부 빨간색</p></div>
+        <div class="mini"><h4>신청목록 테이블</h4><p>상태 뱃지(생성중·재신청·에러·완료·취소), 펼침 행(<code>is-expanded</code>), 진행 순서도 행. 파일 아이콘은 <strong>default / hover / download / disabled 4상태</strong> svg, 다운로드 중 <code>downloadPulse</code> 애니메이션</p></div>
+        <div class="mini"><h4>:has() 활용 (7곳)</h4><p>아이콘이 disabled·다운로드 중이면 메뉴 숨김 <code>.file-action-wrapper:has(.is-disabled) .file-action-menu</code>, 툴팁이 있는 박스만 <code>position: relative</code></p></div>
+        <div class="mini"><h4>서비스 선택 카드</h4><p>4열 grid 카드. hover 시 <code>cubic-bezier(0.34, 1.56, 0.64, 1)</code>로 살짝 튀는 확대, 아이콘 <code>iconPulse</code>, 버튼 <code>slideUpFadeIn</code>, 설명은 시간차(delay)로 등장</p></div>
+        <div class="mini"><h4>유틸리티</h4><p><code>display-*</code>, <code>flex-row / column</code>, <code>txt-ag-*</code>, <code>drag-disable</code>. <code>_size.scss</code>는 <code>@for 1~200</code>으로 <code>w- / h- / m* / p* / gap-</code> px 클래스 생성</p></div>
+      </div>
+
+      <h3 id="style-mine">본인 작업 <small>git 기준, 근거 있음</small></h3>
+      <div class="table-wrap"><table>
+        <tr><th>작업</th><th>내용</th><th>기술 포인트</th></tr>
+        <tr><td>모달 시스템 (25.12.12~16)</td><td><code>modal.html</code>에 8종 퍼블리싱: 기본 알림, 아이콘 알림, <strong>행정구역 선택</strong>(시도·시군구 2단 목록, 닫기 버튼), <strong>영역지정 가이드</strong>, 보고서 신청 완료, <strong>폭 설정</strong>, <strong>달력</strong>(연도 선택 + 월 그리드), <strong>목차 미리보기</strong></td><td>공용 <code>.modal</code> + 변형 클래스(<code>modal-calendar</code> 등) 구조. 현재 <code>modal.html</code> 줄의 약 78%가 본인 작성</td></tr>
+        <tr><td>모달 스타일 통합·정리</td><td>따로 쓰던 <code>modal.scss / modal.css</code>를 공용 <code>_modal.scss</code>로 옮기고 연결 해제 → 안 쓰는 파일 삭제(1,377줄, 백업 폴더 별도 보관)</td><td>CSS 파일을 하나의 번들(<code>style.css</code>)로 일원화</td></tr>
+        <tr><td>사업구역 편집 버튼 5종</td><td>지도 위 영역 추가·삭제, 필지 추가·삭제, 전체 삭제 버튼 + svg 아이콘 5개</td><td><code>.section-area-edit</code> pill 버튼, 개발팀 요청으로 <code>.active</code> 시에만 노출</td></tr>
+        <tr><td>구역계 면적 툴팁</td><td>면적 바에 마우스를 올리면 상세값(예: <code>34,450,000m² / 34.5%</code>) 말풍선</td><td><code>.ui-tooltip</code> + 삼각형 svg, 부모는 <code>:has(.ui-tooltip)</code>일 때만 relative</td></tr>
+        <tr><td>항목리스트 탭 토글 위치</td><td>자연조건/사회특성 탭을 바꾸면 패널 폭(스크롤바 유무)이 달라져 토글 버튼이 어긋나는 문제</td><td>탭 클릭 후 <code>syncToggleButtonState()</code>로 <code>offsetWidth</code> 재계산 (JS)</td></tr>
+        <tr><td>보고서 설정 화면</td><td>단면지정 "자동/사용자 지정" 버튼 추가·크기·선택 스타일 중복 수정, 발주기관·수행기관 입력 추가, 목차 미리보기 버튼 위치 이동</td><td>입력 추가로 생긴 여백을 활용해 썸네일 아래로 버튼 재배치</td></tr>
+        <tr><td>UX 문구·흐름 정리</td><td>"이전" → "전단계" 전체 통일, 다각형 그리기에 전단계/설정 완료 버튼, 초기화 버튼 크기·스타일</td><td>단계형(STEP) 흐름과 문구 일치</td></tr>
+        <tr><td>이관 후 유지보수 (26.08)</td><td>수자원팀에서 받은 CSS와 저장소 버전을 비교한 뒤, 서비스 카드 설명 문구 줄바꿈 수정 후 회신</td><td><code>letter-spacing: -0.3px</code>로 레이아웃 변경 없이 한 줄 유지</td></tr>
+      </table></div>
+
+      <div class="callout">
+        <b>⚠️ 쓸 때 주의</b> — 토큰·믹스인·사이드바 기본 구조·<code>design.js</code> 대부분은 <strong>HJA 님이 초기에 세팅</strong>했습니다(<code>design.js</code> 커밋 12건 중 본인 1건). 경력기술서에는 "기존 SCSS 토큰 체계 위에서 작업", "공용 모달 컴포넌트 담당"처럼 <strong>본인 범위를 정확히</strong> 쓰는 게 안전합니다.
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="html">
+      <h2><span class="num">2</span>HTML / 마크업</h2>
+      <ul>
+        <li><strong>진행 방식</strong>: 디자인셀이 정적 HTML·SCSS·UI JS까지 만들고 → 개발팀이 이 마크업을 받아 서버 템플릿에 붙이는 분업. 그래서 <strong>"개발자가 그대로 가져다 쓸 수 있는 마크업"</strong>이 목표</li>
+        <li><strong>한 파일에 전체 화면</strong>: <code>main.html</code>(3,969줄) 안에 <code>header</code> + 지도 <code>main</code> + 서비스별 <code>aside</code> 4개 + 모달. 어떤 aside를 보일지는 클래스(<code>is-active</code>)로만 제어</li>
+        <li><strong>data 속성으로 동작 연결</strong>: <code>data-modal-open="service-select"</code> ↔ <code>data-modal</code>, <code>data-slide="project-area-1"</code>, <code>data-aside</code>, <code>data-action="download-report"</code> → 개발자는 JS를 몰라도 속성만 맞추면 열기·전환이 됨</li>
+        <li><strong>상태는 클래스로 통일</strong>: <code>is-open / is-active / is-expanded / is-disabled / is-downloading</code>, 스텝은 <code>complete / active</code>. 주석에 상태 값을 적어 둠 (<code>&lt;!-- STEP 1: complete(완료), active(진행중), 없음(미진행) --&gt;</code>)</li>
+        <li><strong>섹션 주석 규칙</strong>: <code>&lt;!-- 섹션명 시작 --&gt;</code> / <code>&lt;!-- //섹션명 끝 --&gt;</code> 중첩 구조까지 일관 적용 (3,969줄 파일에서 개발자가 위치를 찾기 쉽게)</li>
+        <li>접근성: 아이콘 버튼에 <code>.sr-only</code> 텍스트 21곳, <code>aria-label</code> 15곳, 로고 영역 <code>role="button" tabindex="0"</code>, <code>type="button"</code> 명시, <code>lang="ko"</code></li>
+        <li>보안 meta: <code>Content-Security-Policy</code>, <code>X-Content-Type-Options: nosniff</code>, <code>Referrer-Policy</code></li>
+        <li>인라인 style은 15곳 — 슬라이드 폭(<code>width: 398px</code>, CSS 주석에 "inline style로 덮어쓰기 가능"이라고 명시)과 면적 바 비율(<code>width: 14%</code>, 개발 단에서 값 주입)처럼 <strong>데이터로 바뀌는 값</strong>에 한정</li>
+        <li>네이밍: 케밥케이스 + 블록 접두어(<code>sidebar-slide-header</code>, <code>area-stats-legend-item</code>). SCSS에서 <code>&amp;-header</code>로 중첩해 블록 단위로 관리</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="js">
+      <h2><span class="num">3</span>프론트엔드 JS <span class="tag">2순위</span></h2>
+      <ul>
+        <li><strong>Vanilla JS, 라이브러리 없음</strong>. <code>design.js</code>(858줄) 하나에 UI 동작만. <code>DOMContentLoaded</code>에서 <code>init*</code> 함수 11개 실행</li>
+        <li><strong>이벤트 위임</strong>: <code>document</code>에 click 하나를 걸고 <code>closest('[data-slide]')</code>, <code>[data-modal-open]</code>, <code>.modal-close</code>로 분기 → 나중에 개발 단에서 DOM이 바뀌어도 동작</li>
+      </ul>
+      <h3>주요 인터랙션</h3>
+      <ul>
+        <li><strong>모달</strong>: <code>openModal / closeModal / closeAllModals</code> (요소 또는 data 값 둘 다 받음). 닫기 버튼·오버레이 클릭·<strong>ESC 키</strong>로 닫기, 열릴 때 <code>body overflow: hidden</code>으로 배경 스크롤 잠금, 다른 모달이 남아 있으면 잠금 유지</li>
+        <li><strong>서비스 전환</strong>: 카드 선택 → 모든 슬라이드 닫기 → 모든 aside 숨김 → 해당 aside 활성화 → 모달 닫기 → aside 애니메이션 후 첫 슬라이드 열기 (<code>setTimeout</code>)</li>
+        <li><strong>슬라이드 토글 버튼 위치</strong>: <code>sidebar-default.offsetWidth + slide.offsetWidth</code>로 left 계산 → 패널 폭이 달라져도 버튼이 가장자리에 붙음</li>
+        <li><strong>아코디언</strong>(항목선택 카테고리): <code>scrollHeight</code>로 실제 높이를 재서 <code>max-height</code> 지정 → CSS 트랜지션으로 부드럽게 열림. 탭 전환 시 숨겨졌던 항목 높이 재계산</li>
+        <li>세그먼트 탭, 페이지네이션(이전/다음, 현재/전체 표시, 끝에서 버튼 비활성), 신청목록 펼침 행·하위 메뉴 행 토글, 검색창 X 버튼(<code>.has-value</code>)</li>
+        <li>파일 메뉴 액션은 <code>data-action</code> 값으로 분기만 해 두고 실제 다운로드는 <code>// 다운로드 로직 추가</code> 주석으로 개발팀에 넘김</li>
+      </ul>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="env">
+      <h2><span class="num">4</span>협업·환경 <span class="tag">짧게</span></h2>
+      <ul>
+        <li>GitHub(<code>WebSolution-HM/kngil-3rd</code>), main 브랜치 공동 작업. 커밋 메시지는 <code>[화면 &gt; 영역] 작업내용</code> 형식 (예: <code>[사업구역 &gt; 슬라이드2] 이전 -&gt; 전단계 버튼 수정</code>)</li>
+        <li><strong>Cursor 규칙 파일 7종</strong>으로 퍼블리싱 컨벤션을 명문화: 시맨틱 태그·섹션 주석(<code>publishing</code>), PC 와이드 UX(<code>desktop-wide-ux</code>), 폼 접근성(<code>forms-accessibility</code>), 사실 기반 응답(<code>true</code>), PowerShell 환경 등 → AI 코딩 도구를 쓰더라도 결과물이 같은 규칙을 따르게 함</li>
+        <li>Windows + VS Code(Live Server, Live Sass Compiler), PowerShell 5.1</li>
+        <li>개발팀 요청 반영 이력: <code>section-area-edit</code>에 <code>.active</code> 추가, 작은 폰트 주석 클래스 추가, 신청목록 report 아이콘 임시 교체(주석으로 원래 값 보존)</li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="interview">
+      <h2><span class="num">5</span>인터뷰 대비</h2>
+
+      <h3>물어볼 만한 약점과 답변 방향</h3>
+      <div class="grid-2">
+        <div class="mini"><h4>1. 파일 복사로 버전 관리</h4><p><code>main_260126.html</code>, <code>main_260127.html</code>, <code>260319 수정본 전송/</code>, <code>css_260812…/</code>가 git과 함께 공존.<br />→ "개발팀과 주고받은 시점을 비교하려고 남겨둔 것. 개선한다면 git tag/브랜치로 대체하겠다."</p></div>
+        <div class="mini"><h4>2. 유틸 클래스로 CSS 비대</h4><p><code>@for 1~200</code> × 16종 = 3,200개 클래스 → <code>style.css</code> 17,158줄, px 단위 + <code>!important</code>.<br />→ "규칙은 rem인데 유틸만 px. 실제 쓰는 값만 map으로 정의하거나 PurgeCSS를 쓰겠다."</p></div>
+        <div class="mini"><h4>3. 규칙과 실제의 차이</h4><p>"CSS 변수만 쓰기" 규칙인데 <code>$gray-90</code> 같은 Sass 변수 직접 사용, 헥스 값 16곳.<br />→ 질문받으면 인지하고 있다고 답하고, 토큰 통일을 개선 과제로 제시.</p></div>
+        <div class="mini"><h4>4. 클릭 가능한 div</h4><p>스텝 아이템·서비스 카드가 <code>div</code> + click이라 키보드 접근이 안 됨 (role 지정은 로고 1곳).<br />→ "<code>button</code>으로 바꾸거나 <code>role="button" tabindex="0"</code> + Enter 처리 필요."</p></div>
+        <div class="mini"><h4>5. 한 파일 3,969줄</h4><p>모든 화면이 <code>main.html</code> 한 곳.<br />→ "개발 단 템플릿에서 aside별 파셜로 나누기 쉽게 섹션 주석과 aside 단위로 경계를 명확히 해 둠."</p></div>
+        <div class="mini"><h4>6. _includePages 중복 forward</h4><p>sidebar/header/footer를 두 번 <code>@forward</code>.<br />→ "<code>@use</code> 모듈은 한 번만 로드되므로 CSS가 두 번 출력되진 않지만, 정리가 필요한 부분."</p></div>
+      </div>
+
+      <h3>예상 질문</h3>
+      <dl class="qa">
+        <dt>왜 <code>@import</code> 대신 <code>@use</code> / <code>@forward</code>를 썼나요?</dt>
+        <dd><code>@import</code>는 전역 공유라 변수 충돌과 중복 출력 문제가 있고 Dart Sass에서 지원 종료 예정입니다. <code>@use</code>는 파일마다 필요한 모듈만 가져오고, 모듈은 한 번만 로드됩니다.</dd>
+        <dt>Sass 변수가 있는데 왜 CSS 변수로 다시 만들었나요?</dt>
+        <dd>Sass 변수는 컴파일 후 사라지지만 CSS 변수는 브라우저에 남아서 개발 단 JS나 템플릿에서도 <code>var(--hm-primary-50)</code>로 쓸 수 있고, 나중에 테마를 바꿀 때도 유리합니다. map + <code>@each</code>로 자동 생성해 값은 한 곳에서만 관리합니다.</dd>
+        <dt>패널이 닫힐 때 visibility에 지연을 준 이유는?</dt>
+        <dd><code>display: none</code>은 트랜지션이 안 되고, visibility를 바로 hidden으로 바꾸면 슬라이드가 끝나기 전에 사라집니다. 닫힐 때만 0.4s 지연을 줘서 애니메이션이 끝난 뒤 숨기고, 숨겨진 상태에서는 클릭과 스크린리더 접근도 막힙니다.</dd>
+        <dt>푸터 삭제 요청은 어떻게 반영했나요?</dt>
+        <dd>레이아웃 높이가 모두 <code>--footer-height</code>를 기준으로 계산돼 있어서 변수만 0으로 바꿨습니다. 다시 살릴 수도 있게 원래 값은 주석으로 남겼습니다.</dd>
+        <dt>디자이너가 아닌 개발자가 쓰기 좋게 하려고 한 것은?</dt>
+        <dd>data 속성으로 동작을 연결해 JS를 몰라도 속성만 맞추면 되게 했고, 상태 값을 주석에 적었고, 섹션 시작·끝 주석을 일관되게 달았습니다. 데이터로 바뀌는 값(면적 비율 등)만 인라인으로 남겨 개발 단에서 값을 넣을 자리를 분명히 했습니다.</dd>
+        <dt>모달을 여러 개 만들 때 구조를 어떻게 잡았나요?</dt>
+        <dd>overlay / content / header / body / footer / close를 공용 <code>.modal</code>에 두고, 화면별 차이는 <code>.modal-calendar</code>, <code>.modal-width-set</code> 같은 변형 클래스로만 덮어썼습니다. 열고 닫는 건 모두 <code>.is-open</code> 클래스 하나로 처리합니다.</dd>
+      </dl>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="resume">
+      <h2><span class="num">6</span>경력기술서 문장 예시</h2>
+      <ul class="resume">
+        <li>지도 기반 <strong>설계 기초조사 보고서 자동화 플랫폼(큰길 3차)</strong>의 PC 와이드(1024~3000px) UI를 퍼블리싱했습니다. 팀 내 커밋 1위(42건)로 참여했습니다.</li>
+        <li>행정구역 선택, 달력, 폭 설정, 목차 미리보기 등 <strong>모달 8종을 공용 모달 컴포넌트 구조로 설계·퍼블리싱</strong>하고, 따로 쓰던 모달 스타일을 공용 SCSS로 통합해 CSS 번들을 하나로 정리했습니다.</li>
+        <li>SCSS 모듈 시스템(@use/@forward)과 <strong>Sass map → CSS 변수 자동 생성 토큰 체계</strong> 위에서 사업구역 편집·면적 툴팁·보고서 설정 화면을 구현했습니다.</li>
+        <li>data 속성 기반 동작 연결, 상태 클래스 규칙, 섹션 주석 컨벤션으로 <strong>개발팀이 바로 이식할 수 있는 마크업</strong>을 만들고, 이관 후에도 개발팀 CSS와 비교하며 수정본을 전달했습니다.</li>
+      </ul>
+    </section>
+
+    <footer class="note">kngil-3rd 저장소(git 이력·소스) 분석 기반 · 개인 준비용</footer>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', function () {
+      var cur = root.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
