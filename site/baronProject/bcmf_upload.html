@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BCMF 일일작업보고 정리</title>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --surface: #ffffff;
+    --surface-2: #f5f0e5;     /* sand-10 */
+    --text: #22201b;
+    --text-sub: #625c50;
+    --line: #e6e0d2;
+    --accent: #1e5149;        /* primary-50 */
+    --accent-soft: #e9eeed;   /* primary-5 */
+    --accent-strong: #12312c; /* primary-80 */
+    --warn: #965100;          /* orange-70 */
+    --warn-soft: #fff9f3;     /* orange-5 */
+    --ok: #15803d;
+    --ok-soft: #f0fdf4;
+    --code-bg: #f3f1ec;
+    --shadow: 0 1px 2px rgba(40, 34, 20, .06), 0 4px 16px rgba(40, 34, 20, .04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #13120f; --surface: #1c1a16; --surface-2: #26231c;
+      --text: #ece8df; --text-sub: #a59e8e; --line: #343027;
+      --accent: #8fd0c4; --accent-soft: #1b3a35; --accent-strong: #bde5dd;
+      --warn: #ffba68; --warn-soft: #2e2214; --ok: #4ade80; --ok-soft: #14291c;
+      --code-bg: #25221c; --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #13120f; --surface: #1c1a16; --surface-2: #26231c;
+    --text: #ece8df; --text-sub: #a59e8e; --line: #343027;
+    --accent: #8fd0c4; --accent-soft: #1b3a35; --accent-strong: #bde5dd;
+    --warn: #ffba68; --warn-soft: #2e2214; --ok: #4ade80; --ok-soft: #14291c;
+    --code-bg: #25221c; --shadow: none;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 40px;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+  nav.toc {
+    position: sticky; top: 24px; align-self: start;
+    font-size: 13.5px;
+  }
+  nav.toc .toc-title { font-weight: 700; color: var(--text-sub); font-size: 12px; letter-spacing: .06em; margin-bottom: 10px; }
+  nav.toc a {
+    display: block; padding: 6px 10px; border-radius: 6px;
+    color: var(--text-sub); text-decoration: none;
+    border-left: 2px solid transparent;
+  }
+  nav.toc a:hover { color: var(--accent); background: var(--accent-soft); }
+  nav.toc a.sub { padding-left: 22px; font-size: 13px; }
+  .theme-btn {
+    margin-top: 16px; padding: 6px 10px; font: inherit; font-size: 12.5px;
+    border: 1px solid var(--line); background: var(--surface); color: var(--text-sub);
+    border-radius: 6px; cursor: pointer;
+  }
+
+  header.hero {
+    background: linear-gradient(180deg, #35625b 0%, #1e5149 100%);
+    color: #fff; border-radius: 16px; padding: 32px 32px 28px; margin-bottom: 28px;
+  }
+  header.hero .eyebrow { font-size: 12.5px; opacity: .85; letter-spacing: .04em; }
+  header.hero h1 { margin: 6px 0 10px; font-size: 28px; line-height: 1.3; }
+  header.hero h1 .k { color: #ff8a00; }
+  header.hero p { margin: 0; opacity: .92; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .chips span { background: rgba(255,255,255,.16); padding: 3px 10px; border-radius: 999px; font-size: 12.5px; }
+
+  section.card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 28px 30px; margin-bottom: 20px; box-shadow: var(--shadow);
+  }
+  h2 { margin: 0 0 16px; font-size: 21px; display: flex; align-items: center; gap: 10px; }
+  h2 .num {
+    display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 8px;
+    background: var(--accent-soft); color: var(--accent); font-size: 14px;
+  }
+  h2 .tag { font-size: 12px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 8px; border-radius: 999px; }
+  h3 { font-size: 16.5px; margin: 26px 0 10px; padding-left: 10px; position: relative; }
+  h3::before { content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 4px; height: 14px; border-radius: 4px; background: var(--accent); }
+  h3 small { color: var(--text-sub); font-weight: 500; }
+  p { margin: 8px 0; }
+  ul { padding-left: 20px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  li::marker { color: var(--accent); }
+  strong { color: var(--text); font-weight: 700; }
+  code {
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .88em;
+    background: var(--code-bg); padding: 1px 6px; border-radius: 4px;
+  }
+  pre {
+    background: var(--code-bg); border-radius: 10px; padding: 16px 18px; overflow-x: auto;
+    font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px; line-height: 1.6;
+  }
+  pre code { background: none; padding: 0; }
+
+  .table-wrap { overflow-x: auto; margin: 10px 0; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--surface-2); font-weight: 700; font-size: 13px; color: var(--text-sub); white-space: nowrap; }
+  td:first-child { font-weight: 600; white-space: nowrap; }
+
+  .callout {
+    border-radius: 10px; padding: 14px 16px; margin: 16px 0; font-size: 14px;
+    background: var(--warn-soft); border-left: 4px solid var(--warn);
+  }
+  .callout.ok { background: var(--ok-soft); border-left-color: var(--ok); }
+  .callout b { color: var(--warn); }
+  .callout.ok b { color: var(--ok); }
+
+  .palette { display: grid; gap: 10px; margin: 14px 0 6px; }
+  .palette-row { display: grid; grid-template-columns: 90px 1fr; align-items: center; gap: 10px; font-size: 12.5px; }
+  .palette-row .name { color: var(--text-sub); font-family: ui-monospace, Consolas, monospace; }
+  .swatches { display: flex; border-radius: 6px; overflow: hidden; height: 26px; border: 1px solid var(--line); }
+  .swatches i { flex: 1; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mini {
+    border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; background: var(--surface-2);
+  }
+  .mini h4 { margin: 0 0 6px; font-size: 14.5px; }
+  .mini p, .mini li { font-size: 13.5px; color: var(--text-sub); }
+
+  .qa dt { font-weight: 700; margin-top: 14px; }
+  .qa dt::before { content: "Q. "; color: var(--accent); }
+  .qa dd { margin: 4px 0 0; color: var(--text-sub); font-size: 14px; }
+  .qa dd::before { content: "A. "; font-weight: 700; color: var(--text); }
+
+  .resume li { background: var(--surface-2); list-style: none; padding: 12px 14px; border-radius: 8px; margin: 8px 0; border-left: 3px solid var(--accent); }
+  .resume { padding-left: 0; }
+
+  footer.note { text-align: center; color: var(--text-sub); font-size: 12.5px; margin-top: 30px; }
+
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; gap: 0; padding: 20px 16px 60px; }
+    nav.toc { display: none; }
+    .grid-2 { grid-template-columns: 1fr; }
+    section.card { padding: 22px 18px; }
+    header.hero { padding: 24px 20px; }
+    header.hero h1 { font-size: 23px; }
+  }
+  @media print {
+    nav.toc { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    section.card { break-inside: avoid; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc">
+    <div class="toc-title">목차</div>
+    <a href="#overview">0. 프로젝트 개요</a>
+    <a href="#style">1. 스타일 (핵심)</a>
+    <a class="sub" href="#style-env">환경</a>
+    <a class="sub" href="#style-arch">아키텍처</a>
+    <a class="sub" href="#style-token">디자인 토큰</a>
+    <a class="sub" href="#style-mixin">믹스인</a>
+    <a class="sub" href="#style-comp">컴포넌트</a>
+    <a class="sub" href="#style-mine">본인 작업</a>
+    <a href="#html">2. 마크업 (JSX / HTML)</a>
+    <a href="#js">3. 프론트엔드 개발</a>
+    <a href="#env">4. 협업·환경</a>
+    <a href="#interview">5. 인터뷰 대비</a>
+    <a href="#resume">6. 경력기술서 문장</a>
+    <button class="theme-btn" type="button" id="themeBtn">라이트 / 다크 전환</button>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="eyebrow">경력기술서 · 인터뷰 준비용 정리 · 2026.10.20</div>
+      <h1>대산–당진 고속도로 <span class="k">일일작업보고</span><br />업로드·검토 웹앱 (BCMF)</h1>
+      <p>AI Studio로 만든 프로토타입(React + Tailwind)을 사내 디자인 시스템(SCSS)으로 다시 입힌 프로젝트 · 우선순위: ① 디자인·스타일 → ② 프론트 개발</p>
+      <div class="chips">
+        <span>Tailwind → SCSS 전환</span><span>SCSS 모듈 + 디자인 토큰</span><span>React 19 + TypeScript</span>
+        <span>Vite</span><span>iframe 레거시 보고서 연동</span><span>모달 시스템</span><span>react-datepicker 커스텀</span>
+      </div>
+    </header>
+
+    <!-- 0 -->
+    <section class="card" id="overview">
+      <h2><span class="num">0</span>프로젝트 개요</h2>
+      <div class="table-wrap"><table>
+        <tr><th>항목</th><th>내용</th></tr>
+        <tr><td>서비스</td><td>현장에서 올리는 <strong>한글(HWP) 일일작업보고서를 업로드</strong>하면 백엔드(Python)가 파싱해서 DB에 넣고, 프론트에서 <strong>공구별·날짜별로 보고서를 보고 직접 수정·검토</strong>하는 웹앱. 위치(STA 측점)·장비·인원 사전(Dictionary) 관리 포함</td></tr>
+        <tr><td>사용자</td><td>대산–당진 고속도로 사업단(BCMF) 1~4공구 담당자. 주소 <code>/upload/</code> 하위로 배포</td></tr>
+        <tr><td>출발점</td><td>CM기획팀이 <strong>Google AI Studio(Gemini)로 만든 프로토타입</strong>(React + Tailwind, 기본 디자인)을 웹솔루션팀이 인계받음 (<code>docs/웹솔루션인계서.md</code>). 원본 보고서 화면은 React 이전에 만든 <strong>순수 HTML/JS 페이지(phase0)</strong>를 <code>&lt;iframe&gt;</code>으로 띄우는 구조</td></tr>
+        <tr><td>본인 역할</td><td><strong>디자인 입히기(퍼블리싱) 메인 담당</strong> — SCSS 구조 세팅, Tailwind 화면을 사내 디자인으로 교체, 헤더·사이드·보고서·모달·달력·로그인 스타일</td></tr>
+        <tr><td>기간</td><td>저장소 2026.06.15 ~ 2026.08.04 / <strong>본인 커밋 2026.06.15 ~ 07.14 (168건, merge 제외 전체 236건 중 1위 · 약 71%)</strong></td></tr>
+        <tr><td>팀</td><td>본인 168 · HJA 49(로그인 디자인, 날씨·공구 아이콘 로직, 파비콘) · 윤석무 11(로그인/세션, URL 파라미터) · 김진선 4(초기 로그인, 버그 수정) · Server 4(초기 배포)</td></tr>
+      </table></div>
+      <div class="callout">
+        <b>⚠️ 말할 때 구분</b> — 화면 동작(React state, API 호출, 파싱)은 <strong>AI Studio 프로토타입에 이미 있던 코드</strong>입니다. 본인 작업의 중심은 <strong>그 위에 디자인 시스템을 입히고 구조를 정리한 것</strong>이고, JS는 레이아웃·툴팁처럼 화면 표시와 관련된 부분만 손댔습니다. "React로 앱을 개발했다"보다 <strong>"React 앱의 UI를 사내 디자인 시스템으로 전환했다"</strong>가 정확합니다.
+      </div>
+    </section>
+
+    <!-- 1 -->
+    <section class="card" id="style">
+      <h2><span class="num">1</span>스타일 <span class="tag">핵심</span></h2>
+
+      <h3 id="style-env">환경</h3>
+      <ul>
+        <li><strong>Tailwind 걷어내기</strong>: 2026.06.16 <code>main.tsx</code>에서 Tailwind 진입 파일(<code>index.css</code>, 2,966줄) import를 끄고 <code>./css/style.scss</code>로 교체 → 이후 화면마다 Tailwind 유틸 클래스를 사내 클래스로 바꿈</li>
+        <li><strong>SCSS 컴파일 경로가 두 개</strong>
+          <ul>
+            <li>React 화면: <strong>Vite가 <code>.scss</code>를 직접 import해서 컴파일</strong> (<code>sass</code> 패키지, <code>css.devSourcemap: true</code>로 개발 중 원본 줄 추적)</li>
+            <li>iframe 보고서(phase0): <code>public/</code>은 Vite가 손대지 않으므로 <strong><code>sass --watch src/pages:public/phase0</code> 별도 스크립트</strong>로 <code>daily-report-ksk.scss</code> → <code>public/phase0/daily-report-ksk.css</code> 출력</li>
+          </ul>
+        </li>
+        <li>폰트: Pretendard Variable 직접 호스팅. 기준 <code>html { font-size: 62.5% }</code> → <strong>1rem = 10px</strong></li>
+        <li>파일 헤더 운영 규칙: "style.css 직접 수정 금지", "디자이너 외 직군 수정 금지, 수정 시 웹솔루션으로 문의"</li>
+      </ul>
+
+      <h3 id="style-arch">아키텍처</h3>
+<pre><code>style.scss
+ ├─ _includeDefault  → pretendard / variables / mixins(utils) / reset / root / colormaps
+ └─ _includePages    → header / main / modal / a4Area
+                        ↓ main.tsx 에서 import (Vite 컴파일)
+
+src/css/
+ ├─ component/  _variables (토큰 700줄)   _colormaps (.text-* / .bg-* 생성)
+ ├─ mixins/     _utils (flex-layout, position, font, btn·input·select·radio·chk 설정)
+ ├─ common/     _reset _root  _header(1,333) _modal(1,153) _a4Area(946) _main(272)
+ └─ login/      login.scss  login-sso.scss
+
+src/pages/daily-report-ksk.scss  → (sass CLI) → public/phase0/daily-report-ksk.css  ← iframe 보고서</code></pre>
+      <ul>
+        <li>파일은 <strong>화면 영역 단위</strong>로 나눔: header / main(좌측 날짜 패널·본문) / modal / a4Area(A4 보고서 영역·데이터 수정)</li>
+        <li><code>style.scss</code> 자체에는 <strong>여러 화면이 같이 쓰는 기본 부품</strong>만 둠: <code>.btn</code> + 색 변형(<code>btn-green / gray / gold / black</code>), <code>.btn-sm</code>, <code>.input</code>, <code>.label</code>, 구분선 <code>.hr-hor / .hr-ver</code>, <code>.hidden</code></li>
+      </ul>
+
+      <h3 id="style-token">디자인 토큰 <small>_variables.scss · _root.scss · _colormaps.scss</small></h3>
+      <ul>
+        <li>사내 <strong>primary(한맥 그린)·secondary·sand·gold·orange·gray</strong> 팔레트 + 이 사업용 <strong>도로공사 컬러</strong>(<code>$red-50 #ED1B2F</code>, <code>$blue-50 #0071CE</code>, <code>$gold-70 #B6985A</code>에 "도로공사컬러" 주석)를 같은 0~90 단계 체계에 넣음</li>
+        <li>Sass map → <code>@each</code>로 <strong>CSS 변수 자동 생성</strong>: <code>--hm-primary-50</code>, <code>--hm-sand-40</code> (<code>$prefix: hm-</code>)</li>
+        <li><code>_colormaps.scss</code>: 같은 map을 돌려 <code>.text-gold-50</code>, <code>.bg-primary-10</code> 같은 <strong>색상 유틸 클래스</strong>도 생성</li>
+        <li>버튼·인풋·셀렉트·라디오·체크박스 크기도 map으로 두고 믹스인이 <strong>CSS 변수 + 크기별 클래스</strong>(<code>.btn.h40</code> 식)를 같이 만듦 (<code>@at-root</code>)</li>
+        <li>레이아웃 변수: <code>--Header-height: 5rem</code> → <code>main { height: calc(100% - var(--Header-height)) }</code>, 설정 모달 위치도 이 값 기준</li>
+      </ul>
+<pre><code>:root {
+  @each $num, $value in $primary-colors {
+    --#{$prefix}primary-#{$num}: #{$value};   // → --hm-primary-50: #1E5149;
+  }
+  --Header-height: 5rem;
+}</code></pre>
+      <div class="palette" aria-label="주요 컬러 팔레트 미리보기">
+        <div class="palette-row"><span class="name">primary</span><div class="swatches"><i style="background:#F1F4F4"></i><i style="background:#E9EEED"></i><i style="background:#BCCBC8"></i><i style="background:#8FA8A4"></i><i style="background:#628580"></i><i style="background:#35625B"></i><i style="background:#1E5149"></i><i style="background:#1B4942"></i><i style="background:#18413A"></i><i style="background:#12312C"></i><i style="background:#0C201D"></i></div></div>
+        <div class="palette-row"><span class="name">sand</span><div class="swatches"><i style="background:#f7f6f2"></i><i style="background:#f5f0e5"></i><i style="background:#eee6d2"></i><i style="background:#dfd5bc"></i><i style="background:#d0c4a5"></i><i style="background:#c1b48f"></i><i style="background:#bca17b"></i><i style="background:#847258"></i><i style="background:#574622"></i><i style="background:#13110b"></i></div></div>
+        <div class="palette-row"><span class="name">orange</span><div class="swatches"><i style="background:#fff9f3"></i><i style="background:#ffe4c5"></i><i style="background:#ffcf96"></i><i style="background:#ffba68"></i><i style="background:#ffa43a"></i><i style="background:#ff8a00"></i><i style="background:#c56a00"></i><i style="background:#965100"></i><i style="background:#683800"></i><i style="background:#221200"></i></div></div>
+        <div class="palette-row"><span class="name">gold</span><div class="swatches"><i style="background:#fdf7e9"></i><i style="background:#faefd3"></i><i style="background:#f5dfa7"></i><i style="background:#f1cf7a"></i><i style="background:#f8ca3d"></i><i style="background:#ffc600"></i><i style="background:#e7af22"></i><i style="background:#B6985A"></i><i style="background:#4a3c2b"></i><i style="background:#2e2307"></i></div></div>
+        <div class="palette-row"><span class="name">도로공사</span><div class="swatches"><i style="background:#ED1B2F"></i><i style="background:#0071CE"></i><i style="background:#2B3386"></i><i style="background:#B6985A"></i><i style="background:#81252A"></i></div></div>
+      </div>
+
+      <h3 id="style-mixin">믹스인 <small>_utils.scss</small></h3>
+      <ul>
+        <li><code>flex-layout($d, $ai, $jc, $fd, $fw)</code>, <code>position($p, $t, $b, $l, $r)</code>, <code>font($fw, $lh, $fz, $color, $ta)</code> — 인자 기본값이 <code>null</code>이라 <strong>넘긴 속성만 출력</strong>됨</li>
+        <li><code>focus()</code>: <code>color.adjust</code>로 투명도를 계산한 outline, <code>ellipsis</code>, <code>sr-only</code>, <code>user-select</code></li>
+        <li><code>spacer(50)</code>: <code>@for</code> + <code>map.merge</code>로 4px 간격 50단계를 만들어 <code>--hm-spacer-n</code> 변수로 노출</li>
+      </ul>
+
+      <h3 id="style-comp">컴포넌트·화면</h3>
+      <div class="grid-2">
+        <div class="mini"><h4>헤더 공구 탭 (사내 CFS 서비스와 디자인 통일)</h4><p>1~4공구 탭을 <strong>png 조각 + <code>::after</code> 탭 꼬리</strong>로 구성. 탭이 왼쪽 위로 겹치도록 <code>@for</code>로 <code>li:nth-child(i) { z-index: max - i + 1 }</code> 계산, 선택 탭은 <code>z-index: 11</code> + <code>translateY</code> + 그림자. 공구별 로고는 <code>nth-child</code>마다 default/active svg 교체</p></div>
+        <div class="mini"><h4>헤더 날짜 탭 + 달력</h4><p><code>react-datepicker</code> 기본 스타일을 덮어써 <strong>7열 <code>grid</code> 달력</strong>, 일=빨강/토=파랑, 오늘=주황 테두리. 보고서가 있는 날은 <code>.has-report-date::after</code> 점 표시. 선택·호버·이전달 상태 조합의 <strong>CSS 적용 순서</strong>를 주석으로 명시</p></div>
+        <div class="mini"><h4>모달 시스템</h4><p><code>.modal-wrap</code>(배경) &gt; <code>.modal.&lt;변형&gt;</code> &gt; <code>header / body / footer</code>. 배경은 <code>color-mix(in oklab, …)</code> 반투명 + <code>backdrop-filter: blur</code>. 변형: 설정·HWP 업로드·Dictionary·파싱 중·전일 데이터 로딩·적재 완료 등</p></div>
+        <div class="mini"><h4>상태 모달 애니메이션 3종</h4><p>파싱 중: 원 안에서 <strong>스캔 선이 위아래로 이동</strong>(<code>alternate</code>) / 로딩: 이미지는 그대로 두고 <strong>배경색만 깜빡임</strong> / 적재 완료: 작게→크게 <strong>한 번 팝</strong>(<code>both</code>)</p></div>
+        <div class="mini"><h4>CSS만으로 만든 토글 스위치</h4><p>숨긴 체크박스 + <code>input:checked ~ .toggle { translateX }</code>, 배경색은 부모에서 <code>label:has(input:checked)</code>로 변경 → JS 없이 상태 표현</p></div>
+        <div class="mini"><h4>Dictionary(위치 사전) 모달</h4><p>좌측 폼·결과 리스트 + 우측 지도 뷰어. 결과는 중첩(nested) 리스트 → 장비/인원은 <strong>카드형</strong>으로 재디자인. 하위 행에 마우스를 올리면 부모 행 hover를 끄는 <code>&amp;:has(.expend-list:hover)</code></p></div>
+        <div class="mini"><h4>A4 보고서 영역</h4><p>원본 HWP 모양을 그대로 보여주는 영역을 <strong>A4 실제 크기(793×1122px, 96dpi)</strong>로 고정, 금일실적/명일계획 2단, 주간/야간·방향 표기 스타일</p></div>
+        <div class="mini"><h4>로그인</h4><p><code>body:has(.login-container)</code>로 로그인 화면일 때만 전체 레이아웃 변경, 반투명 카드 + <code>backdrop-filter</code>. 브라우저 <strong>자동완성 시 배경이 바뀌는 문제</strong>를 <code>:-webkit-autofill</code> + 긴 transition으로 막음</p></div>
+      </div>
+
+      <h3 id="style-mine">본인 작업 <small>git 기준, 근거 있음</small></h3>
+      <div class="table-wrap"><table>
+        <tr><th>작업</th><th>내용</th><th>기술 포인트</th></tr>
+        <tr><td>SCSS 기반 세팅 (06.15~17)</td><td>사내 SCSS 구조(<code>_includeDefault / _includePages</code>, 토큰, reset, 믹스인)를 들여오고 Tailwind import 해제, phase0용 sass 컴파일 스크립트 추가</td><td>컴파일 경로 2개 설계 (Vite / sass CLI)</td></tr>
+        <tr><td>Tailwind → 사내 클래스 전환</td><td>헤더·좌측 날짜 패널·보고서·모달을 사내 클래스로 교체. Tailwind형 클래스 수: <code>App.tsx</code> 109 → 25, <code>DictionaryModal</code> 82 → 41, <code>InlineEditView</code> 169 → 124</td><td>DOM 구조·JS·속성은 그대로 두고 className만 교체하는 원칙</td></tr>
+        <tr><td>헤더 (06.16 / 07.08 리뉴얼)</td><td>공구 탭, 날짜 탭, 날씨·위치, 설정 버튼. 7월에 <strong>사내 다른 서비스(CFS)와 헤더 디자인 통일</strong></td><td><code>@for</code> z-index, 이미지 조각 탭, 탭 transition</td></tr>
+        <tr><td>모달 10여 종 (06.17~23)</td><td>설정(호버 항목 on/off), 데이터 입력 선택, HWP 업로드(드래그·파일 목록), Dictionary(위치/장비·인원), 새 공종 추가, 명일계획 없음, 파싱 중, 적재 완료, 전일 데이터 로딩</td><td>공용 <code>.modal</code> + 변형 클래스, 상태별 <code>@keyframes</code></td></tr>
+        <tr><td>보고서 hover 툴팁 (06.19~24)</td><td>보고서 항목에 마우스를 올리면 위치·장비·인원·CCTV·관리자 정보 표시. JS가 <code>&lt;style&gt;</code>로 넣던 스타일(<code>!important</code>)을 SCSS로 옮김</td><td>JS 주입 스타일 → SCSS 이관</td></tr>
+        <tr><td>데이터 수정 화면 (06.19~24)</td><td>파싱 결과(금일실적·명일계획) 표, 공종 내용 높이, 셀 여백, 라벨 색(위치 확인 필요·다중 작업위치)</td><td>a4Area 스타일, 표 정리</td></tr>
+        <tr><td>"데이터 없음" 화면</td><td>보고서가 없는 날짜 안내 화면 → HWP 업로드·전일 데이터 불러오기 후 사라지게 처리</td><td>개발단과 조율해 표시 조건 반영</td></tr>
+        <tr><td>달력 (07.06)</td><td>달력 디자인, <strong>날짜가 두 개 선택된 것처럼 보이던 문제</strong> 수정</td><td>react-datepicker의 <code>--keyboard-selected</code> 상태 스타일 제거</td></tr>
+        <tr><td>툴팁 잘림 (07.07)</td><td>화면 아래쪽 항목의 툴팁이 잘리는 문제</td><td>아래 공간이 부족하고 <strong>위 공간이 충분할 때만</strong> 위로 뒤집도록 조건 수정 (JS)</td></tr>
+        <tr><td>관리감독자 표시 (07.14)</td><td>같은 직군이 여러 번 나오면 중복 표시 → <code>직군(2)</code>처럼 합쳐 표시, 길면 2줄</td><td>개수 집계 후 등장 순서대로 출력 (JS)</td></tr>
+        <tr><td>로그인 (06.24~07.09)</td><td>자동완성으로 인풋 스타일·아이콘 깨짐 수정, 로그인 화면 디자인 변경</td><td><code>:-webkit-autofill</code> 대응</td></tr>
+      </table></div>
+
+      <div class="callout">
+        <b>⚠️ 쓸 때 주의</b><br />
+        ① 토큰·reset·믹스인 파일은 06.15 한 커밋에 1,960줄이 한 번에 올라왔습니다. 큰길 3차와 같은 구조라 <strong>사내 공용 SCSS 템플릿을 가져온 것</strong>으로 보입니다 → "사내 디자인 시스템을 적용·확장"이라고 쓰는 게 안전합니다 (도로공사 컬러 추가는 본인 작업인지 확인 후 기재).<br />
+        ② git blame상 <code>App.tsx</code>·<code>InlineEditView.tsx</code> 등이 거의 본인 줄로 나오는데, 06.15 <strong>"원복" 커밋에서 파일을 지웠다 다시 올려서</strong> 생긴 착시입니다. 실제 작성자는 AI Studio 프로토타입입니다.<br />
+        ③ 로그인 화면은 08.04에 HJA 님이 다시 디자인을 넣었습니다. 최종 로그인 디자인은 본인 작업이 아닐 수 있으니 확인하세요.
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="card" id="html">
+      <h2><span class="num">2</span>마크업 (JSX / HTML)</h2>
+      <ul>
+        <li><strong>두 종류의 마크업을 동시에 다룸</strong>
+          <ul>
+            <li>React 화면(JSX): 헤더, 좌측 날짜 패널, 모달, 데이터 수정 화면 — <code>className</code>을 사내 클래스로 교체</li>
+            <li>phase0(순수 HTML + JS 문자열 템플릿): iframe 안의 보고서. JS가 <code>innerHTML</code>로 그리는 부분은 <strong>JS 문자열 안의 class</strong>를 바꿔야 해서 <code>daily-report-phase0.js</code>도 수정</li>
+          </ul>
+        </li>
+        <li><strong>전환 원칙</strong>: DOM 구조·이벤트 핸들러·텍스트·속성은 그대로, className만 교체. 지우기 전에 그 클래스가 <code>querySelector</code>·<code>closest</code> 같은 <strong>JS 연결 고리인지 먼저 검색</strong> (예: <code>hover-filter-chk</code>, <code>phase0-hover-wrap</code>은 JS가 쓰므로 유지)</li>
+        <li><strong>모달 마크업 패턴</strong>: <code>modal-wrap &gt; modal.&lt;변형&gt; &gt; (modal-header &gt; .left &gt; .icon + .text [+ .close-btn]) + modal-body + modal-footer</code></li>
+        <li>아이콘은 <code>lucide-react</code> 컴포넌트를 <code>.icon</code> 박스 안에 넣고 크기·색은 SCSS에서 제어 (<code>svg { height: 80% }</code>)</li>
+        <li>상태 표현은 클래스로: <code>.active</code>, <code>.has-report-date</code>, <code>.hidden</code>, 주야간·방향 클래스 (HJA 님이 <code>li</code>에 클래스 주입 → 본인이 스타일)</li>
+        <li>phase0 보고서 날짜 표기: <code>2026년 &lt;em&gt;06월 16일(화)&lt;/em&gt;</code> — 요일을 계산해 넣고 강조 부분만 <code>&lt;em&gt;</code>으로 감쌈</li>
+      </ul>
+    </section>
+
+    <!-- 3 -->
+    <section class="card" id="js">
+      <h2><span class="num">3</span>프론트엔드 개발 <span class="tag">2순위</span></h2>
+      <h3>스택 (알고 있어야 할 것)</h3>
+      <ul>
+        <li><strong>React 19 + TypeScript + Vite 6</strong>. 라우터 없이 <code>App.tsx</code>에서 state로 화면 전환 (보고서 보기 ↔ 인라인 수정)</li>
+        <li><code>vite.config.ts</code>: <code>base: '/upload/'</code>(하위 경로 배포), 개발 서버 <strong>프록시</strong>로 <code>/upload/api</code>·<code>/upload/map_data</code>를 운영 서버로 전달 → 로컬에서 프론트만 띄워도 실제 API 확인 가능</li>
+        <li>경로는 <code>import.meta.env.BASE_URL</code> 기준으로 만듦 (<code>appPath()</code>) → 배포 경로가 바뀌어도 이미지·API 경로 유지</li>
+        <li>라이브러리: <code>react-datepicker</code>(+ <code>date-fns</code> 한국어), <code>lucide-react</code>(아이콘), <code>ol</code>(OpenLayers 지도) + <code>proj4</code>(좌표 변환), <code>dxf</code>(도면)</li>
+        <li>백엔드: Python FastAPI + PostgreSQL (HWP → XML → 파싱 → 위치 검증 → DB 적재). 프론트는 결과 조회·수정</li>
+      </ul>
+      <h3>React ↔ iframe 연동 구조</h3>
+      <ul>
+        <li>보고서는 React 이전에 만든 <code>public/phase0/daily-report-phase0.html</code>을 <code>&lt;iframe&gt;</code>으로 띄움 (기존 화면 재사용)</li>
+        <li>React가 <code>iframeRef.current.contentWindow</code>로 iframe 안 함수(<code>loadData()</code>, <code>renderWorkItems()</code>)를 직접 호출하고, 설정 모달의 호버 항목 on/off 상태를 iframe 문서의 체크박스에 동기화</li>
+        <li>그래서 iframe 쪽 스타일은 React 번들과 별개로 컴파일되는 CSS를 써야 함 → 1번의 <strong>컴파일 경로 2개</strong>가 생긴 이유</li>
+      </ul>
+      <h3>본인이 손댄 JS</h3>
+      <ul>
+        <li><strong>툴팁 위치 판단</strong>: <code>getBoundingClientRect()</code>로 위·아래 남은 공간을 계산해서, 아래가 부족하고 위가 충분할 때만 위로 띄움 (기존: 아래가 조금만 부족해도 위로 → 위에서 잘림)</li>
+        <li><strong>직군 중복 합치기</strong>: 등장 횟수를 세고 처음 나온 순서를 유지해 <code>현장대리인, 안전관리자(2)</code>처럼 출력</li>
+        <li>보고서 날짜를 <code>YYYYMMDD</code> 문자열에서 요일까지 계산해 표시, 공구 버튼 액션 코드 위치 이동</li>
+        <li>그 외 동작(업로드, 파싱 결과 저장, 로그인 세션, URL 파라미터로 공구 지정)은 다른 팀원 작업</li>
+      </ul>
+    </section>
+
+    <!-- 4 -->
+    <section class="card" id="env">
+      <h2><span class="num">4</span>협업·환경 <span class="tag">짧게</span></h2>
+      <ul>
+        <li>사내 git 서버(bare 저장소), main 브랜치 공동 작업, 푸시 시 훅으로 자동 배포. 운영은 Apache가 <code>/upload/api</code>를 백엔드로 프록시, 프론트는 PM2</li>
+        <li>커밋 접두어: <code>[HEADER]</code>, <code>[DICTIONARY 모달]</code>, 7월부터 <code>[UI] / [FIX] / [DESIGN] / [REFACT] / [ASSETS] / [WIP]</code>로 작업 종류 구분. 개발단 요청 반영은 <code>(**개발단 수정**)</code> 표시</li>
+        <li><strong>AI 코딩 도구(Claude) 활용</strong>: 커밋 23건에 <code>- claude</code> 표시. 툴팁·모달 애니메이션 초안 등에 쓰고, "JS·DOM·속성은 건드리지 않고 클래스만 교체", "JS가 쓰는 클래스는 검색 후 삭제" 같은 <strong>규칙을 정해 결과를 검증</strong></li>
+        <li>코드 안 <code>ymy</code> 주석으로 이슈 표시 → 06.24 일괄 처리, 큰 구조 변경 주석은 정리</li>
+        <li>Windows + VS Code, <code>npm run dev</code> / <code>npm run sass:watch</code></li>
+      </ul>
+    </section>
+
+    <!-- 5 -->
+    <section class="card" id="interview">
+      <h2><span class="num">5</span>인터뷰 대비</h2>
+
+      <h3>물어볼 만한 약점과 답변 방향</h3>
+      <div class="grid-2">
+        <div class="mini"><h4>1. Tailwind와 SCSS 공존</h4><p>Tailwind import는 꺼져 있는데 <code>InlineEditView</code>(124개), <code>LocationDictionaryModal</code>·<code>EditTab*</code>(손대지 않음)에 Tailwind 클래스가 남아 있음 → <strong>지금은 효과 없는 클래스</strong>일 가능성이 큼.<br />→ "화면 우선순위대로 전환했고, 남은 화면은 다음 단계였다. 전환 체크리스트로 관리하겠다."</p></div>
+        <div class="mini"><h4>2. 중간 산출물·백업 파일</h4><p><code>daily-report-ksk_backup.css</code>, <code>LoginPage_backup260804.tsx</code>, 컴파일된 <code>.css</code>·<code>.css.map</code>이 저장소에 함께 있음. <code>src/pages</code>에 남은 옛 <code>.css</code>가 sass watch 결과를 <strong>덮어쓰는 문제</strong>도 있었음.<br />→ "빌드 결과물은 .gitignore, 백업은 git 이력으로 대체해야 한다."</p></div>
+        <div class="mini"><h4>3. 접근성 부족</h4><p><code>aria-</code> 속성이 <code>App.tsx</code> 2곳, <code>InlineEditView</code> 0곳. 모달 포커스 이동·ESC 닫기 없음.<br />→ "디자인 전환이 우선이었다. 모달에 <code>role="dialog"</code>, <code>aria-modal</code>, 포커스 트랩을 넣는 게 다음 과제."</p></div>
+        <div class="mini"><h4>4. JS가 직접 넣는 인라인 스타일</h4><p>phase0 JS에 <code>style="color:#dc2626"</code>, <code>el.style.borderRight</code> 같은 값이 남아 있음.<br />→ "JS는 상태 클래스만 붙이고 색은 SCSS 토큰이 담당하도록 옮기는 중이었다(호버 스타일은 실제로 이관함)."</p></div>
+        <div class="mini"><h4>5. WIP 커밋이 많음</h4><p>"퇴근전 push", "작업중" 커밋 다수.<br />→ "작업 브랜치를 쓰고 main 머지 전에 정리(squash)하는 게 맞다."</p></div>
+        <div class="mini"><h4>6. 하드코딩된 색·이미지 탭</h4><p>헤더에 <code>#547877</code> 같은 헥스 값, 탭 모양을 png 조각으로 구현.<br />→ "CFS와 똑같은 모양을 빨리 맞추려고 이미지 조각을 썼다. 장기적으로는 <code>clip-path</code>나 svg로 바꾸면 해상도·색 변경에 유리."</p></div>
+      </div>
+
+      <h3>예상 질문</h3>
+      <dl class="qa">
+        <dt>Tailwind 프로토타입을 왜 SCSS로 바꿨나요?</dt>
+        <dd>회사 서비스들이 같은 SCSS 토큰(색·간격·버튼 크기)을 쓰고 있어서, 이 앱도 같은 디자인 시스템에 맞춰야 다른 서비스와 화면이 통일됩니다. Tailwind 클래스가 JSX에 길게 붙어 있으면 디자이너가 수정하기도 어렵고요. 그래서 진입 CSS를 SCSS로 바꾸고, 화면 단위로 클래스만 교체했습니다.</dd>
+        <dt>전환하면서 기능이 깨지지 않게 어떻게 했나요?</dt>
+        <dd>DOM 구조·이벤트·텍스트·속성은 그대로 두고 className만 바꾸는 원칙을 정했습니다. 일부 클래스는 JS가 <code>querySelector</code>나 <code>closest</code>로 찾는 연결 고리라서, 지우기 전에 코드 전체에서 검색해 스타일 전용인지 확인했습니다.</dd>
+        <dt>SCSS 컴파일 경로가 왜 두 개인가요?</dt>
+        <dd>React 화면은 Vite가 SCSS를 import해서 번들에 넣지만, 보고서는 <code>public/</code> 아래 독립 HTML이 iframe으로 열리는 구조라 Vite 번들을 쓸 수 없습니다. 그래서 보고서용 SCSS만 sass CLI로 <code>public/phase0</code>에 따로 컴파일했습니다. 토큰은 같은 변수 파일을 공유합니다.</dd>
+        <dt>헤더 탭이 겹쳐 보이게 한 방법은?</dt>
+        <dd>탭 꼬리를 <code>::after</code>로 붙이고, 왼쪽 탭이 오른쪽 탭 위로 오도록 <code>@for</code>로 순서에 따라 z-index를 내림차순 계산했습니다. 선택된 탭만 z-index를 가장 높게 주고 살짝 올려서 앞으로 튀어나와 보이게 했습니다.</dd>
+        <dt>로딩 모달 깜빡임에서 opacity 대신 background-color를 애니메이션한 이유는?</dt>
+        <dd>opacity를 쓰면 안쪽 이미지까지 같이 흐려집니다. 배경 원만 깜빡이고 아이콘은 선명하게 두려고 배경색만 바꿨고, 반투명 색은 <code>color-mix()</code>로 토큰 색에서 만들었습니다.</dd>
+        <dt>달력에서 날짜 두 개가 선택된 것처럼 보인 원인은?</dt>
+        <dd>react-datepicker는 실제 선택(<code>--selected</code>)과 키보드 포커스(<code>--keyboard-selected</code>)를 따로 표시하는데, 기본 스타일이 둘 다 배경색을 칠합니다. 키보드 포커스 스타일을 투명하게 바꾸고, "작업 있는 날 / 이전 달 / 선택됨" 상태가 겹칠 때 어떤 스타일이 이길지 선언 순서를 정리했습니다.</dd>
+        <dt>자동완성 때 인풋 배경이 바뀌는 문제는 어떻게 막았나요?</dt>
+        <dd>크롬은 자동완성된 인풋에 자체 배경을 강제로 칠하고 일반 CSS로는 덮이지 않습니다. <code>:-webkit-autofill</code>에 background-color transition을 아주 길게(9999s) 줘서 배경이 바뀌는 게 사실상 보이지 않게 했습니다.</dd>
+        <dt>AI 도구는 어떻게 썼나요?</dt>
+        <dd>애니메이션이나 툴팁처럼 초안이 필요한 부분에 쓰고, 커밋에 표시해 추적했습니다. 대신 "JS·구조·텍스트는 건드리지 않는다" 같은 규칙을 정해 두고, 결과는 직접 화면과 코드로 확인한 뒤 반영했습니다.</dd>
+      </dl>
+    </section>
+
+    <!-- 6 -->
+    <section class="card" id="resume">
+      <h2><span class="num">6</span>경력기술서 문장 예시</h2>
+      <ul class="resume">
+        <li>고속도로 사업단 <strong>일일작업보고 업로드·검토 웹앱</strong>(React + TypeScript + Vite)의 UI를 담당해, AI 프로토타입(Tailwind)을 <strong>사내 SCSS 디자인 시스템으로 전환</strong>했습니다. 팀 커밋의 약 70%(168건)를 맡았습니다.</li>
+        <li>React 번들(Vite)과 iframe으로 열리는 레거시 보고서 페이지(sass CLI)로 <strong>SCSS 컴파일 경로를 나눠</strong>, 하나의 디자인 토큰으로 두 화면의 스타일을 맞췄습니다.</li>
+        <li>HWP 업로드, 파싱 진행, DB 적재 완료, 위치 사전(Dictionary) 등 <strong>모달 10여 종을 공용 모달 구조로 퍼블리싱</strong>하고, 진행 상태를 알려주는 애니메이션을 적용했습니다.</li>
+        <li>헤더를 사내 다른 서비스와 같은 디자인으로 통일하고, react-datepicker를 커스텀해 <strong>보고서가 있는 날짜를 표시하는 달력</strong>을 구현했습니다.</li>
+        <li>JS 연결 클래스를 먼저 확인하고 className만 바꾸는 원칙으로, <strong>기능 변경 없이 디자인만 교체</strong>했습니다.</li>
+      </ul>
+    </section>
+
+    <footer class="note">upload-frontend 저장소(git 이력·소스·인계 문서) 분석 기반 · 개인 준비용</footer>
+  </main>
+</div>
+
+<script>
+  (function () {
+    var root = document.documentElement;
+    try { var saved = localStorage.getItem('theme'); if (saved) root.setAttribute('data-theme', saved); } catch (e) {}
+    document.getElementById('themeBtn').addEventListener('click', function () {
+      var cur = root.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      var next = cur === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+</body>
+</html>
