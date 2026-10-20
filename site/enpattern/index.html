@@ -205,6 +205,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
 .settings label { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-top: 1px solid var(--line); font-size: 15px; }
 .settings label:first-of-type { border-top: 0; }
 .settings input { width: 22px; height: 22px; accent-color: var(--green); }
+.sync { position: absolute; top: 12px; left: max(12px, env(safe-area-inset-left, 0px)); z-index: 25; background: var(--bad-bg); color: var(--bad-ink); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 99px; }
 @media (prefers-reduced-motion: reduce) { .sheet, .key, .toast { transition: none; } }
 </style>
 </head>
@@ -215,6 +216,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
   <nav class="tabbar" id="tabbar" aria-label="메뉴"></nav>
   <section class="sheet" id="sheet" aria-live="polite"></section>
   <div class="toast" id="toast" role="status"></div>
+  <div class="sync" id="sync" hidden>저장 대기 중</div>
 </div>
 
 <script>
@@ -280,7 +282,80 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
     try { var s = JSON.parse(localStorage.getItem(KEY)); if (s) for (var k in s) d[k] = s[k]; } catch (e) {}
     return d;
   }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} }
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} schedulePush(); }
+
+  /* ================= 서버 저장 (Firestore REST, 개인 링크 코드별) ================= */
+  var FB = { key: "AIzaSyB564JPCQTuethG39piReuvr_flVSTgBKw", project: "enpattern-f5fa3" };
+  var CODE = readCode(), REMOTE = !!CODE, pushTimer = null, pushing = false;
+  function readCode() {
+    var m = /[?&]c=([A-Za-z0-9-]+)/.exec(location.search), c = m ? m[1] : null;
+    try { if (c) localStorage.setItem(KEY + ".code", c); else c = localStorage.getItem(KEY + ".code"); } catch (e) {}
+    return c ? c.toUpperCase().replace(/[^A-Z0-9]/g, "") : null;
+  }
+  function docUrl() { return "https://firestore.googleapis.com/v1/projects/" + FB.project + "/databases/(default)/documents/learners/" + CODE + "?key=" + FB.key; }
+  function enc(v) {
+    if (v === null || v === undefined) return { nullValue: null };
+    if (Array.isArray(v)) return { arrayValue: { values: v.map(enc) } };
+    if (typeof v === "boolean") return { booleanValue: v };
+    if (typeof v === "number") return Number.isInteger(v) ? { integerValue: String(v) } : { doubleValue: v };
+    if (typeof v === "string") return { stringValue: v };
+    var f = {}; for (var k in v) if (v.hasOwnProperty(k)) f[k] = enc(v[k]);
+    return { mapValue: { fields: f } };
+  }
+  function dec(x) {
+    if (!x || "nullValue" in x) return null;
+    if ("integerValue" in x) return parseInt(x.integerValue, 10);
+    if ("doubleValue" in x) return x.doubleValue;
+    if ("booleanValue" in x) return x.booleanValue;
+    if ("stringValue" in x) return x.stringValue;
+    if ("timestampValue" in x) return x.timestampValue;
+    if ("arrayValue" in x) return (x.arrayValue.values || []).map(dec);
+    if ("mapValue" in x) { var o = {}, f = x.mapValue.fields || {}; for (var k in f) o[k] = dec(f[k]); return o; }
+    return null;
+  }
+  function setPending(on) { try { if (on) localStorage.setItem(KEY + ".pending", "1"); else localStorage.removeItem(KEY + ".pending"); } catch (e) {} drawSync(on); }
+  function isPending() { try { return localStorage.getItem(KEY + ".pending") === "1"; } catch (e) { return false; } }
+  function drawSync(on) { var el = document.getElementById("sync"); if (el) el.hidden = !on; }
+  function schedulePush() { if (!REMOTE) return; setPending(true); clearTimeout(pushTimer); pushTimer = setTimeout(push, 600); }
+  function push() {
+    if (!REMOTE || pushing) return;
+    pushing = true;
+    var fields = enc({ done: st.done ? [1] : [], progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
+    fields.updatedAt = { timestampValue: new Date().toISOString() };
+    fetch(docUrl(), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }) })
+      .then(function (r) { pushing = false; if (r.ok) setPending(false); else setPending(true); })
+      .catch(function () { pushing = false; setPending(true); });
+  }
+  window.addEventListener("online", function () { if (isPending()) push(); });
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden" && isPending()) push(); });
+  function boot() {
+    var onGithub = /github\.io$/.test(location.hostname);
+    if (!CODE && onGithub) return renderLink(false);
+    if (!REMOTE) return renderTab();
+    $screen.className = "screen"; $tab.hidden = true;
+    $screen.innerHTML = '<div style="flex:1;display:grid;place-items:center;color:var(--paper)">불러오는 중…</div>';
+    if (isPending()) { renderTab(); push(); return; }
+    fetch(docUrl()).then(function (r) {
+      if (r.status === 403) return renderLink(true);
+      if (r.status === 404) { renderTab(); return; }
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json().then(function (d) {
+        var v = dec({ mapValue: { fields: d.fields || {} } }) || {};
+        st.done = (v.done || []).indexOf(1) >= 0;
+        st.progress = v.progress || null;
+        st.wrong = v.wrong || {};
+        try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
+        renderTab();
+      });
+    }).catch(function () { renderTab(); setPending(true); toast("인터넷 연결을 확인해 주세요. 연결되면 저장할게요"); });
+  }
+  function renderLink(invalid) {
+    $tab.hidden = true; $screen.className = "screen"; setPaper(false);
+    $screen.innerHTML = '<div style="flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;color:var(--paper);padding:20px 8px">' +
+      '<div style="width:130px;margin:0 auto 20px">' + charSVG("keycap", "oops", "키캡") + "</div>" +
+      '<h1 style="font-size:22px;margin:0 0 8px">' + (invalid ? "등록되지 않은 링크예요" : "개인 링크로 들어와 주세요") + "</h1>" +
+      '<p style="margin:0;color:#CDE7D9">' + (invalid ? "받은 링크를 다시 확인하거나 운영자에게 물어봐 주세요." : "운영자에게 받은 나만의 링크로 열면 학습 기록이 저장돼요.") + "</p></div>";
+  }
   function today() { var d = new Date(Date.now() + 9 * 3600 * 1000); return d.toISOString().slice(0, 10); } /* 한국 시간 날짜 */
 
   /* ================= 유틸 ================= */
@@ -838,7 +913,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
     draw(""); play(false);
   }
 
-  renderTab();
+  boot();
 })();
 </script>
 
