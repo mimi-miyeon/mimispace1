@@ -274,24 +274,26 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
   var NEXT = [[2, "I have some ~.", "어떤 ~가 있어요"], [3, "I don't have ~.", "나는 ~이 없어요"], [4, "Do you have any ~?", "~ 있어요?"], [5, "I didn't have any ~.", "나는 ~가 없었어요"],
     [6, "I was ~.", "나는 ~였어요"], [7, "I wasn't ~.", "나는 ~가 아니었어요"], [8, "Were you ~?", "당신은 ~였나요?"], [9, "I was told to ~.", "~하라고 들었어요"], [10, "I was wondering if ~.", "~인지 궁금했어요"]];
 
-  /* ================= 저장 (실패해도 동작) ================= */
-  var KEY = "mmpattern.sample.v1";
-  var st = load();
-  function load() {
-    var d = { done: false, progress: null, wrong: {}, autoplay: true };
-    try { var s = JSON.parse(localStorage.getItem(KEY)); if (s) for (var k in s) d[k] = s[k]; } catch (e) {}
-    return d;
-  }
-  function save() { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} schedulePush(); }
-
-  /* ================= 서버 저장 (Firestore REST, 개인 링크 코드별) ================= */
+  /* ================= 저장: 브라우저(코드별) + 서버(Firestore REST) ================= */
+  var KEY = "mmpattern.sample.v1", VERSION = "3";
   var FB = { key: "AIzaSyB564JPCQTuethG39piReuvr_flVSTgBKw", project: "enpattern-f5fa3" };
-  var CODE = readCode(), REMOTE = !!CODE, pushTimer = null, pushing = false;
+  var CODE = readCode(), REMOTE = !!CODE, DKEY = KEY + (CODE ? "." + CODE : "");
+  var synced = false, pushTimer = null, pushing = false, retryTimer = null, syncState = REMOTE ? "loading" : "local";
+  var st = load();
   function readCode() {
     var m = /[?&]c=([A-Za-z0-9-]+)/.exec(location.search), c = m ? m[1] : null;
     try { if (c) localStorage.setItem(KEY + ".code", c); else c = localStorage.getItem(KEY + ".code"); } catch (e) {}
     return c ? c.toUpperCase().replace(/[^A-Z0-9]/g, "") : null;
   }
+  function blank() { return { done: false, progress: null, wrong: {}, autoplay: true, localAt: "" }; }
+  function load() {
+    var d = blank();
+    try { var s = JSON.parse(localStorage.getItem(DKEY)); if (s) for (var k in s) d[k] = s[k]; } catch (e) {}
+    return d;
+  }
+  function writeLocal() { try { localStorage.setItem(DKEY, JSON.stringify(st)); } catch (e) {} }
+  function save() { st.localAt = new Date().toISOString(); writeLocal(); schedulePush(); }
+
   function docUrl() { return "https://firestore.googleapis.com/v1/projects/" + FB.project + "/databases/(default)/documents/learners/" + CODE + "?key=" + FB.key; }
   function enc(v) {
     if (v === null || v === undefined) return { nullValue: null };
@@ -313,41 +315,61 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
     if ("mapValue" in x) { var o = {}, f = x.mapValue.fields || {}; for (var k in f) o[k] = dec(f[k]); return o; }
     return null;
   }
-  function setPending(on) { try { if (on) localStorage.setItem(KEY + ".pending", "1"); else localStorage.removeItem(KEY + ".pending"); } catch (e) {} drawSync(on); }
-  function isPending() { try { return localStorage.getItem(KEY + ".pending") === "1"; } catch (e) { return false; } }
-  function drawSync(on) { var el = document.getElementById("sync"); if (el) el.hidden = !on; }
-  function schedulePush() { if (!REMOTE) return; setPending(true); clearTimeout(pushTimer); pushTimer = setTimeout(push, 600); }
+  function pendKey() { return DKEY + ".pending"; }
+  function setPending(on) { try { if (on) localStorage.setItem(pendKey(), "1"); else localStorage.removeItem(pendKey()); } catch (e) {} drawSync(); }
+  function isPending() { try { return localStorage.getItem(pendKey()) === "1"; } catch (e) { return false; } }
+  function drawSync() { var el = document.getElementById("sync"); if (el) el.hidden = !(REMOTE && (isPending() || !synced) && syncState !== "loading"); }
+  function schedulePush() { if (!REMOTE) return; setPending(true); if (!synced) return; clearTimeout(pushTimer); pushTimer = setTimeout(push, 600); }
   function push() {
-    if (!REMOTE || pushing) return;
+    if (!REMOTE || !synced || pushing) return;
     pushing = true;
     var fields = enc({ done: st.done ? [1] : [], progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
-    fields.updatedAt = { timestampValue: new Date().toISOString() };
-    fetch(docUrl(), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }) })
-      .then(function (r) { pushing = false; if (r.ok) setPending(false); else setPending(true); })
-      .catch(function () { pushing = false; setPending(true); });
+    fields.updatedAt = { timestampValue: st.localAt || new Date().toISOString() };
+    fetch(docUrl(), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }), cache: "no-store" })
+      .then(function (r) { pushing = false; syncState = r.ok ? "ok" : "error " + r.status; setPending(!r.ok); })
+      .catch(function () { pushing = false; syncState = "offline"; setPending(true); });
   }
-  window.addEventListener("online", function () { if (isPending()) push(); });
-  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden" && isPending()) push(); });
+  /* 서버 기록과 이 기기 기록 중 더 최근 것을 쓰고, 서버를 먼저 읽기 전에는 절대 덮어쓰지 않는다 */
+  function pull(first) {
+    clearTimeout(retryTimer);
+    return fetch(docUrl(), { cache: "no-store" }).then(function (r) {
+      if (r.status === 403) { syncState = "invalid"; return "invalid"; }
+      if (r.status === 404) { synced = true; syncState = "ok"; if (isPending()) push(); return "ok"; }
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json().then(function (d) {
+        var v = dec({ mapValue: { fields: d.fields || {} } }) || {}, serverAt = v.updatedAt || "";
+        synced = true; syncState = "ok";
+        if (isPending() && st.localAt && st.localAt > serverAt) { push(); return "ok"; }
+        st.done = (v.done || []).indexOf(1) >= 0;
+        st.progress = v.progress || null;
+        st.wrong = v.wrong || {};
+        st.localAt = serverAt;
+        writeLocal(); setPending(false);
+        return "ok";
+      });
+    }).catch(function () {
+      syncState = "offline"; drawSync();
+      retryTimer = setTimeout(function () { pull(false).then(function (res) { if (res === "ok" && !R) renderTab(); }); }, 15000);
+      return "offline";
+    });
+  }
+  window.addEventListener("online", function () { if (REMOTE && !synced) pull(false).then(function (res) { if (res === "ok" && !R) renderTab(); }); else if (isPending()) push(); });
+  document.addEventListener("visibilitychange", function () {
+    if (!REMOTE) return;
+    if (document.visibilityState === "hidden" && isPending()) push();
+    if (document.visibilityState === "visible" && !R && synced) pull(false).then(function (res) { if (res === "ok" && !R) renderTab(); });
+  });
   function boot() {
     var onGithub = /github\.io$/.test(location.hostname);
     if (!CODE && onGithub) return renderLink(false);
     if (!REMOTE) return renderTab();
     $screen.className = "screen"; $tab.hidden = true;
     $screen.innerHTML = '<div style="flex:1;display:grid;place-items:center;color:var(--paper)">불러오는 중…</div>';
-    if (isPending()) { renderTab(); push(); return; }
-    fetch(docUrl()).then(function (r) {
-      if (r.status === 403) return renderLink(true);
-      if (r.status === 404) { renderTab(); return; }
-      if (!r.ok) throw new Error("http " + r.status);
-      return r.json().then(function (d) {
-        var v = dec({ mapValue: { fields: d.fields || {} } }) || {};
-        st.done = (v.done || []).indexOf(1) >= 0;
-        st.progress = v.progress || null;
-        st.wrong = v.wrong || {};
-        try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {}
-        renderTab();
-      });
-    }).catch(function () { renderTab(); setPending(true); toast("인터넷 연결을 확인해 주세요. 연결되면 저장할게요"); });
+    pull(true).then(function (res) {
+      if (res === "invalid") return renderLink(true);
+      renderTab(); drawSync();
+      if (res === "offline") toast("인터넷 연결을 확인해 주세요. 연결되면 다시 불러올게요");
+    });
   }
   function renderLink(invalid) {
     $tab.hidden = true; $screen.className = "screen"; setPaper(false);
@@ -488,10 +510,11 @@ button:focus-visible, input:focus-visible { outline: 3px solid var(--yellow); ou
     $sheet.innerHTML = '<div class="sh-title">샘플 확인용 설정</div><div class="settings">' +
       '<label>정답일 때 자동으로 듣기<input type="checkbox" id="optAuto"' + (st.autoplay ? " checked" : "") + "></label>" +
       '<label>기록 지우고 처음 상태로<button class="key w" id="optReset" style="width:auto;min-height:38px;padding:0 14px;font-size:14px">지우기</button></label></div>' +
+      '<p style="font-size:12px;color:var(--ink-soft);margin:10px 0 0">버전 ' + VERSION + (CODE ? " · 코드 " + CODE.slice(0, 4) + "-" + CODE.slice(4) : " · 개인 링크 없음") + " · 저장 " + (REMOTE ? (isPending() ? "대기 중" : syncState === "ok" ? "완료" : syncState) : "이 기기만") + "</p>" +
       '<button class="key d" id="optClose" style="margin-top:12px">닫기</button>';
     openSheet();
     document.getElementById("optAuto").onchange = function (e) { st.autoplay = e.target.checked; save(); };
-    document.getElementById("optReset").onclick = function () { st = { done: false, progress: null, wrong: {}, autoplay: st.autoplay }; save(); closeSheet(); renderTab(); toast("처음 상태로 돌렸어요"); };
+    document.getElementById("optReset").onclick = function () { var ap = st.autoplay; st = blank(); st.autoplay = ap; save(); closeSheet(); renderTab(); toast("처음 상태로 돌렸어요"); };
     document.getElementById("optClose").onclick = closeSheet;
   }
 
