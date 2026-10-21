@@ -29,9 +29,11 @@
     for (var i = 0; i < items.length; i++) if (items[i].id === id) return items[i];
     return null;
   }
+  /* 빈칸 뒤 문장. 문장부호 하나뿐이면 띄우지 않는다 */
+  function tail(after) { return /^[.?!]$/.test(after) ? after : " " + after; }
   function fullAnswer(it) {
     if (it.type !== "blank") return it.answers[0];
-    return it.before + " " + it.answers[0] + (it.after === "." ? "." : " " + it.after);
+    return (it.before ? it.before + " " : "") + it.answers[0] + tail(it.after);
   }
   function coreOf(it) { return it.type === "blank" ? it.answers[0] : S().stem; }
   /* 예문 + 모든 문제의 정답 문장 */
@@ -41,5 +43,5 @@
     return out;
   }
 
-  EP.content = { itemById: itemById, fullAnswer: fullAnswer, coreOf: coreOf, sessionSentences: sessionSentences };
+  EP.content = { itemById: itemById, fullAnswer: fullAnswer, tail: tail, coreOf: coreOf, sessionSentences: sessionSentences };
 })(window.EP);

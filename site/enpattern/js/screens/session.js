@@ -99,7 +99,7 @@
     if (it.dialog) body += '<div class="ctx"><div><span class="who">A</span><span class="en">' + esc(it.dialog.a) + '</span></div><div class="sm indent">' + esc(it.dialog.aKo) + "</div>" +
       '<div class="reply"><span class="who">B</span><span class="sm">아래 문장을 영어로</span></div></div>';
     body += '<p class="q-ko">' + esc(it.ko) + "</p>";
-    if (blank) body += '<p class="blank-line">' + esc(it.before) + ' <span class="bl">?</span>' + (it.after === "." ? "." : " " + esc(it.after)) + "</p>";
+    if (blank) body += '<p class="blank-line">' + (it.before ? esc(it.before) + " " : "") + '<span class="bl">?</span>' + esc(C.tail(it.after)) + "</p>";
     if (R.copy) body += '<div class="copy"><div class="lab">정답을 그대로 따라 입력해 보세요</div><div class="en">' + esc(it.answers[0]) + "</div></div>";
 
     $screen.innerHTML = topBar(segs()) + '<div class="kind">' + label + '</div><div class="chip">' + esc(S.hint) + "</div>" + body +

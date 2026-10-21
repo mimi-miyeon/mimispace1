@@ -74,6 +74,10 @@ npm run watch:enpattern     # 작업 중 자동 컴파일
 
 ## 콘텐츠 형식 (js/data)
 
+세션 하나가 파일 하나입니다: `js/data/pattern{번호}.js` 안에서 `(EP.sessions = EP.sessions || {})[번호] = { ... }`.
+(`pattern1.js`는 샘플 화면이 쓰는 예전 형식 `EP.data.session`. 여러 세션 연결 작업 때 새 형식으로 옮깁니다.)
+빈칸 문제에서 빈칸이 문장 맨 앞이면 `before: ""`, 뒤가 문장부호 하나면 `after: "?"`처럼 씁니다.
+
 문제 하나(`items[]`)에 들어가는 값:
 
 | 키 | 뜻 |
@@ -84,6 +88,13 @@ npm run watch:enpattern     # 작업 중 자동 컴파일
 | `wrong` | 자주 나오는 오답 → 설명. 키는 정규화한 문장(소문자, 문장부호 없음, 축약형 풀기) |
 
 다른 표현으로 맞히면 정답 시트에 "이번 패턴으로는" 줄로 대표 정답을 함께 보여 줍니다.
+
+### 제작 사이클: 제작 → 점검 → 확정 또는 수정
+
+1. 제작: 세션 파일을 만든다.
+2. 점검: `npm run check:enpattern` 오류 0개, 그리고 검토 페이지로 사람이 읽어 본다.
+   `node site/enpattern/tools/build-review.js 결과.html 2 3 4` (세션 번호를 빼면 전체)
+3. 확정 또는 수정: 고칠 곳은 고치고 2번부터 다시.
 
 ### 콘텐츠 점검
 
@@ -132,4 +143,5 @@ js/screens/session.js     EP.session  학습 세션 진행과 완료 화면
 js/screens/follow.js      EP.follow   따라 말하기
 js/main.js                시작(개인 코드 확인 → 기록 불러오기)
 tools/check-content.js    콘텐츠 점검 (npm run check:enpattern)
+tools/build-review.js     검토 페이지 만들기 (review.css 사용)
 ```

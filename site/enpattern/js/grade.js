@@ -5,8 +5,15 @@
   var esc = EP.util.esc;
 
   var CONTR = { "i'm": "i am", "you're": "you are", "it's": "it is", "that's": "that is", "don't": "do not", "doesn't": "does not", "didn't": "did not",
-    "can't": "cannot", "isn't": "is not", "aren't": "are not", "i've": "i have", "i'd": "i would", "won't": "will not", "what's": "what is", "he's": "he is", "she's": "she is" };
-  var NOAPOS = { "im": "i'm", "dont": "don't", "doesnt": "doesn't", "didnt": "didn't", "cant": "can't", "isnt": "isn't", "arent": "aren't", "ive": "i've", "youre": "you're", "thats": "that's", "whats": "what's" };
+    "can't": "cannot", "isn't": "is not", "aren't": "are not", "i've": "i have", "i'd": "i would", "won't": "will not", "what's": "what is", "he's": "he is", "she's": "she is",
+    "wasn't": "was not", "weren't": "were not", "haven't": "have not", "hasn't": "has not", "hadn't": "had not", "couldn't": "could not",
+    "wouldn't": "would not", "shouldn't": "should not", "mustn't": "must not", "we're": "we are", "they're": "they are", "you've": "you have",
+    "we've": "we have", "they've": "they have", "i'll": "i will", "you'll": "you will", "we'll": "we will", "they'll": "they will",
+    "it'll": "it will", "there's": "there is", "here's": "here is", "where's": "where is", "who's": "who is", "how's": "how is" };
+  var NOAPOS = { "im": "i'm", "dont": "don't", "doesnt": "doesn't", "didnt": "didn't", "cant": "can't", "isnt": "isn't", "arent": "aren't", "ive": "i've", "youre": "you're", "thats": "that's", "whats": "what's",
+    "wasnt": "wasn't", "werent": "weren't", "havent": "haven't", "hasnt": "hasn't", "hadnt": "hadn't", "couldnt": "couldn't", "wouldnt": "wouldn't",
+    "shouldnt": "shouldn't", "mustnt": "mustn't", "theyre": "they're", "youve": "you've", "weve": "we've", "theyve": "they've", "youll": "you'll",
+    "theyll": "they'll", "theres": "there's", "wheres": "where's", "whos": "who's", "hows": "how's" };
   var NUM = { "1": "one", "2": "two", "3": "three", "4": "four", "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine", "10": "ten" };
 
   /* 실제 단어 목록: 여기 있는 단어는 오타로 보지 않는다 */
@@ -72,7 +79,7 @@
       for (i = 0; i < u.length; i++) {
         t = u.slice(0, i).concat(u.slice(i + 1));
         if (t.join(" ") !== a.join(" ")) continue;
-        if (/^(am|is|are)$/.test(u[i])) return "have 앞에는 am / is / are를 함께 쓰지 않아요.";
+        if (/^(am|is|are)$/.test(u[i]) && a.indexOf("have") >= 0) return "have 앞에는 am / is / are를 함께 쓰지 않아요.";
         if (u[i] === "a" || u[i] === "an") return "여기에는 a / an을 붙이지 않아요.";
         return "‘" + u[i] + "’는 빼야 해요.";
       }

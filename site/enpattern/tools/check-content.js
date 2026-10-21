@@ -33,8 +33,15 @@ function dataFiles(args) {
 }
 
 /* ---- 검사 ---- */
-function checkSession(EP, file) {
-  var S = EP.data.session, grade = EP.grade, norm = function (s) { return grade.normalize(s).toks.join(" "); };
+/* 데이터 파일 하나에 든 세션들. 새 형식은 EP.sessions[번호], 예전 샘플은 EP.data.session */
+function sessionsOf(EP) {
+  if (EP.sessions) return Object.keys(EP.sessions).map(function (k) { return EP.sessions[k]; });
+  return EP.data && EP.data.session ? [EP.data.session] : [];
+}
+
+function checkSession(EP, S) {
+  EP.data = EP.data || {}; EP.data.session = S;   /* 채점 코드는 지금 세션을 EP.data.session에서 읽는다 */
+  var grade = EP.grade, norm = function (s) { return grade.normalize(s).toks.join(" "); };
   var errors = [], warns = [], stats = { items: 0, answers: 0, wrongs: 0, tips: 0 };
   function err(where, msg) { errors.push(where + ": " + msg); }
   function warn(where, msg) { warns.push(where + ": " + msg); }
@@ -48,6 +55,11 @@ function checkSession(EP, file) {
     else if (!new RegExp("\\b" + S.stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(x.en)) warn("예문 " + (i + 1), "패턴(" + S.stem + ")이 들어 있지 않음: " + x.en);
   });
   if (!S.items || !S.items.length) { err("세션", "문제가 없음"); return { errors: errors, warns: warns, stats: stats }; }
+
+  var nb = S.items.filter(function (it) { return it.type === "blank"; }).length;
+  if (nb !== 5 || S.items.length - nb !== 6) warn("세션", "문제 수가 기준(빈칸 5, 문장 6)과 다름: 빈칸 " + nb + ", 문장 " + (S.items.length - nb));
+  if (!S.items.some(function (it) { return it.ctx; })) warn("세션", "바꿔 만들기(ctx) 문제가 없음");
+  if (!S.items.some(function (it) { return it.dialog; })) warn("세션", "대화 완성(dialog) 문제가 없음");
 
   var ids = {}, kos = {};
   S.items.forEach(function (it, n) {
@@ -124,15 +136,19 @@ var files = dataFiles(process.argv.slice(2)), total = { errors: 0, warns: 0 };
 if (!files.length) { console.log("검사할 데이터 파일이 없습니다."); process.exit(1); }
 
 files.forEach(function (f) {
-  var rel = path.relative(process.cwd(), f), r;
-  try { r = checkSession(loadEP(f), f); }
+  var rel = path.relative(process.cwd(), f), EP, list;
+  try { EP = loadEP(f); list = sessionsOf(EP); if (!list.length) throw new Error("세션 데이터가 없음"); }
   catch (e) { console.log("✗ " + rel + "\n    불러오기 실패: " + e.message); total.errors++; return; }
-  var head = (r.errors.length ? "✗ " : "✓ ") + rel + "  (문제 " + r.stats.items + ", 정답·다른 표현 " + r.stats.answers + ", 예상 오답 " + r.stats.wrongs + ", 팁 " + r.stats.tips + ")";
+  list.forEach(function (S) { report(rel + (S && S.no ? " · 세션 " + S.no : ""), checkSession(EP, S)); });
+});
+
+function report(name, r) {
+  var head = (r.errors.length ? "✗ " : "✓ ") + name + "  (문제 " + r.stats.items + ", 정답·다른 표현 " + r.stats.answers + ", 예상 오답 " + r.stats.wrongs + ", 팁 " + r.stats.tips + ")";
   console.log(head);
   r.errors.forEach(function (m) { console.log("    ✗ " + m); });
   r.warns.forEach(function (m) { console.log("    ! " + m); });
   total.errors += r.errors.length; total.warns += r.warns.length;
-});
+}
 
 console.log("\n" + (total.errors ? "오류 " + total.errors + "개" : "오류 없음") + (total.warns ? ", 주의 " + total.warns + "개" : ""));
 process.exit(total.errors ? 1 : 0);
