@@ -91,8 +91,10 @@
     if (!synced) return;
     clearTimeout(pushTimer); pushTimer = setTimeout(push, C.pushDelay);
   }
+  /* 아주 오래된 브라우저(fetch 없음)는 이 기기에만 저장한다 */
+  var CAN_FETCH = typeof window.fetch === "function";
   function push() {
-    if (!REMOTE || !synced || pushing) return;
+    if (!REMOTE || !synced || pushing || !CAN_FETCH) return;
     pushing = true;
     var fields = enc({ done: st.done, progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
     fields.updatedAt = { timestampValue: st.localAt || new Date().toISOString() };
@@ -104,6 +106,7 @@
      결과: "ok" | "invalid"(등록되지 않은 코드) | "offline" */
   function pull() {
     clearTimeout(retryTimer);
+    if (!CAN_FETCH) { syncState = "offline"; drawSync(); return Promise.resolve("offline"); }
     return fetch(docUrl(), { cache: "no-store" }).then(function (r) {
       if (r.status === 403) { syncState = "invalid"; return "invalid"; }
       if (r.status === 404) { synced = true; syncState = "ok"; if (isPending()) push(); return "ok"; }
