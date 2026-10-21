@@ -4,7 +4,7 @@
   "use strict";
   EP.catalog = {
     total: 230,
-    ready: 80,
+    ready: 90,
     list: [
       ["I have ~.","나는 ~이 있어요 / ~을 가지고 있어요"],
       ["I have some ~.","어떤 ~가 있어요."],

@@ -48,7 +48,7 @@
         ctx: { lead: "help 대신 ‘인내(patience)’로 바꿔 보세요.", en: "I appreciate your help." },
         wrong: { "i appreciate your patient": "patient는 ‘참을성 있는’이에요. ‘인내’는 patience예요." },
         tip: { en: "Thanks for waiting.", why: "Thanks for ~도 ‘~ 고마워’예요." } },
-      { id: "s6", type: "sentence", kind: "대화 완성", ko: "정말? 정말 고마워.", answers: ["Really? I really appreciate it.", "Really? I appreciate it.", "Really? I appreciate that."],
+      { id: "s6", type: "sentence", kind: "대화 완성", ko: "정말? 정말 고마워.", answers: ["Really? I appreciate it.", "Really? I appreciate that."], alts: ["Really? I really appreciate it."],
         dialog: { a: "I can lend you my laptop.", aKo: "내 노트북 빌려줄 수 있어." },
         wrong: { "really i appreciate for it": "appreciate 뒤에는 for를 쓰지 않아요." },
         tip: { en: "Really? You're a lifesaver.", why: "lifesaver는 ‘구세주’예요." } }
