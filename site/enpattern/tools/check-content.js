@@ -40,7 +40,8 @@ function sessionsOf(EP) {
 }
 
 function checkSession(EP, S) {
-  EP.data = EP.data || {}; EP.data.session = S;   /* 채점 코드는 지금 세션을 EP.data.session에서 읽는다 */
+  EP.data = EP.data || {}; EP.data.session = S;
+  EP.content.prepare(S);   /* 문제마다 소속 세션을 붙인다 (채점이 핵심 부분을 찾을 때 씀) */
   var grade = EP.grade, norm = function (s) { return grade.normalize(s).toks.join(" "); };
   var errors = [], warns = [], stats = { items: 0, answers: 0, wrongs: 0, tips: 0 };
   function err(where, msg) { errors.push(where + ": " + msg); }
@@ -149,6 +150,27 @@ function report(name, r) {
   r.warns.forEach(function (m) { console.log("    ! " + m); });
   total.errors += r.errors.length; total.warns += r.warns.length;
 }
+
+/* 세션 목록(catalog.js)이 세션 파일과 맞는지 */
+(function () {
+  if (process.argv.length > 2) return;   /* 파일을 골라 검사할 때는 건너뜀 */
+  var ctx = { console: console }; ctx.window = ctx; ctx.EP = {}; vm.createContext(ctx);
+  try { vm.runInContext(fs.readFileSync(path.join(ROOT, "js/data/catalog.js"), "utf8"), ctx); }
+  catch (e) { console.log("✗ js/data/catalog.js 없음 → node site/enpattern/tools/build-catalog.js"); total.errors++; return; }
+  var cat = ctx.EP.catalog, n = 0;
+  files.forEach(function (f) { var m = /pattern(\d+)\.js$/.exec(f); if (m) n = Math.max(n, +m[1]); });
+  var bad = [];
+  files.forEach(function (f) {
+    var E = loadEP(f); sessionsOf(E).forEach(function (S) {
+      var row = cat.list[S.no - 1];
+      if (!row || row[0] !== S.form || row[1] !== S.meaning) bad.push(S.no);
+    });
+  });
+  if (cat.ready !== files.length || bad.length) {
+    console.log("✗ js/data/catalog.js가 세션 파일과 다름" + (bad.length ? " (세션 " + bad.join(", ") + ")" : "") + " → node site/enpattern/tools/build-catalog.js");
+    total.errors++;
+  } else console.log("✓ js/data/catalog.js  (세션 " + cat.total + "개, 준비 1–" + cat.ready + ")");
+})();
 
 console.log("\n" + (total.errors ? "오류 " + total.errors + "개" : "오류 없음") + (total.warns ? ", 주의 " + total.warns + "개" : ""));
 process.exit(total.errors ? 1 : 0);

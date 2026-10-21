@@ -18,10 +18,26 @@
   }
 
   /* ---- 로컬 ---- */
-  function blank() { return { done: false, progress: null, wrong: {}, autoplay: true, localAt: "" }; }
+  /* done: 끝낸 세션 번호 목록
+     progress: 새 세션을 하다 멈춘 곳 { no, phase, pos, retry, firstOk, review }
+     wrong: 틀린 문제 { "세션-문제id": { streak, tabDay, rev } }  rev: 다음 세션 복습에 넣을지 */
+  function blank() { return { done: [], progress: null, wrong: {}, autoplay: true, localAt: "" }; }
   function load() {
     var d = blank();
     try { var s = JSON.parse(localStorage.getItem(DKEY)); if (s) for (var k in s) d[k] = s[k]; } catch (e) {}
+    return upgrade(d);
+  }
+  /* 세션 1만 있던 샘플 시절 기록을 지금 형식으로 옮긴다 */
+  function upgrade(d) {
+    if (!Array.isArray(d.done)) d.done = d.done ? [1] : [];
+    d.done = d.done.filter(function (n) { return typeof n === "number" && n > 0; });
+    var w = d.wrong || {}, out = {};
+    for (var k in w) out[k.indexOf("-") < 0 ? "1-" + k : k] = w[k];
+    d.wrong = out;
+    if (d.progress && !d.progress.no) {
+      d.progress.no = 1;
+      d.progress.retry = (d.progress.retry || []).map(function (k) { return k.indexOf("-") < 0 ? "1-" + k : k; });
+    }
     return d;
   }
   function writeLocal() { try { localStorage.setItem(DKEY, JSON.stringify(st)); } catch (e) {} }
@@ -78,7 +94,7 @@
   function push() {
     if (!REMOTE || !synced || pushing) return;
     pushing = true;
-    var fields = enc({ done: st.done ? [1] : [], progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
+    var fields = enc({ done: st.done, progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
     fields.updatedAt = { timestampValue: st.localAt || new Date().toISOString() };
     fetch(docUrl(), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }), cache: "no-store" })
       .then(function (r) { pushing = false; syncState = r.ok ? "ok" : "error " + r.status; setPending(!r.ok); })
@@ -96,10 +112,11 @@
         var v = dec({ mapValue: { fields: d.fields || {} } }) || {}, serverAt = v.updatedAt || "";
         synced = true; syncState = "ok";
         if (isPending() && st.localAt && st.localAt > serverAt) { push(); return "ok"; }
-        st.done = (v.done || []).indexOf(1) >= 0;
+        st.done = v.done || [];
         st.progress = v.progress || null;
         st.wrong = v.wrong || {};
         st.localAt = serverAt;
+        upgrade(st);
         writeLocal(); setPending(false);
         return "ok";
       });
@@ -130,8 +147,17 @@
   }
   function codeLabel() { return CODE ? CODE.slice(0, 4) + "-" + CODE.slice(4) : ""; }
 
+  /* ---- 진도 ---- */
+  function isDone(n) { return st.done.indexOf(n) >= 0; }
+  function markDone(n) { if (!isDone(n)) { st.done.push(n); st.done.sort(function (a, b) { return a - b; }); } }
+  /* 다음에 할 세션 = 아직 끝내지 않은 가장 앞 번호 (건너뛰기 없음) */
+  function nextNo() { var n = 1; while (isDone(n)) n++; return n; }
+
   EP.store = {
     state: st,
+    isDone: isDone,
+    markDone: markDone,
+    nextNo: nextNo,
     code: CODE,
     remote: REMOTE,
     save: save,

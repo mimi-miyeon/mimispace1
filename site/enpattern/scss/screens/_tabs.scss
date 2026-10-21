@@ -80,6 +80,15 @@
   }
 }
 
+// 틀린 문제: 세션별 묶음 제목
+.group {
+  grid-column: 1 / -1;   // 2열일 때도 한 줄 전체
+  margin: 6px 0 -2px;
+  color: var(--text-on-world);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+
 .note {
   grid-column: 1 / -1;   // 2열일 때도 한 줄 전체
   padding: 8px 0 0;

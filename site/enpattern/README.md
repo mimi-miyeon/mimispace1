@@ -75,7 +75,11 @@ npm run watch:enpattern     # 작업 중 자동 컴파일
 ## 콘텐츠 형식 (js/data)
 
 세션 하나가 파일 하나입니다: `js/data/pattern{번호}.js` 안에서 `(EP.sessions = EP.sessions || {})[번호] = { ... }`.
-(`pattern1.js`는 샘플 화면이 쓰는 예전 형식 `EP.data.session`. 여러 세션 연결 작업 때 새 형식으로 옮깁니다.)
+앱은 세션 파일을 필요할 때만 불러옵니다 (`EP.content.load(번호)`). 처음에는 세션 목록 `js/data/catalog.js`만 읽습니다.
+세션 파일을 추가하면 `node site/enpattern/tools/build-catalog.js`로 목록을 다시 만듭니다. 목록의 `ready`(1번부터 만들어진 마지막 번호)보다 뒤 세션은 홈에서 '곧 열려요'로 보입니다.
+문제 키는 `세션번호-문제id`(예: `2-b1`)이고, 틀린 문제 기록도 이 키로 저장됩니다.
+
+운영자 확인용 설정(기록 지우기, 버전·저장 상태)은 주소 끝에 `&admin=1`을 붙이면 홈 오른쪽 위 톱니로 열립니다.
 빈칸 문제에서 빈칸이 문장 맨 앞이면 `before: ""`, 뒤가 문장부호 하나면 `after: "?"`처럼 씁니다.
 
 문제 하나(`items[]`)에 들어가는 값:
@@ -128,9 +132,10 @@ scss/
   screens/                화면별 배치
 css/style.css             컴파일 결과 (배포용)
 js/config.js              EP 이름공간, 버전·저장 키·Firebase 설정
-js/data/pattern1.js       EP.data     세션 콘텐츠(문제·오답 설명·팁), 다음 세션 목록
+js/data/catalog.js        EP.catalog  세션 목록 230개 (자동 생성)
+js/data/pattern{N}.js     EP.sessions 세션 콘텐츠(문제·오답 설명·팁). 필요할 때 불러옴
 js/util.js                EP.util     esc, today, withCore, slotted
-                          EP.content  itemById, fullAnswer, coreOf, sessionSentences
+                          EP.content  load, item, fullAnswer, coreOf, sessionSentences (세션 불러오기·문제 찾기)
 js/store.js               EP.store    localStorage + Firestore 동기화
 js/ui/icons.js            EP.icons    선 아이콘, 탭 바 아이콘
 js/ui/characters.js       EP.chars    캐릭터 SVG 모양과 표정
@@ -144,4 +149,6 @@ js/screens/follow.js      EP.follow   따라 말하기
 js/main.js                시작(개인 코드 확인 → 기록 불러오기)
 tools/check-content.js    콘텐츠 점검 (npm run check:enpattern)
 tools/build-review.js     검토 페이지 만들기 (review.css 사용)
+tools/build-catalog.js    세션 목록 js/data/catalog.js 만들기 (pattern-list.json + 세션 파일)
+tools/pattern-list.json   230개 패턴 이름·뜻·핵심 부분·힌트 (제작 기준표)
 ```

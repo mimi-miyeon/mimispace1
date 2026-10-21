@@ -108,12 +108,12 @@
     return { html: html, missing: best.missing, extra: extra };
   }
 
-  /* 콘텐츠에 나오는 단어도 실제 단어로 등록한다 (정답·다른 표현·팁·예상 오답) */
-  var learned = false;
-  function learnWords() {
-    if (learned) return; learned = true;
+  /* 콘텐츠에 나오는 단어도 실제 단어로 등록한다 (정답·다른 표현·팁·예상 오답). 세션마다 한 번 */
+  var learned = {};
+  function learnWords(S) {
+    if (!S || learned[S.no]) return; learned[S.no] = true;
     function add(s) { normalize(s).toks.forEach(function (w) { DICT[w] = 1; }); }
-    EP.data.session.items.forEach(function (it) {
+    S.items.forEach(function (it) {
       (it.answers || []).concat(it.alts || []).forEach(add);
       if (it.tip) add(it.tip.en);
       for (var k in (it.wrong || {})) add(k);
@@ -138,7 +138,7 @@
      answer: 맞힌 문장, alt: 다른 표현으로 맞혔는지
      target: 정답 따라 입력하기일 때 그 문장 하나만 정답으로 본다 */
   function grade(input, it, target) {
-    learnWords();
+    learnWords(EP.content.sessionOf(it));
     var N = normalize(input), u = N.toks, key = u.join(" ");
     var cands = candidates(it, target);
     var answers = cands.map(function (c) { return c.text; });

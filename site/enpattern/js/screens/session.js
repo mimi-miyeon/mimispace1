@@ -1,30 +1,78 @@
-/* 학습 세션: 문법 이해 → 문제 → 틀린 문제 다시 → 완료
-   phase: intro | main | retryIntro | retry | single(틀린 문제 탭에서 한 문제만) */
+/* 학습 세션: 복습 → 문법 이해 → 문제 → 틀린 문제 다시 → 완료
+   phase: review | intro | main | retryIntro | retry | single(틀린 문제 탭에서 한 문제만)
+   mode:  new(다음 세션, 진도에 반영·이어하기 저장) | redo(끝낸 세션 다시 풀기, 진도 변화 없음)
+   문제는 "세션번호-문제id" 키로 다룬다. 복습 문제는 다른 세션의 문제일 수 있다. */
 (function (EP) {
   "use strict";
 
   var V = EP.view, U = EP.util, esc = U.esc, C = EP.content, store = EP.store, st = store.state;
   var ui = EP.ui, ico = EP.icons.ico, speak = EP.speech.speak, stopSpeak = EP.speech.stop;
-  var S = EP.data.session, $screen = V.$screen;
+  var $screen = V.$screen;
   var R = null; /* 진행 중인 세션 상태. 없으면 null */
+  var REVIEW_MAX = 3, REVIEW_WRONG_MAX = 2;
 
-  function start(resume, opt) {
+  /* opt: { no, mode: "new" | "redo", resume } 또는 { single: "세션-문제id" } */
+  function start(opt) {
     opt = opt || {};
     stopSpeak(); V.closeSheet(); EP.tabs.hideBar(); V.setPaper(true); $screen.onclick = null;
-    var single = opt.single;
-    R = { phase: single ? "single" : "intro", queue: single ? [single] : S.items.map(function (x) { return x.id; }), pos: 0,
-          retry: [], firstOk: 0, total: S.items.length, attempt: 0, copy: false, single: single, cleared: false };
-    var p = st.progress;
-    if (resume && p) {
-      R.phase = p.phase; R.pos = p.pos; R.retry = p.retry || []; R.firstOk = p.firstOk || 0;
-      if (R.phase === "retry") R.queue = R.retry.slice();
+    $screen.className = "screen"; $screen.innerHTML = '<div class="loading">불러오는 중…</div>';
+    R = { loading: true };
+    var p = opt.resume && st.progress && st.progress.no === opt.no ? st.progress : null;
+    var need = [];
+    if (opt.single) need.push(C.sessionOfKey(opt.single));
+    else {
+      need.push(opt.no);
+      if (opt.mode !== "redo" && opt.no > 1) {
+        need.push(opt.no - 1);
+        (p ? p.review || [] : reviewWrongKeys(opt.no)).forEach(function (k) { need.push(C.sessionOfKey(k)); });
+      }
     }
+    C.loadMany(need).then(function () { begin(opt, p); });
+  }
+
+  function begin(opt, p) {
+    var single = opt.single, S = single ? null : C.session(opt.no);
+    if (single ? !C.item(single) : !S) {
+      R = null; V.toast("문제를 불러오지 못했어요. 인터넷 연결을 확인해 주세요");
+      return EP.tabs.show(single ? "wrong" : "home");
+    }
+    R = { S: S, no: opt.no, mode: opt.mode === "redo" ? "redo" : "new", phase: single ? "single" : "intro", pos: 0,
+          retry: [], firstOk: 0, total: S ? S.items.length : 1, attempt: 0, copy: false, single: single, cleared: false, review: [] };
+    if (single) R.queue = [single];
+    else if (p) {
+      R.review = (p.review || []).filter(C.item); R.phase = p.phase; R.pos = p.pos; R.retry = (p.retry || []).filter(C.item); R.firstOk = p.firstOk || 0;
+    } else if (R.mode === "new") {
+      R.review = buildReview(R.no);
+      if (R.review.length) R.phase = "review";
+    }
+    if (!single) R.queue = queueFor(R.phase);
     render();
   }
-  /* 멈춘 곳 저장 (틀린 문제 한 문제 풀기는 저장하지 않음) */
+
+  /* 다음 세션 복습에 넣기로 한 틀린 문제 (이번 세션보다 앞 세션 것만) */
+  function reviewWrongKeys(no) {
+    return Object.keys(st.wrong).filter(function (k) { return st.wrong[k].rev && C.sessionOfKey(k) < no; }).slice(0, REVIEW_WRONG_MAX);
+  }
+  /* 복습: 틀렸던 문제 먼저, 나머지는 바로 앞 세션의 문장 문제로 채운다 */
+  function buildReview(no) {
+    var keys = reviewWrongKeys(no).filter(C.item), prev = C.session(no - 1);
+    if (prev) {
+      var pool = prev.items.filter(function (it) { return it.type === "sentence" && !st.wrong[it._key] && keys.indexOf(it._key) < 0; });
+      while (keys.length < REVIEW_MAX && pool.length) keys.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]._key);
+    }
+    return keys;
+  }
+  function queueFor(phase) {
+    if (phase === "review") return R.review.slice();
+    if (phase === "main") return R.S.items.map(function (it) { return it._key; });
+    if (phase === "retry") return R.retry.slice();
+    return [];
+  }
+
+  /* 멈춘 곳 저장. 새 세션만 저장한다 (다시 풀기·틀린 문제 한 문제는 저장하지 않음) */
   function persist() {
-    if (R.single) return;
-    st.progress = { phase: R.phase, pos: R.pos, retry: R.retry, firstOk: R.firstOk };
+    if (R.single || R.mode !== "new") return;
+    st.progress = { no: R.no, phase: R.phase, pos: R.pos, retry: R.retry, firstOk: R.firstOk, review: R.review };
     store.save();
   }
   function leave(toTab) { stopSpeak(); R = null; EP.tabs.show(toTab); }
@@ -47,11 +95,12 @@
   function bindQuit() {
     document.getElementById("quitBtn").onclick = function () {
       stopSpeak();
-      V.openSheet("neutral", '<div class="sh-title">그만할까요?</div><p class="sh-note">' + (R.single ? "이 문제는 나중에 다시 풀 수 있어요." : "다음에 멈춘 문제부터 이어서 할 수 있어요.") + "</p>" +
+      var note = R.single ? "이 문제는 나중에 다시 풀 수 있어요." : R.mode === "redo" ? "다시 풀기는 이어서 하기가 없어요. 진도는 그대로예요." : "다음에 멈춘 문제부터 이어서 할 수 있어요.";
+      V.openSheet("neutral", '<div class="sh-title">그만할까요?</div><p class="sh-note">' + note + "</p>" +
         ui.key("계속하기", "qStay") + ui.link("나가기", "qLeave"));
       document.getElementById("qStay").onclick = V.closeSheet;
       document.getElementById("qLeave").onclick = function () {
-        if (!R.single && R.phase !== "intro") persist();
+        if (R.phase !== "intro" || R.review.length) persist();
         leave(R.single ? "wrong" : "home");
       };
     };
@@ -59,7 +108,7 @@
 
   /* ---- 문법 이해 ---- */
   function renderIntro() {
-    var I = S.intro, blocks = "";
+    var S = R.S, I = S.intro, blocks = "";
     I.blocks.forEach(function (x, i) {
       if (i) blocks += '<span class="plus">+</span>';
       blocks += '<div class="blk' + (x[0] === "~" ? " y" : "") + '"><b>' + esc(x[0]) + "</b><span>" + esc(x[1]) + "</span></div>";
@@ -76,7 +125,7 @@
       }).join("") +
       '<div class="s-actions">' + ui.key("문제 풀기", "goBtn") + "</div>";
     $screen.querySelectorAll("[data-ex]").forEach(function (b) { b.onclick = function () { speak(I.examples[+b.getAttribute("data-ex")].en); }; });
-    document.getElementById("goBtn").onclick = function () { R.phase = "main"; R.pos = 0; persist(); render(); };
+    document.getElementById("goBtn").onclick = function () { R.phase = "main"; R.queue = queueFor("main"); R.pos = 0; persist(); render(); };
     bindQuit();
   }
 
@@ -92,8 +141,9 @@
 
   /* ---- 문제 ---- */
   function renderItem() {
-    var it = C.itemById(R.queue[R.pos]), blank = it.type === "blank";
-    var label = R.phase === "retry" ? "틀린 문제 한 번 더" : R.phase === "single" ? "틀린 문제" : it.kind + " " + (R.pos + 1) + " / " + R.queue.length;
+    var it = C.item(R.queue[R.pos]), blank = it.type === "blank", from = it._s;
+    var label = R.phase === "retry" ? "틀린 문제 한 번 더" : R.phase === "single" ? "틀린 문제 · 세션 " + from.no :
+      R.phase === "review" ? "복습 " + (R.pos + 1) + " / " + R.queue.length + " · 세션 " + from.no : it.kind + " " + (R.pos + 1) + " / " + R.queue.length;
     var body = "";
     if (it.ctx) body += '<div class="ctx"><div class="sm">' + esc(it.ctx.lead) + '</div><div class="en">' + esc(it.ctx.en) + "</div></div>";
     if (it.dialog) body += '<div class="ctx"><div><span class="who">A</span><span class="en">' + esc(it.dialog.a) + '</span></div><div class="sm indent">' + esc(it.dialog.aKo) + "</div>" +
@@ -102,7 +152,7 @@
     if (blank) body += '<p class="blank-line">' + (it.before ? esc(it.before) + " " : "") + '<span class="bl">?</span>' + esc(C.tail(it.after)) + "</p>";
     if (R.copy) body += '<div class="copy"><div class="lab">정답을 그대로 따라 입력해 보세요</div><div class="en">' + esc(it.answers[0]) + "</div></div>";
 
-    $screen.innerHTML = topBar(segs()) + '<div class="kind">' + label + '</div><div class="chip">' + esc(S.hint) + "</div>" + body +
+    $screen.innerHTML = topBar(segs()) + '<div class="kind">' + label + '</div><div class="chip">' + esc(from.hint) + "</div>" + body +
       '<form id="ansForm" autocomplete="off"><input class="answer-in" id="ans" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="' +
       (blank ? "빈칸에 들어갈 말" : "영어로 입력") + '" aria-label="답 입력"><p class="err" id="err" aria-live="polite"></p>' +
       '<div class="s-actions">' + ui.key("확인", null, { variant: "dark", type: "submit" }) + "</div></form>";
@@ -132,21 +182,26 @@
     showBad(it, g, R.attempt > 1);
   }
 
-  /* 틀린 문제 탭: 서로 다른 날 두 번 연속 바로 맞히면 목록에서 뺀다 */
+  /* 틀린 문제 기록
+     - 세션(복습·문제)에서 틀리면 목록에 넣고 다음 세션 복습 대상(rev)으로 표시
+     - 두 번 연속 바로 맞히면 목록에서 뺀다. 세션 복습에서 맞힌 것도 1회
+     - 틀린 문제 탭은 같은 문제를 하루 한 번 (tabDay) */
   function onFirstTryCorrect(it) {
     if (R.phase === "main") R.firstOk++;
-    if (R.phase !== "single") return;
-    var w = st.wrong[it.id]; if (!w) return;
-    w.tabDay = U.today(); w.streak = (w.streak || 0) + 1;
-    if (w.streak >= 2) { delete st.wrong[it.id]; R.cleared = true; }
+    var w = st.wrong[it._key];
+    if (!w || (R.phase !== "single" && R.phase !== "review")) return;
+    if (R.phase === "single") w.tabDay = U.today();
+    w.rev = false; w.streak = (w.streak || 0) + 1;
+    if (w.streak >= 2) { delete st.wrong[it._key]; R.cleared = true; }
     store.save();
   }
   function markWrongOnce(it) {
-    if (R.phase === "main") {
-      if (R.retry.indexOf(it.id) < 0) R.retry.push(it.id);
-      st.wrong[it.id] = { streak: 0, tabDay: null }; store.save();
-    } else if (R.phase === "single") {
-      var w = st.wrong[it.id]; if (w) { w.streak = 0; w.tabDay = U.today(); store.save(); }
+    var k = it._key, w = st.wrong[k];
+    if (R.phase === "main" || R.phase === "review") {
+      if (R.retry.indexOf(k) < 0) R.retry.push(k);
+      st.wrong[k] = { streak: 0, tabDay: w ? w.tabDay || null : null, rev: true }; store.save();
+    } else if (R.phase === "single" && w) {
+      w.streak = 0; w.tabDay = U.today(); w.rev = true; store.save();
     }
   }
 
@@ -159,8 +214,8 @@
     }).join("<br>") + "</p>";
     var extra = "";
     if (R.phase === "single" && R.attempt === 0) {
-      if (R.cleared && !st.wrong[it.id]) extra = '<p class="sh-note">두 번 연속 맞혀서 틀린 문제 목록에서 빠졌어요.</p>';
-      else if (st.wrong[it.id]) extra = '<p class="sh-note">한 번 더 맞히면 목록에서 빠져요.</p>';
+      if (R.cleared && !st.wrong[it._key]) extra = '<p class="sh-note">두 번 연속 맞혀서 틀린 문제 목록에서 빠졌어요.</p>';
+      else if (st.wrong[it._key]) extra = '<p class="sh-note">한 번 더 맞히면 목록에서 빠져요.</p>';
     }
     /* 다른 표현으로 맞혔으면 이번 패턴 문장을 한 번 더 보여 준다 */
     var pattern = g.alt ? '<p class="sh-pattern"><span class="sh-pattern__lab">이번 패턴으로는</span>' + U.withCore(C.fullAnswer(it), C.coreOf(it)) + "</p>" : "";
@@ -213,9 +268,11 @@
   }
 
   function finishPhase() {
+    if (R.phase === "review") { R.phase = "intro"; R.queue = []; R.pos = 0; persist(); return render(); }
     if (R.phase === "main" && R.retry.length) { R.phase = "retryIntro"; persist(); return render(); }
     if (R.phase === "single") return leave("wrong");
-    st.progress = null; st.done = true; store.save();
+    if (R.mode === "new") { store.markDone(R.no); st.progress = null; }
+    store.save();
     renderDone();
   }
 
@@ -223,11 +280,11 @@
   var DONE_CHARS = [["keycap", "키캡"], ["a", "a"], ["capsule", "캡슐"], ["fan", "부채꼴"]];
   function renderDone() {
     V.setPaper(false); EP.tabs.hideBar();
-    var made = C.sessionSentences();
+    var S = R.S, made = C.sessionSentences(S);
     $screen.className = "screen done";
     $screen.innerHTML =
       '<div class="done-chars">' + DONE_CHARS.map(function (c) { return ui.char(c[0], { expr: "party", label: c[1] }); }).join("") + "</div>" +
-      "<h1>세션 " + S.no + ' 완료!</h1><p class="score">바로 맞힌 문제 ' + R.firstOk + " / " + R.total + "</p>" +
+      "<h1>세션 " + S.no + (R.mode === "redo" ? " 다시 풀기 완료!" : " 완료!") + '</h1><p class="score">바로 맞힌 문제 ' + R.firstOk + " / " + R.total + "</p>" +
       '<div class="panel"><h2>오늘 문장 ' + made.length + "개</h2>" + made.map(function (m, i) {
         return '<div class="sent"><div><div class="en">' + esc(m.en) + '</div><div class="ko">' + esc(m.ko) + "</div></div>" + ui.speakBtn({ "data-m": i }, 20) + "</div>";
       }).join("") + "</div>" +
@@ -239,7 +296,7 @@
       if (m) speak(made[+m.getAttribute("data-m")].en);
     };
     document.getElementById("followBtn").onclick = function () { EP.follow.start(made); };
-    document.getElementById("moreBtn").onclick = function () { V.toast("샘플에는 세션 1만 있어요"); };
+    document.getElementById("moreBtn").onclick = function () { R = null; EP.tabs.startNext(); };
     document.getElementById("homeBtn").onclick = function () { leave("home"); };
   }
 

@@ -1,0 +1,1612 @@
+[
+{
+"no": 1,
+"form": "I have ~.",
+"meaning": "나는 ~을 가지고 있어요.",
+"core": "I have",
+"hint": "I have + 명사/대명사"
+},
+{
+"no": 2,
+"form": "I have some ~.",
+"meaning": "어떤 ~가 있어요.",
+"core": "I have some",
+"hint": "I have some + 명사/대명사"
+},
+{
+"no": 3,
+"form": "I don't have ~.",
+"meaning": "나는 ~을 가지고 있지 않아요.",
+"core": "I don't have",
+"hint": "I don't have + 명사/대명사"
+},
+{
+"no": 4,
+"form": "Do you have any ~?",
+"meaning": "~ 있어요?",
+"core": "Do you have any",
+"hint": "Do you have any + (복수)명사"
+},
+{
+"no": 5,
+"form": "I didn't have any ~.",
+"meaning": "나는 ~가 없었어요.",
+"core": "I didn't have any",
+"hint": "I didn't have any + 명사"
+},
+{
+"no": 6,
+"form": "I was ~.",
+"meaning": "나는 ~였어요.",
+"core": "I was",
+"hint": "I was + 형용사/명사"
+},
+{
+"no": 7,
+"form": "I wasn't ~.",
+"meaning": "나는 ~(이)가 아니었어요.",
+"core": "I wasn't",
+"hint": "I wasn't + 형용사/명사"
+},
+{
+"no": 8,
+"form": "Were you ~?",
+"meaning": "당신은 ~였나요?",
+"core": "Were you",
+"hint": "Were you + 명사/형용사?"
+},
+{
+"no": 9,
+"form": "I was told to ~.",
+"meaning": "나는 ~하라고 들었어요.",
+"core": "I was told to",
+"hint": "I was told to + 동사"
+},
+{
+"no": 10,
+"form": "I was wondering if ~.",
+"meaning": "나는 ~인지 궁금해 하고 있었어요.",
+"core": "I was wondering if",
+"hint": "I was wondering if + 주어 + 동사"
+},
+{
+"no": 11,
+"form": "I need ~.",
+"meaning": "나는 ~이 필요해요.",
+"core": "I need",
+"hint": "I need + 명사"
+},
+{
+"no": 12,
+"form": "We need to ~.",
+"meaning": "우리는 ~할 필요가 있어요.",
+"core": "We need to",
+"hint": "We need to + 동사"
+},
+{
+"no": 13,
+"form": "I need you to ~.",
+"meaning": "나는 당신이 ~해 주었으면 해요.",
+"core": "I need you to",
+"hint": "I need you to + 동사"
+},
+{
+"no": 14,
+"form": "Do I need to ~?",
+"meaning": "내가 ~해야 해요?",
+"core": "Do I need to",
+"hint": "Do I need to + 동사?"
+},
+{
+"no": 15,
+"form": "All you need is ~.",
+"meaning": "당신에게 필요한 건 ~ 뿐이에요.",
+"core": "All you need is",
+"hint": "All you need is + 명사"
+},
+{
+"no": 16,
+"form": "I can ~.",
+"meaning": "나는 ~할 수 있어요.",
+"core": "I can",
+"hint": "I can + 동사"
+},
+{
+"no": 17,
+"form": "I can't ~.",
+"meaning": "나는 ~할 수 없어요.",
+"core": "I can't",
+"hint": "I can't + 동사"
+},
+{
+"no": 18,
+"form": "Can I/you ~?",
+"meaning": "제가/당신이 ~할 수 있나요?",
+"core": "Can I/Can you",
+"hint": "Can I/you + 동사?"
+},
+{
+"no": 19,
+"form": "I can't wait to ~.",
+"meaning": "~하고 싶어 죽겠어요.",
+"core": "I can't wait to",
+"hint": "I can't wait to + 동사"
+},
+{
+"no": 20,
+"form": "I can't help ~ing.",
+"meaning": "~하지 않을 수 없어요.",
+"core": "I can't help",
+"hint": "I can't help + 동사-ing"
+},
+{
+"no": 21,
+"form": "I like ~.",
+"meaning": "나는 ~을 좋아해요.",
+"core": "I like",
+"hint": "I like + 명사/대명사"
+},
+{
+"no": 22,
+"form": "I like ~ing.",
+"meaning": "나는 ~하는 것을 좋아해요.",
+"core": "I like",
+"hint": "I like + 동사-ing"
+},
+{
+"no": 23,
+"form": "I like to ~.",
+"meaning": "나는 ~하는 것을 좋아해요.",
+"core": "I like to",
+"hint": "I like to + 동사"
+},
+{
+"no": 24,
+"form": "I love it when ~.",
+"meaning": "나는 ~하는 것이 너무 좋아요.",
+"core": "I love it when",
+"hint": "I love it when + 주어 + 동사"
+},
+{
+"no": 25,
+"form": "I prefer ~ing to ...ing.",
+"meaning": "나는 ...보다 ~을 좋아해요.",
+"core": "I prefer",
+"hint": "I prefer + 동사-ing + to + 동사-ing"
+},
+{
+"no": 26,
+"form": "I must ~.",
+"meaning": "나는 ~해야 해요.",
+"core": "I must",
+"hint": "I must + 동사"
+},
+{
+"no": 27,
+"form": "I have to ~.",
+"meaning": "나는 ~해야 해요.",
+"core": "I have to",
+"hint": "I have to + 동사"
+},
+{
+"no": 28,
+"form": "You don't have to ~.",
+"meaning": "당신이 ~할 필요는 없어요.",
+"core": "You don't have to",
+"hint": "You don't have to + 동사"
+},
+{
+"no": 29,
+"form": "It must be ~.",
+"meaning": "그것은 ~임에 틀림없어요.",
+"core": "It must be",
+"hint": "It must be + 형용사/명사"
+},
+{
+"no": 30,
+"form": "You must have ~(p.p.).",
+"meaning": "당신이 ~했던 것이 틀림없어요.",
+"core": "You must have",
+"hint": "You must have + 과거분사"
+},
+{
+"no": 31,
+"form": "I'm sorry for/about ~.",
+"meaning": "~해서 미안해요.",
+"core": "I'm sorry",
+"hint": "I'm sorry for + 명사/동사-ing"
+},
+{
+"no": 32,
+"form": "I'm sorry that ~.",
+"meaning": "~해서 미안해요.",
+"core": "I'm sorry that",
+"hint": "I'm sorry that + 주어 + 동사"
+},
+{
+"no": 33,
+"form": "I'm sorry, but ~.",
+"meaning": "미안하지만, ~.",
+"core": "I'm sorry, but",
+"hint": "I'm sorry, but + 주어 + 동사"
+},
+{
+"no": 34,
+"form": "I'm sorry to ~.",
+"meaning": "~하니 유감입니다.",
+"core": "I'm sorry to",
+"hint": "I'm sorry to + 동사"
+},
+{
+"no": 35,
+"form": "I'm afraid ~.",
+"meaning": "죄송하지만 ~입니다.",
+"core": "I'm afraid",
+"hint": "I'm afraid + 주어 + 동사"
+},
+{
+"no": 36,
+"form": "I'm ~ing.",
+"meaning": "나는 ~하고 있어요.",
+"core": "I'm",
+"hint": "I'm + 동사-ing"
+},
+{
+"no": 37,
+"form": "I was ~ing.",
+"meaning": "나는 ~하고 있었어요.",
+"core": "I was",
+"hint": "I was + 동사-ing"
+},
+{
+"no": 38,
+"form": "I wasn't ~ing.",
+"meaning": "나는 ~하고 있지 않았어요.",
+"core": "I wasn't",
+"hint": "I wasn't + 동사-ing"
+},
+{
+"no": 39,
+"form": "I'm trying to ~.",
+"meaning": "나는 ~하려고 애쓰는 중이에요.",
+"core": "I'm trying to",
+"hint": "I'm trying to + 동사"
+},
+{
+"no": 40,
+"form": "I'm getting ~.",
+"meaning": "점점 ~해지고 있어요.",
+"core": "I'm getting",
+"hint": "I'm getting + 형용사"
+},
+{
+"no": 41,
+"form": "I'm glad to ~.",
+"meaning": "나는 ~해서 기뻐요.",
+"core": "I'm glad to",
+"hint": "I'm glad to + 동사"
+},
+{
+"no": 42,
+"form": "I'm glad to be ~.",
+"meaning": "나는 ~해서 기뻐요.",
+"core": "I'm glad to be",
+"hint": "I'm glad to be + 형용사"
+},
+{
+"no": 43,
+"form": "I'm glad that ~.",
+"meaning": "나는 ~해서 기뻐요.",
+"core": "I'm glad that",
+"hint": "I'm glad (that) + 주어 + 동사"
+},
+{
+"no": 44,
+"form": "I'm happy to ~.",
+"meaning": "나는 ~해서 기뻐요.",
+"core": "I'm happy to",
+"hint": "I'm happy to + 동사"
+},
+{
+"no": 45,
+"form": "It's nice to ~.",
+"meaning": "~해서 기쁩니다.",
+"core": "It's nice to",
+"hint": "It's nice to + 동사"
+},
+{
+"no": 46,
+"form": "I'm going to ~.",
+"meaning": "나는 ~할 거예요.",
+"core": "I'm going to",
+"hint": "I'm going to + 동사"
+},
+{
+"no": 47,
+"form": "I'm not going to ~.",
+"meaning": "나는 ~하지 않을 거예요.",
+"core": "I'm not going to",
+"hint": "I'm not going to + 동사"
+},
+{
+"no": 48,
+"form": "Are you going to ~?",
+"meaning": "당신은 ~할 거예요?",
+"core": "Are you going to",
+"hint": "Are you going to + 동사?"
+},
+{
+"no": 49,
+"form": "It's going to be ~.",
+"meaning": "~해질 거예요.",
+"core": "It's going to be",
+"hint": "It's going to be + 형용사"
+},
+{
+"no": 50,
+"form": "What are you going to ~?",
+"meaning": "당신은 무엇을 ~할 거예요?",
+"core": "What are you going to",
+"hint": "What are you going to + 동사?"
+},
+{
+"no": 51,
+"form": "Are you ~? (명사)",
+"meaning": "당신은 ~예요?",
+"core": "Are you",
+"hint": "Are you + 명사?"
+},
+{
+"no": 52,
+"form": "Are you ~? (형용사)",
+"meaning": "당신은 ~해요?",
+"core": "Are you",
+"hint": "Are you + 형용사?"
+},
+{
+"no": 53,
+"form": "Are you ~ing?",
+"meaning": "당신은 ~하는 중이에요?",
+"core": "Are you",
+"hint": "Are you + 동사-ing?"
+},
+{
+"no": 54,
+"form": "What are you ~ing?",
+"meaning": "당신은 무엇을 ~하고 있어요?",
+"core": "What are you",
+"hint": "What are you + 동사-ing?"
+},
+{
+"no": 55,
+"form": "Why are you ~ing?",
+"meaning": "당신은 왜 ~하고 있나요?",
+"core": "Why are you",
+"hint": "Why are you + 동사-ing?"
+},
+{
+"no": 56,
+"form": "Do you ~?",
+"meaning": "당신은 ~해요?",
+"core": "Do you",
+"hint": "Do you + 동사?"
+},
+{
+"no": 57,
+"form": "I don't ~.",
+"meaning": "나는 ~하지 않아요.",
+"core": "I don't",
+"hint": "I don't + 동사"
+},
+{
+"no": 58,
+"form": "Do you think ~?",
+"meaning": "~라고 생각해요?",
+"core": "Do you think",
+"hint": "Do you think (that) + 주어 + 동사?"
+},
+{
+"no": 59,
+"form": "Don't you think ~?",
+"meaning": "~라고 생각하지 않아요?",
+"core": "Don't you think",
+"hint": "Don't you think (that) + 주어 + 동사?"
+},
+{
+"no": 60,
+"form": "What do you think ~?",
+"meaning": "~을 어떻게 생각해요?",
+"core": "What do you think",
+"hint": "What do you think of/about + 명사/대명사?"
+},
+{
+"no": 61,
+"form": "Be ~.",
+"meaning": "~하세요.",
+"core": "Be",
+"hint": "Be + 형용사"
+},
+{
+"no": 62,
+"form": "Don't ~.",
+"meaning": "~하지 마세요.",
+"core": "Don't",
+"hint": "Don't + 동사"
+},
+{
+"no": 63,
+"form": "Don't be ~.",
+"meaning": "~해지지 마세요.",
+"core": "Don't be",
+"hint": "Don't be + 형용사"
+},
+{
+"no": 64,
+"form": "Don't be afraid of ~.",
+"meaning": "~을 두려워하지 마세요.",
+"core": "Don't be afraid of",
+"hint": "Don't be afraid of + 명사/대명사"
+},
+{
+"no": 65,
+"form": "Don't tell me ~.",
+"meaning": "~라는 건 아니겠지요.",
+"core": "Don't tell me",
+"hint": "Don't tell me + 주어 + 동사"
+},
+{
+"no": 66,
+"form": "I didn't ~.",
+"meaning": "나는 ~하지 않았어요.",
+"core": "I didn't",
+"hint": "I didn't + 동사"
+},
+{
+"no": 67,
+"form": "Did you ~?",
+"meaning": "~했어요?",
+"core": "Did you",
+"hint": "Did you + 동사?"
+},
+{
+"no": 68,
+"form": "I didn't have to ~.",
+"meaning": "난 ~하지 않아도 됐어요.",
+"core": "I didn't have to",
+"hint": "I didn't have to + 동사"
+},
+{
+"no": 69,
+"form": "I didn't want you to ~.",
+"meaning": "난 당신이 ~하지 않기를 바랐어요.",
+"core": "I didn't want you to",
+"hint": "I didn't want you to + 동사"
+},
+{
+"no": 70,
+"form": "I didn't mean to ~.",
+"meaning": "~하려던 건 아니었어요.",
+"core": "I didn't mean to",
+"hint": "I didn't mean to + 동사"
+},
+{
+"no": 71,
+"form": "I wish ~.",
+"meaning": "~라면 좋을 텐데.",
+"core": "I wish",
+"hint": "I wish + 주어 + 동사(과거형)"
+},
+{
+"no": 72,
+"form": "I wish I could ~.",
+"meaning": "내가 ~할 수 있으면 좋을 텐데.",
+"core": "I wish I could",
+"hint": "I wish I could + 동사"
+},
+{
+"no": 73,
+"form": "I wish it was ~.",
+"meaning": "그게 ~라면 좋을 텐데.",
+"core": "I wish it was",
+"hint": "I wish it was + 형용사"
+},
+{
+"no": 74,
+"form": "I wish you wouldn't ~.",
+"meaning": "당신이 ~하지 않길 바라요.",
+"core": "I wish you wouldn't",
+"hint": "I wish you wouldn't + 동사"
+},
+{
+"no": 75,
+"form": "I hope ~.",
+"meaning": "~이면 좋겠어요.",
+"core": "I hope",
+"hint": "I hope + 주어 + 동사"
+},
+{
+"no": 76,
+"form": "Thank you for ~.",
+"meaning": "~에 감사해요.",
+"core": "Thank you for",
+"hint": "Thank you for + 명사/동사-ing"
+},
+{
+"no": 77,
+"form": "I appreciate ~.",
+"meaning": "~에 감사합니다.",
+"core": "I appreciate",
+"hint": "I appreciate + 명사"
+},
+{
+"no": 78,
+"form": "Thanks, but ~.",
+"meaning": "고맙지만 ~입니다.",
+"core": "Thanks, but",
+"hint": "Thanks, but + 주어 + 동사"
+},
+{
+"no": 79,
+"form": "I'm grateful for ~.",
+"meaning": "~에 감사해요.",
+"core": "I'm grateful for",
+"hint": "I'm grateful for + 명사"
+},
+{
+"no": 80,
+"form": "It will be appreciated if ~.",
+"meaning": "~해 주시면 감사하겠습니다.",
+"core": "It will be appreciated if",
+"hint": "It will be appreciated if + 주어 + 동사"
+},
+{
+"no": 81,
+"form": "There is/are ~.",
+"meaning": "~(이)가 있어요.",
+"core": "There is/There are",
+"hint": "There is/are + 명사"
+},
+{
+"no": 82,
+"form": "There is something/someone ~.",
+"meaning": "~한 것/사람이 있어요.",
+"core": "There is something/There is someone",
+"hint": "There is something + 형용사/to + 동사"
+},
+{
+"no": 83,
+"form": "There isn't any ~.",
+"meaning": "~(이)가 없어요.",
+"core": "There isn't any",
+"hint": "There isn't any + 명사/대명사"
+},
+{
+"no": 84,
+"form": "There is/are no ~.",
+"meaning": "~(이)가 없어요.",
+"core": "There is no/There are no",
+"hint": "There is/are no + 명사"
+},
+{
+"no": 85,
+"form": "There is nothing to ~.",
+"meaning": "~할 것이 없어요.",
+"core": "There is nothing to",
+"hint": "There is nothing to + 동사"
+},
+{
+"no": 86,
+"form": "This/That is ~. (명사)",
+"meaning": "이것은/저것은 ~입니다.",
+"core": "This is/That is",
+"hint": "This/That is + 명사"
+},
+{
+"no": 87,
+"form": "This/That is ~. (형용사)",
+"meaning": "이것은/저것은 ~합니다.",
+"core": "This is/That is",
+"hint": "This/That is + 형용사"
+},
+{
+"no": 88,
+"form": "This/That is for ~.",
+"meaning": "이것은/저것은 ~을 위한 거예요.",
+"core": "This is for/That is for",
+"hint": "This/That is for + 명사/대명사"
+},
+{
+"no": 89,
+"form": "This/That is not ~.",
+"meaning": "이것은/저것은 ~하지 않아요.",
+"core": "This isn't/That isn't",
+"hint": "This/That is not + 형용사"
+},
+{
+"no": 90,
+"form": "That's because ~.",
+"meaning": "그것은 ~때문입니다.",
+"core": "That's because",
+"hint": "That's because + 주어 + 동사"
+},
+{
+"no": 91,
+"form": "It is hard to ~.",
+"meaning": "~하기는 힘들어요.",
+"core": "It is hard to",
+"hint": "It's hard to + 동사"
+},
+{
+"no": 92,
+"form": "It's clear to me ~.",
+"meaning": "~인 것이 분명해요.",
+"core": "It's clear to me",
+"hint": "It's clear to me (that) + 주어 + 동사"
+},
+{
+"no": 93,
+"form": "It's not about ~.",
+"meaning": "이건 ~하고는 상관없어요.",
+"core": "It's not about",
+"hint": "It's not about + 명사/What + 주어 + 동사/동사-ing"
+},
+{
+"no": 94,
+"form": "It's the only way to ~.",
+"meaning": "~하려면 이 방법뿐이에요.",
+"core": "It's the only way to",
+"hint": "It is the only way to + 동사"
+},
+{
+"no": 95,
+"form": "It is not worth ~ing.",
+"meaning": "그건 ~할 가치가 없어요.",
+"core": "It's not worth",
+"hint": "It's not worth + 동사-ing"
+},
+{
+"no": 96,
+"form": "It seems ~.",
+"meaning": "~인 것 같아요.",
+"core": "It seems",
+"hint": "It seems + 형용사"
+},
+{
+"no": 97,
+"form": "You seem to ~.",
+"meaning": "당신은 ~해 보여요.",
+"core": "You seem to",
+"hint": "You seem to + 동사"
+},
+{
+"no": 98,
+"form": "It seems that ~.",
+"meaning": "~인 것 같아요.",
+"core": "It seems that",
+"hint": "It seems that + 주어 + 동사"
+},
+{
+"no": 99,
+"form": "It doesn't seem that ~.",
+"meaning": "~인 것 같지는 않아요.",
+"core": "It doesn't seem that",
+"hint": "It doesn't seem that + 주어 + 동사"
+},
+{
+"no": 100,
+"form": "It's ~er than it seems.",
+"meaning": "보기보다 더 ~해요.",
+"core": "than it seems",
+"hint": "It's + 비교급 + than it seems"
+},
+{
+"no": 101,
+"form": "It's like ~.",
+"meaning": "그건 ~인 것 같아요.",
+"core": "It's like",
+"hint": "It's like + 명사"
+},
+{
+"no": 102,
+"form": "It's not like ~.",
+"meaning": "그건 ~인 것 같지 않아요.",
+"core": "It's not like",
+"hint": "It's not like + 명사/형용사"
+},
+{
+"no": 103,
+"form": "It looks like ~.",
+"meaning": "그건 ~처럼 보여요.",
+"core": "It looks like",
+"hint": "It looks like + 명사/대명사/주어 + 동사"
+},
+{
+"no": 104,
+"form": "It sounds like ~.",
+"meaning": "그건 ~처럼 들려요.",
+"core": "It sounds like",
+"hint": "It sounds like + 명사/주어 + 동사"
+},
+{
+"no": 105,
+"form": "It's something like ~.",
+"meaning": "그건 ~같은 거예요.",
+"core": "It's something like",
+"hint": "It's something like + 명사/대명사/주어 + 동사"
+},
+{
+"no": 106,
+"form": "Let me ~.",
+"meaning": "내가 ~하게 해 주세요.",
+"core": "Let me",
+"hint": "Let me + 동사"
+},
+{
+"no": 107,
+"form": "Don't let me ~.",
+"meaning": "내가 ~하게 하지 마세요.",
+"core": "Don't let me",
+"hint": "Don't let me + 동사/형용사"
+},
+{
+"no": 108,
+"form": "Let's ~.",
+"meaning": "~합시다.",
+"core": "Let's",
+"hint": "Let's + 동사"
+},
+{
+"no": 109,
+"form": "Let's go ~ing.",
+"meaning": "~하러 가요.",
+"core": "Let's go",
+"hint": "Let's go + 동사-ing"
+},
+{
+"no": 110,
+"form": "Let's go for ~.",
+"meaning": "~하러 가요.",
+"core": "Let's go for",
+"hint": "Let's go for + 명사(구)"
+},
+{
+"no": 111,
+"form": "I used to ~.",
+"meaning": "나는 ~하곤 했어요.",
+"core": "I used to",
+"hint": "I used to + 동사"
+},
+{
+"no": 112,
+"form": "I'm used to ~.",
+"meaning": "나는 ~에 익숙해요.",
+"core": "I'm used to",
+"hint": "I'm used to + 명사/대명사/동명사"
+},
+{
+"no": 113,
+"form": "I'm getting used to ~.",
+"meaning": "나는 ~에 익숙해지고 있어요.",
+"core": "I'm getting used to",
+"hint": "I'm getting used to + 명사"
+},
+{
+"no": 114,
+"form": "I would ~.",
+"meaning": "나는 ~하곤 했어요.",
+"core": "I would",
+"hint": "I would + 동사"
+},
+{
+"no": 115,
+"form": "I'm not ~ I used to be.",
+"meaning": "나는 예전의 ~가 아니에요.",
+"core": "I used to be",
+"hint": "I'm not + 명사 + I used to be"
+},
+{
+"no": 116,
+"form": "I'd rather ... than ~.",
+"meaning": "~보다는 ...하는 게 좋아요.",
+"core": "I'd rather",
+"hint": "I'd rather + 동사 + than + 동사"
+},
+{
+"no": 117,
+"form": "I'd rather not ~.",
+"meaning": "~하고 싶지 않아요.",
+"core": "I'd rather not",
+"hint": "I'd rather not + 동사"
+},
+{
+"no": 118,
+"form": "I'd better ~.",
+"meaning": "내가 ~하는 게 좋겠어요.",
+"core": "I'd better",
+"hint": "I'd better + 동사"
+},
+{
+"no": 119,
+"form": "You'd better ~.",
+"meaning": "당신은 ~하는 게 좋겠어요.",
+"core": "You'd better",
+"hint": "You'd better + 동사"
+},
+{
+"no": 120,
+"form": "We'd better ~.",
+"meaning": "우리는 ~하는 게 좋겠어요.",
+"core": "We'd better",
+"hint": "We'd better + 동사"
+},
+{
+"no": 121,
+"form": "If I were ..., I would ~.",
+"meaning": "내가 ...라면 ~할 텐데.",
+"core": "If I were",
+"hint": "If I were + 명사/대명사/형용사, I would + 동사"
+},
+{
+"no": 122,
+"form": "If I were you, I wouldn't ~.",
+"meaning": "내가 당신이라면 ~하지 않을 거예요.",
+"core": "If I were you, I wouldn't",
+"hint": "If I were you, I wouldn't + 동사"
+},
+{
+"no": 123,
+"form": "If you want, I could ~.",
+"meaning": "원한다면 내가 ~해 줄 수 있어요.",
+"core": "If you want, I could",
+"hint": "If you want, I could + 동사"
+},
+{
+"no": 124,
+"form": "If you want me to ..., you have to ~.",
+"meaning": "내가 ...하길 바란다면, 당신이 ~해야 해요.",
+"core": "If you want me to",
+"hint": "If you want me to + 동사, you have to + 동사"
+},
+{
+"no": 125,
+"form": "What happens if you try to ~?",
+"meaning": "당신이 ~하려고 하면 어떻게 될까요?",
+"core": "What happens if you try to",
+"hint": "What happens if you try to + 동사?"
+},
+{
+"no": 126,
+"form": "I'm looking for ~.",
+"meaning": "나는 ~을 찾고 있어요.",
+"core": "I'm looking for",
+"hint": "I'm looking for + 명사/대명사"
+},
+{
+"no": 127,
+"form": "I'm looking at ~.",
+"meaning": "~을 알아보는 중이에요.",
+"core": "I'm looking at",
+"hint": "I'm looking at + 명사/동사-ing"
+},
+{
+"no": 128,
+"form": "I'm looking forward to ~.",
+"meaning": "나는 ~을 고대하고 있어요.",
+"core": "I'm looking forward to",
+"hint": "I'm looking forward to + 명사/동사-ing"
+},
+{
+"no": 129,
+"form": "Look at ~.",
+"meaning": "~을 보세요.",
+"core": "Look at",
+"hint": "Look at + 명사"
+},
+{
+"no": 130,
+"form": "Take a look at ~.",
+"meaning": "~을 한번 보세요.",
+"core": "Take a look at",
+"hint": "Take a look at + 명사/대명사"
+},
+{
+"no": 131,
+"form": "There is no time to ~.",
+"meaning": "~할 시간이 없어요.",
+"core": "There is no time to",
+"hint": "There is no time to + 동사"
+},
+{
+"no": 132,
+"form": "There is no way to ~.",
+"meaning": "~할 방법이 없어요.",
+"core": "There is no way to",
+"hint": "There is no way to + 동사"
+},
+{
+"no": 133,
+"form": "There is no reason to ~.",
+"meaning": "~할 이유가 없어요.",
+"core": "There is no reason to",
+"hint": "There is no reason to + 동사"
+},
+{
+"no": 134,
+"form": "There is no use ~.",
+"meaning": "~해도 소용 없어요.",
+"core": "There is no use",
+"hint": "There is no use + 동사-ing"
+},
+{
+"no": 135,
+"form": "There is no doubt ~.",
+"meaning": "~인 것은 의심할 바가 없어요.",
+"core": "There is no doubt",
+"hint": "There is no doubt that + 주어 + 동사"
+},
+{
+"no": 136,
+"form": "Do you mind ~ing?",
+"meaning": "~해 주실래요?",
+"core": "Do you mind",
+"hint": "Do you mind + 명사/동사-ing?"
+},
+{
+"no": 137,
+"form": "Do you mind if I ~?",
+"meaning": "제가 ~해도 괜찮을까요?",
+"core": "Do you mind if I",
+"hint": "Do you mind if I + 동사?"
+},
+{
+"no": 138,
+"form": "I don't mind ~.",
+"meaning": "~는 상관없어요.",
+"core": "I don't mind",
+"hint": "I don't mind + 명사/동사-ing/if + 주어 + 동사"
+},
+{
+"no": 139,
+"form": "If you don't mind, I would like to ~.",
+"meaning": "괜찮으시면 제가 ~하고 싶은데요.",
+"core": "If you don't mind, I would like to",
+"hint": "If you don't mind, I would like to + 동사"
+},
+{
+"no": 140,
+"form": "Never mind ~.",
+"meaning": "~는 신경 쓰지 마세요.",
+"core": "Never mind",
+"hint": "Never mind + 동사-ing/that + 주어 + 동사"
+},
+{
+"no": 141,
+"form": "What if ~?",
+"meaning": "만약 ~라면 어떡해요?",
+"core": "What if",
+"hint": "What if + 주어 + 동사?"
+},
+{
+"no": 142,
+"form": "I'll see if ~.",
+"meaning": "~인지 확인할게요.",
+"core": "I'll see if",
+"hint": "I'll see if + 주어 + 동사"
+},
+{
+"no": 143,
+"form": "I doubt if ~.",
+"meaning": "~하는지 의심스러워요.",
+"core": "I doubt if",
+"hint": "I doubt if + 주어 + 동사"
+},
+{
+"no": 144,
+"form": "I was wondering if ~.",
+"meaning": "~하는 건지 궁금했어요.",
+"core": "I was wondering if",
+"hint": "I was wondering if + 주어 + 동사"
+},
+{
+"no": 145,
+"form": "I'm sorry if ~.",
+"meaning": "~했다면 미안해요.",
+"core": "I'm sorry if",
+"hint": "I'm sorry if I + 동사"
+},
+{
+"no": 146,
+"form": "How can I ~?",
+"meaning": "어떻게 ~할 수 있어요?",
+"core": "How can I",
+"hint": "How can I + 동사?"
+},
+{
+"no": 147,
+"form": "Where can I ~?",
+"meaning": "어디에서 ~할 수 있어요?",
+"core": "Where can I",
+"hint": "Where can I + 동사?"
+},
+{
+"no": 148,
+"form": "What can I ~?",
+"meaning": "제가 무엇을 ~할 수 있어요?",
+"core": "What can I",
+"hint": "What can I + 동사?"
+},
+{
+"no": 149,
+"form": "May I ~?",
+"meaning": "~해도 될까요?",
+"core": "May I",
+"hint": "May I + 동사?"
+},
+{
+"no": 150,
+"form": "How may I ~?",
+"meaning": "어떻게 ~해 드릴까요?",
+"core": "How may I",
+"hint": "How may I + 동사?"
+},
+{
+"no": 151,
+"form": "When is ~?",
+"meaning": "~가 언제예요?",
+"core": "When is",
+"hint": "When is + 명사?"
+},
+{
+"no": 152,
+"form": "When do you ~?",
+"meaning": "언제 ~해요?",
+"core": "When do you",
+"hint": "When do you + 동사?"
+},
+{
+"no": 153,
+"form": "When do you want to ~?",
+"meaning": "언제 ~하고 싶어요?",
+"core": "When do you want to",
+"hint": "When do you want to + 동사?"
+},
+{
+"no": 154,
+"form": "When do you expect to ~?",
+"meaning": "언제 ~할 것 같아요?",
+"core": "When do you expect to",
+"hint": "When do you expect to + 동사?"
+},
+{
+"no": 155,
+"form": "When was the last time ~?",
+"meaning": "마지막으로 ~한 게 언제예요?",
+"core": "When was the last time",
+"hint": "When was the last time + 주어 + 동사(과거형)?"
+},
+{
+"no": 156,
+"form": "Have you been to ~?",
+"meaning": "~에 가 본 적 있어요?",
+"core": "Have you been to",
+"hint": "Have you been to + 장소?"
+},
+{
+"no": 157,
+"form": "Have you ~(p.p.)?",
+"meaning": "~해 본 적 있어요?",
+"core": "Have you",
+"hint": "Have you + 과거분사?"
+},
+{
+"no": 158,
+"form": "I've been to ~.",
+"meaning": "난 ~에 간 적이 있어요.",
+"core": "I've been to",
+"hint": "I've been to + 장소"
+},
+{
+"no": 159,
+"form": "I've ~(p.p.).",
+"meaning": "난 ~해 본 적이 있어요.",
+"core": "I've",
+"hint": "I've + 과거분사"
+},
+{
+"no": 160,
+"form": "I've never ~(p.p.).",
+"meaning": "난 ~한 적이 없어요.",
+"core": "I've never",
+"hint": "I've never + 과거분사"
+},
+{
+"no": 161,
+"form": "What do you ~?",
+"meaning": "무엇을 ~해요?",
+"core": "What do you",
+"hint": "What do you + 동사?"
+},
+{
+"no": 162,
+"form": "What do you want to ~?",
+"meaning": "무엇을 ~하고 싶어요?",
+"core": "What do you want to",
+"hint": "What do you want to + 동사?"
+},
+{
+"no": 163,
+"form": "What do you need to ~?",
+"meaning": "무엇을 ~해야 해요?",
+"core": "What do you need to",
+"hint": "What do you need to + 동사?"
+},
+{
+"no": 164,
+"form": "What do you have to ~?",
+"meaning": "무엇을 ~해야 해요?",
+"core": "What do you have to",
+"hint": "What do you have to + 동사?"
+},
+{
+"no": 165,
+"form": "What do you say about ~?",
+"meaning": "~하는 거 어때요?",
+"core": "What do you say about",
+"hint": "What do you say about + 명사/동사-ing?"
+},
+{
+"no": 166,
+"form": "How many ~ are there?",
+"meaning": "~가 몇 개 있어요?",
+"core": "How many",
+"hint": "How many + 명사(복수) + are there?"
+},
+{
+"no": 167,
+"form": "How many ~ do you have?",
+"meaning": "~을 몇 개 가지고 있어요?",
+"core": "How many",
+"hint": "How many + 명사 + do you have?"
+},
+{
+"no": 168,
+"form": "How much does it ~?",
+"meaning": "그건 얼마나 ~해요?",
+"core": "How much does it",
+"hint": "How much does it + 동사?"
+},
+{
+"no": 169,
+"form": "How much do you ~?",
+"meaning": "당신은 얼마나 ~합니까?",
+"core": "How much do you",
+"hint": "How much do you + 동사?"
+},
+{
+"no": 170,
+"form": "How often do you ~?",
+"meaning": "얼마나 자주 ~해요?",
+"core": "How often do you",
+"hint": "How often do you + 동사?"
+},
+{
+"no": 171,
+"form": "How long is ~?",
+"meaning": "~는 얼마나 길어요?",
+"core": "How long is",
+"hint": "How long is + 명사?"
+},
+{
+"no": 172,
+"form": "How long does it take to get to ~?",
+"meaning": "~까지 얼마나 걸리나요?",
+"core": "How long does it take to get to",
+"hint": "How long does it take to get to + 장소?"
+},
+{
+"no": 173,
+"form": "How long does it take to ~?",
+"meaning": "~하는 데 얼마나 걸리나요?",
+"core": "How long does it take to",
+"hint": "How long does it take to + 동사?"
+},
+{
+"no": 174,
+"form": "How long have you been ~?",
+"meaning": "~한 지는 얼마나 되었나요?",
+"core": "How long have you been",
+"hint": "How long have you been + 동사-ing?"
+},
+{
+"no": 175,
+"form": "How long will you ~?",
+"meaning": "얼마나 오래 ~할 거예요?",
+"core": "How long will you",
+"hint": "How long will you + 동사?"
+},
+{
+"no": 176,
+"form": "What kind of ~ is it?",
+"meaning": "그건 어떤 종류의 ~예요?",
+"core": "What kind of",
+"hint": "What kind of + 명사 + is it?"
+},
+{
+"no": 177,
+"form": "What kind of ~ do you like?",
+"meaning": "어떤 ~를 좋아해요?",
+"core": "What kind of",
+"hint": "What kind of + 명사 + do you like?"
+},
+{
+"no": 178,
+"form": "What kind of ... did you ~?",
+"meaning": "어떤 ...을 ~했어요?",
+"core": "What kind of",
+"hint": "What kind of + 명사 + did you + 동사?"
+},
+{
+"no": 179,
+"form": "What kind of ~ would you like to be?",
+"meaning": "어떤 ~이 되고 싶어요?",
+"core": "What kind of",
+"hint": "What kind of + 명사 + would you like to be?"
+},
+{
+"no": 180,
+"form": "What kind of ... should I ~?",
+"meaning": "어떤 ...을 ~해야 할까요?",
+"core": "What kind of",
+"hint": "What kind of + 명사 + should I + 동사?"
+},
+{
+"no": 181,
+"form": "How about ~?",
+"meaning": "~은 어때요?",
+"core": "How about",
+"hint": "How about + 명사/대명사?"
+},
+{
+"no": 182,
+"form": "How about ... for ~?",
+"meaning": "~로 ...는 어때요?",
+"core": "How about",
+"hint": "How about + 명사 + for + 명사?"
+},
+{
+"no": 183,
+"form": "How about ~ing?",
+"meaning": "~하는 건 어때요?",
+"core": "How about",
+"hint": "How about + 동사-ing?"
+},
+{
+"no": 184,
+"form": "What about ~ing?",
+"meaning": "~하는 건 어때요?",
+"core": "What about",
+"hint": "What about + 동사-ing?"
+},
+{
+"no": 185,
+"form": "What about ~?",
+"meaning": "~는 어떻게 해요?",
+"core": "What about",
+"hint": "What about + 명사?"
+},
+{
+"no": 186,
+"form": "Why don't you ~?",
+"meaning": "~하는 게 어때요?",
+"core": "Why don't you",
+"hint": "Why don't you + 동사?"
+},
+{
+"no": 187,
+"form": "Why don't we ~?",
+"meaning": "우리 ~하는 거 어때요?",
+"core": "Why don't we",
+"hint": "Why don't we + 동사?"
+},
+{
+"no": 188,
+"form": "Why don't I ~?",
+"meaning": "내가 ~하는 거 어때요?",
+"core": "Why don't I",
+"hint": "Why don't I + 동사?"
+},
+{
+"no": 189,
+"form": "Why not ~? (동사)",
+"meaning": "~하는 게 어때요?",
+"core": "Why not",
+"hint": "Why not + 동사?"
+},
+{
+"no": 190,
+"form": "Why not ~? (명사)",
+"meaning": "~는 왜 안 돼요?",
+"core": "Why not",
+"hint": "Why not + 명사/대명사?"
+},
+{
+"no": 191,
+"form": "Would you like ~?",
+"meaning": "~ 드릴까요?",
+"core": "Would you like",
+"hint": "Would you like + 명사/대명사?"
+},
+{
+"no": 192,
+"form": "Would you like to ~?",
+"meaning": "~하실래요?",
+"core": "Would you like to",
+"hint": "Would you like to + 동사?"
+},
+{
+"no": 193,
+"form": "What would you like to ~?",
+"meaning": "무엇을 ~하시겠어요?",
+"core": "What would you like to",
+"hint": "What would you like to + 동사?"
+},
+{
+"no": 194,
+"form": "How would you like ~?",
+"meaning": "~을 어떻게 해 드릴까요?",
+"core": "How would you like",
+"hint": "How would you like + 명사/to + 동사?"
+},
+{
+"no": 195,
+"form": "I would like ~.",
+"meaning": "나는 ~을 원해요.",
+"core": "I would like",
+"hint": "I would like + 명사"
+},
+{
+"no": 196,
+"form": "What is ~?",
+"meaning": "~은 뭐예요?",
+"core": "What is",
+"hint": "What is + 명사/대명사/형용사?"
+},
+{
+"no": 197,
+"form": "What is your ~?",
+"meaning": "당신의 ~은 뭐예요?",
+"core": "What is your",
+"hint": "What is your + 명사?"
+},
+{
+"no": 198,
+"form": "What's your favorite ~?",
+"meaning": "당신이 가장 좋아하는 ~이 뭐예요?",
+"core": "What's your favorite",
+"hint": "What's your favorite + 명사?"
+},
+{
+"no": 199,
+"form": "What is it that you want ~?",
+"meaning": "당신이 정말 ~하고 싶은 게 뭐예요?",
+"core": "What is it that you want",
+"hint": "What is it that you want to + 동사?"
+},
+{
+"no": 200,
+"form": "What is the best way to ~?",
+"meaning": "~하는 가장 좋은 방법이 뭐예요?",
+"core": "What is the best way to",
+"hint": "What is the best way to + 동사?"
+},
+{
+"no": 201,
+"form": "What makes you ~?",
+"meaning": "왜 ~해요? (무엇이 당신을 ~하게 해요?)",
+"core": "What makes you",
+"hint": "What makes you + 동사/형용사?"
+},
+{
+"no": 202,
+"form": "What brings you ~?",
+"meaning": "~하게 된 이유가 뭐예요?",
+"core": "What brings you",
+"hint": "What brings you (to) + 명사?"
+},
+{
+"no": 203,
+"form": "I'm here to ~.",
+"meaning": "난 ~하러 왔어요.",
+"core": "I'm here to",
+"hint": "I'm here to + 동사"
+},
+{
+"no": 204,
+"form": "I should have ~.",
+"meaning": "난 ~했어야 했어요.",
+"core": "I should have",
+"hint": "I should have + 과거분사"
+},
+{
+"no": 205,
+"form": "I don't see anything ~.",
+"meaning": "~한 것은 보이지 않아요.",
+"core": "I don't see anything",
+"hint": "I don't see anything + 형용사"
+},
+{
+"no": 206,
+"form": "I'm good at ~.",
+"meaning": "나는 ~을 잘 해요.",
+"core": "I'm good at",
+"hint": "I'm good at + 명사/동사-ing"
+},
+{
+"no": 207,
+"form": "That's what ~.",
+"meaning": "그게 바로 ~예요.",
+"core": "That's what",
+"hint": "That's what + 주어 + 동사"
+},
+{
+"no": 208,
+"form": "That's why ~.",
+"meaning": "그게 ~한 이유예요.",
+"core": "That's why",
+"hint": "That's why + 주어 + 동사"
+},
+{
+"no": 209,
+"form": "I told you ~.",
+"meaning": "내가 ~라고 했잖아요.",
+"core": "I told you",
+"hint": "I told you (that) + 주어 + 동사"
+},
+{
+"no": 210,
+"form": "I'm sure that ~.",
+"meaning": "~임에 틀림없어요.",
+"core": "I'm sure that",
+"hint": "I'm sure that + 주어 + 동사"
+},
+{
+"no": 211,
+"form": "I'm about to ~.",
+"meaning": "막 ~하려던 참이에요.",
+"core": "I'm about to",
+"hint": "I'm about to + 동사"
+},
+{
+"no": 212,
+"form": "I've been ~ing.",
+"meaning": "계속 ~하고 있었어요.",
+"core": "I've been",
+"hint": "I've been + 동사-ing"
+},
+{
+"no": 213,
+"form": "I was going to ~.",
+"meaning": "난 ~하려고 했어요.",
+"core": "I was going to",
+"hint": "I was going to + 동사"
+},
+{
+"no": 214,
+"form": "I'm frustrated that ~.",
+"meaning": "난 ~해서 속상해요.",
+"core": "I'm frustrated that",
+"hint": "I'm frustrated that + 주어 + 동사"
+},
+{
+"no": 215,
+"form": "I agree ~.",
+"meaning": "나는 ~에 동의해요.",
+"core": "I agree",
+"hint": "I agree with + 명사 / I agree that + 주어 + 동사"
+},
+{
+"no": 216,
+"form": "In case ~,",
+"meaning": "~할 경우에 대비해서.",
+"core": "In case",
+"hint": "In case + 주어 + 동사"
+},
+{
+"no": 217,
+"form": "Is it okay ~?",
+"meaning": "~해도 괜찮아요?",
+"core": "Is it okay",
+"hint": "Is it okay to + 동사/if + 주어 + 동사?"
+},
+{
+"no": 218,
+"form": "It's so much better to ~.",
+"meaning": "~하는 편이 훨씬 나아요.",
+"core": "It's so much better to",
+"hint": "It's so much better to + 동사"
+},
+{
+"no": 219,
+"form": "I think ~.",
+"meaning": "난 ~라고 생각해요.",
+"core": "I think",
+"hint": "I think (that) + 주어 + 동사"
+},
+{
+"no": 220,
+"form": "Given ~, ...",
+"meaning": "~을 생각하면.",
+"core": "Given",
+"hint": "Given + 명사/대명사, 주어 + 동사"
+},
+{
+"no": 221,
+"form": "Do you ever ~?",
+"meaning": "~하긴 해요?",
+"core": "Do you ever",
+"hint": "Do you ever + 동사?"
+},
+{
+"no": 222,
+"form": "I'm ready to ~.",
+"meaning": "나는 ~할 준비가 되었어요.",
+"core": "I'm ready to",
+"hint": "I'm ready to + 동사"
+},
+{
+"no": 223,
+"form": "It's better to ~.",
+"meaning": "~하는 편이 나아요.",
+"core": "It's better to",
+"hint": "It's better to + 동사"
+},
+{
+"no": 224,
+"form": "I'm supposed to ~.",
+"meaning": "내가 ~하기로 되어 있어요.",
+"core": "I'm supposed to",
+"hint": "I'm supposed to + 동사"
+},
+{
+"no": 225,
+"form": "It depends on ~.",
+"meaning": "그것은 ~에 달려 있어요.",
+"core": "It depends on",
+"hint": "It depends on + 명사"
+},
+{
+"no": 226,
+"form": "The thing is ~.",
+"meaning": "핵심은 ~라는 거예요.",
+"core": "The thing is",
+"hint": "The thing is + 주어 + 동사"
+},
+{
+"no": 227,
+"form": "I'm willing to ~.",
+"meaning": "기꺼이 ~할 거예요.",
+"core": "I'm willing to",
+"hint": "I'm willing to + 동사"
+},
+{
+"no": 228,
+"form": "It is important to ~.",
+"meaning": "~하는 것이 중요해요.",
+"core": "It is important to",
+"hint": "It's important to + 동사"
+},
+{
+"no": 229,
+"form": "I don't know why ~.",
+"meaning": "왜 ~인지 모르겠어요.",
+"core": "I don't know why",
+"hint": "I don't know why + 주어 + 동사"
+},
+{
+"no": 230,
+"form": "The last thing I want to do is ~.",
+"meaning": "~은 정말 하고 싶지 않아요.",
+"core": "The last thing I want to do is",
+"hint": "The last thing I want to do is + 동사"
+}
+]
