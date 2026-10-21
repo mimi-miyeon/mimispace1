@@ -32,7 +32,9 @@ function tail(a) { return /^[.?!]$/.test(a) ? a : " " + a; }
 /* 대표 정답 문장. 빈칸 문제는 빈칸 자리를 표시하고, 문장 문제는 핵심 부분을 표시 */
 function answerLine(it, S) {
   if (it.type === "blank") return (it.before ? esc(it.before) + " " : "") + '<b class="hit">' + esc(it.answers[0]) + "</b>" + esc(tail(it.after));
-  var a = esc(it.answers[0]), stem = esc(S.stem), i = a.toLowerCase().indexOf(stem.toLowerCase());
+  var forms = S.stem.split("/").map(function (f) { return f.trim(); }), raw = it.answers[0];
+  var hit = forms.filter(function (f) { return raw.toLowerCase().indexOf(f.toLowerCase()) >= 0; })[0] || forms[0];
+  var a = esc(raw), stem = esc(hit), i = a.toLowerCase().indexOf(stem.toLowerCase());
   return i < 0 ? a : a.slice(0, i) + '<b class="hit">' + a.slice(i, i + stem.length) + "</b>" + a.slice(i + stem.length);
 }
 function list(lab, arr, cls) {

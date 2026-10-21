@@ -46,12 +46,16 @@
     return { toks: out, notes: notes };
   }
 
-  /* 편집 거리 */
+  /* 편집 거리 (이웃 글자 자리 바꿈 포함) */
   function lev(a, b) {
     var m = a.length, n = b.length, d = [], i, j;
     for (i = 0; i <= m; i++) d[i] = [i];
     for (j = 0; j <= n; j++) d[0][j] = j;
-    for (i = 1; i <= m; i++) for (j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    for (i = 1; i <= m; i++) for (j = 1; j <= n; j++) {
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      /* 이웃한 두 글자가 바뀐 것(cna → can)도 오타 한 번으로 센다 */
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+    }
     return d[m][n];
   }
 

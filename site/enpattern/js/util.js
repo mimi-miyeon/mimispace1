@@ -69,7 +69,16 @@
     return (it.before ? it.before + " " : "") + it.answers[0] + tail(it.after);
   }
   function sessionOf(it) { return it._s || (EP.data && EP.data.session); }
-  function coreOf(it) { return it.type === "blank" ? it.answers[0] : sessionOf(it).stem; }
+  /* 핵심 부분. 형태가 둘 이상인 패턴은 stem을 /로 나눠 적는다 ("Can I/Can you").
+     문장마다 그 문장에 들어 있는 형태를 고른다 */
+  function stemFor(S, sentence) {
+    var forms = S.stem.split("/");
+    for (var i = 0; i < forms.length; i++) {
+      if (new RegExp("\\b" + escapeRe(forms[i].trim()) + "\\b", "i").test(sentence)) return forms[i].trim();
+    }
+    return forms[0].trim();
+  }
+  function coreOf(it) { return it.type === "blank" ? it.answers[0] : stemFor(sessionOf(it), it.answers[0]); }
   /* 예문 + 모든 문제의 정답 문장 */
   function sessionSentences(S) {
     var out = S.intro.examples.slice();
@@ -79,7 +88,7 @@
 
   EP.content = {
     prepare: prepare, session: session, load: load, loadMany: loadMany,
-    item: item, sessionOfKey: sessionOfKey, sessionOf: sessionOf,
+    item: item, stemFor: stemFor, sessionOfKey: sessionOfKey, sessionOf: sessionOf,
     fullAnswer: fullAnswer, tail: tail, coreOf: coreOf, sessionSentences: sessionSentences
   };
 })(window.EP);

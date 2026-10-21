@@ -151,7 +151,7 @@
       '<div class="blocks">' + blocks + "</div>" +
       '<ul class="expl">' + I.lines.map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("") + "</ul>" +
       I.examples.map(function (x, i) {
-        return '<div class="ex"><div><div class="en">' + U.withCore(x.en, S.stem) + '</div><div class="ko">' + esc(x.ko) + "</div></div>" +
+        return '<div class="ex"><div><div class="en">' + U.withCore(x.en, C.stemFor(S, x.en)) + '</div><div class="ko">' + esc(x.ko) + "</div></div>" +
           ui.speakBtn({ "data-ex": i }) + "</div>";
       }).join("") +
       '<div class="s-actions">' + ui.key("문제 풀기", "goBtn") + "</div>";

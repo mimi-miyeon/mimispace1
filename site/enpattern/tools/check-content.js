@@ -33,6 +33,13 @@ function dataFiles(args) {
 }
 
 /* ---- 검사 ---- */
+/* 문장에 핵심 부분이 있는지. 형태가 둘 이상이면 stem을 /로 나눠 적는다 ("Can I/Can you") */
+function hasStem(S, sentence) {
+  return S.stem.split("/").some(function (f) {
+    return new RegExp("\\b" + f.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(sentence);
+  });
+}
+
 /* 데이터 파일 하나에 든 세션들. 새 형식은 EP.sessions[번호], 예전 샘플은 EP.data.session */
 function sessionsOf(EP) {
   if (EP.sessions) return Object.keys(EP.sessions).map(function (k) { return EP.sessions[k]; });
@@ -53,7 +60,7 @@ function checkSession(EP, S) {
   if (!S.intro || !S.intro.blocks || !S.intro.lines || !S.intro.examples) err("세션", "intro(blocks, lines, examples) 빠짐");
   else S.intro.examples.forEach(function (x, i) {
     if (!x.en || !x.ko) err("예문 " + (i + 1), "en/ko 빠짐");
-    else if (!new RegExp("\\b" + S.stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(x.en)) warn("예문 " + (i + 1), "패턴(" + S.stem + ")이 들어 있지 않음: " + x.en);
+    else if (!hasStem(S, x.en)) warn("예문 " + (i + 1), "패턴(" + S.stem + ")이 들어 있지 않음: " + x.en);
   });
   if (!S.items || !S.items.length) { err("세션", "문제가 없음"); return { errors: errors, warns: warns, stats: stats }; }
 
@@ -98,7 +105,7 @@ function checkSession(EP, S) {
 
     /* 2. 패턴 정답에는 핵심 부분이 들어 있어야 한다 (문장 문제) */
     if (it.type === "sentence") it.answers.forEach(function (a) {
-      if (!new RegExp("\\b" + S.stem.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(a)) warn(where, "패턴 정답에 '" + S.stem + "'이(가) 없음: " + a + " (다른 표현이면 alts로 옮기세요)");
+      if (!hasStem(S, a)) warn(where, "패턴 정답에 '" + S.stem + "'이(가) 없음: " + a + " (다른 표현이면 alts로 옮기세요)");
     });
 
     /* 3. 대표 정답은 정답 따라 입력하기에서도 정답이어야 한다 */
