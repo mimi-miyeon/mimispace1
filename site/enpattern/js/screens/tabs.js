@@ -64,9 +64,10 @@
     if (ADMIN) document.getElementById("gearBtn").onclick = openSettings;
   }
 
-  /* 다음 세션 시작. 멈춘 기록이 있으면 이어서 할지 묻는다 (홈 [시작하기], 결과 화면 [10분 더]) */
-  function startNext(splash) {
-    splash = splash === true;
+  /* 다음 세션 시작. 멈춘 기록이 있으면 이어서 할지 묻는다 (홈 [시작하기], 결과 화면 [10분 더])
+     시작 전에 잠깐 안내 화면("복습부터 먼저 시작해 봐요")을 보여 준다 */
+  function startNext() {
+    var splash = true;
     var n = store.nextNo();
     if (n > CAT.total) { show("home"); return; }
     if (n > CAT.ready) { show("home"); V.toast("세션 " + n + "은 준비 중이에요. 조금만 기다려 주세요"); return; }

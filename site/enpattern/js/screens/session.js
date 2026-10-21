@@ -14,7 +14,7 @@
   var SPLASH_MS = 1400;   /* 안내 화면을 보여 주는 최소 시간 */
 
   /* opt: { no, mode: "new" | "redo", resume, splash } 또는 { single: "세션-문제id" }
-     splash: 시작 전에 잠깐 안내 화면 (결과 화면 [10분 더]에서 씀) */
+     splash: 시작 전에 잠깐 안내 화면 (홈 [시작하기], 결과 화면 [10분 더]) */
   function start(opt) {
     opt = opt || {};
     stopSpeak(); V.closeSheet(); EP.tabs.hideBar(); V.setPaper(true); $screen.onclick = null;
@@ -314,7 +314,7 @@
       if (m) speak(made[+m.getAttribute("data-m")].en);
     };
     document.getElementById("followBtn").onclick = function () { EP.follow.start(made); };
-    document.getElementById("moreBtn").onclick = function () { R = null; EP.tabs.startNext(true); };
+    document.getElementById("moreBtn").onclick = function () { R = null; EP.tabs.startNext(); };
     document.getElementById("homeBtn").onclick = function () { leave("home"); };
   }
 
