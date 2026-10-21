@@ -38,6 +38,19 @@
     });
   }
 
+  /* 화면 전환: 안내 화면을 차례로 잠깐씩 보여 준 뒤 done() */
+  function transition(steps, done) {
+    var mine = R, i = 0;
+    (function step() {
+      if (R !== mine) return;   /* 그사이 세션을 나갔으면 멈춘다 */
+      if (i >= steps.length) return done();
+      var x = steps[i++];
+      $screen.className = "screen"; $screen.scrollTop = 0;
+      $screen.innerHTML = ui.message({ char: ui.char(x.char, { size: "md", expr: x.expr, label: x.label }), title: x.title, text: x.text });
+      setTimeout(step, SPLASH_MS);
+    })();
+  }
+
   /* 다음 세션으로 넘어갈 때 잠깐 보이는 안내 */
   function renderSplash(opt) {
     var review = !opt.resume && opt.no > 1;
@@ -58,7 +71,7 @@
           retry: [], firstOk: 0, total: S ? S.items.length : 1, attempt: 0, copy: false, single: single, cleared: false, review: [] };
     if (single) R.queue = [single];
     else if (p) {
-      R.review = (p.review || []).filter(C.item); R.phase = p.phase; R.pos = p.pos; R.retry = (p.retry || []).filter(C.item); R.firstOk = p.firstOk || 0;
+      R.review = (p.review || []).filter(C.item); R.phase = p.phase; R.pos = p.pos; R.retry = (p.retry || []).filter(C.item); R.firstOk = p.firstOk || 0; R.reviewOk = p.reviewOk || 0;
     } else if (R.mode === "new") {
       R.review = buildReview(R.no);
       if (R.review.length) R.phase = "review";
@@ -90,7 +103,7 @@
   /* 멈춘 곳 저장. 새 세션만 저장한다 (다시 풀기·틀린 문제 한 문제는 저장하지 않음) */
   function persist() {
     if (R.single || R.mode !== "new") return;
-    st.progress = { no: R.no, phase: R.phase, pos: R.pos, retry: R.retry, firstOk: R.firstOk, review: R.review };
+    st.progress = { no: R.no, phase: R.phase, pos: R.pos, retry: R.retry, firstOk: R.firstOk, review: R.review, reviewOk: R.reviewOk || 0 };
     store.save();
   }
   function leave(toTab) { stopSpeak(); R = null; EP.tabs.show(toTab); }
@@ -206,6 +219,7 @@
      - 틀린 문제 탭은 같은 문제를 하루 한 번 (tabDay) */
   function onFirstTryCorrect(it) {
     if (R.phase === "main") R.firstOk++;
+    if (R.phase === "review") R.reviewOk = (R.reviewOk || 0) + 1;
     var w = st.wrong[it._key];
     if (!w || (R.phase !== "single" && R.phase !== "review")) return;
     if (R.phase === "single") w.tabDay = U.today();
@@ -286,7 +300,15 @@
   }
 
   function finishPhase() {
-    if (R.phase === "review") { R.phase = "intro"; R.queue = []; R.pos = 0; persist(); return render(); }
+    if (R.phase === "review") {
+      var allOk = (R.reviewOk || 0) >= R.review.length;
+      R.phase = "intro"; R.queue = []; R.pos = 0; persist();
+      return transition([
+        { char: "capsule", expr: "party", label: "캡슐", title: allOk ? "잘했어요!" : "화이팅이에요!",
+          text: allOk ? "복습 문제를 모두 바로 맞혔어요" : "복습을 마쳤어요. 틀린 문제는 끝에서 한 번 더 나와요" },
+        { char: "keycap", expr: "think", label: "키캡", title: "세션 " + R.no, text: "새로운 세션을 시작할게요" }
+      ], render);
+    }
     if (R.phase === "main" && R.retry.length) { R.phase = "retryIntro"; persist(); return render(); }
     if (R.phase === "single") return leave("wrong");
     if (R.mode === "new") { store.markDone(R.no); st.progress = null; }
