@@ -11,11 +11,17 @@
   var R = null; /* 진행 중인 세션 상태. 없으면 null */
   var REVIEW_MAX = 3, REVIEW_WRONG_MAX = 2;
 
-  /* opt: { no, mode: "new" | "redo", resume } 또는 { single: "세션-문제id" } */
+  var SPLASH_MS = 1400;   /* 안내 화면을 보여 주는 최소 시간 */
+
+  /* opt: { no, mode: "new" | "redo", resume, splash } 또는 { single: "세션-문제id" }
+     splash: 시작 전에 잠깐 안내 화면 (결과 화면 [10분 더]에서 씀) */
   function start(opt) {
     opt = opt || {};
     stopSpeak(); V.closeSheet(); EP.tabs.hideBar(); V.setPaper(true); $screen.onclick = null;
-    $screen.className = "screen"; $screen.innerHTML = '<div class="loading">불러오는 중…</div>';
+    $screen.className = "screen";
+    var t0 = Date.now(), wait = 0;
+    if (opt.splash) { wait = SPLASH_MS; renderSplash(opt); }
+    else $screen.innerHTML = '<div class="loading">불러오는 중…</div>';
     R = { loading: true };
     var p = opt.resume && st.progress && st.progress.no === opt.no ? st.progress : null;
     var need = [];
@@ -27,7 +33,19 @@
         (p ? p.review || [] : reviewWrongKeys(opt.no)).forEach(function (k) { need.push(C.sessionOfKey(k)); });
       }
     }
-    C.loadMany(need).then(function () { begin(opt, p); });
+    C.loadMany(need).then(function () {
+      setTimeout(function () { begin(opt, p); }, Math.max(0, wait - (Date.now() - t0)));
+    });
+  }
+
+  /* 다음 세션으로 넘어갈 때 잠깐 보이는 안내 */
+  function renderSplash(opt) {
+    var review = !opt.resume && opt.no > 1;
+    $screen.innerHTML = ui.message({
+      char: ui.char("keycap", { size: "md", expr: "think", label: "키캡" }),
+      title: "세션 " + opt.no,
+      text: opt.resume ? "멈춘 곳부터 이어서 해 볼게요" : review ? "복습부터 먼저 시작해 봐요" : "시작해 볼게요"
+    });
   }
 
   function begin(opt, p) {
@@ -296,7 +314,7 @@
       if (m) speak(made[+m.getAttribute("data-m")].en);
     };
     document.getElementById("followBtn").onclick = function () { EP.follow.start(made); };
-    document.getElementById("moreBtn").onclick = function () { R = null; EP.tabs.startNext(); };
+    document.getElementById("moreBtn").onclick = function () { R = null; EP.tabs.startNext(true); };
     document.getElementById("homeBtn").onclick = function () { leave("home"); };
   }
 

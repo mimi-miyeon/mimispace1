@@ -65,15 +65,16 @@
   }
 
   /* 다음 세션 시작. 멈춘 기록이 있으면 이어서 할지 묻는다 (홈 [시작하기], 결과 화면 [10분 더]) */
-  function startNext() {
+  function startNext(splash) {
+    splash = splash === true;
     var n = store.nextNo();
     if (n > CAT.total) { show("home"); return; }
     if (n > CAT.ready) { show("home"); V.toast("세션 " + n + "은 준비 중이에요. 조금만 기다려 주세요"); return; }
-    if (st.progress && st.progress.no === n) askResume(n);
-    else EP.session.start({ no: n, mode: "new" });
+    if (st.progress && st.progress.no === n) askResume(n, splash);
+    else EP.session.start({ no: n, mode: "new", splash: splash });
   }
 
-  function askResume(n) {
+  function askResume(n, splash) {
     var p = st.progress;
     var where = /retry/i.test(p.phase) ? "틀린 문제 다시 풀기에서 멈췄어요." : p.phase === "review" ? "복습에서 멈췄어요." :
       p.phase === "intro" ? "문법 이해에서 멈췄어요." : (p.pos + 1) + "번째 문제에서 멈췄어요.";
@@ -82,8 +83,8 @@
     m.innerHTML = '<div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mt"><h2 id="mt">멈춘 문제부터 이어서 할까요?</h2><p>지난번에 ' + where + "</p>" +
       ui.key("이어서 하기", "mRes") + ui.link("처음부터 하기", "mNew") + "</div>";
     V.$app.appendChild(m);
-    document.getElementById("mRes").onclick = function () { m.remove(); EP.session.start({ no: n, mode: "new", resume: true }); };
-    document.getElementById("mNew").onclick = function () { m.remove(); st.progress = null; store.save(); EP.session.start({ no: n, mode: "new" }); };
+    document.getElementById("mRes").onclick = function () { m.remove(); EP.session.start({ no: n, mode: "new", resume: true, splash: splash }); };
+    document.getElementById("mNew").onclick = function () { m.remove(); st.progress = null; store.save(); EP.session.start({ no: n, mode: "new", splash: splash }); };
   }
 
   function openSettings() {
