@@ -1,0 +1,18 @@
+@use "../abstracts/mixins" as *;
+
+// 설정 시트 (홈 톱니바퀴)
+
+.settings {
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    font-size: var(--fs-md);
+    @include divided;
+  }
+
+  input { width: 22px; height: 22px; accent-color: var(--accent); }
+}
+
+.settings-meta { margin: 10px 0 0; font-size: var(--fs-2xs); color: var(--text-soft); }

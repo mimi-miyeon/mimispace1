@@ -1,0 +1,69 @@
+@use "../abstracts/mixins" as *;
+
+// 세션 완료
+
+.done {
+  padding-bottom: 30px;
+  text-align: center;
+
+  h1 { margin: 0; font-size: var(--fs-5xl); color: var(--text-on-world); }
+  .score { margin: 4px 0 18px; color: var(--text-on-world-soft); }
+  .link { color: var(--text-on-world); }
+}
+
+// 캐릭터 넷이 나란히 (모양마다 폭이 달라서 비율로 맞춤)
+$done-chars: (keycap: 21%, a: 20%, capsule: 27%, fan: 19%);
+
+.done-chars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  max-width: var(--content-narrow);   // 태블릿에서 캐릭터가 너무 커지지 않게
+  margin: 14px auto 10px;
+
+  .char { margin: 0 3px; }
+
+  @each $kind, $width in $done-chars {
+    .char--#{$kind} { width: $width; }
+  }
+}
+
+.panel {
+  @include surface(paper, var(--radius-panel));
+  margin-bottom: 12px;
+  padding: 18px 16px;
+  text-align: left;
+
+  h2 { margin: 0 0 10px; font-size: var(--fs-md); color: var(--text-soft); }
+}
+
+// 이렇게도 말해요
+.tip {
+  padding: 10px 0;
+  @include divided;
+  &:first-of-type { padding-top: 0; }
+
+  .from { font-size: var(--fs-sm); color: var(--text-soft); }
+  .to {
+    display: flex;
+    align-items: center;
+    font-size: var(--fs-xl);
+    font-weight: 700;
+
+    span { flex: 1; }
+  }
+  .why { font-size: var(--fs-sm); color: var(--text-soft); }
+}
+
+// 오늘 문장
+.sent {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  @include divided;
+
+  div { flex: 1; min-width: 0; }
+  .en { font-weight: 600; }
+  .ko { font-size: var(--fs-xs); color: var(--text-soft); }
+}

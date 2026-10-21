@@ -1,0 +1,21 @@
+// 패턴 문장 "I have ~." 과 뜻 (홈 카드, 문법 이해)  (JS: EP.util.slotted)
+
+.pattern {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+}
+
+.slot {
+  display: inline-block;
+  background: var(--highlight);
+  border-radius: var(--radius-slot);
+  padding: 0 .22em;
+  margin-left: .08em;
+}
+
+.meaning {
+  color: var(--text-soft);
+  margin: 8px 0 26px;
+}

@@ -1,0 +1,9 @@
+// 선 아이콘 크기  (JS: EP.icons.ico(name, 16 | 20 | 22 | 26) → .ico--sm | md | lg | xl)
+// svg의 width/height 속성은 CSS가 없을 때의 기본값이고, 실제 크기는 토큰을 따른다.
+
+@each $size in (sm, md, lg, xl) {
+  .ico--#{$size} {
+    width: var(--icon-#{$size});
+    height: var(--icon-#{$size});
+  }
+}

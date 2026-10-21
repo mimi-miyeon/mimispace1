@@ -1,0 +1,22 @@
+@use "../abstracts/mixins" as *;
+
+.modal {
+  @include cover;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--overlay);
+}
+
+.modal-box {
+  @include surface(paper, var(--radius-modal));
+  width: 100%;
+  max-width: var(--modal-width);
+  padding: 24px 20px 16px;
+  text-align: center;
+
+  h2 { font-size: var(--fs-2xl); margin: 0 0 6px; }
+  p { margin: 0 0 18px; color: var(--text-soft); font-size: var(--fs-md); }
+}

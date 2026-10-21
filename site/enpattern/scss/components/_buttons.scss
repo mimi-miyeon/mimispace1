@@ -1,0 +1,79 @@
+@use "../abstracts/mixins" as *;
+
+// 키캡 버튼  (JS: EP.ui.key)
+// 색은 _tokens.scss 의 --key-{종류}-bg / -fg / -lip
+.key {
+  --lip: var(--key-plain-lip);
+  display: block;
+  width: 100%;
+  min-height: var(--key-height);
+  margin-bottom: var(--lip-key);
+  border-radius: var(--radius-key);
+  position: relative;
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  @include lip(var(--lip-key), var(--lip));
+  transform: translateY(0);
+  transition: transform .08s, box-shadow .08s;
+  @include no-motion;
+
+  &:active {
+    transform: translateY(calc(var(--lip-key) - 1px));
+    @include lip(1px, var(--lip));
+  }
+
+  @each $variant in (primary, dark, soft, plain) {
+    &--#{$variant} {
+      background: var(--key-#{$variant}-bg);
+      color: var(--key-#{$variant}-fg);
+      --lip: var(--key-#{$variant}-lip);
+    }
+  }
+
+  &--sm { width: auto; min-height: var(--key-height-sm); padding: 0 14px; font-size: var(--fs-sm); }
+  &--gap { margin-top: 12px; }
+}
+
+// 글자만 있는 보조 버튼  (JS: EP.ui.link)
+.link {
+  display: block;
+  margin: 12px auto 0;
+  padding: 10px 16px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: var(--text-soft);
+}
+
+// 닫기(그만하기)  (JS: EP.ui.closeBtn)
+.icon-btn {
+  @include icon-button(var(--text-soft));
+  flex: none;
+  margin-left: -8px;
+}
+
+// 듣기  (JS: EP.ui.speakBtn)
+.spk {
+  @include icon-button(var(--accent));
+  flex: none;
+}
+
+// 보통 / 느리게 듣기 한 쌍  (JS: EP.ui.listen)
+.listen {
+  display: flex;
+  margin: 4px 0 16px;
+
+  button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--listen-height);
+    margin-right: 8px;
+    border-radius: var(--radius-card);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+
+    &:last-child { margin-right: 0; }
+    svg { margin-right: 6px; }
+  }
+}

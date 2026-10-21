@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "sass": "sass scss:css --style=compressed",
-    "watch": "sass scss:css --watch --style=expanded"
+    "watch": "sass scss:css --watch --style=expanded",
+    "sass:enpattern": "sass site/enpattern/scss/style.scss site/enpattern/css/style.css --style=compressed",
+    "watch:enpattern": "sass site/enpattern/scss/style.scss site/enpattern/css/style.css --watch --style=expanded"
   },
   "keywords": [],
   "author": "",

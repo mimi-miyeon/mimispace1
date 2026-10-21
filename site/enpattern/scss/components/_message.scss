@@ -1,0 +1,25 @@
+@use "../abstracts/mixins" as *;
+
+// 가운데 메시지: 캐릭터 + 제목 + 설명 (+ 버튼)  (JS: EP.ui.message)
+// 로딩, 링크 안내(초록 위 --world), 틀린 문제 다시 풀기 안내(종이 위)
+
+.message {
+  @include center-column;
+  padding: 20px 8px;
+
+  .char { margin: 0 auto 20px; }
+  h1 { margin: 0 0 8px; font-size: var(--fs-3xl); }
+  p { max-width: 28em; margin: 0 auto; color: var(--text-soft); }   // 태블릿에서 줄이 너무 길어지지 않게
+  .key { margin-top: 26px; }
+
+  &--world {
+    color: var(--text-on-world);
+    p { color: var(--text-on-world-soft); }
+  }
+}
+
+.loading {
+  @include grid-center;
+  flex: 1;
+  color: var(--text-on-world);
+}

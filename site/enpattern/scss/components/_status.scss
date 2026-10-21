@@ -1,0 +1,37 @@
+@use "../abstracts/mixins" as *;
+
+// 잠깐 떴다 사라지는 알림  (JS: EP.view.toast)
+.toast {
+  position: absolute;
+  left: 50%;
+  bottom: safe(bottom, var(--tabbar-space));
+  z-index: var(--z-toast);
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--inverse-bg);
+  color: var(--inverse-fg);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 16px);
+  transition: .2s;
+  @include no-motion;
+
+  &.show { opacity: 1; transform: translate(-50%, 0); }
+}
+
+// 서버 저장 대기 표시
+.sync {
+  position: absolute;
+  top: 12px;
+  left: safe-min(left, 12px);
+  z-index: var(--z-sync);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--bad-bg);
+  color: var(--bad-fg);
+  font-size: var(--fs-2xs);
+  font-weight: 600;
+}

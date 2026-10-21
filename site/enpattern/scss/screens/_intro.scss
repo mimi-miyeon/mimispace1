@@ -1,0 +1,53 @@
+@use "../abstracts/mixins" as *;
+
+// 문법 이해 (세션 첫 화면)
+
+.intro {
+  .pattern { text-align: left; margin-bottom: 6px; }
+  .meaning { margin: 0 0 14px; }
+  .s-actions { margin-top: 14px; }
+}
+
+// I + have + ~ 블록
+.blocks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin: 6px 0 18px;
+}
+
+.blk {
+  @include surface(card);
+  @include lip(var(--lip-tile), var(--border));
+  margin: 0 8px 8px 0;
+  padding: 10px 14px;
+  text-align: center;
+
+  &.y { background: var(--highlight); @include lip(var(--lip-tile), var(--highlight-lip)); }
+
+  b { display: block; font-family: var(--font-display); font-weight: 400; font-size: var(--fs-2xl); }
+  span { font-size: var(--fs-2xs); color: var(--text-soft); }
+}
+
+.plus { align-self: center; margin: 0 8px 8px 0; color: var(--text-soft); font-weight: 700; }
+
+.expl {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+
+  li { padding: 8px 0; border-top: 1px solid var(--border); font-size: var(--fs-md); }
+}
+
+// 예문 + 듣기 버튼
+.ex {
+  @include surface(card);
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 12px 12px 12px 14px;
+
+  div { flex: 1; min-width: 0; }
+  .en { font-size: var(--fs-lg); font-weight: 600; }
+  .ko { font-size: var(--fs-xs); color: var(--text-soft); }
+}

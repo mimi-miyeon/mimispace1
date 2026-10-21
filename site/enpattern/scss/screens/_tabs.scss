@@ -1,0 +1,115 @@
+@use "../abstracts/mixins" as *;
+
+// 전체 세션 · 틀린 문제 탭
+
+// 제목 + 캐릭터  (JS: EP.ui.tabHead)
+.tab-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 10px 0 14px;
+
+  h1 { margin: 0 0 6px; font-size: var(--fs-4xl); font-weight: 700; color: var(--text-on-world); }
+  p { margin: 0; color: var(--text-on-world-soft); font-size: var(--fs-sm); }
+}
+
+.list {
+  display: grid;
+  gap: 10px;
+  padding-bottom: safe(bottom, 100px);
+
+  // 태블릿: 2열
+  @include tablet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+.row {
+  @include surface(paper, var(--radius-tile));
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  text-align: left;
+
+  .no {
+    @include grid-center;
+    grid-row: span 2;
+    width: var(--no-size);
+    height: var(--no-size);
+    border-radius: var(--radius-icon);
+    background: var(--highlight);
+    font-size: var(--fs-sm);
+    font-weight: 700;
+
+    &.again { background: var(--badge-bg); color: var(--badge-fg); }   // 틀린 문제
+  }
+
+  b { font-family: var(--font-display); font-weight: 400; font-size: var(--fs-base); }
+  b.ko { font-family: var(--font-body); font-weight: 600; }
+
+  .sub { font-size: var(--fs-xs); color: var(--text-soft); }
+  .state { font-size: var(--fs-2xs); font-weight: 600; color: var(--accent); }
+
+  .acts {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 6px;
+
+    button {
+      margin: 0 6px 6px 0;
+      padding: 7px 12px;
+      @include surface(card, var(--radius-chip));
+      @include lip(var(--lip-chip), var(--border));
+      font-size: var(--fs-xs);
+      font-weight: 600;
+    }
+  }
+
+  // 아직 열리지 않은 세션
+  &.locked {
+    background: var(--surface-ghost);
+    color: var(--text-on-world-soft);
+
+    .no { background: var(--surface-ghost-strong); color: var(--text-on-world-soft); }
+    .sub { color: var(--text-on-world-mute); }
+  }
+}
+
+.note {
+  grid-column: 1 / -1;   // 2열일 때도 한 줄 전체
+  padding: 8px 0 0;
+  color: var(--text-on-world-soft);
+  font-size: var(--fs-xs);
+  text-align: center;
+}
+
+.empty {
+  @include surface(paper, var(--radius-panel));
+  padding: 26px 20px;
+  text-align: center;
+
+  .char { margin: 0 auto 10px; }
+  p { margin: 4px 0 0; color: var(--text-soft); }
+}
+
+// 연속으로 맞힌 횟수 (2칸)
+.streak {
+  display: inline-flex;
+  margin-left: 2px;
+
+  i {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background: var(--border);
+
+    &.on { background: var(--accent); }
+  }
+}

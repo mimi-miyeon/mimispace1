@@ -1,0 +1,87 @@
+// 값은 _tokens.scss(CSS 변수)에 두고, 여기에는 반복되는 "모양 만드는 법"만 둔다.
+@use "sass:math";
+@use "sass:string";
+
+// ---- 반응형 -----------------------------------------------------------------
+// 모바일 우선. 화면 폭 $vw-min(작은 폰) → $vw-max(태블릿 = 앱 최대 폭) 사이에서 값이 커진다.
+$vw-min: 360px;
+$vw-max: 768px;
+$bp-tablet: 600px;   // 레이아웃이 바뀌는 지점 (목록 2열 등)
+
+// fluid(14px, 16px): 360px 화면에서 14px, 768px 이상에서 16px, 그 사이는 비례.
+// 최솟값보다 작아지지 않으므로 작은 폰에서도 글자가 줄지 않는다.
+@function fluid($min, $max) {
+  $slope: math.div($max - $min, $vw-max - $vw-min);
+  $base: $min - $slope * $vw-min;
+  $vw: math.div(math.round($slope * 10000), 100);
+  @return string.unquote("clamp(#{$min}, #{math.div(math.round($base * 100), 100)} + #{$vw}vw, #{$max})");
+}
+
+@mixin tablet {
+  @media (min-width: $bp-tablet) { @content; }
+}
+
+// 노치·홈 바 영역을 피하는 값
+// safe(bottom, 18px)            → calc(18px + env(safe-area-inset-bottom, 0px))
+// safe-min(left, var(--gutter)) → max(var(--gutter), env(safe-area-inset-left, 0px))
+@function safe($side, $add: 0px) {
+  @return string.unquote("calc(#{$add} + env(safe-area-inset-#{$side}, 0px))");
+}
+@function safe-min($side, $min) {
+  @return string.unquote("max(#{$min}, env(safe-area-inset-#{$side}, 0px))");
+}
+
+@mixin safe-x($min) {
+  padding-left: safe-min(left, $min);
+  padding-right: safe-min(right, $min);
+}
+
+// 부모(.app)를 가득 덮는 레이어
+@mixin cover {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+}
+
+@mixin grid-center {
+  display: grid;
+  place-items: center;
+}
+
+// 남은 높이를 채우고 내용을 세로 가운데에
+@mixin center-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+// 키캡처럼 아래에 두께가 보이는 그림자
+@mixin lip($height, $color) {
+  box-shadow: 0 $height 0 $color;
+}
+
+// 표면: 종이 카드(paper) / 흰 카드(card)
+@mixin surface($kind: card, $radius: var(--radius-card)) {
+  background: var(--surface-#{$kind});
+  border-radius: $radius;
+}
+
+// 정사각 아이콘 버튼
+@mixin icon-button($color) {
+  @include grid-center;
+  width: var(--icon-btn);
+  height: var(--icon-btn);
+  border-radius: var(--radius-icon);
+  color: $color;
+}
+
+// 목록 항목 사이 구분선 (첫 항목은 선 없음)
+@mixin divided {
+  border-top: 1px solid var(--border);
+  &:first-of-type { border-top: 0; }
+}
+
+@mixin no-motion {
+  @media (prefers-reduced-motion: reduce) { transition: none; }
+}

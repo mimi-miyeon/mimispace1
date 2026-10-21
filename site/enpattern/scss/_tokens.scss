@@ -1,0 +1,178 @@
+// ============================================================================
+//  디자인 토큰 — UI를 바꿀 때는 이 파일부터 고친다.
+//  모든 값은 CSS 변수로 출력되고, 컴포넌트·화면·JS(캐릭터, 아이콘)는 이 변수만 쓴다.
+//
+//  1. 팔레트 (--c-*)  : 실제 색 값. 색을 바꾸려면 여기.
+//  2. 역할 (semantic) : "어디에 쓰는 색인지". 역할의 색을 바꾸려면 여기.
+//  3. 컴포넌트 토큰   : 버튼 종류, 캐릭터 색 등 컴포넌트별 조합
+//  4. 글자 · 모양 · 크기 · 겹침 순서
+//
+//  반응형: fluid(모바일 값, 태블릿 값) 은 화면 폭 360px → 768px 사이에서 커진다.
+//  모바일 값이 최솟값이라 작은 화면에서도 더 작아지지 않는다. (abstracts/_mixins.scss)
+// ============================================================================
+
+@use "abstracts/mixins" as *;
+
+:root {
+  color-scheme: light;
+
+  // ---- 1. 팔레트 ----------------------------------------------------------
+  --c-white: #fff;
+  --c-green: #2E9E6B;
+  --c-green-dark: #258A5C;
+  --c-mint: #CDE7D9;
+  --c-mint-2: #A9D2BC;
+  --c-mint-3: #E3F4EA;
+  --c-paper: #F5F8F3;
+  --c-ink: #10382A;
+  --c-ink-deep: #061F16;
+  --c-ink-soft: #4E6B5D;
+  --c-mute: #9DB8AA;
+  --c-line: #DDE7E0;
+  --c-yellow: #FFD95A;
+  --c-yellow-dark: #C9A52E;
+  --c-cream: #FFF6E5;
+  --c-cream-dark: #D9C7A4;
+  --c-tomato: #FF6B3D;
+  --c-tomato-dark: #C44A2A;
+  --c-tomato-ink: #3A0A04;
+  --c-blue: #4A5BFF;
+  --c-blue-dark: #2F3DB8;
+  --c-blue-light: #7E8BFF;
+  --c-blue-light-dark: #5A66CC;
+  --c-blue-ink: #141A4D;
+  --c-blush: #FFE9E1;
+  --c-rust: #8A2A12;
+  --c-coral: #E0552E;
+
+  // ---- 2. 역할 ------------------------------------------------------------
+  // 배경
+  --bg-world: var(--c-green);             // 홈·탭·완료 화면 배경
+  --bg-world-raised: var(--c-green-dark); // 초록 위에 올라간 알약·버튼
+  --bg-paper: var(--c-paper);             // 문제 화면 배경
+  --surface-paper: var(--c-paper);        // 초록 위의 종이 카드 (홈 카드, 목록, 패널)
+  --surface-card: var(--c-white);         // 종이 위의 흰 카드 (문맥, 예문, 블록)
+  --surface-ghost: rgba(245, 248, 243, .14);        // 잠긴 목록
+  --surface-ghost-strong: rgba(245, 248, 243, .18);
+  --overlay: rgba(6, 31, 22, .5);
+
+  // 글자
+  --text: var(--c-ink);
+  --text-soft: var(--c-ink-soft);
+  --text-mute: var(--c-mute);
+  --text-on-world: var(--c-paper);        // 초록 위 글자
+  --text-on-world-soft: var(--c-mint);
+  --text-on-world-mute: var(--c-mint-2);
+
+  // 강조
+  --accent: var(--c-green);               // 칩, 진행 막대, 밑줄, 듣기 아이콘
+  --highlight: var(--c-yellow);           // 슬롯, 선택된 탭, 번호, 정답 핵심
+  --highlight-lip: var(--c-yellow-dark);
+  --focus-ring: var(--c-yellow);
+  --border: var(--c-line);
+  --inverse-bg: var(--c-ink);             // 탭 바, 토스트
+  --inverse-fg: var(--c-paper);
+
+  // 상태
+  --ok-bg: var(--c-green);
+  --ok-fg: var(--c-paper);
+  --ok-strong: var(--c-yellow);
+  --ok-soft: var(--c-mint-3);
+  --ok-raised: var(--c-green-dark);
+  --bad-bg: var(--c-blush);
+  --bad-fg: var(--c-rust);
+  --bad-accent: var(--c-coral);
+  --bad-surface: var(--c-white);
+  --badge-bg: var(--c-tomato);
+  --badge-fg: var(--c-white);
+
+  // ---- 3. 컴포넌트 토큰 --------------------------------------------------
+  // 키캡 버튼 (.key--primary / dark / soft / plain)
+  --key-primary-bg: var(--c-yellow);  --key-primary-fg: var(--c-ink);   --key-primary-lip: var(--c-yellow-dark);
+  --key-dark-bg: var(--c-ink);        --key-dark-fg: var(--c-paper);    --key-dark-lip: var(--c-ink-deep);
+  --key-soft-bg: var(--c-cream);      --key-soft-fg: var(--c-ink);      --key-soft-lip: var(--c-cream-dark);
+  --key-plain-bg: var(--c-white);     --key-plain-fg: var(--c-ink);     --key-plain-lip: var(--c-line);
+
+  // 캐릭터 (.char--keycap / a / capsule / fan). body2·lip2는 두 색으로 된 캡슐용
+  --char-keycap-body: var(--c-yellow);  --char-keycap-lip: var(--c-yellow-dark); --char-keycap-ink: var(--c-ink);
+  --char-a-body: var(--c-cream);        --char-a-lip: var(--c-cream-dark);       --char-a-ink: var(--c-ink);
+  --char-capsule-body: var(--c-blue-light); --char-capsule-body2: var(--c-blue);
+  --char-capsule-lip: var(--c-blue-light-dark); --char-capsule-lip2: var(--c-blue-dark);
+  --char-capsule-ink: var(--c-blue-ink);
+  --char-fan-body: var(--c-tomato);     --char-fan-lip: var(--c-tomato-dark);    --char-fan-ink: var(--c-tomato-ink);
+  --char-eye: var(--c-white);
+
+  // ---- 4. 글자 ------------------------------------------------------------
+  --font-display: "Archivo Black", "Arial Black", system-ui, sans-serif;   // 영어 패턴
+  --font-body: "IBM Plex Sans KR", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+
+  //                     모바일  태블릿
+  --fs-3xs: #{fluid(11px, 12px)};
+  --fs-2xs: #{fluid(12px, 13px)};
+  --fs-xs: #{fluid(13px, 14px)};
+  --fs-sm: #{fluid(14px, 16px)};
+  --fs-md: #{fluid(15px, 17px)};
+  --fs-base: #{fluid(16px, 18px)};
+  --fs-lg: #{fluid(17px, 20px)};
+  --fs-xl: #{fluid(18px, 21px)};
+  --fs-2xl: #{fluid(20px, 24px)};
+  --fs-3xl: #{fluid(22px, 27px)};
+  --fs-4xl: #{fluid(24px, 30px)};
+  --fs-5xl: #{fluid(26px, 34px)};
+  --fs-display: clamp(28px, 6vw + 10px, 52px);   // 영어 패턴: 폰에서도 빨리 커진다
+
+  // ---- 모양 ---------------------------------------------------------------
+  --radius-pill: 99px;
+  --radius-mark: 5px;      // 글자 강조
+  --radius-slot: 8px;      // 패턴의 ~ 자리
+  --radius-chip: 10px;     // 작은 버튼
+  --radius-icon: 12px;     // 아이콘 버튼, 번호 상자
+  --radius-card: 14px;     // 흰 카드, 듣기 버튼
+  --radius-key: 16px;      // 키캡 버튼
+  --radius-tile: 18px;     // 목록 한 줄
+  --radius-panel: 22px;    // 패널, 빈 상태
+  --radius-modal: 24px;
+  --radius-sheet: 26px;
+  --radius-hero: 28px;     // 홈 카드
+
+  --lip-key: 5px;          // 키캡 버튼 두께
+  --lip-tile: 3px;         // 블록 두께
+  --lip-chip: 2px;         // 작은 버튼 두께
+  --shadow-sheet: 0 -8px 30px rgba(16, 56, 42, .18);
+
+  // ---- 크기 · 여백 --------------------------------------------------------
+  --app-width: 768px;                       // 앱 최대 폭 (태블릿). 더 넓은 화면에서는 가운데 정렬
+  --gutter: #{fluid(16px, 32px)};           // 화면 좌우
+  --sheet-gutter: #{fluid(20px, 36px)};     // 시트·따라 말하기 좌우
+  --tabbar-space: #{fluid(96px, 112px)};    // 떠 있는 탭 바에 가리지 않게 비워 둘 높이
+  --tabbar-width: #{fluid(320px, 440px)};
+  --key-height: #{fluid(54px, 64px)};
+  --key-height-sm: #{fluid(38px, 44px)};
+  --icon-btn: #{fluid(40px, 48px)};
+  --listen-height: #{fluid(42px, 52px)};
+  --no-size: #{fluid(34px, 40px)};          // 목록 번호 상자
+  --modal-width: #{fluid(340px, 440px)};
+  --content-narrow: 560px;                  // 태블릿에서 너무 퍼지지 않게 할 내용 폭 (완료 캐릭터 등)
+
+  // 아이콘 (EP.icons.ico 의 size → .ico--{sm,md,lg,xl})
+  --icon-sm: #{fluid(16px, 18px)};
+  --icon-md: #{fluid(20px, 24px)};
+  --icon-lg: #{fluid(22px, 26px)};
+  --icon-xl: #{fluid(26px, 30px)};
+  --icon-tab: #{fluid(24px, 28px)};
+
+  // 캐릭터 크기 (.char--xs ~ .char--hero)
+  --char-xs: #{fluid(96px, 128px)};         // 탭 머리
+  --char-sm: #{fluid(110px, 150px)};        // 빈 상태
+  --char-md: #{fluid(120px, 160px)};        // 다시 풀기 안내
+  --char-lg: #{fluid(130px, 180px)};        // 링크 안내
+  --char-hero: min(46%, #{fluid(190px, 280px)});   // 홈
+
+  // ---- 겹침 순서 ----------------------------------------------------------
+  --z-tabbar: 5;
+  --z-sheet: 10;
+  --z-follow: 15;
+  --z-modal: 20;
+  --z-sync: 25;
+  --z-toast: 30;
+}

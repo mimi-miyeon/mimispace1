@@ -1,0 +1,36 @@
+// 캐릭터  (JS: EP.ui.char → <div class="char char--{종류} char--{크기}"><svg>…</svg></div>)
+//
+// - 모양(좌표)은 js/ui/characters.js, 색은 _tokens.scss 의 --char-{종류}-*, 크기는 --char-{크기}
+// - 화면에서는 위치(margin 등)만 정한다. 모든 화면의 캐릭터가 이 파일 하나로 바뀐다.
+
+$char-kinds: (keycap, a, capsule, fan);
+$char-sizes: (xs, sm, md, lg, hero);
+
+.char {
+  flex: none;
+
+  svg { display: block; width: 100%; height: auto; }
+}
+
+// 종류별 색: SVG 안의 .ch-* 조각이 이 변수를 쓴다 (탭 바 아이콘도 같은 클래스 사용)
+@each $kind in $char-kinds {
+  .char--#{$kind} {
+    --c-body: var(--char-#{$kind}-body);
+    --c-body2: var(--char-#{$kind}-body2, var(--char-#{$kind}-body));
+    --c-lip: var(--char-#{$kind}-lip);
+    --c-lip2: var(--char-#{$kind}-lip2, var(--char-#{$kind}-lip));
+    --c-ink: var(--char-#{$kind}-ink);
+  }
+}
+
+@each $size in $char-sizes {
+  .char--#{$size} { width: var(--char-#{$size}); }
+}
+
+.ch-body  { fill: var(--c-body); }
+.ch-body2 { fill: var(--c-body2); }
+.ch-lip   { fill: var(--c-lip); }
+.ch-lip2  { fill: var(--c-lip2); }
+.ch-ink   { fill: var(--c-ink); }
+.ch-line  { stroke: var(--c-ink); }
+.ch-eye   { fill: var(--char-eye); }

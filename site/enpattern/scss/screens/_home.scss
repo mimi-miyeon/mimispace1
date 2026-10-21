@@ -1,0 +1,42 @@
+@use "../abstracts/mixins" as *;
+
+// 홈: 초록 배경 위 캐릭터가 종이 카드에 걸터앉은 모양
+
+.pill {
+  align-self: center;
+  padding: 4px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--bg-world-raised);
+  color: var(--text-on-world);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.gear {
+  @include icon-button(var(--text-on-world));
+  position: absolute;
+  top: 10px;
+  right: safe-min(right, 12px);
+}
+
+.home-stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  > .char {
+    position: relative;
+    z-index: 1;
+    margin: 18px auto -26px;   // 카드 위에 살짝 겹치게
+  }
+}
+
+.card {
+  @include surface(paper, var(--radius-hero) var(--radius-hero) 0 0);
+  // .screen 좌우 여백을 상쇄해서 화면 끝까지 붙인다
+  margin: 0 calc(-1 * #{safe-min(left, var(--gutter))});
+  padding: fluid(48px, 64px) fluid(24px, 48px) safe(bottom, var(--tabbar-space));
+  text-align: center;
+}

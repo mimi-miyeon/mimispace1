@@ -1,0 +1,104 @@
+@use "../abstracts/mixins" as *;
+
+// 문제 화면 (종이 배경)
+
+.s-top {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+
+  .kind { margin: 0; }
+}
+
+// 진행 막대
+.segs {
+  flex: 1;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 4px;
+
+  i {
+    height: 7px;
+    border-radius: var(--radius-pill);
+    background: var(--border);
+
+    &.on { background: var(--accent); }
+  }
+}
+
+.kind { margin-bottom: 8px; font-size: var(--fs-xs); font-weight: 600; color: var(--text-soft); }
+
+.chip {
+  display: inline-block;
+  align-self: flex-start;   // .screen(flex 세로) 안에서 글자 폭만큼만
+  margin-bottom: 14px;
+  padding: 3px 12px;
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-pill);
+  color: var(--accent);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.q-ko { margin: 0 0 18px; font-size: var(--fs-3xl); font-weight: 600; line-height: 1.45; }
+
+// 문맥 카드: 바꿔 만들기·대화
+.ctx {
+  @include surface(card);
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  font-size: var(--fs-md);
+
+  .en { font-weight: 600; }
+  .sm { font-size: var(--fs-xs); color: var(--text-soft); }
+  .who { margin-right: 6px; font-weight: 700; color: var(--accent); }
+  .indent { margin-left: 22px; }
+  .reply { margin-top: 6px; }
+}
+
+// 따라 입력할 정답
+.copy {
+  @include surface(card);
+  margin-bottom: 14px;
+  padding: 12px 14px;
+
+  .lab { font-size: var(--fs-2xs); font-weight: 600; color: var(--text-soft); }
+  .en { font-size: var(--fs-xl); font-weight: 600; }
+}
+
+.blank-line {
+  margin: 0 0 18px;
+  font-size: var(--fs-2xl);
+  font-weight: 600;
+
+  .bl {
+    display: inline-block;
+    min-width: 3.4em;
+    margin: 0 .15em;
+    border-bottom: 3px solid var(--accent);
+    color: var(--accent);
+    text-align: center;
+  }
+}
+
+.answer-in {
+  width: 100%;
+  padding: 8px 2px;
+  border: 0;
+  border-bottom: 3px solid var(--accent);
+  border-radius: 0;
+  background: transparent;
+  outline: none;
+  font: inherit;
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  color: var(--text);
+
+  &:focus, &:focus-visible { outline: none; border-bottom-color: var(--text); }
+  &::placeholder { color: var(--text-mute); font-weight: 400; }
+}
+
+.err { min-height: 22px; margin: 6px 0 12px; color: var(--bad-fg); font-size: var(--fs-sm); }
+
+.s-actions { margin-top: 4px; padding-bottom: 24px; }
