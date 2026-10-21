@@ -30,7 +30,7 @@
         wrong: { "do not": "‘~하지 말자’는 Let's not이에요.", "no": "‘~하지 말자’는 Let's not이에요." },
         tip: { en: "Let's calm down.", why: "calm down은 ‘진정하다’예요." } },
       { id: "b5", type: "blank", kind: "빈칸 입력", ko: "나중에 얘기하자.", before: "", after: "talk later.", answers: ["Let's"],
-        wrong: { "lets": "Let us를 줄인 말이라 Let's에 '를 붙여요." },
+        wrong: { "let": "Let us를 줄인 말이라 Let's예요." },
         tip: { en: "We'll talk later.", why: "‘나중에 얘기해’라는 말이에요." } },
       { id: "s1", type: "sentence", kind: "문장 입력", ko: "밖에서 먹자.", answers: ["Let's eat out."],
         wrong: { "let us eating out": "Let's 뒤에는 동사 원래 모양 eat을 써요.", "let us to eat out": "Let's 뒤에는 to 없이 동사 원래 모양을 써요." },
