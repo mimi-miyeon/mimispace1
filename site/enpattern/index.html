@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 
@@ -20,21 +20,22 @@
   <div class="sync" id="sync" hidden>저장 대기 중</div>
 </div>
 
-<!-- 순서 중요: 설정·데이터 → 공통 모듈 → 화면 → 시작 -->
-<script src="js/config.js"></script>
-<script src="js/data/pattern1.js"></script>
-<script src="js/util.js"></script>
-<script src="js/store.js"></script>
-<script src="js/ui/icons.js"></script>
-<script src="js/ui/characters.js"></script>
-<script src="js/ui/components.js"></script>
-<script src="js/grade.js"></script>
-<script src="js/view.js"></script>
-<script src="js/speech.js"></script>
-<script src="js/screens/tabs.js"></script>
-<script src="js/screens/session.js"></script>
-<script src="js/screens/follow.js"></script>
-<script src="js/main.js"></script>
+<!-- 순서 중요: 설정·데이터 → 공통 모듈 → 화면 → 시작
+     ?v= 는 캐시 무효화용. 배포할 때 js/config.js의 version과 같이 올린다 -->
+<script src="js/config.js?v=4"></script>
+<script src="js/data/pattern1.js?v=4"></script>
+<script src="js/util.js?v=4"></script>
+<script src="js/store.js?v=4"></script>
+<script src="js/ui/icons.js?v=4"></script>
+<script src="js/ui/characters.js?v=4"></script>
+<script src="js/ui/components.js?v=4"></script>
+<script src="js/grade.js?v=4"></script>
+<script src="js/view.js?v=4"></script>
+<script src="js/speech.js?v=4"></script>
+<script src="js/screens/tabs.js?v=4"></script>
+<script src="js/screens/session.js?v=4"></script>
+<script src="js/screens/follow.js?v=4"></script>
+<script src="js/main.js?v=4"></script>
 
 </body>
 </html>
