@@ -13,7 +13,7 @@
 
 ```
 npm install                 # 처음 한 번
-npm run sass:enpattern      # scss → css (압축)
+npm run sass:enpattern      # scss → css (압축) + 오래된 사파리용 보조 CSS(tools/legacy-css.js). watch로 고친 뒤에도 배포 전에 한 번 실행
 npm run watch:enpattern     # 작업 중 자동 컴파일
 ```
 
