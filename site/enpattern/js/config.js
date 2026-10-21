@@ -3,7 +3,7 @@ var EP = window.EP || {};
 window.EP = EP;
 
 EP.config = {
-  version: "31",
+  version: "32",
   storageKey: "mmpattern.sample.v1",
   firebase: { key: "AIzaSyB564JPCQTuethG39piReuvr_flVSTgBKw", project: "enpattern-f5fa3" },
   pushDelay: 600,       /* 저장 후 서버에 보내기까지 기다리는 시간(ms) */
