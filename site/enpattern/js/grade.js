@@ -101,21 +101,47 @@
     return { html: html, missing: best.missing, extra: extra };
   }
 
-  /* 결과 status: correct | minor(오타·아포스트로피) | wrong | other(맞는 영어지만 이번 패턴 아님)
+  /* 콘텐츠에 나오는 단어도 실제 단어로 등록한다 (정답·다른 표현·팁·예상 오답) */
+  var learned = false;
+  function learnWords() {
+    if (learned) return; learned = true;
+    function add(s) { normalize(s).toks.forEach(function (w) { DICT[w] = 1; }); }
+    EP.data.session.items.forEach(function (it) {
+      (it.answers || []).concat(it.alts || []).forEach(add);
+      if (it.tip) add(it.tip.en);
+      for (var k in (it.wrong || {})) add(k);
+    });
+  }
+
+  /* 정답으로 인정하는 문장들: 패턴 정답 + (문장 문제면) 다른 표현과 팁.
+     alt: 다른 표현으로 맞혔는지 */
+  function candidates(it, target) {
+    if (target) return [{ text: target, alt: false }];
+    var out = [], seen = {};
+    function push(text, alt) { var k = normalize(text).toks.join(" "); if (seen[k]) return; seen[k] = 1; out.push({ text: text, alt: alt }); }
+    it.answers.forEach(function (a) { push(a, false); });
+    if (it.type !== "blank") {
+      (it.alts || []).forEach(function (a) { push(a, true); });
+      if (it.tip) push(it.tip.en, true);
+    }
+    return out;
+  }
+
+  /* 결과 status: correct | minor(오타·아포스트로피) | wrong
+     answer: 맞힌 문장, alt: 다른 표현으로 맞혔는지
      target: 정답 따라 입력하기일 때 그 문장 하나만 정답으로 본다 */
   function grade(input, it, target) {
+    learnWords();
     var N = normalize(input), u = N.toks, key = u.join(" ");
-    var answers = target ? [target] : it.answers;
+    var cands = candidates(it, target);
+    var answers = cands.map(function (c) { return c.text; });
     var A = answers.map(function (a) { return normalize(a).toks; });
     var coreToks = normalize(EP.content.coreOf(it)).toks;
     var i, j;
 
-    for (i = 0; i < A.length; i++) if (A[i].join(" ") === key) return { status: N.notes.length ? "minor" : "correct", notes: N.notes, answer: answers[i] };
+    for (i = 0; i < A.length; i++) if (A[i].join(" ") === key) return { status: N.notes.length ? "minor" : "correct", notes: N.notes, answer: answers[i], alt: cands[i].alt };
 
-    if (!target) {
-      if (it.wrong && it.wrong[key]) return { status: "wrong", reason: it.wrong[key], marks: markUser(u, A) };
-      if (it.other && it.other[key]) return { status: "other", reason: it.other[key], marks: markUser(u, A) };
-    }
+    if (!target && it.wrong && it.wrong[key]) return { status: "wrong", reason: it.wrong[key], marks: markUser(u, A) };
 
     /* 오타 판정: 단어 수가 같고, 다른 단어가 실제 단어가 아니며 철자가 가까움 */
     for (i = 0; i < A.length; i++) {
@@ -127,7 +153,7 @@
         if (!DICT[u[j]] && lev(u[j], a[j]) <= lim) notes.push({ from: u[j], to: a[j], kind: "typo", core: it.type !== "blank" && coreToks.indexOf(a[j]) >= 0 });
         else { ok = false; break; }
       }
-      if (ok) return { status: "minor", notes: notes, answer: answers[i] };
+      if (ok) return { status: "minor", notes: notes, answer: answers[i], alt: cands[i].alt };
     }
 
     var reason = "";
@@ -136,4 +162,6 @@
   }
 
   EP.grade = grade;
+  EP.grade.normalize = normalize;
+  EP.grade.candidates = candidates;
 })(window.EP);

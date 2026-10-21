@@ -162,12 +162,27 @@
       if (R.cleared && !st.wrong[it.id]) extra = '<p class="sh-note">두 번 연속 맞혀서 틀린 문제 목록에서 빠졌어요.</p>';
       else if (st.wrong[it.id]) extra = '<p class="sh-note">한 번 더 맞히면 목록에서 빠져요.</p>';
     }
+    /* 다른 표현으로 맞혔으면 이번 패턴 문장을 한 번 더 보여 준다 */
+    var pattern = g.alt ? '<p class="sh-pattern"><span class="sh-pattern__lab">이번 패턴으로는</span>' + U.withCore(C.fullAnswer(it), C.coreOf(it)) + "</p>" : "";
     V.openSheet("ok", '<div class="sh-title">' + ico("ok", 26) + esc(title) + "</div>" +
-      '<div class="sh-ans">' + U.withCore(full, C.coreOf(it)) + '</div><div class="sh-ko">' + esc(it.ko) + "</div>" + notes + extra +
-      V.listenBtns() + ui.key("다음", "nextBtn"), full);
+      '<div class="sh-ans">' + (g.alt ? esc(full) : U.withCore(full, C.coreOf(it))) + '</div><div class="sh-ko">' + esc(it.ko) + "</div>" + notes + pattern + extra +
+      V.listenBtns() + tipBox(it, full) + ui.key("다음", "nextBtn"), full);
     if (st.autoplay) setTimeout(function () { speak(full); }, 250);
     document.getElementById("nextBtn").onclick = next;
   }
+
+  /* 다른 표현 팁 (보고 듣기만). 방금 쓴 답이 팁과 같으면 보여 주지 않는다 */
+  function tipBox(it, used) {
+    if (!it.tip) return "";
+    var norm = EP.grade.normalize;
+    if (norm(it.tip.en).toks.join(" ") === norm(used).toks.join(" ")) return "";
+    return '<div class="sh-tip"><div class="sh-tip__lab">이렇게도 말해요</div><div class="sh-tip__line"><span class="sh-tip__en">' + esc(it.tip.en) + "</span>" +
+      ui.speakBtn({ "data-tip-say": it.tip.en }, 20) + '</div><div class="sh-tip__why">' + esc(it.tip.why) + "</div></div>";
+  }
+  V.$sheet.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-tip-say]");
+    if (b) speak(b.getAttribute("data-tip-say"));
+  });
 
   var NO_EXPLAIN = "이 오답은 아직 설명이 없어요. 궁금하면 문장을 검색해 보세요.";
   function badReason(g) {
@@ -178,8 +193,8 @@
   /* reveal: 두 번째로 틀렸으면 정답을 보여 주고 따라 입력하게 한다 */
   function showBad(it, g, reveal) {
     var full = C.fullAnswer(it);
-    var title = g.status === "other" ? "맞는 영어예요!" : reveal ? "정답을 확인해 보세요" : "다시 한 번 해 볼까요?";
-    V.openSheet("bad", '<div class="sh-title">' + ico(g.status === "other" ? "ok" : "bad", 26) + title + "</div>" +
+    var title = reveal ? "정답을 확인해 보세요" : "다시 한 번 해 볼까요?";
+    V.openSheet("bad", '<div class="sh-title">' + ico("bad", 26) + title + "</div>" +
       (g.marks ? '<div class="mine">' + g.marks.html + "</div>" : "") +
       '<p class="sh-note">' + esc(badReason(g)) + "</p>" +
       (reveal ? '<div class="sh-ans">' + U.withCore(full, C.coreOf(it)) + "</div>" + V.listenBtns() + ui.key("따라 입력하기", "badBtn")
@@ -213,10 +228,6 @@
     $screen.innerHTML =
       '<div class="done-chars">' + DONE_CHARS.map(function (c) { return ui.char(c[0], { expr: "party", label: c[1] }); }).join("") + "</div>" +
       "<h1>세션 " + S.no + ' 완료!</h1><p class="score">바로 맞힌 문제 ' + R.firstOk + " / " + R.total + "</p>" +
-      '<div class="panel"><h2>이렇게도 말해요</h2>' + S.tips.map(function (t, i) {
-        return '<div class="tip"><div class="from">' + esc(t.from) + '</div><div class="to"><span>' + esc(t.to) + "</span>" + ui.speakBtn({ "data-tip": i }) +
-          '</div><div class="why">' + esc(t.why) + "</div></div>";
-      }).join("") + "</div>" +
       '<div class="panel"><h2>오늘 문장 ' + made.length + "개</h2>" + made.map(function (m, i) {
         return '<div class="sent"><div><div class="en">' + esc(m.en) + '</div><div class="ko">' + esc(m.ko) + "</div></div>" + ui.speakBtn({ "data-m": i }, 20) + "</div>";
       }).join("") + "</div>" +
@@ -224,8 +235,7 @@
       ui.key("10분 더", "moreBtn", { gap: true }) +
       ui.link("홈으로", "homeBtn");
     $screen.onclick = function (e) {
-      var t = e.target.closest("[data-tip]"), m = e.target.closest("[data-m]");
-      if (t) speak(S.tips[+t.getAttribute("data-tip")].to);
+      var m = e.target.closest("[data-m]");
       if (m) speak(made[+m.getAttribute("data-m")].en);
     };
     document.getElementById("followBtn").onclick = function () { EP.follow.start(made); };

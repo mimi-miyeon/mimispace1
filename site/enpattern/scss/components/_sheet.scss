@@ -23,6 +23,9 @@
     .sh-note { color: var(--ok-soft); }
     .fix s { opacity: .7; }
     .listen button { background: var(--ok-raised); color: var(--ok-fg); }
+    .sh-pattern__lab, .sh-tip__lab, .sh-tip__why { color: var(--ok-soft); }
+    .sh-tip { background: var(--ok-raised); }
+    .sh-tip .spk { color: var(--ok-fg); }
   }
 
   &--bad {
@@ -70,4 +73,25 @@
     text-decoration: underline wavy var(--bad-accent);
     text-underline-offset: 4px;
   }
+}
+
+// 다른 표현으로 맞혔을 때: 이번 패턴 문장
+.sh-pattern {
+  margin: 0 0 12px;
+  font-size: var(--fs-md);
+  font-weight: 600;
+
+  &__lab { display: block; font-size: var(--fs-2xs); font-weight: 600; }
+}
+
+// 다른 표현 팁 (정답 시트 안, 보고 듣기만)
+.sh-tip {
+  margin: 0 0 16px;
+  padding: 10px 8px 10px 14px;
+  border-radius: var(--radius-card);
+
+  &__lab { font-size: var(--fs-2xs); font-weight: 600; }
+  &__line { display: flex; align-items: center; }
+  &__en { flex: 1; min-width: 0; font-size: var(--fs-lg); font-weight: 700; }
+  &__why { font-size: var(--fs-xs); }
 }

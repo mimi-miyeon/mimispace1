@@ -38,24 +38,6 @@ $done-chars: (keycap: 21%, a: 20%, capsule: 27%, fan: 19%);
   h2 { margin: 0 0 10px; font-size: var(--fs-md); color: var(--text-soft); }
 }
 
-// 이렇게도 말해요
-.tip {
-  padding: 10px 0;
-  @include divided;
-  &:first-of-type { padding-top: 0; }
-
-  .from { font-size: var(--fs-sm); color: var(--text-soft); }
-  .to {
-    display: flex;
-    align-items: center;
-    font-size: var(--fs-xl);
-    font-weight: 700;
-
-    span { flex: 1; }
-  }
-  .why { font-size: var(--fs-sm); color: var(--text-soft); }
-}
-
 // 오늘 문장
 .sent {
   display: flex;
