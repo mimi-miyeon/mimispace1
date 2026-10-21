@@ -9,11 +9,13 @@
     "wasn't": "was not", "weren't": "were not", "haven't": "have not", "hasn't": "has not", "hadn't": "had not", "couldn't": "could not",
     "wouldn't": "would not", "shouldn't": "should not", "mustn't": "must not", "we're": "we are", "they're": "they are", "you've": "you have",
     "we've": "we have", "they've": "they have", "i'll": "i will", "you'll": "you will", "we'll": "we will", "they'll": "they will",
-    "it'll": "it will", "there's": "there is", "here's": "here is", "where's": "where is", "who's": "who is", "how's": "how is" };
+    "it'll": "it will", "there's": "there is", "here's": "here is", "where's": "where is", "who's": "who is", "how's": "how is",
+    "must've": "must have", "should've": "should have", "could've": "could have", "would've": "would have" };
   var NOAPOS = { "im": "i'm", "dont": "don't", "doesnt": "doesn't", "didnt": "didn't", "cant": "can't", "isnt": "isn't", "arent": "aren't", "ive": "i've", "youre": "you're", "thats": "that's", "whats": "what's",
     "wasnt": "wasn't", "werent": "weren't", "havent": "haven't", "hasnt": "hasn't", "hadnt": "hadn't", "couldnt": "couldn't", "wouldnt": "wouldn't",
     "shouldnt": "shouldn't", "mustnt": "mustn't", "theyre": "they're", "youve": "you've", "weve": "we've", "theyve": "they've", "youll": "you'll",
-    "theyll": "they'll", "theres": "there's", "wheres": "where's", "whos": "who's", "hows": "how's" };
+    "theyll": "they'll", "theres": "there's", "wheres": "where's", "whos": "who's", "hows": "how's",
+    "mustve": "must've", "shouldve": "should've", "couldve": "could've", "wouldve": "would've" };
   var NUM = { "1": "one", "2": "two", "3": "three", "4": "four", "5": "five", "6": "six", "7": "seven", "8": "eight", "9": "nine", "10": "ten" };
 
   /* 실제 단어 목록: 여기 있는 단어는 오타로 보지 않는다 */
