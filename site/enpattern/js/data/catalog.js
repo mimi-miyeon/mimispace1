@@ -4,7 +4,7 @@
   "use strict";
   EP.catalog = {
     total: 230,
-    ready: 130,
+    ready: 140,
     list: [
       ["I have ~.","나는 ~이 있어요 / ~을 가지고 있어요"],
       ["I have some ~.","어떤 ~가 있어요."],
@@ -139,7 +139,7 @@
       ["There is no time to ~.","~할 시간이 없어요."],
       ["There is no way to ~.","~할 방법이 없어요."],
       ["There is no reason to ~.","~할 이유가 없어요."],
-      ["There is no use ~.","~해도 소용 없어요."],
+      ["There is no use ~.","~해도 소용없어요."],
       ["There is no doubt ~.","~인 것은 의심할 바가 없어요."],
       ["Do you mind ~ing?","~해 주실래요?"],
       ["Do you mind if I ~?","제가 ~해도 괜찮을까요?"],
