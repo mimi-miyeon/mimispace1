@@ -11,7 +11,7 @@
     "we've": "we have", "they've": "they have", "i'll": "i will", "you'll": "you will", "we'll": "we will", "they'll": "they will",
     "it'll": "it will", "there's": "there is", "here's": "here is", "where's": "where is", "who's": "who is", "how's": "how is",
     "must've": "must have", "should've": "should have", "could've": "could have", "would've": "would have",
-    "let's": "let us", "gonna": "going to", "wanna": "want to", "gotta": "got to" };
+    "let's": "let us", "you'd": "you would", "we'd": "we would", "they'd": "they would", "he'd": "he would", "she'd": "she would", "gonna": "going to", "wanna": "want to", "gotta": "got to" };
   var NOAPOS = { "im": "i'm", "dont": "don't", "doesnt": "doesn't", "didnt": "didn't", "cant": "can't", "isnt": "isn't", "arent": "aren't", "ive": "i've", "youre": "you're", "thats": "that's", "whats": "what's",
     "wasnt": "wasn't", "werent": "weren't", "havent": "haven't", "hasnt": "hasn't", "hadnt": "hadn't", "couldnt": "couldn't", "wouldnt": "wouldn't",
     "shouldnt": "shouldn't", "mustnt": "mustn't", "theyre": "they're", "youve": "you've", "weve": "we've", "theyve": "they've", "youll": "you'll",
