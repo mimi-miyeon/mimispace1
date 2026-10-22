@@ -7,7 +7,7 @@
 | 항목 | 결정 |
 |---|---|
 | 문장 (약 6,900개) | **Kokoro**로 만든다. 목소리 4종 `af_sarah`(미국 여), `am_michael`(미국 남), `bf_emma`(영국 여), `bm_lewis`(영국 남) |
-| 단어 (1,308개) | **Kokoro로는 안 만든다.** 다른 음성 서비스(Azure Speech 또는 Google Cloud TTS)로 만든다 — 아래 "단어" 참고 |
+| 단어 (1,308개) | **Kokoro로는 안 만든다.** **Google Cloud TTS**로 만든다 (`gen_google.py`). 목소리는 아직 안 골랐다 |
 | 저장 위치 | 이 저장소 옆 폴더 `enpattern-audio` (별도 저장소, GitHub Pages). 아직 GitHub 저장소는 안 만들었다 |
 | 파일 경로 | 단어 `<목소리>/w/<id>.mp3`, 문장 `<목소리>/s/<id>.mp3` — 단어를 다른 서비스로 만들어도 같은 폴더 이름(af_sarah 등)에 넣는다. 앱 코드는 안 바꾼다 |
 
@@ -38,13 +38,23 @@ Kokoro는 문장은 자연스럽지만 단어 하나만 읽히면 이상하다. 
    .venv\Scripts\python.exe gen.py --out ../../../../../enpattern-audio --kind sentences
    ```
    끝나면 `<out>/failed.json` 확인 → 다시 실행해서 실패분 채우기.
-2. **단어 서비스 정하기** — Azure Speech(추천) 또는 Google Cloud TTS
-   - Azure: F0(무료) 등급은 신경망 음성 월 50만 자, 넘으면 요금 대신 요청이 막힘. 단어 전체는 4종 합쳐 약 3만 자. 무료 등급은 요청 속도 제한이 있어 4~5시간 걸릴 수 있음. Azure 포털에서 Speech 리소스(가격 등급 Free F0)를 만들고 **키와 지역**을 받는다
-   - Google: 무료 한도는 더 크지만 결제 계정 연결이 필수이고 넘으면 자동 청구. 빠름
-   - 키는 저장소에 커밋하지 않는다 (환경 변수로 넘긴다)
-3. 고른 서비스로 미국·영국 남녀 후보 목소리 단어 샘플 → 한 번 듣고 고르기 → 단어 전체 만들기 (`<목소리>/w/`)
-4. GitHub에 공개 저장소 `enpattern-audio` 만들기(만들기 전에 확인), mp3 올리기, GitHub Pages 켜기. `.venv`·모델 파일은 올리지 않는다
-5. 앱에 연결하기 (따로 한다)
+2. ~~**Google Cloud 준비**~~ **끝남 (2026-10-22)**. 단어 서비스는 Google로 정했다 (Piper는 어색, Azure는 카드 등록이 필요하고 계정 없이 들어 볼 곳이 없어 안 씀)
+   - 프로젝트 `enpattern-tts`, 결제 계정 연결됨 (무료 한도 넘으면 자동 청구)
+   - 예산 알림: 월 ₩1, 알림만(Alerts only — 지출 한도로 멈추는 기능은 Text-to-Speech에 안 됨). 1원이라도 나가면 메일이 온다
+   - Cloud Text-to-Speech API 켜 둠. API 키 만듦 (이름 `enpattern-tts`, API 제한: Text-to-Speech만, Application restrictions: None)
+   - 키는 저장소에 커밋하지 않는다. 키는 직접 따로 보관 중 — 잃어버렸으면 콘솔 **APIs & Services → Credentials**에서 다시 보거나 새로 만든다
+3. **새 컴퓨터에서 키 설정** — PowerShell에서 한 번 `setx GOOGLE_TTS_KEY "키"` → VS Code를 완전히 껐다 켠다 (단어 생성은 Kokoro·torch 없이 numpy·lameenc만 있으면 된다)
+4. 미국·영국 남녀 후보 목소리 단어 샘플 → 듣고 고르기 → 단어 전체 만들기 (`<목소리>/w/`). `gen_google.py`는 아직 한 번도 실행해 보지 않았다 (키 받기 전에 만듦)
+   - 후보(기억에 의존, `--list-voices`로 확인): Chirp 3 HD `en-US-Chirp3-HD-Aoede`·`Kore`(여) / `Charon`·`Puck`(남), `en-GB-Chirp3-HD-…`; Neural2 `en-US-Neural2-F`(여)·`D`(남), `en-GB-Neural2-A`(여)·`B`(남)
+   ```bash
+   .venv\Scripts\python.exe gen_google.py --list-voices en-US            # 목소리 이름 보기
+   .venv\Scripts\python.exe gen_google.py --out ../../../../../enpattern-audio --sample --voices <후보1>,<후보2>,...
+   #   → <out>/google-sample/sample.html (단어 그대로 / 끝에 마침표 붙인 것 둘 다)
+   .venv\Scripts\python.exe gen_google.py --out ../../../../../enpattern-audio --voices af_sarah=<목소리>,am_michael=<목소리>,bf_emma=<목소리>,bm_lewis=<목소리>
+   ```
+   - 마침표 붙인 쪽이 나으면 전체 만들 때 `--dot`. 실패분은 `<out>/failed-google.json`
+5. GitHub에 공개 저장소 `enpattern-audio` 만들기(만들기 전에 확인), mp3 올리기, GitHub Pages 켜기. `.venv`·모델 파일·`google-sample/`은 올리지 않는다
+6. 앱에 연결하기 (따로 한다)
 
 ## 다른 컴퓨터에서 처음 준비
 
