@@ -3,7 +3,7 @@
 사용 예 (README.md 참고):
   python gen.py --out ../../../../../enpattern-audio --sample        # 목소리별 샘플 몇 개
   python gen.py --out ../../../../../enpattern-audio                 # 전체 (이미 있는 파일은 건너뜀)
-  python gen.py --out ... --voices af_aoede --kind words              # 일부만
+  python gen.py --out ... --voices af_sarah --kind words               # 일부만
 
 결과 위치: <out>/<목소리>/w/<id>.mp3 (단어), <out>/<목소리>/s/<id>.mp3 (문장)
 id는 list.json에 있다 (build-list.js가 만든다). 앱도 같은 규칙으로 파일을 찾는다.
@@ -11,10 +11,10 @@ id는 list.json에 있다 (build-list.js가 만든다). 앱도 같은 규칙으�
 import argparse, json, os, sys, time
 import numpy as np
 
-VOICES = {"af_aoede": "a", "am_onyx": "a", "bf_emma": "b", "bm_george": "b"}  # a: 미국, b: 영국
+VOICES = {"af_sarah": "a", "am_michael": "a", "bf_emma": "b", "bm_lewis": "b"}  # a: 미국, b: 영국
 RATE = 24000
 HERE = os.path.dirname(os.path.abspath(__file__))
-SAMPLE_WORDS = ["a", "can't", "schedule", "tomato", "water", "better", "comfortable", "i'm", "ok", "tv"]
+SAMPLE_WORDS = ["a", "tv", "ok", "water", "comfortable", "i'm", "she", "the", "her", "it's", "we're", "couldn't", "didn't", "shouldn't", "haven't", "isn't"]
 SAMPLE_SENTENCES = 12
 
 
@@ -50,18 +50,63 @@ def speak(pipe, text, voice, speed):
     return np.concatenate(parts)
 
 
+VOWELS = "AIOQWYaiuæɑɒɔəɛɜɪʊʌɐᵻ"  # misaki 발음 기호의 모음
+
+
+def stressed(ps):
+    """주 강세(ˈ)가 없으면 넣는다. i'm, she, the 같은 말은 문장 속 약한 발음으로 나와서 혼자 들으면 흐릿하다."""
+    if "ˈ" in ps:
+        return ps
+    if "ˌ" in ps:
+        return ps.replace("ˌ", "ˈ", 1)
+    for i, c in enumerate(ps):
+        if c in VOWELS:
+            return ps[:i] + "ˈ" + ps[i:]
+    return ps
+
+
+def speak_word(pipe, text, voice, speed):
+    """단어 하나 읽기. 강세를 넣고 끝에 마침표를 붙인다 (안 붙이면 TV가 "티버"처럼 끝이 뭉개진다).
+    couldn't처럼 약한 모음(ᵊ)이 있는 말은 첫 단어를 서두르는 버릇 때문에 두 번 읽혀 두 번째만 쓴다."""
+    g = pipe.g2p(text)
+    ps = stressed(g[0] if isinstance(g, tuple) else g)
+    one = f"[{text}](/{ps}/)."
+    if "ᵊ" not in ps:
+        return speak(pipe, one, voice, speed)
+    rs = [r for r in pipe(one + " " + one, voice=voice, speed=speed) if r.audio is not None]
+    dots = [t for t in (rs[0].tokens if len(rs) == 1 else []) if t.text == "."]
+    if not dots or dots[0].end_ts is None:  # 시간 정보가 없으면 한 번 읽기로
+        return speak(pipe, one, voice, speed)
+    return np.asarray(rs[0].audio, dtype=np.float32)[int(dots[0].end_ts * RATE):]
+
+
+def fix_espeak_path():
+    """espeak-ng는 한글 등 ASCII가 아닌 경로를 못 읽는다. 그럴 땐 발음 데이터를 사용자 폴더 아래로 복사해서 쓴다."""
+    import shutil, espeakng_loader
+    src = espeakng_loader.get_data_path()
+    if src.isascii():
+        return
+    dst = os.path.join(os.path.expanduser("~"), ".cache", "enpattern-espeak-data")
+    if not dst.isascii():
+        sys.exit("espeak-ng 데이터를 둘 영문 경로가 없습니다 (사용자 폴더 이름에 한글이 있음)")
+    if not os.path.exists(os.path.join(dst, "phontab")):
+        shutil.copytree(src, dst, dirs_exist_ok=True)
+    espeakng_loader.get_data_path = lambda: dst
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True, help="음성 저장소(enpattern-audio) 폴더")
     ap.add_argument("--list", default=os.path.join(HERE, "list.json"))
     ap.add_argument("--voices", default=",".join(VOICES), help="쉼표로 구분")
     ap.add_argument("--kind", choices=["all", "words", "sentences"], default="all")
-    ap.add_argument("--sample", action="store_true", help="목소리별 샘플만 (단어 10 + 문장 12)")
+    ap.add_argument("--sample", action="store_true", help="목소리별 샘플만 (단어 16 + 문장 12)")
     ap.add_argument("--limit", type=int, default=0, help="종류별 앞에서 N개만")
     ap.add_argument("--kbps", type=int, default=32)
     ap.add_argument("--speed", type=float, default=1.0)
     a = ap.parse_args()
 
+    fix_espeak_path()
     from kokoro import KPipeline  # 설치 확인을 늦게 해서 --help는 바로 뜨게
 
     L = json.load(open(a.list, encoding="utf-8"))
@@ -94,7 +139,9 @@ def main():
         for i, (k, x) in enumerate(todo, 1):
             path = os.path.join(a.out, voice, k, x["id"] + ".mp3")
             try:
-                audio = speak(pipes[lang], x.get("say") or x["text"], voice, a.speed)
+                text = x.get("say") or x["text"]
+                say = speak_word if k == "w" else speak
+                audio = say(pipes[lang], text, voice, a.speed)
                 to_mp3(trim(audio), path, a.kbps)
             except Exception as e:  # 하나가 실패해도 나머지는 계속
                 fails.append({"voice": voice, "id": x["id"], "text": x["text"], "error": str(e)})
