@@ -3,7 +3,7 @@
 사용 예 (README.md 참고):
   python gen.py --out ../../../../../enpattern-audio --sample        # 목소리별 샘플 몇 개
   python gen.py --out ../../../../../enpattern-audio                 # 전체 (이미 있는 파일은 건너뜀)
-  python gen.py --out ... --voices af_sarah --kind words               # 일부만
+  python gen.py --out ... --voices af_aoede --kind words               # 일부만
 
 결과 위치: <out>/<목소리>/w/<id>.mp3 (단어), <out>/<목소리>/s/<id>.mp3 (문장)
 id는 list.json에 있다 (build-list.js가 만든다). 앱도 같은 규칙으로 파일을 찾는다.
@@ -11,7 +11,7 @@ id는 list.json에 있다 (build-list.js가 만든다). 앱도 같은 규칙으�
 import argparse, json, os, sys, time
 import numpy as np
 
-VOICES = {"af_sarah": "a", "am_michael": "a", "bf_emma": "b", "bm_fable": "b"}  # a: 미국, b: 영국
+VOICES = {"af_aoede": "a", "am_onyx": "a", "bf_emma": "b", "bm_fable": "b"}  # a: 미국, b: 영국
 RATE = 24000
 HERE = os.path.dirname(os.path.abspath(__file__))
 SAMPLE_WORDS = ["a", "tv", "ok", "water", "comfortable", "i'm", "she", "the", "her", "it's", "we're", "couldn't", "didn't", "shouldn't", "haven't", "isn't"]

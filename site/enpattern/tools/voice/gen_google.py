@@ -7,9 +7,9 @@
   python gen_google.py --out ../../../../../enpattern-audio --sample \
       --voices en-US-Chirp3-HD-Aoede,en-US-Chirp3-HD-Charon        # 후보 목소리 샘플 → <out>/google-sample/sample.html
   python gen_google.py --out ../../../../../enpattern-audio \
-      --voices af_sarah=en-US-Chirp3-HD-Aoede,am_michael=...       # 전체 (이미 있는 파일은 건너뜀)
+      --voices af_aoede=en-US-Chirp3-HD-Aoede,am_onyx=...       # 전체 (이미 있는 파일은 건너뜀)
 
---voices 의 "폴더=목소리" 에서 폴더는 앱이 쓰는 이름(af_sarah 등). 결과: <out>/<폴더>/w/<id>.mp3
+--voices 의 "폴더=목소리" 에서 폴더는 앱이 쓰는 이름(af_aoede 등). 결과: <out>/<폴더>/w/<id>.mp3
 """
 import argparse, base64, io, json, os, sys, time, urllib.error, urllib.request, wave
 import numpy as np

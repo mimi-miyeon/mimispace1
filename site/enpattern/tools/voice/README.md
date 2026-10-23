@@ -9,7 +9,7 @@
 
 | 항목 | 값 |
 |---|---|
-| 목소리 4종 | `af_sarah`(미국 여), `am_michael`(미국 남), `bf_emma`(영국 여), `bm_fable`(영국 남) — Kokoro 영어 목소리 28종을 들어 보고 골랐다 |
+| 목소리 4종 | `af_aoede`(미국 여), `am_onyx`(미국 남), `bf_emma`(영국 여), `bm_fable`(영국 남) — 문장용. 단어는 Google TTS로 만들어 같은 폴더에 넣는다 |
 | 대상 | 단어 약 1,300개 + 문장 약 6,900개 (`list.json`) |
 | 형식 | mp3, 24 kHz 모노, 32 kbps, 앞뒤 빈 소리 잘라 냄, 소리 크기 맞춤 |
 | 저장 위치 | **별도 저장소** `enpattern-audio` (GitHub Pages로 공개). 이 저장소에는 넣지 않는다 |
