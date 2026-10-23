@@ -2,7 +2,7 @@
 
 초보자를 위한 하루 10분 영어 패턴 학습 서비스.
 
-- 현재: 패턴 1(I have ~.) 샘플 세션
+- 현재: 230개 패턴 세션 모두 제작 (검토 중). 남은 결정과 할 일은 [TODO.md](TODO.md)
 - 주소: https://mimi-miyeon.github.io/mimispace1/site/enpattern/?c=개인코드
 - 진도와 틀린 문제는 개인 코드별로 Firebase(Firestore)에 저장됩니다.
 - 접근 규칙(등록 코드 목록 포함)은 이 저장소에 두지 않습니다.
@@ -151,4 +151,7 @@ tools/check-content.js    콘텐츠 점검 (npm run check:enpattern)
 tools/build-review.js     검토 페이지 만들기 (review.css 사용)
 tools/build-catalog.js    세션 목록 js/data/catalog.js 만들기 (pattern-list.json + 세션 파일)
 tools/pattern-list.json   230개 패턴 이름·뜻·핵심 부분·힌트 (제작 기준표)
+tools/legacy-css.js       오래된 사파리(clamp 미지원)용 보조 CSS를 css/style.css 끝에 붙임 (sass:enpattern이 실행)
+tools/voice/              단어·문장 음성(mp3) 만들기. 방법은 README.md, 진행은 STATUS.md
+TODO.md                   남은 결정과 할 일
 ```
