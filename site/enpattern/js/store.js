@@ -21,9 +21,10 @@
   /* done: 끝낸 세션 번호 목록
      progress: 새 세션을 하다 멈춘 곳 { no, phase, pos, retry, firstOk, review }
      wrong: 틀린 문제 { "세션-문제id": { streak, tabDay, rev } }  rev: 다음 세션 복습에 넣을지 */
-  /* autoplay·voice·slowRate는 설정: 이 기기에만 저장하고 서버에는 보내지 않는다 */
-  var SETTINGS = ["autoplay", "voice", "slowRate"];
-  function blank() { return { done: [], progress: null, wrong: {}, autoplay: true, voice: "", slowRate: 0, localAt: "" }; }
+  /* 설정: 이 기기에만 저장하고 서버에는 보내지 않는다
+     autoplay: 정답일 때 자동 듣기 (처음엔 꺼짐), autoplayAsked: 자동 듣기 안내 모달을 받았는지 */
+  var SETTINGS = ["autoplay", "autoplayAsked", "voice", "slowRate"];
+  function blank() { return { done: [], progress: null, wrong: {}, autoplay: false, autoplayAsked: false, voice: "", slowRate: 0, localAt: "" }; }
   function load() {
     var d = blank();
     try { var s = JSON.parse(localStorage.getItem(DKEY)); if (s) for (var k in s) d[k] = s[k]; } catch (e) {}
@@ -40,6 +41,8 @@
       d.progress.no = 1;
       d.progress.retry = (d.progress.retry || []).map(function (k) { return k.indexOf("-") < 0 ? "1-" + k : k; });
     }
+    /* 예전에는 자동 듣기가 처음부터 켜져 있었다. 안내 모달에서 직접 고르기 전까지는 끈다 */
+    if (!d.autoplayAsked) d.autoplay = false;
     return d;
   }
   function writeLocal() { try { localStorage.setItem(DKEY, JSON.stringify(st)); } catch (e) {} }

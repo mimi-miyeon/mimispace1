@@ -62,6 +62,25 @@
       document.getElementById("startBtn").onclick = startNext;
     }
     document.getElementById("gearBtn").onclick = openSettings;
+    if (!st.autoplayAsked) askAutoplay();
+  }
+
+  /* 자동 듣기 안내: 아직 한 번도 고르지 않은 사용자에게 홈에서 한 번 보여 준다 */
+  function askAutoplay() {
+    if (V.$app.querySelector(".modal")) return;
+    var m = document.createElement("div");
+    m.className = "modal";
+    m.innerHTML = '<div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mt"><h2 id="mt">정답 문장을 자동으로 들어 볼까요?</h2>' +
+      "<p>문제를 맞히면 정답 문장을 바로 소리 내어 읽어 드려요. 귀로 같이 들으면 더 잘 기억나요.</p>" +
+      ui.key("자동 듣기 켜기", "apOn") + ui.link("지금은 끄기", "apOff") +
+      '<p class="modal-note">나중에 홈 오른쪽 위 톱니(설정)에서 언제든 바꿀 수 있어요.</p></div>';
+    V.$app.appendChild(m);
+    function choose(on) {
+      st.autoplay = on; st.autoplayAsked = true; store.save(); m.remove();
+      V.toast(on ? "정답일 때 자동으로 들려 드릴게요" : "자동 듣기를 꺼 두었어요");
+    }
+    document.getElementById("apOn").onclick = function () { choose(true); };
+    document.getElementById("apOff").onclick = function () { choose(false); };
   }
 
   /* 다음 세션 시작. 멈춘 기록이 있으면 이어서 할지 묻는다 (홈 [시작하기], 결과 화면 [10분 더])
@@ -99,12 +118,12 @@
     var A = EP.config.audio, sp = EP.speech;
     var admin = !ADMIN ? "" :
       '<div class="settings-admin">운영자 확인용</div>' +
-      '<label>정답일 때 자동으로 듣기<input type="checkbox" id="optAuto"' + (st.autoplay ? " checked" : "") + "></label>" +
       "<label>기록 지우고 처음 상태로" + ui.key("지우기", "optReset", { variant: "plain", sm: true }) + "</label>";
     var meta = !ADMIN ? "" :
       '<p class="settings-meta">' + esc("버전 " + EP.config.version + (store.code ? " · 코드 " + store.codeLabel() : " · 개인 링크 없음") + " · 저장 " + store.statusText()) + "</p>";
     V.openSheet("neutral",
       '<div class="sh-title">듣기 설정</div><div class="settings">' +
+      '<div class="setting"><label>정답일 때 자동으로 듣기<input type="checkbox" id="optAuto"' + (st.autoplay ? " checked" : "") + "></label></div>" +
       '<div class="setting"><div class="setting-lab">목소리</div>' + choices("voice", A.voices, sp.voice()) + "</div>" +
       '<div class="setting"><div class="setting-lab">느리게 듣기 속도</div>' +
       choices("rate", A.slowRates.map(function (r) { return [r, r + "배"]; }), sp.slowRate()) + "</div>" +
@@ -128,8 +147,8 @@
         sp.speak(A.sample, true);
       } else sp.speak(A.sample, b.getAttribute("data-try") === "s");
     };
+    document.getElementById("optAuto").onchange = function (e) { st.autoplay = e.target.checked; st.autoplayAsked = true; store.save(); };
     if (ADMIN) {
-      document.getElementById("optAuto").onchange = function (e) { st.autoplay = e.target.checked; store.save(); };
       document.getElementById("optReset").onclick = function () { store.reset(); V.closeSheet(); render(); V.toast("처음 상태로 돌렸어요"); };
     }
     document.getElementById("optClose").onclick = function () { sp.stop(); V.closeSheet(); };
