@@ -32,14 +32,14 @@ Kokoro는 문장은 자연스럽지만 단어 하나만 읽히면 이상하다. 
 
 ## 남은 일
 
-1. **문장 만들기** (Kokoro, 몇 시간 걸림. 멈추면 다시 실행해서 이어 만든다)
+1. ~~**문장 만들기**~~ **끝남 (2026-10-23)**. 4종 × 6,895개, 실패 0개, 합계 약 170 MB. enpattern-audio에 목소리별로 커밋·push (Kokoro, 목소리 하나에 30~70분. 멈추면 다시 실행해서 이어 만든다)
    ```bash
    cd site/enpattern/tools/voice
    .venv\Scripts\python.exe gen.py --out ../../../../../enpattern-audio --kind sentences
    ```
    끝나면 `<out>/failed.json` 확인 → 다시 실행해서 실패분 채우기.
    - 기본으로 100개마다 20초 쉰다 (`--batch 100 --rest 20`). 컴퓨터를 덜 바쁘게 하려면 `--threads 12`처럼 CPU 스레드를 줄인다
-   - 2026-10-23 회사 컴퓨터에서 시작: `--batch 100 --rest 20 --threads 12`
+   - 2026-10-23 회사 컴퓨터에서 `--threads 12`로 만들었다 (처음엔 `--rest 20`, bf_emma부터 `--rest 0`)
 2. ~~**Google Cloud 준비**~~ **끝남 (2026-10-22)**. 단어 서비스는 Google로 정했다 (Piper는 어색, Azure는 카드 등록이 필요하고 계정 없이 들어 볼 곳이 없어 안 씀)
    - 프로젝트 `enpattern-tts`, 결제 계정 연결됨 (무료 한도 넘으면 자동 청구)
    - 예산 알림: 월 ₩1, 알림만(Alerts only — 지출 한도로 멈추는 기능은 Text-to-Speech에 안 됨). 1원이라도 나가면 메일이 온다
