@@ -164,9 +164,11 @@
         h += '<div class="row"><span class="no">' + i + "</span><b>" + esc(r.form) + '</b><span class="sub">' + esc(r.meaning) + "</span>" +
           '<div class="acts"><button data-act="redo" data-no="' + i + '">다시 풀기</button><button data-act="follow" data-no="' + i + '">따라 말하기</button></div></div>';
       } else if (open) {
-        var state = !r.ready ? "준비 중" : st.progress && st.progress.no === i ? "진행 중" : "지금 할 세션";
+        var going = r.ready && st.progress && st.progress.no === i;
+        var state = !r.ready ? "준비 중" : going ? "진행 중" : "지금 할 세션";
+        var go = !r.ready ? "" : '<button class="go" data-act="' + (going ? "resume" : "start") + '" data-no="' + i + '">' + (going ? "이어서 하기" : "시작하기") + "</button>";
         h += '<div class="row" id="curRow"><span class="no">' + i + "</span><b>" + esc(r.form) + '</b><span class="sub">' + esc(r.meaning) + "</span>" +
-          '<div class="acts"><span class="state">' + state + "</span></div></div>";
+          '<div class="acts">' + go + '<span class="state">' + state + "</span></div></div>";
       } else {
         h += '<div class="row locked"><span class="no">' + ico("lock", 16) + "</span><b>" + esc(r.form) + '</b><span class="sub">' + esc(r.meaning) + "</span></div>";
       }
@@ -174,8 +176,10 @@
     $screen.innerHTML = h + "</div>";
     $screen.onclick = function (e) {
       var b = e.target.closest("[data-act]"); if (!b) return;
-      var no = +b.getAttribute("data-no");
-      if (b.getAttribute("data-act") === "redo") EP.session.start({ no: no, mode: "redo" });
+      var no = +b.getAttribute("data-no"), act = b.getAttribute("data-act");
+      if (act === "start") startNext();   /* 홈 [시작하기]와 같다 */
+      else if (act === "resume") EP.session.start({ no: no, mode: "new", resume: true, splash: true });
+      else if (act === "redo") EP.session.start({ no: no, mode: "redo" });
       else C.load(no).then(function (S) { EP.follow.start(C.sessionSentences(S)); }, function () { V.toast("문장을 불러오지 못했어요. 인터넷 연결을 확인해 주세요"); });
     };
   }

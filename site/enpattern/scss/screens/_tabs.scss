@@ -67,7 +67,15 @@
       @include lip(var(--lip-chip), var(--border));
       font-size: var(--fs-xs);
       font-weight: 600;
+
+      // 지금 할 세션: 시작하기 / 이어서 하기
+      &.go {
+        background: var(--key-primary-bg);
+        color: var(--key-primary-fg);
+        @include lip(var(--lip-chip), var(--key-primary-lip));
+      }
     }
+    .state { align-self: center; margin: 0 0 6px; }
   }
 
   // 아직 열리지 않은 세션
