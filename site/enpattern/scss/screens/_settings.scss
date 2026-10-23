@@ -16,3 +16,45 @@
 }
 
 .settings-meta { margin: 10px 0 0; font-size: var(--fs-2xs); color: var(--text-soft); }
+
+// 듣기 설정: 목소리 / 느리게 속도 / 들어 보기
+.setting {
+  padding: 12px 0 4px;
+  border-top: 1px solid var(--border);
+  &:first-child { border-top: 0; padding-top: 4px; }
+  .listen { margin-bottom: 8px; }
+}
+
+.setting-lab { margin-bottom: 8px; font-size: var(--fs-sm); font-weight: 600; color: var(--text-soft); }
+.setting-sample { margin: 0 0 8px; font-size: var(--fs-base); }
+
+// 하나 고르기 (JS: tabs.js choices)
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+
+  button {
+    margin: 0 8px 8px 0;   // gap 대신 margin: 오래된 사파리
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-pill);
+    background: var(--surface-card);
+    color: var(--text);
+    font-size: var(--fs-sm);
+
+    &[aria-checked="true"] {
+      border-color: var(--key-primary-lip);
+      background: var(--key-primary-bg);
+      color: var(--key-primary-fg);
+      font-weight: 600;
+    }
+  }
+}
+
+.settings-admin {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: var(--fs-2xs);
+  color: var(--text-soft);
+}

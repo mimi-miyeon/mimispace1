@@ -79,7 +79,9 @@ npm run watch:enpattern     # 작업 중 자동 컴파일
 세션 파일을 추가하면 `node site/enpattern/tools/build-catalog.js`로 목록을 다시 만듭니다. 목록의 `ready`(1번부터 만들어진 마지막 번호)보다 뒤 세션은 홈에서 '곧 열려요'로 보입니다.
 문제 키는 `세션번호-문제id`(예: `2-b1`)이고, 틀린 문제 기록도 이 키로 저장됩니다.
 
-운영자 확인용 설정(기록 지우기, 버전·저장 상태)은 주소 끝에 `&admin=1`을 붙이면 홈 오른쪽 위 톱니로 열립니다.
+홈 오른쪽 위 톱니는 듣기 설정(목소리 4종, 느리게 속도)입니다. 이 기기에만 저장되고 서버에는 보내지 않습니다.
+운영자 확인용 설정(자동 듣기, 기록 지우기, 버전·저장 상태)은 주소 끝에 `&admin=1`을 붙이면 같은 톱니 화면 아래에 나옵니다.
+음성 파일 주소·목소리 목록은 `js/config.js`의 `audio`, 파일 만드는 법은 `tools/voice/README.md`.
 빈칸 문제에서 빈칸이 문장 맨 앞이면 `before: ""`, 뒤가 문장부호 하나면 `after: "?"`처럼 씁니다.
 
 문제 하나(`items[]`)에 들어가는 값:
@@ -142,7 +144,7 @@ js/ui/characters.js       EP.chars    캐릭터 SVG 모양과 표정
 js/ui/components.js       EP.ui       공통 UI 마크업
 js/grade.js               EP.grade    채점(정규화·오타·오답 이유)
 js/view.js                EP.view     루트 DOM, 토스트, 하단 시트
-js/speech.js              EP.speech   음성 듣기(TTS)
+js/speech.js              EP.speech   음성 듣기: mp3(enpattern-audio, 목소리·느리게 속도는 홈 톱니 설정) → 없으면 브라우저 TTS
 js/screens/tabs.js        EP.tabs     홈·전체 세션·틀린 문제 탭, 안내 화면
 js/screens/session.js     EP.session  학습 세션 진행과 완료 화면
 js/screens/follow.js      EP.follow   따라 말하기

@@ -21,7 +21,9 @@
   /* done: 끝낸 세션 번호 목록
      progress: 새 세션을 하다 멈춘 곳 { no, phase, pos, retry, firstOk, review }
      wrong: 틀린 문제 { "세션-문제id": { streak, tabDay, rev } }  rev: 다음 세션 복습에 넣을지 */
-  function blank() { return { done: [], progress: null, wrong: {}, autoplay: true, localAt: "" }; }
+  /* autoplay·voice·slowRate는 설정: 이 기기에만 저장하고 서버에는 보내지 않는다 */
+  var SETTINGS = ["autoplay", "voice", "slowRate"];
+  function blank() { return { done: [], progress: null, wrong: {}, autoplay: true, voice: "", slowRate: 0, localAt: "" }; }
   function load() {
     var d = blank();
     try { var s = JSON.parse(localStorage.getItem(DKEY)); if (s) for (var k in s) d[k] = s[k]; } catch (e) {}
@@ -42,12 +44,13 @@
   }
   function writeLocal() { try { localStorage.setItem(DKEY, JSON.stringify(st)); } catch (e) {} }
   function save() { st.localAt = new Date().toISOString(); writeLocal(); schedulePush(); }
-  /* 기록을 지우되 설정(자동 듣기)은 남긴다. st 객체는 그대로 두고 내용만 바꾼다. */
+  /* 기록을 지우되 설정(자동 듣기, 목소리, 느리게 속도)은 남긴다. st 객체는 그대로 두고 내용만 바꾼다. */
   function reset() {
-    var ap = st.autoplay, b = blank(), k;
+    var keep = {}, b = blank(), k;
+    SETTINGS.forEach(function (s) { keep[s] = st[s]; });
     for (k in st) delete st[k];
     for (k in b) st[k] = b[k];
-    st.autoplay = ap;
+    for (k in keep) st[k] = keep[k];
     save();
   }
 

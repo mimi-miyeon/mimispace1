@@ -4,7 +4,7 @@
 
   var V = EP.view, U = EP.util, esc = U.esc, C = EP.content, store = EP.store, st = store.state;
   var ui = EP.ui, ico = EP.icons.ico, CAT = EP.catalog;
-  /* 운영자 확인용 설정(톱니)은 주소에 admin이 있을 때만: ?c=코드&admin=1 */
+  /* 설정(홈 톱니): 듣기 설정은 모두에게, 운영자 확인용 항목은 주소에 admin이 있을 때만: ?c=코드&admin=1 */
   var ADMIN = /[?&]admin=1/.test(location.search);
   var $screen = V.$screen, $tab = V.$tab;
   var current = "home";
@@ -49,7 +49,7 @@
   function renderHome() {
     var n = store.nextNo();
     $screen.className = "screen home";
-    var gear = ADMIN ? '<button class="gear" id="gearBtn" aria-label="운영자 설정">' + ico("gear", 22) + "</button>" : "";
+    var gear = '<button class="gear" id="gearBtn" aria-label="설정">' + ico("gear", 22) + "</button>";
     if (n > CAT.total) {
       $screen.innerHTML = gear + ui.message({ world: true, char: ui.char("capsule", { size: "lg", expr: "party", label: "캡슐" }),
         title: "모든 세션을 마쳤어요", text: "전체 세션 탭에서 다시 풀거나 따라 말할 수 있어요." });
@@ -61,7 +61,7 @@
         (cur.ready ? ui.key("시작하기", "startBtn") : ui.key("곧 열려요", "startBtn", { variant: "soft" })) + "</div></div>";
       document.getElementById("startBtn").onclick = startNext;
     }
-    if (ADMIN) document.getElementById("gearBtn").onclick = openSettings;
+    document.getElementById("gearBtn").onclick = openSettings;
   }
 
   /* 다음 세션 시작. 멈춘 기록이 있으면 이어서 할지 묻는다 (홈 [시작하기], 결과 화면 [10분 더])
@@ -88,17 +88,51 @@
     document.getElementById("mNew").onclick = function () { m.remove(); st.progress = null; store.save(); EP.session.start({ no: n, mode: "new", splash: splash }); };
   }
 
+  /* 고르기 한 줄 (목소리, 느리게 속도). 고른 것은 aria-checked="true" */
+  function choices(name, list, cur) {
+    return '<div class="choices" role="radiogroup">' + list.map(function (c) {
+      return '<button type="button" role="radio" aria-checked="' + (String(c[0]) === String(cur)) + '" data-' + name + '="' + esc(c[0]) + '">' + esc(c[1]) + "</button>";
+    }).join("") + "</div>";
+  }
+
   function openSettings() {
-    var meta = "버전 " + EP.config.version + (store.code ? " · 코드 " + store.codeLabel() : " · 개인 링크 없음") + " · 저장 " + store.statusText();
-    V.openSheet("neutral",
-      '<div class="sh-title">운영자 확인용 설정</div><div class="settings">' +
+    var A = EP.config.audio, sp = EP.speech;
+    var admin = !ADMIN ? "" :
+      '<div class="settings-admin">운영자 확인용</div>' +
       '<label>정답일 때 자동으로 듣기<input type="checkbox" id="optAuto"' + (st.autoplay ? " checked" : "") + "></label>" +
-      "<label>기록 지우고 처음 상태로" + ui.key("지우기", "optReset", { variant: "plain", sm: true }) + "</label></div>" +
-      '<p class="settings-meta">' + esc(meta) + "</p>" +
+      "<label>기록 지우고 처음 상태로" + ui.key("지우기", "optReset", { variant: "plain", sm: true }) + "</label>";
+    var meta = !ADMIN ? "" :
+      '<p class="settings-meta">' + esc("버전 " + EP.config.version + (store.code ? " · 코드 " + store.codeLabel() : " · 개인 링크 없음") + " · 저장 " + store.statusText()) + "</p>";
+    V.openSheet("neutral",
+      '<div class="sh-title">듣기 설정</div><div class="settings">' +
+      '<div class="setting"><div class="setting-lab">목소리</div>' + choices("voice", A.voices, sp.voice()) + "</div>" +
+      '<div class="setting"><div class="setting-lab">느리게 듣기 속도</div>' +
+      choices("rate", A.slowRates.map(function (r) { return [r, r + "배"]; }), sp.slowRate()) + "</div>" +
+      '<div class="setting"><div class="setting-lab">들어 보기</div><p class="setting-sample">' + esc(A.sample) + "</p>" + ui.listen("data-try") + "</div>" +
+      admin + "</div>" + meta +
       ui.key("닫기", "optClose", { variant: "dark", gap: true }));
-    document.getElementById("optAuto").onchange = function (e) { st.autoplay = e.target.checked; store.save(); };
-    document.getElementById("optReset").onclick = function () { store.reset(); V.closeSheet(); render(); V.toast("처음 상태로 돌렸어요"); };
-    document.getElementById("optClose").onclick = V.closeSheet;
+
+    var $set = V.$sheet.querySelector(".settings");
+    function pick(name, val) {
+      $set.querySelectorAll("[data-" + name + "]").forEach(function (b) { b.setAttribute("aria-checked", String(b.getAttribute("data-" + name) === String(val))); });
+    }
+    /* 고르면 바로 그 목소리·속도로 들려 준다 */
+    $set.onclick = function (e) {
+      var b = e.target.closest("[data-voice], [data-rate], [data-try]");
+      if (!b) return;
+      if (b.hasAttribute("data-voice")) {
+        st.voice = b.getAttribute("data-voice"); store.save(); pick("voice", st.voice);
+        sp.speak(A.sample, false);
+      } else if (b.hasAttribute("data-rate")) {
+        st.slowRate = parseFloat(b.getAttribute("data-rate")); store.save(); pick("rate", st.slowRate);
+        sp.speak(A.sample, true);
+      } else sp.speak(A.sample, b.getAttribute("data-try") === "s");
+    };
+    if (ADMIN) {
+      document.getElementById("optAuto").onchange = function (e) { st.autoplay = e.target.checked; store.save(); };
+      document.getElementById("optReset").onclick = function () { store.reset(); V.closeSheet(); render(); V.toast("처음 상태로 돌렸어요"); };
+    }
+    document.getElementById("optClose").onclick = function () { sp.stop(); V.closeSheet(); };
   }
 
   /* ---- 전체 세션: 끝낸 세션은 다시 풀기·따라 말하기, 다음 세션 하나만 열림, 나머지는 잠김 ---- */
