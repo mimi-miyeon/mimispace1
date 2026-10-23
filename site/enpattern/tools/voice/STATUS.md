@@ -38,6 +38,8 @@ Kokoro는 문장은 자연스럽지만 단어 하나만 읽히면 이상하다. 
    .venv\Scripts\python.exe gen.py --out ../../../../../enpattern-audio --kind sentences
    ```
    끝나면 `<out>/failed.json` 확인 → 다시 실행해서 실패분 채우기.
+   - 기본으로 100개마다 20초 쉰다 (`--batch 100 --rest 20`). 컴퓨터를 덜 바쁘게 하려면 `--threads 12`처럼 CPU 스레드를 줄인다
+   - 2026-10-23 회사 컴퓨터에서 시작: `--batch 100 --rest 20 --threads 12`
 2. ~~**Google Cloud 준비**~~ **끝남 (2026-10-22)**. 단어 서비스는 Google로 정했다 (Piper는 어색, Azure는 카드 등록이 필요하고 계정 없이 들어 볼 곳이 없어 안 씀)
    - 프로젝트 `enpattern-tts`, 결제 계정 연결됨 (무료 한도 넘으면 자동 청구)
    - 예산 알림: 월 ₩1, 알림만(Alerts only — 지출 한도로 멈추는 기능은 Text-to-Speech에 안 됨). 1원이라도 나가면 메일이 온다
@@ -53,6 +55,10 @@ Kokoro는 문장은 자연스럽지만 단어 하나만 읽히면 이상하다. 
    .venv\Scripts\python.exe gen_google.py --out ../../../../../enpattern-audio --voices af_sarah=<목소리>,am_michael=<목소리>,bf_emma=<목소리>,bm_lewis=<목소리>
    ```
    - 마침표 붙인 쪽이 나으면 전체 만들 때 `--dot`. 실패분은 `<out>/failed-google.json`
+   - **무료 한도 지키기**: 보낸 글자 수를 `google-usage.json`(커밋 안 함)에 달별·등급별로 기록한다. 실행이 끝날 때마다 남은 양을 보여 주고, 이번 실행이 무료 한도를 넘게 되면 **시작 전에 멈춘다** (넘겨도 되면 `--allow-paid`). `gen_google.py --usage`로 언제든 확인. 이 컴퓨터에서 보낸 것만 세므로 정확한 값은 콘솔에서
+     - 무료 한도는 자료마다 달라 낮게 잡았다: Standard 400만, WaveNet·Neural2·Chirp 3 HD 100만, Studio 10만 자. 그 밖의 등급은 0(쓰려면 `--allow-paid`)
+   - **단어를 다 만들면 API 키를 삭제한다** (콘솔 **APIs & Services → Credentials** → 키 `enpattern-tts` 삭제). Google TTS에는 금액에 닿으면 자동으로 멈추는 간단한 설정이 없어서, 키를 없애는 게 가장 확실한 차단이다. 다시 필요하면 새로 만든다. 환경 변수도 지운다: `[Environment]::SetEnvironmentVariable("GOOGLE_TTS_KEY", $null, "User")`
+   - 사용량 확인: 콘솔 **Billing → Reports** (서비스를 Cloud Text-to-Speech로 거르기, 무료 한도 안이면 비용 ₩0), 요청 수는 **APIs & Services → Text-to-Speech API → Metrics**
 5. GitHub에 공개 저장소 `enpattern-audio` 만들기(만들기 전에 확인), mp3 올리기, GitHub Pages 켜기. `.venv`·모델 파일·`google-sample/`은 올리지 않는다
 6. 앱에 연결하기 (따로 한다)
 

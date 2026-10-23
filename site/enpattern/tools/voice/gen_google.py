@@ -17,6 +17,40 @@ from gen import RATE, SAMPLE_WORDS, trim, to_mp3
 
 API = "https://texttospeech.googleapis.com/v1/"
 HERE = os.path.dirname(os.path.abspath(__file__))
+USAGE = os.path.join(HERE, "google-usage.json")  # 보낸 글자 수 기록 (커밋하지 않음, .gitignore)
+
+# 등급별 월 무료 글자 수. 자료마다 숫자가 달라서 낮은 쪽으로 잡았다 — https://cloud.google.com/text-to-speech/pricing 에서 확인
+FREE = {"standard": 4_000_000, "wavenet": 1_000_000, "neural2": 1_000_000, "chirp3-hd": 1_000_000, "studio": 100_000}
+
+
+def tier(voice):
+    """목소리 이름으로 요금 등급 알아내기 (en-US-Chirp3-HD-Aoede → chirp3-hd). 모르는 등급은 무료 한도 0으로 본다."""
+    v = voice.lower()
+    for t in ("chirp3-hd", "neural2", "wavenet", "studio", "standard"):
+        if t in v:
+            return t
+    return "other:" + voice
+
+
+def load_usage():
+    try:
+        with open(USAGE, encoding="utf-8") as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+def save_usage(u):
+    with open(USAGE, "w", encoding="utf-8") as f:
+        json.dump(u, f, ensure_ascii=False, indent=1)
+
+
+def usage_lines(month_usage):
+    out = []
+    for t, n in sorted(month_usage.items()):
+        free = FREE.get(t, 0)
+        out.append(f"  {t:12} {n:>9,}자 / 무료 {free:>9,}자  → 남은 {max(0, free - n):>9,}자" + ("  ※ 무료 한도 넘음" if n > free else ""))
+    return out or ["  (아직 없음)"]
 
 
 def call(path, key, body=None):
@@ -59,7 +93,15 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="앞에서 N개만")
     ap.add_argument("--kbps", type=int, default=32)
     ap.add_argument("--list-voices", metavar="LANG", help="목소리 이름 보기 (예: en-US, en-GB)")
+    ap.add_argument("--usage", action="store_true", help="이번 달 보낸 글자 수와 무료 한도까지 남은 양만 보기")
+    ap.add_argument("--allow-paid", action="store_true", help="무료 한도를 넘어도 계속한다 (요금이 나갈 수 있음)")
     a = ap.parse_args()
+
+    month = time.strftime("%Y-%m")
+    if a.usage:
+        print(f"{month} 사용량 (이 컴퓨터에서 gen_google.py로 보낸 것만, 정확한 값은 콘솔 Billing → Reports)")
+        print("\n".join(usage_lines(load_usage().get(month, {}))))
+        return
 
     key = os.environ.get("GOOGLE_TTS_KEY")
     if not key:
@@ -87,23 +129,50 @@ def main():
         folder, _, voice = item.rpartition("=")
         pairs.append((folder or voice, voice))
 
+    def text_of(w):
+        return (w.get("say") or w["text"]) + ("." if a.dot or w.get("dot") else "")
+
+    def todo_of(folder):
+        return [w for w in words if not os.path.exists(os.path.join(out, folder, "w", w["id"] + ".mp3"))]
+
+    # 시작 전에 무료 한도 안인지 확인
+    usage = load_usage()
+    mu = usage.setdefault(month, {})
+    need = {}
+    for folder, voice in pairs:
+        t = tier(voice)
+        need[t] = need.get(t, 0) + sum(len(text_of(w)) for w in todo_of(folder))
+    over = [t for t, n in need.items() if mu.get(t, 0) + n > FREE.get(t, 0)]
+    print(f"이번에 보낼 글자: " + ", ".join(f"{t} {n:,}자" for t, n in need.items()))
+    if over and not a.allow_paid:
+        print("\n".join(usage_lines({t: mu.get(t, 0) + need[t] for t in need})))
+        sys.exit(f"무료 한도를 넘게 됩니다 ({', '.join(over)}). 요금이 나가도 되면 --allow-paid 를 붙이세요")
+
     fails = []
+    sent = {}
     for folder, voice in pairs:
         os.makedirs(os.path.join(out, folder, "w"), exist_ok=True)
-        todo = [w for w in words if not os.path.exists(os.path.join(out, folder, "w", w["id"] + ".mp3"))]
+        todo = todo_of(folder)
         print(f"[{folder} ← {voice}] 전체 {len(words)}개 중 새로 만들 것 {len(todo)}개", flush=True)
         t0 = time.time()
         for i, w in enumerate(todo, 1):
             try:
-                text = w.get("say") or w["text"]
-                if a.dot or w.get("dot"):
-                    text += "."
-                to_mp3(trim(speak(key, text, voice)), os.path.join(out, folder, "w", w["id"] + ".mp3"), a.kbps)
+                text = text_of(w)
+                audio = speak(key, text, voice)
+                t = tier(voice)  # 요청이 성공하면 글자 수가 청구된다
+                mu[t] = mu.get(t, 0) + len(text)
+                sent[t] = sent.get(t, 0) + len(text)
+                to_mp3(trim(audio), os.path.join(out, folder, "w", w["id"] + ".mp3"), a.kbps)
             except Exception as e:  # 하나가 실패해도 나머지는 계속
                 fails.append({"voice": folder, "id": w["id"], "text": w["text"], "error": str(e)})
             if i % 50 == 0 or i == len(todo):
+                save_usage(usage)  # 중간에 멈춰도 기록이 남게
                 el = time.time() - t0
                 print(f"  {i}/{len(todo)}  경과 {el/60:.1f}분  남은 시간 약 {el/i*(len(todo)-i)/60:.0f}분", flush=True)
+    save_usage(usage)
+    print("이번 실행: " + (", ".join(f"{t} {n:,}자" for t, n in sent.items()) or "0자"))
+    print(f"{month} 누적 (이 컴퓨터 기준):")
+    print("\n".join(usage_lines(mu)))
     if fails:
         with open(os.path.join(out, "failed-google.json"), "w", encoding="utf-8") as f:
             json.dump(fails, f, ensure_ascii=False, indent=1)

@@ -104,10 +104,16 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="종류별 앞에서 N개만")
     ap.add_argument("--kbps", type=int, default=32)
     ap.add_argument("--speed", type=float, default=1.0)
+    ap.add_argument("--batch", type=int, default=100, help="N개 만들 때마다 쉬고 진행 상황을 한 줄 남긴다")
+    ap.add_argument("--rest", type=float, default=20, help="한 묶음 끝나고 쉬는 초 (CPU 식히기, 0이면 안 쉼)")
+    ap.add_argument("--threads", type=int, default=0, help="CPU 스레드 수 (0이면 torch 기본값). 줄이면 느려지지만 컴퓨터가 덜 바쁘다")
     a = ap.parse_args()
 
     fix_espeak_path()
     from kokoro import KPipeline  # 설치 확인을 늦게 해서 --help는 바로 뜨게
+    if a.threads:
+        import torch
+        torch.set_num_threads(a.threads)
 
     L = json.load(open(a.list, encoding="utf-8"))
     words, sents = L["words"], L["sentences"]
@@ -135,7 +141,7 @@ def main():
             os.makedirs(os.path.join(a.out, voice, sub), exist_ok=True)
         todo = [(k, x) for k, x in jobs if not os.path.exists(os.path.join(a.out, voice, k, x["id"] + ".mp3"))]
         print(f"[{voice}] 전체 {len(jobs)}개 중 새로 만들 것 {len(todo)}개", flush=True)
-        t0 = time.time()
+        t0, rested = time.time(), 0.0
         for i, (k, x) in enumerate(todo, 1):
             path = os.path.join(a.out, voice, k, x["id"] + ".mp3")
             try:
@@ -145,10 +151,15 @@ def main():
                 to_mp3(trim(audio), path, a.kbps)
             except Exception as e:  # 하나가 실패해도 나머지는 계속
                 fails.append({"voice": voice, "id": x["id"], "text": x["text"], "error": str(e)})
-            if i % 50 == 0 or i == len(todo):
+            if i % a.batch == 0 or i == len(todo):
                 el = time.time() - t0
-                left = el / i * (len(todo) - i)
+                work = el - rested
+                batches_left = (len(todo) - i + a.batch - 1) // a.batch
+                left = work / i * (len(todo) - i) + batches_left * a.rest
                 print(f"  {i}/{len(todo)}  경과 {el/60:.1f}분  남은 시간 약 {left/60:.0f}분", flush=True)
+                if a.rest and i < len(todo):
+                    time.sleep(a.rest)
+                    rested += a.rest
     if fails:
         with open(os.path.join(a.out, "failed.json"), "w", encoding="utf-8") as f:
             json.dump(fails, f, ensure_ascii=False, indent=1)
