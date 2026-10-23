@@ -157,4 +157,5 @@ tools/pattern-list.json   230개 패턴 이름·뜻·핵심 부분·힌트 (제�
 tools/legacy-css.js       오래된 사파리(clamp 미지원)용 보조 CSS를 css/style.css 끝에 붙임 (sass:enpattern이 실행)
 tools/voice/              단어·문장 음성(mp3) 만들기. 방법은 README.md, 진행은 STATUS.md
 TODO.md                   남은 결정과 할 일
+PT-PLAN.md                포르투갈어(유럽) 버전 계획과 진행
 ```
