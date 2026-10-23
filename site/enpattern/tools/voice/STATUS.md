@@ -6,7 +6,7 @@
 
 | 항목 | 결정 |
 |---|---|
-| 문장 (약 6,900개) | **Kokoro**로 만든다. 목소리 4종 `af_sarah`(미국 여), `am_michael`(미국 남), `bf_emma`(영국 여), `bm_lewis`(영국 남) |
+| 문장 (약 6,900개) | **Kokoro**로 만든다. 목소리 4종 `af_sarah`(미국 여), `am_michael`(미국 남), `bf_emma`(영국 여), `bm_fable`(영국 남) |
 | 단어 (1,308개) | **Kokoro로는 안 만든다.** **Google Cloud TTS**로 만든다 (`gen_google.py`). 목소리는 아직 안 골랐다 |
 | 저장 위치 | 이 저장소 옆 폴더 `enpattern-audio` (별도 저장소, GitHub Pages). 아직 GitHub 저장소는 안 만들었다 |
 | 파일 경로 | 단어 `<목소리>/w/<id>.mp3`, 문장 `<목소리>/s/<id>.mp3` — 단어를 다른 서비스로 만들어도 같은 폴더 이름(af_sarah 등)에 넣는다. 앱 코드는 안 바꾼다 |
@@ -16,7 +16,7 @@
 Kokoro 영어 목소리 28종을 모두 들어 보고 체크해서 골랐다.
 - 미국 여: af_heart, af_bella, af_sarah 동점 → 단어 위주로 다시 들어 보고 **af_sarah**
 - 미국 남: am_fenrir, am_michael, am_puck → **am_michael** (처음 정했던 am_onyx는 품질이 나빠서 뺐다)
-- 영국 여: **bf_emma** / 영국 남: **bm_lewis** (기계음이 좀 있지만 Kokoro 영국 남자 목소리가 전부 약한 편이라 유지)
+- 영국 여: **bf_emma** / 영국 남: 처음엔 bm_george였고, 들어 보고 bm_lewis로 정했다가 기계음이 들려서 2026-10-23 bm_george·bm_fable 문장 샘플을 다시 듣고 **bm_fable**로 바꿨다
 
 ### 단어를 Kokoro로 안 하는 이유
 
@@ -52,7 +52,7 @@ Kokoro는 문장은 자연스럽지만 단어 하나만 읽히면 이상하다. 
    .venv\Scripts\python.exe gen_google.py --list-voices en-US            # 목소리 이름 보기
    .venv\Scripts\python.exe gen_google.py --out ../../../../../enpattern-audio --sample --voices <후보1>,<후보2>,...
    #   → <out>/google-sample/sample.html (단어 그대로 / 끝에 마침표 붙인 것 둘 다)
-   .venv\Scripts\python.exe gen_google.py --out ../../../../../enpattern-audio --voices af_sarah=<목소리>,am_michael=<목소리>,bf_emma=<목소리>,bm_lewis=<목소리>
+   .venv\Scripts\python.exe gen_google.py --out ../../../../../enpattern-audio --voices af_sarah=<목소리>,am_michael=<목소리>,bf_emma=<목소리>,bm_fable=<목소리>
    ```
    - 마침표 붙인 쪽이 나으면 전체 만들 때 `--dot`. 실패분은 `<out>/failed-google.json`
    - **무료 한도 지키기**: 보낸 글자 수를 `google-usage.json`(커밋 안 함)에 달별·등급별로 기록한다. 실행이 끝날 때마다 남은 양을 보여 주고, 이번 실행이 무료 한도를 넘게 되면 **시작 전에 멈춘다** (넘겨도 되면 `--allow-paid`). `gen_google.py --usage`로 언제든 확인. 이 컴퓨터에서 보낸 것만 세므로 정확한 값은 콘솔에서

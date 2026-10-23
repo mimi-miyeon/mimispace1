@@ -11,7 +11,7 @@ id는 list.json에 있다 (build-list.js가 만든다). 앱도 같은 규칙으�
 import argparse, json, os, sys, time
 import numpy as np
 
-VOICES = {"af_sarah": "a", "am_michael": "a", "bf_emma": "b", "bm_lewis": "b"}  # a: 미국, b: 영국
+VOICES = {"af_sarah": "a", "am_michael": "a", "bf_emma": "b", "bm_fable": "b"}  # a: 미국, b: 영국
 RATE = 24000
 HERE = os.path.dirname(os.path.abspath(__file__))
 SAMPLE_WORDS = ["a", "tv", "ok", "water", "comfortable", "i'm", "she", "the", "her", "it's", "we're", "couldn't", "didn't", "shouldn't", "haven't", "isn't"]
