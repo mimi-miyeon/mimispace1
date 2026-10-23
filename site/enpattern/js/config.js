@@ -8,12 +8,17 @@ EP.config = {
   firebase: { key: "AIzaSyB564JPCQTuethG39piReuvr_flVSTgBKw", project: "enpattern-f5fa3" },
   pushDelay: 600,       /* 저장 후 서버에 보내기까지 기다리는 시간(ms) */
   retryDelay: 15000,    /* 오프라인일 때 다시 불러오기 간격(ms) */
+  /* 배우는 언어. 기본은 영어. 포르투갈어는 운영자 설정(&admin=1)에서 고르면 그 코드에만 적용 (PT-PLAN.md)
+     dir: 세션 파일 폴더, tts: 브라우저 음성 언어, mp3: 미리 만든 음성 파일이 있는지 (config.audio) */
+  langs: {
+    en: { name: "영어", dir: "js/data", tts: "en-US", mp3: true, input: "영어로 입력", reply: "아래 문장을 영어로", sample: "Nice to meet you!" },
+    pt: { name: "포르투갈어", dir: "js/data-pt", tts: "pt-PT", mp3: false, input: "포르투갈어로 입력", reply: "아래 문장을 포르투갈어로", sample: "Muito prazer!" }
+  },
   /* 듣기 mp3: <base><목소리>/s/<voiceId>.mp3 (만드는 법: tools/voice/README.md) */
   audio: {
     base: "https://mimi-miyeon.github.io/enpattern-audio/",
     voices: [["af_aoede", "미국 · 여성"], ["am_onyx", "미국 · 남성"], ["bf_emma", "영국 · 여성"], ["bm_daniel", "영국 · 남성"]],
     slowRates: [0.8, 0.7, 0.6],   /* 느리게 듣기 속도 고르기 */
-    slowRate: 0.7,                /* 처음 값 */
-    sample: "Nice to meet you!"   /* 설정에서 들어 보는 문장 (mp3가 있는 문장) */
+    slowRate: 0.7                 /* 처음 값 */
   }
 };

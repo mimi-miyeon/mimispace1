@@ -8,7 +8,8 @@
     "watch": "sass scss:css --watch --style=expanded",
     "sass:enpattern": "sass site/enpattern/scss/style.scss site/enpattern/css/style.css --style=compressed && node site/enpattern/tools/legacy-css.js",
     "watch:enpattern": "sass site/enpattern/scss/style.scss site/enpattern/css/style.css --watch --style=expanded",
-    "check:enpattern": "node site/enpattern/tools/check-content.js"
+    "check:enpattern": "node site/enpattern/tools/check-content.js",
+    "check:enpattern-pt": "node site/enpattern/tools/check-content.js --lang pt"
   },
   "keywords": [],
   "author": "",

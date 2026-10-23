@@ -1,5 +1,5 @@
 /* 음성: 미리 만든 mp3(enpattern-audio 저장소, GitHub Pages)를 재생한다.
-   파일이 없거나 불러오지 못하면 브라우저 내장 TTS(미국 영어)로 읽는다.
+   파일이 없거나 불러오지 못하면 브라우저 내장 TTS로 읽는다. mp3가 없는 언어(포르투갈어)는 처음부터 TTS (config.langs).
    파일 이름은 tools/voice/build-list.js의 voiceId와 같은 규칙이어야 한다. */
 (function (EP) {
   "use strict";
@@ -25,9 +25,14 @@
   function slowRate() { return A.slowRates.indexOf(st.slowRate) >= 0 ? st.slowRate : A.slowRate; }
 
   /* ---- 브라우저 TTS (mp3가 없을 때) ---- */
+  var L = EP.L || EP.config.langs.en, TTS_LANG = L.tts;
   function pickVoice() {
-    var vs = speechSynthesis.getVoices().filter(function (v) { return /^en[-_]US/i.test(v.lang); });
-    ttsVoice = vs.filter(function (v) { return /Samantha|Google US|Natural|Aria|Jenny/i.test(v.name); })[0] || vs[0] || null;
+    var all = speechSynthesis.getVoices(), tag = TTS_LANG.replace("-", "[-_]");
+    var vs = all.filter(function (v) { return new RegExp("^" + tag, "i").test(v.lang); });
+    if (TTS_LANG === "en-US") ttsVoice = vs.filter(function (v) { return /Samantha|Google US|Natural|Aria|Jenny/i.test(v.name); })[0] || vs[0] || null;
+    /* 유럽 포르투갈어 목소리가 없으면 다른 포르투갈어(브라질)라도 */
+    else ttsVoice = vs.filter(function (v) { return /Natural|Joana|Raquel|Duarte|Google/i.test(v.name); })[0] || vs[0] ||
+      all.filter(function (v) { return new RegExp("^" + TTS_LANG.split("-")[0] + "\\b", "i").test(v.lang); })[0] || null;
   }
   if (tts) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 
@@ -36,7 +41,7 @@
     try {
       speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US"; u.rate = slow ? 0.5 : 0.95;
+      u.lang = TTS_LANG; u.rate = slow ? slowRate() : 0.95;
       if (ttsVoice) u.voice = ttsVoice;
       u.onend = done; u.onerror = done;
       speechSynthesis.speak(u);
@@ -50,7 +55,7 @@
     var my = turn, finished = false, fell = false;
     function done() { if (finished || my !== turn) return; finished = true; if (onend) onend(); }
     function fallback() { if (fell || finished || my !== turn) return; fell = true; ttsSpeak(text, slow, done); }
-    if (!audio) { fallback(); return; }
+    if (!audio || !L.mp3) { fallback(); return; }
     var rate = slow ? (opt.rate || slowRate()) : 1;
     audio.onended = done;
     audio.onerror = fallback;

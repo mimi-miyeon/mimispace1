@@ -3,7 +3,8 @@
   "use strict";
 
   var V = EP.view, U = EP.util, esc = U.esc, C = EP.content, store = EP.store, st = store.state;
-  var ui = EP.ui, ico = EP.icons.ico, CAT = EP.catalog;
+  var ui = EP.ui, ico = EP.icons.ico;
+  function cat() { return EP.catalog; }   /* 배우는 언어의 세션 목록 (영어가 아니면 main.js가 나중에 바꿔 넣는다) */
   /* 설정(홈 톱니): 듣기 설정은 모두에게, 운영자 확인용 항목은 주소에 admin이 있을 때만: ?c=코드&admin=1 */
   var ADMIN = /[?&]admin=1/.test(location.search);
   var $screen = V.$screen, $tab = V.$tab;
@@ -44,13 +45,13 @@
   function show(name) { current = name; render(); }
 
   /* ---- 홈: 다음 세션과 [시작하기]만 ---- */
-  function info(n) { var r = CAT.list[n - 1]; return { no: n, form: r[0], meaning: r[1], ready: n <= CAT.ready }; }
+  function info(n) { var r = cat().list[n - 1]; return { no: n, form: r[0], meaning: r[1], ready: n <= cat().ready }; }
 
   function renderHome() {
     var n = store.nextNo();
     $screen.className = "screen home";
     var gear = '<button class="gear" id="gearBtn" aria-label="설정">' + ico("gear", 22) + "</button>";
-    if (n > CAT.total) {
+    if (n > cat().total) {
       $screen.innerHTML = gear + ui.message({ world: true, char: ui.char("capsule", { size: "lg", expr: "party", label: "캡슐" }),
         title: "모든 세션을 마쳤어요", text: "전체 세션 탭에서 다시 풀거나 따라 말할 수 있어요." });
     } else {
@@ -88,8 +89,8 @@
   function startNext() {
     var splash = true;
     var n = store.nextNo();
-    if (n > CAT.total) { show("home"); return; }
-    if (n > CAT.ready) { show("home"); V.toast("세션 " + n + "은 준비 중이에요. 조금만 기다려 주세요"); return; }
+    if (n > cat().total) { show("home"); return; }
+    if (n > cat().ready) { show("home"); V.toast("세션 " + n + "은 준비 중이에요. 조금만 기다려 주세요"); return; }
     if (st.progress && st.progress.no === n) askResume(n, splash);
     else EP.session.start({ no: n, mode: "new", splash: splash });
   }
@@ -115,19 +116,22 @@
   }
 
   function openSettings() {
-    var A = EP.config.audio, sp = EP.speech;
+    var A = EP.config.audio, sp = EP.speech, sample = EP.L.sample, langs = EP.config.langs;
     var admin = !ADMIN ? "" :
       '<div class="settings-admin">운영자 확인용</div>' +
+      '<div class="setting"><div class="setting-lab">배우는 언어 (이 코드에만)</div>' +
+      choices("lang", Object.keys(langs).map(function (k) { return [k, langs[k].name]; }), EP.lang) + "</div>" +
       "<label>기록 지우고 처음 상태로" + ui.key("지우기", "optReset", { variant: "plain", sm: true }) + "</label>";
     var meta = !ADMIN ? "" :
       '<p class="settings-meta">' + esc("버전 " + EP.config.version + (store.code ? " · 코드 " + store.codeLabel() : " · 개인 링크 없음") + " · 저장 " + store.statusText()) + "</p>";
     V.openSheet("neutral",
       '<div class="sh-title">듣기 설정</div><div class="settings">' +
       '<div class="setting"><label>정답일 때 자동으로 듣기<input type="checkbox" id="optAuto"' + (st.autoplay ? " checked" : "") + "></label></div>" +
-      '<div class="setting"><div class="setting-lab">목소리</div>' + choices("voice", A.voices, sp.voice()) + "</div>" +
+      /* 목소리 고르기는 미리 만든 mp3가 있는 언어만 (포르투갈어는 기기 음성) */
+      (EP.L.mp3 ? '<div class="setting"><div class="setting-lab">목소리</div>' + choices("voice", A.voices, sp.voice()) + "</div>" : "") +
       '<div class="setting"><div class="setting-lab">느리게 듣기 속도</div>' +
       choices("rate", A.slowRates.map(function (r) { return [r, r + "배"]; }), sp.slowRate()) + "</div>" +
-      '<div class="setting"><div class="setting-lab">들어 보기</div><p class="setting-sample">' + esc(A.sample) + "</p>" + ui.listen("data-try") + "</div>" +
+      '<div class="setting"><div class="setting-lab">들어 보기</div><p class="setting-sample">' + esc(sample) + "</p>" + ui.listen("data-try") + "</div>" +
       admin + "</div>" + meta +
       ui.key("닫기", "optClose", { variant: "dark", gap: true }));
 
@@ -141,14 +145,23 @@
       if (!b) return;
       if (b.hasAttribute("data-voice")) {
         st.voice = b.getAttribute("data-voice"); store.save(); pick("voice", st.voice);
-        sp.speak(A.sample, false);
+        sp.speak(sample, false);
       } else if (b.hasAttribute("data-rate")) {
         st.slowRate = parseFloat(b.getAttribute("data-rate")); store.save(); pick("rate", st.slowRate);
-        sp.speak(A.sample, true);
-      } else sp.speak(A.sample, b.getAttribute("data-try") === "s");
+        sp.speak(sample, true);
+      } else sp.speak(sample, b.getAttribute("data-try") === "s");
     };
     document.getElementById("optAuto").onchange = function (e) { st.autoplay = e.target.checked; st.autoplayAsked = true; store.save(); };
     if (ADMIN) {
+      /* 배우는 언어: 이 코드의 서버 기록에 남겨 같은 코드의 모든 기기에 적용하고 새로고침 */
+      V.$sheet.querySelectorAll("[data-lang]").forEach(function (b) {
+        b.onclick = function () {
+          var l = b.getAttribute("data-lang");
+          if (l === EP.lang) return;
+          V.toast(EP.config.langs[l].name + "로 바꾸는 중…");
+          store.setLang(l).then(function (ok) { if (!ok) V.toast("바꾸지 못했어요. 인터넷 연결을 확인해 주세요"); });
+        };
+      });
       document.getElementById("optReset").onclick = function () { store.reset(); V.closeSheet(); render(); V.toast("처음 상태로 돌렸어요"); };
     }
     document.getElementById("optClose").onclick = function () { sp.stop(); V.closeSheet(); };
@@ -157,8 +170,8 @@
   /* ---- 전체 세션: 끝낸 세션은 다시 풀기·따라 말하기, 다음 세션 하나만 열림, 나머지는 잠김 ---- */
   function renderAll() {
     var n = store.nextNo(), h = "";
-    h += ui.tabHead("전체 세션", CAT.total + "개 중 " + st.done.length + "개 완료", ui.char("a", { size: "xs", label: "소문자 a" })) + '<div class="list">';
-    for (var i = 1; i <= CAT.total; i++) {
+    h += ui.tabHead("전체 세션", cat().total + "개 중 " + st.done.length + "개 완료", ui.char("a", { size: "xs", label: "소문자 a" })) + '<div class="list">';
+    for (var i = 1; i <= cat().total; i++) {
       var r = info(i), done = store.isDone(i), open = i === n;
       if (done) {
         h += '<div class="row"><span class="no">' + i + "</span><b>" + esc(r.form) + '</b><span class="sub">' + esc(r.meaning) + "</span>" +

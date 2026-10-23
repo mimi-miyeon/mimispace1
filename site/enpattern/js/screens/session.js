@@ -178,14 +178,14 @@
     var body = "";
     if (it.ctx) body += '<div class="ctx"><div class="sm">' + esc(it.ctx.lead) + '</div><div class="en">' + esc(it.ctx.en) + "</div></div>";
     if (it.dialog) body += '<div class="ctx"><div><span class="who">A</span><span class="en">' + esc(it.dialog.a) + '</span></div><div class="sm indent">' + esc(it.dialog.aKo) + "</div>" +
-      '<div class="reply"><span class="who">B</span><span class="sm">아래 문장을 영어로</span></div></div>';
+      '<div class="reply"><span class="who">B</span><span class="sm">' + esc(EP.L.reply) + '</span></div></div>';
     body += '<p class="q-ko">' + esc(it.ko) + "</p>";
     if (blank) body += '<p class="blank-line">' + (it.before ? esc(it.before) + " " : "") + '<span class="bl">?</span>' + esc(C.tail(it.after)) + "</p>";
     if (R.copy) body += '<div class="copy"><div class="lab">정답을 그대로 따라 입력해 보세요</div><div class="en">' + esc(it.answers[0]) + "</div></div>";
 
     $screen.innerHTML = topBar(segs()) + '<div class="kind">' + label + '</div><div class="chip">' + esc(from.hint) + "</div>" + body +
       '<form id="ansForm" autocomplete="off"><input class="answer-in" id="ans" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="' +
-      (blank ? "빈칸에 들어갈 말" : "영어로 입력") + '" aria-label="답 입력"><p class="err" id="err" aria-live="polite"></p>' +
+      (blank ? "빈칸에 들어갈 말" : esc(EP.L.input)) + '" aria-label="답 입력"><p class="err" id="err" aria-live="polite"></p>' +
       '<div class="s-actions">' + ui.key("확인", null, { variant: "dark", type: "submit" }) + "</div></form>";
     bindQuit();
     var inp = document.getElementById("ans"), err = document.getElementById("err");

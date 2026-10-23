@@ -4,26 +4,36 @@
 
   var ESC = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
-  function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
 
   /* 한국 시간 기준 오늘 날짜 (YYYY-MM-DD) */
   function today() { return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10); }
 
+  /* 단어 단위로 찾기: 앞뒤가 글자가 아닌 곳. (\b는 악센트 글자를 글자로 보지 않아 Há, está에서 틀린다) */
+  var LETTER = /[0-9A-Za-zÀ-ÖØ-öø-ÿ]/;
+  function findWord(sentence, word) {
+    var s = String(sentence).toLowerCase(), w = String(word).toLowerCase(), i = s.indexOf(w);
+    while (i >= 0) {
+      if (!(i > 0 && LETTER.test(s[i - 1])) && !LETTER.test(s[i + w.length] || "")) return i;
+      i = s.indexOf(w, i + 1);
+    }
+    return -1;
+  }
+
   /* 문장에서 패턴 핵심 부분을 <span class="core">로 감싼다 */
   function withCore(sentence, core) {
-    var m = new RegExp("\\b" + escapeRe(core) + "\\b", "i").exec(sentence);
-    if (!m) return esc(sentence);
-    var i = m.index;
+    var i = findWord(sentence, core);
+    if (i < 0) return esc(sentence);
     return esc(sentence.slice(0, i)) + '<span class="core">' + esc(sentence.slice(i, i + core.length)) + "</span>" + esc(sentence.slice(i + core.length));
   }
 
   /* "I have ~." → ~ 자리에 노란 슬롯 */
   function slotted(form) { return esc(form).replace("~", '<span class="slot">~</span>'); }
 
-  EP.util = { esc: esc, today: today, withCore: withCore, slotted: slotted };
+  EP.util = { esc: esc, today: today, withCore: withCore, slotted: slotted, findWord: findWord };
 
   /* ---- 콘텐츠 도우미 ----
-     세션 데이터는 js/data/pattern{번호}.js. 필요할 때 load(번호)로 불러온다.
+     세션 데이터는 <언어 폴더>/pattern{번호}.js (영어 js/data, 포르투갈어 js/data-pt). 필요할 때 load(번호)로 불러온다.
+     세션 파일의 en은 '배우는 언어의 문장'이다 (포르투갈어 세션에서도 en).
      문제의 전체 키는 "세션번호-문제id" (예: "2-b1"). 틀린 문제 기록도 이 키를 쓴다. */
   function prepare(S) {
     if (S && !S._ready) {
@@ -34,17 +44,26 @@
   }
   function session(n) { return EP.sessions && EP.sessions[n] ? prepare(EP.sessions[n]) : null; }
 
+  /* 스크립트 파일 하나 불러오기 → Promise */
+  function loadScript(src) {
+    return new Promise(function (res, rej) {
+      var el = document.createElement("script");
+      el.src = src + "?v=" + EP.config.version;
+      el.onload = function () { res(); };
+      el.onerror = function () { el.remove(); rej(new Error(src + " 불러오기 실패")); };
+      document.head.appendChild(el);
+    });
+  }
+  function dir() { return (EP.L || EP.config.langs.en).dir; }
+
   var loading = {};
   /* 세션 파일 하나 불러오기 → Promise(세션) */
   function load(n) {
     if (session(n)) return Promise.resolve(session(n));
-    if (!loading[n]) loading[n] = new Promise(function (res, rej) {
-      var el = document.createElement("script");
-      el.src = "js/data/pattern" + n + ".js?v=" + EP.config.version;
-      el.onload = function () { if (session(n)) res(session(n)); else { delete loading[n]; rej(new Error("세션 " + n + " 없음")); } };
-      el.onerror = function () { delete loading[n]; el.remove(); rej(new Error("세션 " + n + " 불러오기 실패")); };
-      document.head.appendChild(el);
-    });
+    if (!loading[n]) loading[n] = loadScript(dir() + "/pattern" + n + ".js").then(function () {
+      if (session(n)) return session(n);
+      delete loading[n]; throw new Error("세션 " + n + " 없음");
+    }, function (e) { delete loading[n]; throw e; });
     return loading[n];
   }
   /* 여러 세션 불러오기. 실패한 세션은 건너뛴다 → Promise */
@@ -74,7 +93,7 @@
   function stemFor(S, sentence) {
     var forms = S.stem.split("/");
     for (var i = 0; i < forms.length; i++) {
-      if (new RegExp("\\b" + escapeRe(forms[i].trim()) + "\\b", "i").test(sentence)) return forms[i].trim();
+      if (findWord(sentence, forms[i].trim()) >= 0) return forms[i].trim();
     }
     return forms[0].trim();
   }
@@ -87,7 +106,7 @@
   }
 
   EP.content = {
-    prepare: prepare, session: session, load: load, loadMany: loadMany,
+    prepare: prepare, session: session, load: load, loadMany: loadMany, loadScript: loadScript,
     item: item, stemFor: stemFor, sessionOfKey: sessionOfKey, sessionOf: sessionOf,
     fullAnswer: fullAnswer, tail: tail, coreOf: coreOf, sessionSentences: sessionSentences
   };

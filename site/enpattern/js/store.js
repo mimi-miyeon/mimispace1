@@ -4,7 +4,12 @@
 
   var C = EP.config;
   var CODE = readCode(), REMOTE = !!CODE;
-  var DKEY = C.storageKey + (CODE ? "." + CODE : ""), PKEY = DKEY + ".pending";
+  /* 배우는 언어: 이 기기에 기억해 둔 값으로 시작하고, 서버 기록의 lang과 다르면 맞춰서 한 번 새로고침한다 */
+  var LKEY = C.storageKey + ".lang" + (CODE ? "." + CODE : "");
+  var LANG = readLang();
+  EP.lang = LANG; EP.L = C.langs[LANG];
+  /* 기록은 언어별로 따로: 영어는 지금 자리 그대로, 포르투갈어는 이 기기에서는 ".pt", 서버에서는 pt 아래 */
+  var DKEY = C.storageKey + (CODE ? "." + CODE : "") + (LANG === "en" ? "" : "." + LANG), PKEY = DKEY + ".pending";
   var synced = false, pushing = false, pushTimer = null, retryTimer = null;
   var syncState = REMOTE ? "loading" : "local";
   var hooks = { isBusy: function () { return false; }, onRefresh: function () {} };
@@ -16,6 +21,12 @@
     try { if (c) localStorage.setItem(C.storageKey + ".code", c); else c = localStorage.getItem(C.storageKey + ".code"); } catch (e) {}
     return c ? c.toUpperCase().replace(/[^A-Z0-9]/g, "") : null;
   }
+  function readLang() {
+    var l = null;
+    try { l = localStorage.getItem(LKEY); } catch (e) {}
+    return C.langs[l] ? l : "en";
+  }
+  function rememberLang(l) { try { localStorage.setItem(LKEY, l); } catch (e) {} }
 
   /* ---- 로컬 ---- */
   /* done: 끝낸 세션 번호 목록
@@ -88,8 +99,13 @@
   }
 
   /* ---- 서버 ---- */
-  function docUrl() {
-    return "https://firestore.googleapis.com/v1/projects/" + C.firebase.project + "/databases/(default)/documents/learners/" + CODE + "?key=" + C.firebase.key;
+  /* mask: 이 항목들만 바꾸고 나머지(다른 언어 기록 등)는 그대로 둔다 */
+  function docUrl(mask) {
+    return "https://firestore.googleapis.com/v1/projects/" + C.firebase.project + "/databases/(default)/documents/learners/" + CODE + "?key=" + C.firebase.key +
+      (mask || []).map(function (f) { return "&updateMask.fieldPaths=" + f; }).join("");
+  }
+  function patch(fields, mask) {
+    return fetch(docUrl(mask), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }), cache: "no-store" });
   }
   function schedulePush() {
     if (!REMOTE) return;
@@ -102,9 +118,12 @@
   function push() {
     if (!REMOTE || !synced || pushing || !CAN_FETCH) return;
     pushing = true;
-    var fields = enc({ done: st.done, progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
+    var rec = { done: st.done, progress: st.progress || null, wrong: st.wrong || {} }, fields, mask;
+    if (LANG === "en") { fields = enc(rec).mapValue.fields; mask = ["done", "progress", "wrong"]; }
+    else { fields = {}; fields[LANG] = enc(rec); mask = [LANG]; }
     fields.updatedAt = { timestampValue: st.localAt || new Date().toISOString() };
-    fetch(docUrl(), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }), cache: "no-store" })
+    mask.push("updatedAt");
+    patch(fields, mask)
       .then(function (r) { pushing = false; syncState = r.ok ? "ok" : "error " + r.status; setPending(!r.ok); })
       .catch(function () { pushing = false; syncState = "offline"; setPending(true); });
   }
@@ -119,11 +138,15 @@
       if (!r.ok) throw new Error("http " + r.status);
       return r.json().then(function (d) {
         var v = dec({ mapValue: { fields: d.fields || {} } }) || {}, serverAt = v.updatedAt || "";
+        /* 이 코드의 배우는 언어가 이 기기에 기억해 둔 것과 다르면 맞추고 새로고침 */
+        var lang = C.langs[v.lang] ? v.lang : "en";
+        if (lang !== LANG) { rememberLang(lang); location.reload(); return "reload"; }
         synced = true; syncState = "ok";
         if (isPending() && st.localAt && st.localAt > serverAt) { push(); return "ok"; }
-        st.done = v.done || [];
-        st.progress = v.progress || null;
-        st.wrong = v.wrong || {};
+        var src = LANG === "en" ? v : v[LANG] || {};
+        st.done = src.done || [];
+        st.progress = src.progress || null;
+        st.wrong = src.wrong || {};
         st.localAt = serverAt;
         upgrade(st);
         writeLocal(); setPending(false);
@@ -135,6 +158,15 @@
       return "offline";
     });
   }
+  /* 배우는 언어 바꾸기 (운영자 설정). 서버 기록에 lang을 남겨 같은 코드의 모든 기기가 따라오게 하고 새로고침한다.
+     이 기기에서 아직 못 보낸 기록은 그대로 남아 있다가 그 언어로 돌아오면 보낸다. → Promise(성공 여부) */
+  function setLang(l) {
+    if (!C.langs[l] || l === LANG) return Promise.resolve(false);
+    function go() { rememberLang(l); location.reload(); return true; }
+    if (!REMOTE || !CAN_FETCH) return Promise.resolve(go());
+    return patch({ lang: { stringValue: l } }, ["lang"]).then(function (r) { return r.ok ? go() : false; }, function () { return false; });
+  }
+
   /* 백그라운드로 다시 불러오고, 학습 중이 아니면 화면을 새로 그린다 */
   function refresh() {
     pull().then(function (res) { if (res === "ok" && !hooks.isBusy()) hooks.onRefresh(); });
@@ -172,6 +204,8 @@
     save: save,
     reset: reset,
     pull: pull,
+    lang: LANG,
+    setLang: setLang,
     drawSync: drawSync,
     statusText: statusText,
     codeLabel: codeLabel,
