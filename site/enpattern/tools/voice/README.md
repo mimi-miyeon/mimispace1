@@ -1,9 +1,9 @@
-# 음성 파일 만들기 (Kokoro)
+# 음성 파일 만들기 (문장: Kokoro, 단어: Google TTS)
 
 > 진행 상황과 남은 일은 [STATUS.md](STATUS.md).
 
-영어패턴의 단어·문장 음성을 Kokoro(오픈소스 AI 음성, Apache-2.0)로 **미리 mp3로 만들어** 별도 저장소에 올린다.
-앱은 실행 중에 AI를 부르지 않고, 만들어 둔 파일만 재생한다 (빠르고, 비용·키 없음, 오래된 기기도 됨).
+영어패턴의 문장 음성은 Kokoro(오픈소스 AI 음성, Apache-2.0), 단어 음성은 Google Cloud TTS로 **미리 mp3로 만들어** 별도 저장소에 올린다.
+앱은 실행 중에 AI를 부르지 않고, 만들어 둔 파일만 재생한다 (빠르고, 비용·키 없음, 오래된 기기도 됨). 파일이 없으면 브라우저 음성으로 읽는다 (`js/speech.js`, 주소는 `js/config.js`의 `audio`).
 
 ## 정해진 것
 
@@ -12,8 +12,8 @@
 | 목소리 4종 | `af_aoede`(미국 여), `am_onyx`(미국 남), `bf_emma`(영국 여), `bm_daniel`(영국 남) — 문장용. 단어는 Google TTS로 만들어 같은 폴더에 넣는다 |
 | 대상 | 단어 약 1,300개 + 문장 약 6,900개 (`list.json`) |
 | 형식 | mp3, 24 kHz 모노, 32 kbps, 앞뒤 빈 소리 잘라 냄, 소리 크기 맞춤 |
-| 저장 위치 | **별도 저장소** `enpattern-audio` (GitHub Pages로 공개). 이 저장소에는 넣지 않는다 |
-| 예상 용량 | 4종 합계 약 200 MB |
+| 저장 위치 | **별도 저장소** `mimi-miyeon/enpattern-audio` (GitHub Pages: `https://mimi-miyeon.github.io/enpattern-audio/`). 이 저장소에는 넣지 않는다 |
+| 용량 | 문장 4종 합계 약 170 MB (2026-10-23 완성). 단어는 아직 |
 
 ## 순서
 
@@ -35,10 +35,13 @@ pip install -r requirements.txt
 # 3) 샘플 만들고 들어 보기 → <out>/sample.html 을 브라우저로 연다
 python gen.py --out <enpattern-audio 폴더> --sample
 
-# 4) 전체 만들기 (몇 시간 걸림. 멈췄다 다시 실행하면 이어서 만든다)
-python gen.py --out <enpattern-audio 폴더>
+# 4) 문장 전체 만들기 (목소리 하나에 30~70분. 멈췄다 다시 실행하면 이어서 만든다)
+#    --voices af_aoede 로 하나씩, --rest 0 으로 쉬지 않고, --threads 12 로 CPU 덜 쓰기
+python gen.py --out <enpattern-audio 폴더> --kind sentences
 
-# 5) enpattern-audio 저장소에 커밋, 푸시
+# 5) failed.json 확인 → enpattern-audio 저장소에 커밋, 푸시 (목소리 하나 끝날 때마다)
+
+# 단어(Google TTS)는 STATUS.md의 "남은 일" 참고
 ```
 
 - `.venv/`는 커밋하지 않는다 (`.gitignore`에 있음).
