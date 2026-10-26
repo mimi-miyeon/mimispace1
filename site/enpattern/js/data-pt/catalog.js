@@ -4,7 +4,7 @@
   "use strict";
   EP.catalog = {
     total: 100,
-    ready: 40,
+    ready: 50,
     list: [
       ["Sou ~.","나는 ~예요 (이름·국적·직업)"],
       ["Estou ~.","나는 (지금) ~해요 / ~에 있어요"],
