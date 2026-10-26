@@ -8,5 +8,15 @@
 { "no": 7, "form": "Há ~?", "meaning": "~ 있어요? / ~이 있어요", "core": "Há", "hint": "Há + 명사" },
 { "no": 8, "form": "Posso ~?", "meaning": "~해도 돼요?", "core": "Posso", "hint": "Posso + 동사원형?" },
 { "no": 9, "form": "Estou a ~.", "meaning": "지금 ~하고 있어요 (유럽식 진행형)", "core": "Estou a", "hint": "Estou a + 동사원형" },
-{ "no": 10, "form": "Vou ~.", "meaning": "~할 거예요", "core": "Vou", "hint": "Vou + 동사원형" }
+{ "no": 10, "form": "Vou ~.", "meaning": "~할 거예요", "core": "Vou", "hint": "Vou + 동사원형" },
+{ "no": 11, "form": "Chamo-me ~.", "meaning": "제 이름은 ~예요", "core": "Chamo-me", "hint": "Chamo-me + 이름" },
+{ "no": 12, "form": "Preciso de ~.", "meaning": "~이 필요해요 / ~해야 해요", "core": "Preciso de", "hint": "Preciso de + 명사/동사원형" },
+{ "no": 13, "form": "Tenho de ~.", "meaning": "~해야 해요", "core": "Tenho de", "hint": "Tenho de + 동사원형" },
+{ "no": 14, "form": "Pode ~?", "meaning": "~해 주실래요?", "core": "Pode", "hint": "Pode + 동사원형?" },
+{ "no": 15, "form": "Onde fica ~?", "meaning": "~이 어디에 있어요?", "core": "Onde fica", "hint": "Onde fica + 장소?" },
+{ "no": 16, "form": "Gostava de ~.", "meaning": "~하고 싶어요 (정중하게)", "core": "Gostava de", "hint": "Gostava de + 동사원형/명사" },
+{ "no": 17, "form": "Apetece-me ~.", "meaning": "~이 당겨요 / (지금) ~하고 싶어요", "core": "Apetece-me", "hint": "Apetece-me + 명사/동사원형" },
+{ "no": 18, "form": "Costumo ~.", "meaning": "보통 ~해요", "core": "Costumo", "hint": "Costumo + 동사원형" },
+{ "no": 19, "form": "Acabei de ~.", "meaning": "방금 ~했어요", "core": "Acabei de", "hint": "Acabei de + 동사원형" },
+{ "no": 20, "form": "Estava a ~.", "meaning": "~하고 있었어요", "core": "Estava a", "hint": "Estava a + 동사원형" }
 ]

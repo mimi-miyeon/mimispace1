@@ -70,6 +70,8 @@
 
   /* ---- 주어 ---- */
   var SUBJ = { eu: 1, "nós": 1, tu: 1 };
+  var SUBJ_ANY = {};
+  "eu tu ele ela nós vós eles elas você vocês".split(" ").forEach(function (w) { SUBJ_ANY[w] = 1; });
   /* 정답 하나로 인정하는 모양들: 그대로, 주어를 뺀 것, 주어를 넣은 것(패턴 동사 앞에, não가 있으면 그 앞에) */
   function variants(it, toks) {
     var out = [toks];
@@ -80,6 +82,7 @@
     var verb = normalize(EP.content.stemFor(S, toks.join(" "))).toks[0], k = toks.indexOf(verb);
     if (k < 0) return out;
     if (k > 0 && toks[k - 1] === "não") k--;
+    for (var i = 0; i < k; i++) if (SUBJ_ANY[toks[i]]) return out;   /* 이미 주어가 있다: Ela chama-se ~ */
     out.push(toks.slice(0, k).concat([sj], toks.slice(k)));
     return out;
   }
@@ -147,6 +150,7 @@
       if (!m) continue;
       var inf = m[1] + INF[m[2]];
       if (same(u.slice(0, k).concat(["a", inf], u.slice(k + 1)), a)) return u[k] + "(-ndo)는 브라질식이에요. 포르투갈에서는 a + 동사원형으로 말해요: a " + inf + ".";
+      if (same(u.slice(0, k).concat([inf], u.slice(k + 1)), a)) return u[k] + "(-ndo) 대신 동사원형 " + reul(inf) + " 써요.";
     }
     return "";
   }
@@ -166,7 +170,9 @@
     "ao>à": "여성 명사 앞이라 a + a = à예요.", "à>ao": "남성 명사 앞이라 a + o = ao예요."
   };
   /* ‘나’ 형태 대신 ‘그/그녀’ 형태를 쓴 경우 */
-  [["é", "sou"], ["está", "estou"], ["esta", "estou"], ["tem", "tenho"], ["quer", "quero"], ["pode", "posso"], ["vai", "vou"], ["gosta", "gosto"]].forEach(function (p) {
+  [["é", "sou"], ["está", "estou"], ["esta", "estou"], ["tem", "tenho"], ["quer", "quero"], ["pode", "posso"], ["vai", "vou"], ["gosta", "gosto"],
+   ["precisa", "preciso"], ["costuma", "costumo"], ["acabou", "acabei"], ["chama-se", "chamo-me"]].forEach(function (p) {
+    DICT[p[0]] = 1;   /* 실제 낱말이라 오타로 보지 않는다 (precisa → preciso는 오답) */
     SUBST[p[0] + ">" + p[1]] = SUBST[p[0] + ">" + p[1]] || "‘나는’은 " + p[1] + "예요. " + (p[0] === "esta" ? "esta(악센트 없음)는 ‘이것’이에요." : eun(p[0]) + " ‘그/그녀는’이에요.");
   });
   var ESTAR = { estou: 1, "está": 1, "estás": 1, estamos: 1, "estão": 1 };
@@ -227,6 +233,12 @@
       if (r && r.why && !why) why = r.why;
     }
     if (best) return { status: best.r.notes.length ? "minor" : "correct", notes: best.r.notes, answer: best.v.c.text, alt: best.v.c.alt };
+    /* 악센트·하이픈만 다른 예상 오답도 그 이유로 (nao chamo-me → não chamo-me).
+       작은 실수로 맞는 정답을 먼저 본 뒤라, 정답과 악센트만 다른 예상 오답(vou à lisboa)에 걸리지 않는다 */
+    if (!target && it.wrong) {
+      var kb = bare(split(u).join(" "));
+      for (var wk in it.wrong) if (bare(split(normalize(wk).toks).join(" ")) === kb) return wrong(it.wrong[wk]);
+    }
     if (why) return wrong(why);
 
     for (i = 0; i < V.length && !why; i++) why = contraction(u, V[i].toks) || proclisis(u, V[i].toks) || gerund(u, V[i].toks);

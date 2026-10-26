@@ -48,7 +48,9 @@
 - **주어 생략**: `eu`·`nós`·`tu`는 빼도 늘 정답. 세션에 `subject: "eu"`가 있으면 패턴 동사 앞에 `Eu`를 넣어도 정답 (`Tenho fome.` = `Eu tenho fome.`, `Não quero` = `Eu não quero`)
 - **축약**: `de + o = do`, `em + a = na`, `a + a = à`, `de + esta = desta`, `em + um = num` 등. 풀어 쓰면(`de o`) 오답으로 하고 이유를 보여 준다
 - **대명사 위치(유럽식)**: `Chamo-me`, `sentar-me`처럼 동사 뒤에 붙인다. 하이픈만 빠뜨리면 작은 실수, 앞에 쓰면(`Me chamo`, 브라질식) 오답으로 하고 이유를 보여 준다
-- **진행형**: `estou fazendo`(-ndo, 브라질식)는 오답으로 하고 `estou a fazer`를 알려 준다
+- **진행형**: `estou fazendo`(-ndo, 브라질식)는 오답으로 하고 `estou a fazer`를 알려 준다. 동사원형 자리의 -ndo(`costumo correndo`)도 알려 준다
+- **예상 오답**: 악센트·하이픈만 다르게 써도 적어 둔 이유를 보여 준다 (단, 작은 실수로 맞는 정답이 있으면 그쪽이 먼저)
+- **주어 넣기**: 문장에 이미 주어가 있으면(`Ela chama-se ~`) Eu를 넣는 모양은 만들지 않는다. 다른 사람 문장은 문제에 `subject: ""`
 - **흔한 실수의 이유**: `sou`↔`estou`, `um`↔`uma`, `do`↔`da`, `no`↔`na`, ‘나’ 대신 ‘그/그녀’ 형태(`tem` → `tenho`), `não`의 위치
 - 정답이 여럿이면(성별: `cansado`/`cansada`) 가장 가까운 것으로 작은 실수를 판정한다
 - 대소문자·문장부호는 영어와 같이 무시
@@ -78,7 +80,22 @@
 | 9 | Estou a + 동사. | 지금 ~하고 있어요 (유럽식 진행형) |
 | 10 | Vou + 동사. | ~할 거예요 |
 
-**11~ 후보**: Tenho de ~ (~해야 해요), Preciso de ~, Pode ~? (~해 주실래요?), Não ~ (부정), Onde é / Onde fica ~?, Chamo-me ~, Apetece-me ~, Costumo ~, Acabei de ~, Já ~? / Ainda não ~, Estava a ~, Fui ~ / Estive ~ (과거), Gostava de ~ (~하고 싶어요, 정중), É preciso ~, Como se diz ~?
+**11~20**
+
+| 번호 | 패턴 | 뜻 |
+|---|---|---|
+| 11 | Chamo-me ~. | 제 이름은 ~예요 (não가 앞에 오면 Não me chamo) |
+| 12 | Preciso de ~. | ~이 필요해요 / ~해야 해요 |
+| 13 | Tenho de ~. | ~해야 해요 (Tenho que도 인정) |
+| 14 | Pode ~? | ~해 주실래요? |
+| 15 | Onde fica ~? | ~이 어디에 있어요? (Onde é도 인정) |
+| 16 | Gostava de ~. | ~하고 싶어요 (정중하게) |
+| 17 | Apetece-me ~. | ~이 당겨요 / (지금) ~하고 싶어요 |
+| 18 | Costumo ~. | 보통 ~해요 |
+| 19 | Acabei de ~. | 방금 ~했어요 |
+| 20 | Estava a ~. | ~하고 있었어요 |
+
+**21~ 후보**: Já ~? / Ainda não ~, Fui ~ / Estive ~ (과거), É preciso ~, Como se diz ~?, Sei ~ / Não sei ~, Vamos ~ (~하자), Quanto custa ~?, Há quanto tempo ~?
 
 ## 묶음마다 하는 일 (10개씩)
 
@@ -92,4 +109,5 @@
 
 | 묶음 | 상태 |
 |---|---|
-| 기반 + 세션 1~10 | 만듦 (v39, 2026-10-26). 점검 오류 0개. 운영자 코드로 서버 저장 확인 남음 |
+| 기반 + 세션 1~10 | 만듦 (v39, 2026-10-26). 점검 오류 0개. 서버 규칙이 lang·pt 저장을 받는 것 확인함 |
+| 세션 11~20 | 만듦 (v42, 2026-10-26). 점검 오류 0개 |
