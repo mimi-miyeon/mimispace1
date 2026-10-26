@@ -19,9 +19,10 @@
     $sheet.className = "sheet sheet--" + type;
     $sheet.innerHTML = html;
     if (text !== undefined) $sheet.setAttribute("data-text", text);
+    $app.classList.add("sheet-open");   /* 시트가 떠 있는 동안 화면의 확인 버튼을 숨긴다 (_session.scss) */
     requestAnimationFrame(function () { $sheet.classList.add("open"); });
   }
-  function closeSheet() { $sheet.classList.remove("open"); }
+  function closeSheet() { $sheet.classList.remove("open"); $app.classList.remove("sheet-open"); }
   /* 시트 안 듣기 버튼: 시트의 data-text 문장을 읽는다 */
   function listenBtns() { return EP.ui.listen("data-say"); }
   $sheet.addEventListener("click", function (e) {

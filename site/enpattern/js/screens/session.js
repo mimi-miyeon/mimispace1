@@ -278,20 +278,25 @@
     if (g.marks && g.marks.missing > 0 && g.marks.extra === 0) return "빠진 단어가 있어요. 이 오답은 아직 자세한 설명이 없어요. 궁금하면 문장을 검색해 보세요.";
     return NO_EXPLAIN;
   }
-  /* reveal: 두 번째로 틀렸으면 정답을 보여 주고 따라 입력하게 한다 */
+  /* reveal: 두 번째로 틀렸으면 정답과 틀린 이유를 보여 주고(틀린 부분 표시·듣기 없이) 따라 입력하게 한다 */
   function showBad(it, g, reveal) {
-    var full = C.fullAnswer(it);
-    var title = reveal ? "정답을 확인해 보세요" : "다시 한 번 해 볼까요?";
-    V.openSheet("bad", '<div class="sh-title">' + ico("bad", 26) + title + "</div>" +
+    if (reveal) return showReveal(it, g);
+    V.openSheet("bad", '<div class="sh-title">' + ico("bad", 26) + "다시 한 번 해 볼까요?</div>" +
       (g.marks ? '<div class="mine">' + g.marks.html + "</div>" : "") +
       '<p class="sh-note">' + esc(badReason(g)) + "</p>" +
-      (reveal ? '<div class="sh-ans">' + U.withCore(full, C.coreOf(it)) + "</div>" + V.listenBtns() + ui.key("따라 입력하기", "badBtn")
-              : ui.key("다시 입력", "badBtn")), full);
+      ui.key("다시 입력", "badBtn"), C.fullAnswer(it));
     document.getElementById("badBtn").onclick = function () {
       V.closeSheet();
-      if (reveal) { R.copy = true; renderItem(); }
-      else { var inp = document.getElementById("ans"); inp.select(); inp.focus(); }
+      var inp = document.getElementById("ans"); inp.select(); inp.focus();
     };
+  }
+  function showReveal(it, g) {
+    var full = C.fullAnswer(it);
+    V.openSheet("bad", '<div class="sh-title">' + ico("bad", 26) + "정답을 확인해 보세요</div>" +
+      '<div class="sh-ans">' + U.withCore(full, C.coreOf(it)) + "</div>" +
+      '<p class="sh-note">' + esc(badReason(g)) + "</p>" +
+      ui.key("따라 입력하기", "badBtn"), full);
+    document.getElementById("badBtn").onclick = function () { V.closeSheet(); R.copy = true; renderItem(); };
   }
 
   function next() {

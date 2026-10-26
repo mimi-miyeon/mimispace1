@@ -102,3 +102,5 @@
 .err { min-height: 22px; margin: 6px 0 12px; color: var(--bad-fg); font-size: var(--fs-sm); }
 
 .s-actions { margin-top: 4px; padding-bottom: 24px; }
+// 정답·오답 시트가 떠 있는 동안: 시트의 버튼과 겹쳐 보이지 않게 숨긴다 (자리는 그대로)
+.sheet-open .s-actions { visibility: hidden; }
