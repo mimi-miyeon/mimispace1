@@ -56,6 +56,7 @@
    "aqui ali lá cá é são sou és somos está estão estou estás estamos ser estar ter tenho tem tens temos têm há haver vou vai vais vamos vão ir " +
    "quero quer queres queria posso pode podes gosto gosta gostas muito muita pouco bem mal hoje amanhã ontem agora já ainda também").split(" ")
     .forEach(function (w) { if (w) DICT[w] = 1; });
+  for (var mw in MEAN) DICT[mw] = DICT[bare(mw)] = 1;   /* esta, estas, pais … 도 실제 낱말 */
   /* 콘텐츠에 나오는 낱말도 등록한다 (정답·다른 표현·팁·예상 오답). 세션마다 한 번 */
   var learned = {};
   function learnWords(S) {
