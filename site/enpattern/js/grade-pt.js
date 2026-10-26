@@ -72,7 +72,7 @@
   var SUBJ = { eu: 1, "nós": 1, tu: 1 };
   var SUBJ_ANY = {};
   "eu tu ele ela nós vós eles elas você vocês".split(" ").forEach(function (w) { SUBJ_ANY[w] = 1; });
-  /* 정답 하나로 인정하는 모양들: 그대로, 주어를 뺀 것, 주어를 넣은 것(패턴 동사 앞에, não가 있으면 그 앞에) */
+  /* 정답 하나로 인정하는 모양들: 그대로, 주어를 뺀 것, 주어를 넣은 것(패턴 동사 앞에 — não가 있으면 그 앞에 — 또는 문장 맨 앞에) */
   function variants(it, toks) {
     var out = [toks];
     if (it.type === "blank" || !toks.length) return out;
@@ -84,6 +84,7 @@
     if (k > 0 && toks[k - 1] === "não") k--;
     for (var i = 0; i < k; i++) if (SUBJ_ANY[toks[i]]) return out;   /* 이미 주어가 있다: Ela chama-se ~ */
     out.push(toks.slice(0, k).concat([sj], toks.slice(k)));
+    if (k > 0) out.push([sj].concat(toks));   /* 문장 맨 앞도 된다: Eu ontem fui ~ */
     return out;
   }
 

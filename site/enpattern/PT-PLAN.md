@@ -95,7 +95,20 @@
 | 19 | Acabei de ~. | 방금 ~했어요 |
 | 20 | Estava a ~. | ~하고 있었어요 |
 
-**21~ 후보**: Já ~? / Ainda não ~, Fui ~ / Estive ~ (과거), É preciso ~, Como se diz ~?, Sei ~ / Não sei ~, Vamos ~ (~하자), Quanto custa ~?, Há quanto tempo ~?
+**21~100** (2026-10-26 정함: 100개까지 미리 만들어 두고, 공부하면서 고친다. 이름·뜻·힌트는 `tools/pattern-list-pt.json`)
+
+| 번호 | 묶음 | 패턴 |
+|---|---|---|
+| 21~27 | 과거 | Fui, Estive, Ontem ~(규칙 과거), Já, Ainda não, Nunca, Há ~ que |
+| 28~35 | 묻기 | Quanto custa, A que horas, Como se diz, O que é, Quando, Porque é que, Qual é, Quem |
+| 36~41 | 알다·생각 | Sei, Não sei, Conheço, Consigo, Não percebo, Acho que |
+| 42~46 | 제안·계획 | Vamos, Que tal, Queres, Estou a pensar em, Tenho vontade de |
+| 47~56 | 상태·비교·느낌 | É, Está, Estou com, Prefiro, É mais ~ do que, Gosto mais de, Fico, Parece, Dói-me, Sinto-me |
+| 57~65 | 부탁·의무 | Importa-se de, Podia, Dá-me, Obrigado por, É preciso, Devia, Não posso, Não é preciso, Tenho medo de |
+| 66~76 | 일상·지난 일 | Levanto-me, Vou de, Estou à espera de, Ando a, Costumava, Quando era, Tinha, Ia, Pensei que, Disse que, Vou ter de |
+| 77~82 | 연결 | Se calhar, Daqui a, Depois de, Antes de, para, sem |
+| 83~93 | 실용 | Estou a procurar, Tem ~?, Pode ser, Queria marcar, Onde posso, Como é que, É possível, Há algum, Faltam, Demora, Fica a |
+| 94~100 | 감정·마무리 | Estou farto de, Esqueci-me de, Lembro-me de, Tenho saudades de, Ainda bem que, Já agora, Até ~! |
 
 ## 묶음마다 하는 일 (10개씩)
 
@@ -111,3 +124,4 @@
 |---|---|
 | 기반 + 세션 1~10 | 만듦 (v39, 2026-10-26). 점검 오류 0개. 서버 규칙이 lang·pt 저장을 받는 것 확인함 |
 | 세션 11~20 | 만듦 (v42, 2026-10-26). 점검 오류 0개 |
+| 세션 21~30 | 만듦 (v43, 2026-10-26). 점검 오류 0개 |
