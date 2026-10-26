@@ -52,7 +52,7 @@
     var gear = '<button class="gear" id="gearBtn" aria-label="설정">' + ico("gear", 22) + "</button>";
     if (n > CAT.total) {
       $screen.innerHTML = gear + ui.message({ world: true, char: ui.char("capsule", { size: "lg", expr: "party", label: "캡슐" }),
-        title: "모든 세션을 마쳤어요", text: "전체 세션 탭에서 다시 풀거나 따라 말할 수 있어요." });
+        title: "모든 세션을 마쳤어요", text: "전체 세션 탭에서 다시 풀거나 문장을 다시 볼 수 있어요." });
     } else {
       var cur = info(n);
       $screen.innerHTML = '<span class="pill">세션 ' + n + "</span>" + gear +
@@ -162,7 +162,7 @@
       var r = info(i), done = store.isDone(i), open = i === n;
       if (done) {
         h += '<div class="row"><span class="no">' + i + "</span><b>" + esc(r.form) + '</b><span class="sub">' + esc(r.meaning) + "</span>" +
-          '<div class="acts"><button data-act="redo" data-no="' + i + '">다시 풀기</button><button data-act="follow" data-no="' + i + '">따라 말하기</button></div></div>';
+          '<div class="acts"><button data-act="redo" data-no="' + i + '">다시 풀기</button><button data-act="sents" data-no="' + i + '">문장 보기</button></div></div>';
       } else if (open) {
         var going = r.ready && st.progress && st.progress.no === i;
         var state = !r.ready ? "준비 중" : going ? "진행 중" : "지금 할 세션";
@@ -180,7 +180,31 @@
       if (act === "start") startNext();   /* 홈 [시작하기]와 같다 */
       else if (act === "resume") EP.session.start({ no: no, mode: "new", resume: true, splash: true });
       else if (act === "redo") EP.session.start({ no: no, mode: "redo" });
-      else C.load(no).then(function (S) { EP.follow.start(C.sessionSentences(S)); }, function () { V.toast("문장을 불러오지 못했어요. 인터넷 연결을 확인해 주세요"); });
+      else C.load(no).then(renderSents, function () { V.toast("문장을 불러오지 못했어요. 인터넷 연결을 확인해 주세요"); });
+    };
+  }
+
+  /* 끝낸 세션의 문장 보기: 완료 화면의 문장 목록과 같은 모양 (축하·점수 없이) */
+  function renderSents(S) {
+    var r = info(S.no), made = C.sessionSentences(S);
+    V.setPaper(false); drawBar(false);
+    $screen.className = "screen done"; $screen.scrollTop = 0;
+    $screen.innerHTML =
+      "<h1>세션 " + S.no + '</h1><p class="score">' + esc(r.form) + " · " + esc(r.meaning) + "</p>" +
+      '<div class="panel"><h2>문장 ' + made.length + "개</h2>" + made.map(function (m, i) {
+        return '<div class="sent"><div><div class="en">' + esc(m.en) + '</div><div class="ko">' + esc(m.ko) + "</div></div>" + ui.speakBtn({ "data-m": i }, 20) + "</div>";
+      }).join("") + "</div>" +
+      /* 따라 말하기 버튼은 지금 숨김. 다시 보이게 하려면: ui.key("따라 말하기", "followBtn", { variant: "soft" }) 와 그 onclick: EP.follow.start(made) */
+      ui.link("전체 세션으로", "backBtn");
+    $screen.onclick = function (e) {
+      var m = e.target.closest("[data-m]");
+      if (m) EP.speech.speak(made[+m.getAttribute("data-m")].en);
+    };
+    document.getElementById("backBtn").onclick = function () {
+      EP.speech.stop(); show("all");
+      /* 보던 세션이 보이게 */
+      var row = $screen.querySelector('[data-no="' + S.no + '"]');
+      if (row) row.closest(".row").scrollIntoView({ block: "center" });
     };
   }
 

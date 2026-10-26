@@ -328,14 +328,13 @@
       '<div class="panel"><h2>오늘 문장 ' + made.length + "개</h2>" + made.map(function (m, i) {
         return '<div class="sent"><div><div class="en">' + esc(m.en) + '</div><div class="ko">' + esc(m.ko) + "</div></div>" + ui.speakBtn({ "data-m": i }, 20) + "</div>";
       }).join("") + "</div>" +
-      ui.key("오늘 문장 따라 말하기", "followBtn", { variant: "soft" }) +
+      /* 따라 말하기 버튼은 지금 숨김. 다시 보이게 하려면: ui.key("오늘 문장 따라 말하기", "followBtn", { variant: "soft" }) 와 그 onclick: EP.follow.start(made) */
       ui.key("10분 더", "moreBtn", { gap: true }) +
       ui.link("홈으로", "homeBtn");
     $screen.onclick = function (e) {
       var m = e.target.closest("[data-m]");
       if (m) speak(made[+m.getAttribute("data-m")].en);
     };
-    document.getElementById("followBtn").onclick = function () { EP.follow.start(made); };
     document.getElementById("moreBtn").onclick = function () { R = null; EP.tabs.startNext(); };
     document.getElementById("homeBtn").onclick = function () { leave("home"); };
   }
