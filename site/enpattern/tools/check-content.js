@@ -4,7 +4,8 @@
 
    실행 (저장소 루트에서):  npm run check:enpattern
                      또는  node site/enpattern/tools/check-content.js [데이터파일 ...]
-   데이터 파일을 주지 않으면 js/data/ 안의 pattern*.js 를 모두 검사한다.
+   데이터 파일을 주지 않으면 js/data/(영어)와 js/data-pt/(포르투갈어) 안의 pattern*.js 를 모두 검사한다.
+   포르투갈어 파일은 포르투갈어 채점기(js/grade-pt.js)로 검사한다.
 
    오류(✗)가 하나라도 있으면 종료 코드 1. 주의(!)는 확인만 권하는 항목이다. */
 "use strict";
@@ -14,19 +15,28 @@ var ROOT = path.resolve(__dirname, "..");
 var WHY_MAX = 40;       /* 팁 설명 권장 최대 글자 수 */
 
 /* ---- 서비스 코드 불러오기 (브라우저 없이) ---- */
+/* 언어별 폴더 */
+var LANGS = { en: "js/data", pt: "js/data-pt" };
+function langOf(file) { return /[\\/]data-pt[\\/]/.test(file) ? "pt" : "en"; }
+
 function loadEP(dataFile) {
   var ctx = { console: console };
   ctx.window = ctx;
   vm.createContext(ctx);
-  ["js/config.js", path.relative(ROOT, dataFile), "js/util.js", "js/grade.js"].forEach(function (f) {
+  ["js/config.js", path.relative(ROOT, dataFile), "js/util.js", "js/grade.js", "js/grade-pt.js"].forEach(function (f, i) {
     vm.runInContext(fs.readFileSync(path.join(ROOT, f), "utf8"), ctx, { filename: f });
+    if (i === 0) ctx.EP.lang = langOf(dataFile);   /* 앱에서는 store.js가 정한다 */
   });
   return ctx.EP;
 }
 
 function dataFiles(args) {
   if (args.length) return args.map(function (a) { return path.resolve(a); });
-  var dir = path.join(ROOT, "js/data");
+  return langFiles("en").concat(langFiles("pt"));
+}
+function langFiles(lang) {
+  var dir = path.join(ROOT, LANGS[lang]);
+  if (!fs.existsSync(dir)) return [];
   return fs.readdirSync(dir).filter(function (f) { return /^pattern\d+\.js$/.test(f); })
     .sort(function (a, b) { return parseInt(a.replace(/\D/g, ""), 10) - parseInt(b.replace(/\D/g, ""), 10); })
     .map(function (f) { return path.join(dir, f); });
@@ -34,11 +44,16 @@ function dataFiles(args) {
 
 /* ---- 검사 ---- */
 /* 문장에 핵심 부분이 있는지. 형태가 둘 이상이면 stem을 /로 나눠 적는다 ("Can I/Can you") */
-function hasStem(S, sentence) {
-  return S.stem.split("/").some(function (f) {
-    return new RegExp("\\b" + f.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\b", "i").test(sentence);
-  });
+function hasStem(EP, S, sentence) {
+  return S.stem.split("/").some(function (f) { return EP.util.findWord(sentence, f.trim()) >= 0; });
 }
+
+/* 흔한 문법 실수: 이 낱말을 저 낱말로 바꾸면 정답이 아니어야 한다 */
+var SWAPS = {
+  en: { have: "has", has: "have", am: "is", is: "am", are: "is", was: "were", were: "was", a: "an", an: "a", do: "does", does: "do" },
+  pt: { sou: "estou", estou: "sou", "é": "está", "está": "é", tenho: "tem", quero: "quer", queria: "quero", posso: "pode", vou: "vai",
+        um: "uma", uma: "um", dois: "duas", duas: "dois", do: "da", da: "do", no: "na", na: "no", ao: "à", "à": "ao", "há": "tem" }
+};
 
 /* 데이터 파일 하나에 든 세션들. 새 형식은 EP.sessions[번호], 예전 샘플은 EP.data.session */
 function sessionsOf(EP) {
@@ -60,7 +75,7 @@ function checkSession(EP, S) {
   if (!S.intro || !S.intro.blocks || !S.intro.lines || !S.intro.examples) err("세션", "intro(blocks, lines, examples) 빠짐");
   else S.intro.examples.forEach(function (x, i) {
     if (!x.en || !x.ko) err("예문 " + (i + 1), "en/ko 빠짐");
-    else if (!hasStem(S, x.en)) warn("예문 " + (i + 1), "패턴(" + S.stem + ")이 들어 있지 않음: " + x.en);
+    else if (!hasStem(EP, S, x.en)) warn("예문 " + (i + 1), "패턴(" + S.stem + ")이 들어 있지 않음: " + x.en);
   });
   if (!S.items || !S.items.length) { err("세션", "문제가 없음"); return { errors: errors, warns: warns, stats: stats }; }
 
@@ -105,7 +120,7 @@ function checkSession(EP, S) {
 
     /* 2. 패턴 정답에는 핵심 부분이 들어 있어야 한다 (문장 문제) */
     if (it.type === "sentence") it.answers.forEach(function (a) {
-      if (!hasStem(S, a)) warn(where, "패턴 정답에 '" + S.stem + "'이(가) 없음: " + a + " (다른 표현이면 alts로 옮기세요)");
+      if (!hasStem(EP, S, a)) warn(where, "패턴 정답에 '" + S.stem + "'이(가) 없음: " + a + " (다른 표현이면 alts로 옮기세요)");
     });
 
     /* 3. 대표 정답은 정답 따라 입력하기에서도 정답이어야 한다 */
@@ -124,8 +139,8 @@ function checkSession(EP, S) {
       else if (w.reason !== reason) err(where, "오답 '" + key + "'의 이유가 다르게 나옴");
     }
 
-    /* 5. 대표 정답에 흔한 실수를 넣었을 때 정답으로 새어 나가지 않는지 (has/have 등) */
-    var A = grade.normalize(it.answers[0]).toks, SWAP = { have: "has", has: "have", am: "is", is: "am", are: "is", was: "were", were: "was", a: "an", an: "a", do: "does", does: "do" };
+    /* 5. 대표 정답에 흔한 실수를 넣었을 때 정답으로 새어 나가지 않는지 (has/have, sou/estou 등) */
+    var A = grade.normalize(it.answers[0]).toks, SWAP = SWAPS[EP.lang];
     A.forEach(function (w, i) {
       if (!SWAP[w]) return;
       var t = A.slice(); t[i] = SWAP[w];
@@ -158,26 +173,27 @@ function report(name, r) {
   total.errors += r.errors.length; total.warns += r.warns.length;
 }
 
-/* 세션 목록(catalog.js)이 세션 파일과 맞는지 */
-(function () {
-  if (process.argv.length > 2) return;   /* 파일을 골라 검사할 때는 건너뜀 */
+/* 세션 목록(catalog.js)이 세션 파일과 맞는지. 언어마다 */
+function checkCatalog(lang) {
+  var lf = langFiles(lang), name = LANGS[lang] + "/catalog.js";
+  if (!lf.length) return;
   var ctx = { console: console }; ctx.window = ctx; ctx.EP = {}; vm.createContext(ctx);
-  try { vm.runInContext(fs.readFileSync(path.join(ROOT, "js/data/catalog.js"), "utf8"), ctx); }
-  catch (e) { console.log("✗ js/data/catalog.js 없음 → node site/enpattern/tools/build-catalog.js"); total.errors++; return; }
-  var cat = ctx.EP.catalog, n = 0;
-  files.forEach(function (f) { var m = /pattern(\d+)\.js$/.exec(f); if (m) n = Math.max(n, +m[1]); });
+  try { vm.runInContext(fs.readFileSync(path.join(ROOT, name), "utf8"), ctx); }
+  catch (e) { console.log("✗ " + name + " 없음 → node site/enpattern/tools/build-catalog.js"); total.errors++; return; }
+  var cat = ctx.EP.catalog;
   var bad = [];
-  files.forEach(function (f) {
+  lf.forEach(function (f) {
     var E = loadEP(f); sessionsOf(E).forEach(function (S) {
       var row = cat.list[S.no - 1];
       if (!row || row[0] !== S.form || row[1] !== S.meaning) bad.push(S.no);
     });
   });
-  if (cat.ready !== files.length || bad.length) {
-    console.log("✗ js/data/catalog.js가 세션 파일과 다름" + (bad.length ? " (세션 " + bad.join(", ") + ")" : "") + " → node site/enpattern/tools/build-catalog.js");
+  if (cat.ready !== lf.length || bad.length) {
+    console.log("✗ " + name + "가 세션 파일과 다름" + (bad.length ? " (세션 " + bad.join(", ") + ")" : "") + " → node site/enpattern/tools/build-catalog.js");
     total.errors++;
-  } else console.log("✓ js/data/catalog.js  (세션 " + cat.total + "개, 준비 1–" + cat.ready + ")");
-})();
+  } else console.log("✓ " + name + "  (세션 " + cat.total + "개, 준비 1–" + cat.ready + ")");
+}
+if (process.argv.length <= 2) { checkCatalog("en"); checkCatalog("pt"); }   /* 파일을 골라 검사할 때는 건너뜀 */
 
 console.log("\n" + (total.errors ? "오류 " + total.errors + "개" : "오류 없음") + (total.warns ? ", 주의 " + total.warns + "개" : ""));
 process.exit(total.errors ? 1 : 0);

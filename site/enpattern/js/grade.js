@@ -132,7 +132,7 @@
   function candidates(it, target) {
     if (target) return [{ text: target, alt: false }];
     var out = [], seen = {};
-    function push(text, alt) { var k = normalize(text).toks.join(" "); if (seen[k]) return; seen[k] = 1; out.push({ text: text, alt: alt }); }
+    function push(text, alt) { var k = EP.grade.normalize(text).toks.join(" "); if (seen[k]) return; seen[k] = 1; out.push({ text: text, alt: alt }); }
     it.answers.forEach(function (a) { push(a, false); });
     if (it.type !== "blank") {
       (it.alts || []).forEach(function (a) { push(a, true); });
@@ -175,7 +175,11 @@
     return { status: "wrong", reason: reason, marks: markUser(u, A) };
   }
 
-  EP.grade = grade;
-  EP.grade.normalize = normalize;
+  /* 학습 언어에 따라 채점기를 고른다. 포르투갈어는 js/grade-pt.js (EP.gradePt) */
+  function pt() { return EP.lang === "pt" && EP.gradePt; }
+  EP.grade = function (input, it, target) { return pt() ? EP.gradePt(input, it, target) : grade(input, it, target); };
+  EP.grade.normalize = function (s) { return pt() ? EP.gradePt.normalize(s) : normalize(s); };
   EP.grade.candidates = candidates;
+  /* 언어와 상관없이 쓰는 도구 (grade-pt.js가 쓴다) */
+  EP.grade.lib = { lev: lev, lcsMask: lcsMask, markUser: markUser };
 })(window.EP);

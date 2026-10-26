@@ -1,10 +1,11 @@
 /* 음성: 미리 만든 mp3(enpattern-audio 저장소, GitHub Pages)를 재생한다.
    파일이 없거나 불러오지 못하면 브라우저 내장 TTS(미국 영어)로 읽는다.
+   포르투갈어는 mp3 없이 처음부터 브라우저 TTS(pt-PT)로 읽는다. 유럽 포르투갈어 목소리가 없으면 다른 포르투갈어 목소리로 읽힌다.
    파일 이름은 tools/voice/build-list.js의 voiceId와 같은 규칙이어야 한다. */
 (function (EP) {
   "use strict";
 
-  var A = EP.config.audio, st = EP.store.state;
+  var A = EP.config.audio, st = EP.store.state, PT = EP.lang === "pt", LANG = EP.config.langs[PT ? "pt" : "en"].tts;
   var tts = "speechSynthesis" in window, ttsVoice = null;
   var audio = typeof window.Audio === "function" ? new Audio() : null;
   var turn = 0;   /* 새로 읽기 시작하거나 멈출 때마다 늘린다. 지난 재생의 콜백은 무시 */
@@ -26,7 +27,13 @@
 
   /* ---- 브라우저 TTS (mp3가 없을 때) ---- */
   function pickVoice() {
-    var vs = speechSynthesis.getVoices().filter(function (v) { return /^en[-_]US/i.test(v.lang); });
+    var all = speechSynthesis.getVoices();
+    if (PT) {
+      var pt = all.filter(function (v) { return /^pt/i.test(v.lang); });
+      ttsVoice = pt.filter(function (v) { return /^pt[-_]PT/i.test(v.lang); })[0] || pt[0] || null;
+      return;
+    }
+    var vs = all.filter(function (v) { return /^en[-_]US/i.test(v.lang); });
     ttsVoice = vs.filter(function (v) { return /Samantha|Google US|Natural|Aria|Jenny/i.test(v.name); })[0] || vs[0] || null;
   }
   if (tts) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
@@ -36,7 +43,7 @@
     try {
       speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
-      u.lang = "en-US"; u.rate = slow ? 0.5 : 0.95;
+      u.lang = LANG; u.rate = slow ? 0.5 : 0.95;
       if (ttsVoice) u.voice = ttsVoice;
       u.onend = done; u.onerror = done;
       speechSynthesis.speak(u);
@@ -50,7 +57,7 @@
     var my = turn, finished = false, fell = false;
     function done() { if (finished || my !== turn) return; finished = true; if (onend) onend(); }
     function fallback() { if (fell || finished || my !== turn) return; fell = true; ttsSpeak(text, slow, done); }
-    if (!audio) { fallback(); return; }
+    if (!audio || PT) { fallback(); return; }
     var rate = slow ? (opt.rate || slowRate()) : 1;
     audio.onended = done;
     audio.onerror = fallback;

@@ -1,0 +1,12 @@
+[
+{ "no": 1, "form": "Sou ~.", "meaning": "나는 ~예요 (이름·국적·직업)", "core": "Sou", "hint": "Sou + 이름/국적/직업" },
+{ "no": 2, "form": "Estou ~.", "meaning": "나는 (지금) ~해요 / ~에 있어요", "core": "Estou", "hint": "Estou + 상태/장소" },
+{ "no": 3, "form": "Tenho ~.", "meaning": "나는 ~이 있어요 / ~을 가지고 있어요", "core": "Tenho", "hint": "Tenho + 명사" },
+{ "no": 4, "form": "Gosto de ~.", "meaning": "나는 ~을 좋아해요", "core": "Gosto de", "hint": "Gosto de + 명사/동사원형" },
+{ "no": 5, "form": "Quero ~.", "meaning": "~을 원해요 / ~하고 싶어요", "core": "Quero", "hint": "Quero + 명사/동사원형" },
+{ "no": 6, "form": "Queria ~, por favor.", "meaning": "~ 주세요 (가게·식당에서 정중하게)", "core": "Queria", "hint": "Queria + 명사, por favor" },
+{ "no": 7, "form": "Há ~?", "meaning": "~ 있어요? / ~이 있어요", "core": "Há", "hint": "Há + 명사" },
+{ "no": 8, "form": "Posso ~?", "meaning": "~해도 돼요?", "core": "Posso", "hint": "Posso + 동사원형?" },
+{ "no": 9, "form": "Estou a ~.", "meaning": "지금 ~하고 있어요 (유럽식 진행형)", "core": "Estou a", "hint": "Estou a + 동사원형" },
+{ "no": 10, "form": "Vou ~.", "meaning": "~할 거예요", "core": "Vou", "hint": "Vou + 동사원형" }
+]

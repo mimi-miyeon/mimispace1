@@ -1,10 +1,15 @@
-/* 저장: 브라우저(개인 코드별 localStorage) + 서버(Firestore REST) */
+/* 저장: 브라우저(개인 코드별 localStorage) + 서버(Firestore REST)
+   서버 문서 learners/<코드>: done·progress·wrong(영어 기록), lang("en" | "pt"), pt { done, progress, wrong }(포르투갈어 기록), updatedAt */
 (function (EP) {
   "use strict";
 
   var C = EP.config;
   var CODE = readCode(), REMOTE = !!CODE;
-  var DKEY = C.storageKey + (CODE ? "." + CODE : ""), PKEY = DKEY + ".pending";
+  /* 학습 언어: 서버 기록의 lang (운영자가 설정에서 고른다). 이 기기에도 기억해 두고, 서버와 다르면 새로고침해서 맞춘다 */
+  var LKEY = C.storageKey + ".lang" + (CODE ? "." + CODE : ""), LANG = readLang();
+  EP.lang = LANG;
+  /* 기록은 언어별로 따로: 포르투갈어는 이 기기에서는 키 끝에 .pt, 서버에서는 pt 안에 */
+  var DKEY = C.storageKey + (CODE ? "." + CODE : "") + (LANG === "pt" ? ".pt" : ""), PKEY = DKEY + ".pending";
   var synced = false, pushing = false, pushTimer = null, retryTimer = null;
   var syncState = REMOTE ? "loading" : "local";
   var hooks = { isBusy: function () { return false; }, onRefresh: function () {} };
@@ -15,6 +20,11 @@
     var m = /[?&]c=([A-Za-z0-9-]+)/.exec(location.search), c = m ? m[1] : null;
     try { if (c) localStorage.setItem(C.storageKey + ".code", c); else c = localStorage.getItem(C.storageKey + ".code"); } catch (e) {}
     return c ? c.toUpperCase().replace(/[^A-Z0-9]/g, "") : null;
+  }
+  function readLang() { try { return localStorage.getItem(LKEY) === "pt" ? "pt" : "en"; } catch (e) { return "en"; } }
+  /* 이 기기에 언어를 기억한다. 저장이 안 되는 브라우저면 false (새로고침을 반복하지 않게) */
+  function writeLang(l) {
+    try { localStorage.setItem(LKEY, l); return localStorage.getItem(LKEY) === l; } catch (e) { return false; }
   }
 
   /* ---- 로컬 ---- */
@@ -88,9 +98,19 @@
   }
 
   /* ---- 서버 ---- */
-  function docUrl() {
-    return "https://firestore.googleapis.com/v1/projects/" + C.firebase.project + "/databases/(default)/documents/learners/" + CODE + "?key=" + C.firebase.key;
+  /* mask: 바꿀 필드 이름들. 서버 문서에서 이 필드만 바꾸고 나머지(다른 언어 기록 등)는 그대로 둔다.
+     mask가 없으면 문서 전체를 보낸 내용으로 바꾼다 (포르투갈어를 쓴 적 없는 기록: 예전과 같은 요청) */
+  function docUrl(mask) {
+    return "https://firestore.googleapis.com/v1/projects/" + C.firebase.project + "/databases/(default)/documents/learners/" + CODE + "?key=" + C.firebase.key +
+      (mask || []).map(function (f) { return "&updateMask.fieldPaths=" + f; }).join("");
   }
+  function patch(obj, mask) {
+    var fields = enc(obj).mapValue.fields;
+    if (obj.updatedAt) fields.updatedAt = { timestampValue: obj.updatedAt };
+    return fetch(docUrl(mask ? Object.keys(obj) : null), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }), cache: "no-store" });
+  }
+  /* 서버 문서에 lang·pt가 있는지 (pull에서 안다). 있으면 영어 기록을 보낼 때도 그 필드를 지우지 않게 mask를 쓴다 */
+  var hasPt = LANG === "pt";
   function schedulePush() {
     if (!REMOTE) return;
     setPending(true);
@@ -102,14 +122,15 @@
   function push() {
     if (!REMOTE || !synced || pushing || !CAN_FETCH) return;
     pushing = true;
-    var fields = enc({ done: st.done, progress: st.progress || null, wrong: st.wrong || {} }).mapValue.fields;
-    fields.updatedAt = { timestampValue: st.localAt || new Date().toISOString() };
-    fetch(docUrl(), { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ fields: fields }), cache: "no-store" })
+    var rec = { done: st.done, progress: st.progress || null, wrong: st.wrong || {} };
+    var obj = LANG === "pt" ? { pt: rec } : rec;
+    obj.updatedAt = st.localAt || new Date().toISOString();
+    patch(obj, hasPt)
       .then(function (r) { pushing = false; syncState = r.ok ? "ok" : "error " + r.status; setPending(!r.ok); })
       .catch(function () { pushing = false; syncState = "offline"; setPending(true); });
   }
   /* 서버 기록과 이 기기 기록 중 더 최근 것을 쓰고, 서버를 먼저 읽기 전에는 절대 덮어쓰지 않는다.
-     결과: "ok" | "invalid"(등록되지 않은 코드) | "offline" */
+     결과: "ok" | "invalid"(등록되지 않은 코드) | "offline" | "relang"(서버의 학습 언어가 달라서 새로고침해야 함) */
   function pull() {
     clearTimeout(retryTimer);
     if (!CAN_FETCH) { syncState = "offline"; drawSync(); return Promise.resolve("offline"); }
@@ -119,11 +140,15 @@
       if (!r.ok) throw new Error("http " + r.status);
       return r.json().then(function (d) {
         var v = dec({ mapValue: { fields: d.fields || {} } }) || {}, serverAt = v.updatedAt || "";
+        var lang = v.lang === "pt" ? "pt" : "en";
+        if (lang !== LANG && writeLang(lang)) return "relang";
+        if (v.lang || v.pt) hasPt = true;
+        var rec = LANG === "pt" ? v.pt || {} : v;
         synced = true; syncState = "ok";
         if (isPending() && st.localAt && st.localAt > serverAt) { push(); return "ok"; }
-        st.done = v.done || [];
-        st.progress = v.progress || null;
-        st.wrong = v.wrong || {};
+        st.done = rec.done || [];
+        st.progress = rec.progress || null;
+        st.wrong = rec.wrong || {};
         st.localAt = serverAt;
         upgrade(st);
         writeLocal(); setPending(false);
@@ -137,7 +162,17 @@
   }
   /* 백그라운드로 다시 불러오고, 학습 중이 아니면 화면을 새로 그린다 */
   function refresh() {
-    pull().then(function (res) { if (res === "ok" && !hooks.isBusy()) hooks.onRefresh(); });
+    pull().then(function (res) {
+      if (res === "relang") location.reload();
+      else if (res === "ok" && !hooks.isBusy()) hooks.onRefresh();
+    });
+  }
+
+  /* 학습 언어 바꾸기 (운영자 설정). 서버에 저장한 뒤 이 기기에도 기억한다 → Promise(성공 여부). 성공하면 새로고침할 것 */
+  function setLang(l) {
+    if (!REMOTE) return Promise.resolve(writeLang(l));
+    if (!CAN_FETCH) return Promise.resolve(false);
+    return patch({ lang: l }, true).then(function (r) { return r.ok && writeLang(l); }, function () { return false; });
   }
 
   window.addEventListener("online", function () {
@@ -169,6 +204,8 @@
     nextNo: nextNo,
     code: CODE,
     remote: REMOTE,
+    lang: LANG,
+    setLang: setLang,
     save: save,
     reset: reset,
     pull: pull,

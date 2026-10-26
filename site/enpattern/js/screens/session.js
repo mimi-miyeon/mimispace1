@@ -8,6 +8,7 @@
   var V = EP.view, U = EP.util, esc = U.esc, C = EP.content, store = EP.store, st = store.state;
   var ui = EP.ui, ico = EP.icons.ico, speak = EP.speech.speak, stopSpeak = EP.speech.stop;
   var $screen = V.$screen;
+  var LANG_NAME = EP.config.langs[EP.lang === "pt" ? "pt" : "en"].name;   /* "영어" | "포르투갈어" */
   var R = null; /* 진행 중인 세션 상태. 없으면 null */
   var REVIEW_MAX = 3, REVIEW_WRONG_MAX = 2;
 
@@ -178,14 +179,14 @@
     var body = "";
     if (it.ctx) body += '<div class="ctx"><div class="sm">' + esc(it.ctx.lead) + '</div><div class="en">' + esc(it.ctx.en) + "</div></div>";
     if (it.dialog) body += '<div class="ctx"><div><span class="who">A</span><span class="en">' + esc(it.dialog.a) + '</span></div><div class="sm indent">' + esc(it.dialog.aKo) + "</div>" +
-      '<div class="reply"><span class="who">B</span><span class="sm">아래 문장을 영어로</span></div></div>';
+      '<div class="reply"><span class="who">B</span><span class="sm">아래 문장을 ' + LANG_NAME + '로</span></div></div>';
     body += '<p class="q-ko">' + esc(it.ko) + "</p>";
     if (blank) body += '<p class="blank-line">' + (it.before ? esc(it.before) + " " : "") + '<span class="bl">?</span>' + esc(C.tail(it.after)) + "</p>";
     if (R.copy) body += '<div class="copy"><div class="lab">정답을 그대로 따라 입력해 보세요</div><div class="en">' + esc(it.answers[0]) + "</div></div>";
 
     $screen.innerHTML = topBar(segs()) + '<div class="kind">' + label + '</div><div class="chip">' + esc(from.hint) + "</div>" + body +
       '<form id="ansForm" autocomplete="off"><input class="answer-in" id="ans" type="text" inputmode="text" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="' +
-      (blank ? "빈칸에 들어갈 말" : "영어로 입력") + '" aria-label="답 입력"><p class="err" id="err" aria-live="polite"></p>' +
+      (blank ? "빈칸에 들어갈 말" : LANG_NAME + "로 입력") + '" aria-label="답 입력"><p class="err" id="err" aria-live="polite"></p>' +
       '<div class="s-actions">' + ui.key("확인", null, { variant: "dark", type: "submit" }) + "</div></form>";
     bindQuit();
     var inp = document.getElementById("ans"), err = document.getElementById("err");
@@ -239,7 +240,7 @@
 
   /* ---- 피드백 시트 ---- */
   function showOk(it, g, title) {
-    var full = it.type === "blank" ? C.fullAnswer(it) : (g.answer || it.answers[0]);
+    var full = it.type === "blank" ? C.fullAnswer(it, g.answer) : (g.answer || it.answers[0]);
     var notes = "";
     if (g.notes && g.notes.length) notes = '<p class="sh-note">' + g.notes.map(function (n) {
       return '<span class="fix"><s>' + esc(n.from) + "</s> → " + esc(n.to) + "</span>" + (n.core ? " (패턴 부분이에요. 다음엔 정확히 써 봐요)" : "");
@@ -252,7 +253,7 @@
     /* 다른 표현으로 맞혔으면 이번 패턴 문장을 한 번 더 보여 준다 */
     var pattern = g.alt ? '<p class="sh-pattern"><span class="sh-pattern__lab">이번 패턴으로는</span>' + U.withCore(C.fullAnswer(it), C.coreOf(it)) + "</p>" : "";
     V.openSheet("ok", '<div class="sh-title">' + ico("ok", 26) + esc(title) + "</div>" +
-      '<div class="sh-ans">' + (g.alt ? esc(full) : U.withCore(full, C.coreOf(it))) + '</div><div class="sh-ko">' + esc(it.ko) + "</div>" + notes + pattern + extra +
+      '<div class="sh-ans">' + (g.alt ? esc(full) : U.withCore(full, it.type === "blank" && g.answer ? g.answer : C.coreOf(it))) + '</div><div class="sh-ko">' + esc(it.ko) + "</div>" + notes + pattern + extra +
       V.listenBtns() + tipBox(it, full) + ui.key("다음", "nextBtn"), full);
     if (st.autoplay) setTimeout(function () { speak(full); }, 250);
     document.getElementById("nextBtn").onclick = next;

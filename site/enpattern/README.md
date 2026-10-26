@@ -135,26 +135,29 @@ scss/
   components/             여러 화면이 같이 쓰는 요소
   screens/                화면별 배치
 css/style.css             컴파일 결과 (배포용)
-js/config.js              EP 이름공간, 버전·저장 키·Firebase 설정
+js/config.js              EP 이름공간, 버전·저장 키·Firebase 설정, 학습 언어(langs)
 js/data/catalog.js        EP.catalog  세션 목록 230개 (자동 생성)
 js/data/pattern{N}.js     EP.sessions 세션 콘텐츠(문제·오답 설명·팁). 필요할 때 불러옴
+js/data-pt/               포르투갈어(유럽) 세션과 목록. 운영자 코드에서 학습 언어를 포르투갈어로 고르면 이쪽을 읽음 (PT-PLAN.md)
 js/util.js                EP.util     esc, today, withCore, slotted
                           EP.content  load, item, fullAnswer, coreOf, sessionSentences (세션 불러오기·문제 찾기)
-js/store.js               EP.store    localStorage + Firestore 동기화
+js/store.js               EP.store    localStorage + Firestore 동기화, 학습 언어(EP.lang)
 js/ui/icons.js            EP.icons    선 아이콘, 탭 바 아이콘
 js/ui/characters.js       EP.chars    캐릭터 SVG 모양과 표정
 js/ui/components.js       EP.ui       공통 UI 마크업
-js/grade.js               EP.grade    채점(정규화·오타·오답 이유)
+js/grade.js               EP.grade    채점(정규화·오타·오답 이유). 포르투갈어면 grade-pt.js로 넘김
+js/grade-pt.js            EP.gradePt  포르투갈어 채점(악센트·하이픈·주어 생략·축약·대명사 위치)
 js/view.js                EP.view     루트 DOM, 토스트, 하단 시트
 js/speech.js              EP.speech   음성 듣기: mp3(enpattern-audio, 목소리·느리게 속도는 홈 톱니 설정) → 없으면 브라우저 TTS
 js/screens/tabs.js        EP.tabs     홈·전체 세션·틀린 문제 탭, 안내 화면
 js/screens/session.js     EP.session  학습 세션 진행과 완료 화면
 js/screens/follow.js      EP.follow   따라 말하기
 js/main.js                시작(개인 코드 확인 → 기록 불러오기)
-tools/check-content.js    콘텐츠 점검 (npm run check:enpattern)
+tools/check-content.js    콘텐츠 점검 (npm run check:enpattern). 영어·포르투갈어 모두
 tools/build-review.js     검토 페이지 만들기 (review.css 사용)
-tools/build-catalog.js    세션 목록 js/data/catalog.js 만들기 (pattern-list.json + 세션 파일)
+tools/build-catalog.js    세션 목록 js/data/catalog.js, js/data-pt/catalog.js 만들기 (pattern-list.json, pattern-list-pt.json + 세션 파일)
 tools/pattern-list.json   230개 패턴 이름·뜻·핵심 부분·힌트 (제작 기준표)
+tools/pattern-list-pt.json 포르투갈어 패턴 목록 (10개씩 늘린다)
 tools/legacy-css.js       오래된 사파리(clamp 미지원)용 보조 CSS를 css/style.css 끝에 붙임 (sass:enpattern이 실행)
 tools/voice/              단어·문장 음성(mp3) 만들기. 방법은 README.md, 진행은 STATUS.md
 TODO.md                   남은 결정과 할 일
