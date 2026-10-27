@@ -1,0 +1,50 @@
+---
+const menus = [
+  { name: "홈", href: "/" },
+  { name: "회사 소개", href: "/about" },
+  { name: "공지사항", href: "/notice" },
+  { name: "오시는 길", href: "/location" },
+  { name: "문의", href: "/contact" },
+];
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string) {
+  if (href === "/") return currentPath === "/";   // 홈: 정확히 일치
+  return currentPath.startsWith(href);             // 나머지: 하위 페이지 포함
+}
+---
+<header>
+  <a href="/" class="logo">우리회사</a>
+  <nav>
+    {menus.map((menu) => (
+      <a href={menu.href} class={isActive(menu.href) ? "active" : ""}>
+        {menu.name}
+      </a>
+    ))}
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #eee;
+  }
+  .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  nav {
+    display: flex;
+    gap: 1.5rem;
+  }
+  nav a:hover {
+    color: #0066cc;
+  }
+  .active {
+    font-weight: bold;
+    border-bottom: 2px solid currentColor;
+  }
+</style>
